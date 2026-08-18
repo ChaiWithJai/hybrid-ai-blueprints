@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-08-18T16:57:00-04:00",
+  "source_commit": "7048fdb28c77c03794de837872eb2790d45fdfe2",
+  "application_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
+  "fixture": "project_titan_lbo",
+  "fixture_class": "synthetic_demo",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "screenshots": [
+    {
+      "id": "deal_room_overview",
+      "path": "deal-room-overview.png",
+      "state": "Overview tab with the saved decision question and guarded first pass",
+      "sha256": "ff8015ccc0d732a8c0dcd3faf6bcf5c4124c731c50021f63369c5e725cb671fc"
+    },
+    {
+      "id": "cited_source_evidence",
+      "path": "cited-source-evidence.png",
+      "state": "Citation preview for the debt terms passage",
+      "sha256": "fd1c385475d1e404f4cb16e2254980ac7ff039f240b87aab3ea2ddbbb62d385b"
+    },
+    {
+      "id": "source_inventory",
+      "path": "source-inventory.png",
+      "state": "Sources tab with the local file inventory and parsed document preview",
+      "sha256": "09b74fbbc763c222dd0e5210b4324683480d732c98d4e2c2b2cea852040f4b06"
+    },
+    {
+      "id": "team_activity",
+      "path": "team-activity.png",
+      "state": "Activity tab with signed team messages and a source checked Bonsai answer",
+      "sha256": "e408223514a51a47da4afeaf6ef229c42495e5d11bca65e7b822859d12e5c033"
+    },
+    {
+      "id": "evaluation_review_queue",
+      "path": "evaluation-review-queue.png",
+      "state": "Human review queue with trace context and unaccepted agent suggestions",
+      "sha256": "f2ec49a0efb70c308f2c72178f08ceb54a98eed8fb456da08c865f7bff6d6b7e"
+    },
+    {
+      "id": "evaluation_lab",
+      "path": "evaluation-lab.png",
+      "state": "Evaluation lab with route coverage and release gates",
+      "sha256": "34ef1679da35163c36823de58fa97a90c0e8d16a65e57dc57c9af9896dd7396a"
+    }
+  ],
+  "claim_boundary": "Screenshots show the local product surface with synthetic data. They do not establish model accuracy, customer value, production security, or cloud and hybrid performance."
+}

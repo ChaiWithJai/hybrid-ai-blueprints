@@ -7,6 +7,12 @@ PrismML sponsors and stewards the project. The blueprint contracts remain
 model and provider neutral, so a team can compare local, cloud, and hybrid
 configurations without changing the task or the grading rules.
 
+![Project Titan deal room overview](docs/assets/screenshots/deal-room-overview.png)
+
+The first public demo uses a synthetic leveraged buyout folder. The screenshot
+shows a guarded result that was paused because the model draft did not meet the
+source rules.
+
 ## Start with the deal room analyst
 
 The first blueprint reads an authorized M&A folder and prepares a source linked
@@ -24,9 +30,17 @@ The blueprint includes:
 
 [Open the deal room analyst blueprint](blueprints/deal-room-analyst/README.md).
 
-## Run the demo
+## Get started
 
-You need macOS, Python 3, Docker, and LM Studio with Bonsai 27B loaded.
+The verified setup uses macOS, Python 3, Docker, and LM Studio with Bonsai 27B
+loaded as `27b@q1_0`.
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ChaiWithJai/hybrid-ai-blueprints.git
+cd hybrid-ai-blueprints
+```
 
 First, check the host:
 
@@ -44,6 +58,11 @@ Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`.
 
 Project Titan is synthetic. It demonstrates the workflow, but it does not
 provide accuracy or customer evidence.
+
+The [getting started tutorial](docs/tutorials/run-the-deal-room-blueprint.md)
+includes expected output, screenshots, verification, cleanup, and
+troubleshooting. The [demo tour](docs/demo/README.md) explains each product
+view.
 
 ## Repository contents
 
@@ -88,6 +107,17 @@ Every blueprint pins:
 
 [Read the blueprint concept](docs/concepts/agentic-blueprints.md).
 
+## Architecture
+
+The working local path connects the browser workspace, Python server,
+authorized folder, Bonsai runtime, Buzz relay, and local evaluation store.
+Cloud dispatch is optional and requires a configured HTTPS provider and signed
+consent. Cloud and hybrid comparisons remain unmeasured.
+
+[Read the architecture guide](docs/architecture/README.md) for the system
+context, request sequence, routing policy, evaluation flow, and repository
+boundaries.
+
 ## Hybrid AI
 
 Hybrid AI assigns work to local and cloud models under an explicit policy. A
@@ -114,7 +144,10 @@ and the [release evidence policy](docs/reference/evidence-policy.md).
 
 ## Documentation
 
+- [Browse all documentation](docs/README.md)
 - [Run the first blueprint](docs/tutorials/run-the-deal-room-blueprint.md)
+- [Tour the demo](docs/demo/README.md)
+- [Understand the architecture](docs/architecture/README.md)
 - [Create a blueprint](docs/how-to/create-a-blueprint.md)
 - [Read the use case specification](docs/reference/use-case-spec.md)
 - [Read the blueprint specification](docs/reference/blueprint-spec.md)

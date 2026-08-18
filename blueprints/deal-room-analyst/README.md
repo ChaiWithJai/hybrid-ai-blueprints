@@ -11,6 +11,8 @@ stop review and states what should happen next.
 
 [Read the use case](../../use-cases/deal-room-underwriting/README.md).
 
+![Project Titan deal room overview](../../docs/assets/screenshots/deal-room-overview.png)
+
 ## Package contents
 
 | Part | Current implementation |
@@ -26,26 +28,31 @@ The [blueprint manifest](blueprint.yaml) is the canonical package definition.
 
 ## Run
 
-Check the host:
+From the repository root, check the host:
 
 ```bash
-scripts/preflight
+blueprints/deal-room-analyst/scripts/preflight
 ```
 
 Start the blueprint:
 
 ```bash
-scripts/run
+blueprints/deal-room-analyst/scripts/run
 ```
 
 Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`.
+
+Follow the [getting started tutorial](../../docs/tutorials/run-the-deal-room-blueprint.md)
+for expected output, screenshots, and troubleshooting. The
+[architecture guide](../../docs/architecture/README.md) shows the runtime and
+evaluation paths.
 
 ## Verify
 
 Run the repository tests:
 
 ```bash
-scripts/verify
+blueprints/deal-room-analyst/scripts/verify
 ```
 
 The tests cover software behavior. They do not replace domain review, private

@@ -10,7 +10,7 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[2]
-LINK_PATTERN = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 TOP_LEVEL_FILES = [
     ROOT / "README.md",
     ROOT / "CONTRIBUTING.md",

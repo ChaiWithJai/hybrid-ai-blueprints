@@ -12,6 +12,10 @@ complete browser workflow without exposing private customer material.
 5. Ask a follow up question in the room.
 6. Inspect the trace and evaluation state.
 
+The [guided demo tour](../../../../docs/demo/README.md) shows each step with a
+current screenshot. The [getting started tutorial](../../../../docs/tutorials/run-the-deal-room-blueprint.md)
+contains the commands and troubleshooting steps.
+
 ## Data boundary
 
 Every Project Titan file is fabricated. The demo can prove that the interface,

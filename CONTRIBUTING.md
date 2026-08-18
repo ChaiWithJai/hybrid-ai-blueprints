@@ -37,3 +37,10 @@ other pages.
 The repository writing rules are based on the public
 [Mine Writing Rules](https://github.com/docwriter-org/mine-writing-rules)
 collection.
+
+Follow the [documentation standard](docs/reference/documentation-standard.md).
+Capture public demo images from the running Project Titan fixture and update
+the screenshot manifest. Keep architecture diagrams in Mermaid and mark
+optional or incomplete paths with dotted lines.
+
+Run the documentation link and asset checks before you commit.
