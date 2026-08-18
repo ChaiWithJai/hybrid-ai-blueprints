@@ -1,0 +1,66 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 3,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786793957.078489,
+  "dataset_sha256": "d1078ebf720c8749b10aa8fbb177955574f202846d6015542b45d5c9e0c1fa31",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 0,
+  "pass_rate": 0.0,
+  "mean_accuracy": 0.6667,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 21040.6,
+  "cases": [
+    {
+      "case_id": "aeroflux_accretion",
+      "passed": false,
+      "accuracy": 0.6667,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:eps",
+        "concept:accretion",
+        "concept:synergy",
+        "numeric:pro_forma_eps",
+        "numeric:accretion_percent",
+        "pattern:buyer_eps_labeled",
+        "pattern:pro_forma_eps_labeled"
+      ],
+      "missing_terms": [
+        "numeric:cost_synergy",
+        "numeric:revenue_synergy",
+        "pattern:cost_synergy_labeled",
+        "pattern:revenue_synergy_labeled"
+      ],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Stock_Purchase_Agreement.md",
+        "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_234edde50186",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 21040.6,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "Deal Identifier: AeroFlux Transaction\nSource Filenames Used: ['01_Stock_Purchase_Agreement.md', '02_Consolidated_MultiCurrency_Financials_EUR_USD.csv']\nBuyer Standalone EPS: $2.79\nPro-Forma EPS: $3.31\nEPS Accretion Percent: 18.77%\nCost Synergies ($/share): $0.3352\nRevenue Synergies ($/share): $0.1364",
+      "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used for this calculation\nused_source_files = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\n\n# Deal identifier found in evidence\ndeal_identifier = \"AeroFlux Transaction\"\n\n# Direct numeric literals from typed inputs (no file/network access)\nbuyer_diluted_shares_m = 120.0\nbuyer_net_income_usd_m = 334.9\ncost_synergies_usd_m = 42.5\nproforma_diluted_shares_m = 126.8\nproforma_net_income_usd_m = 420.3\nrevenue_synergies_usd_m = 17.3\n\n# Buyer standalone EPS (dollars per share, not millions)\nbuyer_standalone_eps = buyer_net_income_usd_m / buyer_diluted_shares_m\n\n# Pro-forma EPS (dollars per share, not millions)\nproforma_eps = proforma_net_income_usd_m / proforma_diluted_shares_m\n\n# EPS accretion percent\neps_accretion_percent = (proforma_eps / buyer_standalone_eps - 1) * 100\n\n# Synergies in dollars per share (not millions)\ncost_synergy_per_share = cost_synergies_usd_m / proforma_diluted_shares_m\nrevenue_synergy_per_share = revenue_synergies_usd_m / proforma_diluted_shares_m\n\nprint(f\"Deal Identifier: {deal_identifier}\")\nprint(f\"Source Filenames Used: {used_source_files}\")\nprint(f\"Buyer Standalone EPS: ${buyer_standalone_eps:.2f}\")\nprint(f\"Pro-Forma EPS: ${proforma_eps:.2f}\")\nprint(f\"EPS Accretion Percent: {eps_accretion_percent:.2f}%\")\nprint(f\"Cost Synergies ($/share): ${cost_synergy_per_share:.4f}\")\nprint(f\"Revenue Synergies ($/share): ${revenue_synergy_per_share:.4f}\")"
+    }
+  ]
+}

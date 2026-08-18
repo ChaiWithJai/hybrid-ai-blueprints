@@ -1,0 +1,319 @@
+{
+  "accuracy_release_passed": false,
+  "artifact": {
+    "acceptance_state": "evidence_safe_fallback",
+    "artifact_mode": "evidence_safe_fallback",
+    "authored_by": "deterministic_evidence_renderer",
+    "citations": [
+      "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+      "[01_Confidential_Information_Memorandum.md#node:node_para_4]",
+      "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+      "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+      "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]",
+      "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]",
+      "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+      "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+      "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+      "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+      "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]"
+    ],
+    "draft_event_id": "e363248b89e3d7e95d4f212e656bce48c9dcf95d4aa68d6279139cda18e11c4d",
+    "guard_version": "source_excerpt_v2",
+    "investment_screen_passage_count": 3,
+    "investment_screen_retrieval": "screen_bound_v1",
+    "markdown": "## Recommendation\n\nRecommendation: PAUSE\n\nPrism generated this evidence-safe fallback because the Bonsai candidate failed deterministic evidence checks. PAUSE is a system safety disposition, not a model recommendation. The rejected model run remains a separate trace.\n\n## Investment screen evidence\n\n### Screen-matched source excerpt 1\n\n> Section 2.02: Mandatory Excess Cash Flow (ECF) Prepayment Sweep Within 90 days following each fiscal year end, the Borrower shall prepay outstanding Term Loan B principal in an amount equal to the applicable ECF percentage: * **50.0% of ECF** if First Lien Net Leverage Ratio $> 4.00\\times$. * **25.0% of ECF** if First Lien Net Leverage Ratio is between $3.25\\times$ and $4.00\\times$. * **0.0% of ECF** if First Lien Net Leverage Ratio $< 3.25\\times$. ---\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]\n\n### Screen-matched source excerpt 2\n\n> Financial Ledger | Line_Item_USD_M | 2024A | 2025A | 2026E_LBO_Y1 | 2027E_LBO_Y2 | 2028E_LBO_Y3 | 2029E_LBO_Y4 | 2030E_LBO_Y5 | | --- | --- | --- | --- | --- | --- | --- | --- | | Revenue | 418.0 | 520.0 | 624.0 | 736.0 | 854.0 | 973.5 | 1090.0 | | Revenue_YoY_Growth | 22.0% | 24.4% | 20.0% | 17.9% | 16.0% | 14.0% | 12.0% | | COGS | 125.4 | 145.6 | 168.5 | 191.4 | 213.5 | 238.5 | 261.6 | | Gross_Profit | 292.6 | 374.4 | 455.5 | 544.6 | 640.5 | 735.0 | 828.4 | | Gross_Margin | 70.0% | 72.0% | 73.0% | 74.0% | 75.0% | 75.5% | 76.0% | | Operating_Expenses_SG_and_A | 142.6 | 174.4 | 206.0 | 235.5 | 264.7 | 292.0 | 316.1 | | Adjusted_EBITDA | 150.0 | 200.0 | 249.5 | 309.1 | 375.8 | 443.0 | 512.3 | | EBITDA_Margin | 35.9% | 38.5% | 40.0% | 42.0% | 44.0% | 45.5% | 47.0% | | D_and_A | 30.0 | 38.0 | 45.0 | 50.0 | 55.0 | 60.0 | 65.0 | | EBIT_Operating_Income | 120.0 | 162.0 | 204.5 | 259.1 | 320.8 \u2026 [excerpt truncated]\n\n[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]\n\n### Screen-matched source excerpt 3\n\n> Project Name Project Titan LBO Returns Analysis\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]\n\n## Transaction\n\n### Source excerpt 1\n\n> 2. TRANSACTION FINANCING STRUCTURE (SOURCES & USES) | Sources of Funds | Amount ($M) | % Total | Leverage Multiple | | --- | --- | --- | --- | | **Revolving Credit Facility ($150M Commitment)** | $0.0 | 0.0% | 0.00x | | **First Lien Term Loan B (SOFR + 375 bps)** | $900.0 | 37.5% | 4.50x | | **Second Lien Senior Notes (Fixed 8.75%)** | $300.0 | 12.5% | 1.50x | | **Subordinated Mezzanine Debt (PIK 11.50%)** | $240.0 | 10.0% | 1.20x | | **Sponsor Preferred Equity (Fund VIII)** | $800.0 | 33.3% | \u2014 | | **Management Rollover Equity** | $160.0 | 6.7% | \u2014 | | **Total Sources of Funds** | **$2,400.0** | **100.0%** | **7.20x Gross** |\n\n[01_Confidential_Information_Memorandum.md#node:node_tbl_1]\n\n### Source excerpt 2\n\n> 1. EXECUTIVE SUMMARY & INVESTMENT THESIS CloudScale Networks Inc. is the leading provider of enterprise hybrid-cloud orchestration, software-defined SD-WAN controllers, and distributed edge AI routing infrastructure. * **Target 2025A Revenue:** $520.0M USD (24.5% YoY Organic Growth). * **Target 2025A Adjusted EBITDA:** $200.0M USD (38.5% EBITDA Margin). * **Sponsor Equity Check:** $960.0M USD (40.0% of Total Sources). * **Funded Debt Financing:** $1,440.0M USD (60.0% of Total Sources, 7.20x Gross Leverage / 6.00x Net Leverage). ---\n\n[01_Confidential_Information_Memorandum.md#node:node_para_2]\n\n## Valuation and financing\n\n### Source excerpt 1\n\n> Returns Matrix By Exit Year { \"2028_3_Year_Exit\": { \"projected_exit_ebitda_usd_m\": 375.8, \"ending_net_debt_usd_m\": 1257.5, \"multiples_sensitivity\": [ { \"exit_multiple\": 10.0, \"exit_ev\": 3758.0, \"exit_equity_value\": 2500.5, \"sponsor_proceeds\": 2083.7, \"sponsor_moic\": 2.6, \"sponsor_irr_pct\": 37.5 }, { \"exit_multiple\": 12.0, \"exit_ev\": 4509.6, \"exit_equity_value\": 3252.1, \"sponsor_proceeds\": 2710.1, \"sponsor_moic\": 3.39, \"sponsor_irr_pct\": 50.2 }, { \"exit_multiple\": 14.0, \"exit_ev\": 5261.2, \"exit_equity_value\": 4003.7, \"sponsor_proceeds\": 3336.4, \"sponsor_moic\": 4.17, \"sponsor_irr_pct\": 60.9 } ] }, \"2030_5_Year_Exit\": { \"projected_exit_ebitda_usd_m\": 512.3, \"ending_net_debt_usd_m\": 1002.4, \"multiples_sensitivity\": [ { \"exit_multiple\": 10.0, \"exit_ev\": 5123.0, \"exit_equity_value\": 4120.6, \"sponsor_proceeds\": 3433.8, \"sponsor_moic\": 4.29, \"sponsor_irr_pct\": 33.8 }, { \"exit_multiple\": 12.0, \u2026 [excerpt truncated]\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]\n\n### Source excerpt 2\n\n> 2. TRANSACTION FINANCING STRUCTURE (SOURCES & USES) | Uses of Funds | Amount ($M) | % Total | Description | | --- | --- | --- | --- | | **Purchase Equity from Public Shareholders** | $2,250.0 | 93.8% | $48.00 per share tender offer | | **Refinance Existing Debt** | $95.0 | 4.0% | Extinguish Series A/B bank loans | | **Financing & Underwriting Fees** | $35.0 | 1.5% | 2.5% on Term Loan + 1.5% on Notes | | **Sponsor Advisory & Legal Fees** | $20.0 | 0.8% | M&A legal, accounting & IT carve-out | | **Total Uses of Funds** | **$2,400.0** | **100.0%** | Balanced Sources & Uses |\n\n[01_Confidential_Information_Memorandum.md#node:node_tbl_2]\n\n## Financial quality\n\n### Source excerpt 1\n\n> 3. VALUE CREATION DRIVERS & EXPANSION LEVERS 1. **Pricing Power & Packaging Overhaul:** Transition legacy perpetual appliance licenses to 100% cloud ARR model, expanding Net Revenue Retention (NRR) from 114% to 128%. 2. **Gross Margin Accretion:** Consolidate co-location datacenter footprint and optimize low-bit on-premise AI acceleration, reducing COGS by $18.5M over 24 months. 3. **M&A Bolt-On Pipeline:** Identified three actionable tuck-in assets with $45M aggregate EBITDA at 6.0x-8.0x multiples.\n\n[01_Confidential_Information_Memorandum.md#node:node_para_4]\n\n### Source excerpt 2\n\n> Section 3.01: Builder Basket Conditions Dividends to Sponsor Equity Holders (Restricted Payments) are strictly prohibited unless all of the following conditions are met: 1. No Event of Default has occurred and is continuing. 2. Total Net Leverage Ratio is pro-forma $\\le 4.25\\times$ (or First Lien $\\le 3.00\\times$). 3. Aggregate dividend amount does not exceed the available \"Builder Basket\" ($50\\%$ of cumulative Consolidated Net Income since Closing Date plus equity contributions).\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]\n\n## Risks and approvals\n\n### Source excerpt 1\n\n> Covenant Risk Summary { \"year_1_interest_coverage_warning\": \"Year 1 interest coverage is 2.53x vs 2.75x covenant floor due to initial SOFR swap spread. Requires $10M interest rate collar hedge.\", \"deleveraging_trajectory\": \"Deleverages from 5.53x Net Debt / EBITDA at close down to 1.96x by Year 5 via mandatory ECF sweep.\" }\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]\n\n### Source excerpt 2\n\n> Section 2.01: Maximum First Lien Net Leverage Ratio The Borrower covenants that the First Lien Net Leverage Ratio as of the end of each Fiscal Quarter shall not exceed the levels set forth below:\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]\n\n## Missing or conflicting information\n\nThis fallback does not infer missing facts or resolve conflicts. It contains only the bounded excerpts shown above. A human must inspect the cited source passages and the rest of the authorized folder before treating an omission as real.\n\n## Next review questions\n\n1. Which transaction parties, approvals, and closing conditions are explicitly disclosed?\n2. Which valuation and leverage definitions are stated, and which would require calculation?\n3. Which financial values conflict across source documents or periods?\n4. Which material risks require documents outside the admitted excerpts?",
+    "model": "deterministic_source_excerpt_v2",
+    "recommendation": "pause",
+    "restoration_verification": {
+      "author": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+      "bindings": [
+        "nip01_event_id_plus_bip340",
+        "configured_agent_author",
+        "trace_draft_event_id",
+        "room_id",
+        "model",
+        "guard_version",
+        "artifact_mode",
+        "response_text",
+        "source_classification",
+        "source_provenance_sha256",
+        "source_snapshot_sha256"
+      ],
+      "event_id": "e363248b89e3d7e95d4f212e656bce48c9dcf95d4aa68d6279139cda18e11c4d",
+      "state": "verified",
+      "trace_id": "trc_8a813e697a21"
+    },
+    "restored_from_buzz": true,
+    "source_classification": "synthetic_engineering_fixture",
+    "source_provenance": {
+      "accuracy_release_evidence": false,
+      "binding_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+      "buyer_evidence": false,
+      "classification": "synthetic_engineering_fixture",
+      "customer_data_verified": false,
+      "manifest_bound": false,
+      "operator_selected": false,
+      "public_snapshot_sha256": null,
+      "public_source": false,
+      "public_source_count": 0,
+      "synthetic_fixture": true,
+      "version": "room_source_provenance_v1"
+    },
+    "source_provenance_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+    "source_snapshot_sha256": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1",
+    "trace_id": "trc_8a813e697a21"
+  },
+  "canonical_path": "/rooms/project_titan_lbo/first-pass",
+  "human_review_state": "pending",
+  "investment_screen": "Decide whether Project Titan should advance. Focus specifically on the mismatch between the reported debt paydown and ECF sweep schedule and Section 2.02 cash sweep policy. Identify missing or conflicting evidence. Do not infer an entry valuation multiple unless every input is cited.",
+  "limitations": [
+    "This record proves a trace-linked Buzz product artifact, not domain accuracy.",
+    "Interactive browser behavior is not replayed by this recorder.",
+    "The source set is synthetic and its expected conclusions lack domain-owner approval."
+  ],
+  "model_failure_trace": {
+    "energy_per_token_mwh": null,
+    "evaluation_state": {
+      "explanation": "Bonsai failed the deterministic evidence guard after one repair: A numeric factual claim has no admitted citation in its sentence; Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%; Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%",
+      "label": "Guard rejected",
+      "state": "rejected"
+    },
+    "evaluations": [
+      {
+        "explanation": "Bonsai failed the deterministic evidence guard after one repair: A numeric factual claim has no admitted citation in its sentence; Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%; Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%",
+        "metadata": {
+          "measurement_state": "rejected"
+        },
+        "name": "first_pass_acceptance",
+        "passed": false,
+        "score": 0.0
+      }
+    ],
+    "metadata": {
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "error": "Bonsai failed the deterministic evidence guard after one repair: A numeric factual claim has no admitted citation in its sentence; Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%; Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%",
+      "first_pass_initial_guard_issues": [
+        "A numeric factual claim has no admitted citation in its sentence",
+        "Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%",
+        "Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%"
+      ],
+      "first_pass_initial_relation_issues": [
+        "Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%",
+        "Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%"
+      ],
+      "first_pass_remaining_guard_issues": [
+        "A numeric factual claim has no admitted citation in its sentence",
+        "Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%",
+        "Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%"
+      ],
+      "first_pass_remaining_relation_issues": [
+        "Revenue_YoY_Growth: 2024a was paired with 418, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 22.0%",
+        "Revenue_YoY_Growth: 2030e lbo y5 was paired with 1090, but [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table] records 12.0%"
+      ],
+      "first_pass_repair_attempted": true,
+      "first_pass_repair_transport": "explicit_role_transcript",
+      "guard_version": "evidence_claim_v7",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "investment_screen": "Decide whether Project Titan should advance. Focus specifically on the mismatch between the reported debt paydown and ECF sweep schedule and Section 2.02 cash sweep policy. Identify missing or conflicting evidence. Do not infer an entry valuation multiple unless every input is cited.",
+      "latency_ms": 227588.19516701624,
+      "model": "27b@q1_0",
+      "previous_response_id_used": null,
+      "product_job": "first_pass_underwriting",
+      "prompt_suffix_applied": true,
+      "protocol": "lmstudio_native_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "b6ed02bf43e6ffe5e1f436c1f6d1937a800b9b1af9dd2eba6c4eafeb917b3e88",
+      "reasoning_output_tokens": 0,
+      "request_id": null,
+      "result_state": "rejected_before_buzz_draft",
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "source_classification": "synthetic_engineering_fixture",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+        "buyer_evidence": false,
+        "classification": "synthetic_engineering_fixture",
+        "customer_data_verified": false,
+        "manifest_bound": false,
+        "operator_selected": false,
+        "public_snapshot_sha256": null,
+        "public_source": false,
+        "public_source_count": 0,
+        "synthetic_fixture": true,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+      "source_snapshot_after": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1",
+      "source_snapshot_before": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1",
+      "source_snapshot_state": "stable",
+      "time_to_first_token_seconds": 47.466379,
+      "tokens_per_second": 32.457229987267176
+    },
+    "model_name": "27b@q1_0",
+    "query": "first_pass_underwriting",
+    "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "session_id": "project_titan_lbo",
+    "spans": [],
+    "timestamp": 1786861545.826708,
+    "total_energy_mwh": null,
+    "total_latency_ms": 227588.2,
+    "total_tokens": 15639,
+    "trace_id": "trc_a4cdcdb1d205",
+    "vram_peak_gb": null
+  },
+  "product_path_verified": true,
+  "recorded_at": 1786861985.577251,
+  "room": "project_titan_lbo",
+  "runtime": {
+    "buzz_relay": "ws://127.0.0.1:3030",
+    "buzz_relay_live": true,
+    "configured_model": "27b@q1_0",
+    "invocation_evidence": "artifact_trace_id_bound_local_provider_record",
+    "last_invoked_model": "27b@q1_0"
+  },
+  "source_files": [
+    {
+      "bytes": 2605,
+      "filename": "01_Confidential_Information_Memorandum.md",
+      "sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+    },
+    {
+      "bytes": 1973,
+      "filename": "02_LBO_Debt_Financing_Credit_Agreement.md",
+      "sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+    },
+    {
+      "bytes": 2000,
+      "filename": "03_Three_Statement_Financial_Model_2024_2028.csv",
+      "sha256": "4a9bd9c5c67b7d61e4eae4a7695af9e7adadb47ab4b266848f95c51f6b8f9b73"
+    },
+    {
+      "bytes": 1955,
+      "filename": "04_Sponsor_Returns_Sensitivity_IRR_MoIC.json",
+      "sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+    }
+  ],
+  "source_folder_resolved": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/deal_rooms/project_titan_lbo",
+  "source_snapshot_scope": "absolute_local_path",
+  "trace": {
+    "energy_per_token_mwh": null,
+    "evaluation_state": {
+      "explanation": "The reviewer recorded 1 critical corrections.",
+      "label": "Guard rejected",
+      "state": "rejected"
+    },
+    "evaluations": [
+      {
+        "explanation": "Rendered 11 admitted citations without using the rejected model prose.",
+        "metadata": {
+          "citations": [
+            "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+            "[01_Confidential_Information_Memorandum.md#node:node_para_4]",
+            "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+            "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+            "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]",
+            "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]",
+            "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+            "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+            "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+            "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+            "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]"
+          ]
+        },
+        "name": "source_excerpt_provenance",
+        "passed": true,
+        "score": 1.0
+      },
+      {
+        "explanation": "Evidence-safe fallback awaits human usefulness review.",
+        "metadata": {
+          "measurement_state": "awaiting_human_review"
+        },
+        "name": "human_accuracy_review",
+        "passed": false,
+        "score": 0.0
+      },
+      {
+        "explanation": "Recorded by the configured local Buzz operator. This is a product decision, not independently authenticated domain review.",
+        "metadata": {},
+        "name": "human_usefulness",
+        "passed": true,
+        "score": 1.0
+      },
+      {
+        "explanation": "The reviewer recorded 1 critical corrections.",
+        "metadata": {},
+        "name": "critical_correction_gate",
+        "passed": false,
+        "score": 0.0
+      },
+      {
+        "explanation": "The reviewer recorded 0 major corrections.",
+        "metadata": {},
+        "name": "major_correction_gate",
+        "passed": true,
+        "score": 1.0
+      }
+    ],
+    "metadata": {
+      "artifact_mode": "evidence_safe_fallback",
+      "authored_by": "deterministic_evidence_renderer",
+      "citation_count": 11,
+      "draft_event_id": "e363248b89e3d7e95d4f212e656bce48c9dcf95d4aa68d6279139cda18e11c4d",
+      "fallback_guard": "source_excerpt_v2",
+      "guard_version": "source_excerpt_v2",
+      "human_review": {
+        "authentication_scope": "local_operator_bridge",
+        "benchmark_domain_review": false,
+        "canonical_path": "/rooms/project_titan_lbo/digest",
+        "canvas_event_id": "cefe6d8f25ebfb562068089e82f22a08516497c5aeb530216e621a33fa455a62",
+        "critical_corrections": 1,
+        "decision": "pause",
+        "major_corrections": 0,
+        "notes": "Source excerpts were useful; one correction remains. This is an operator smoke review, not domain review.",
+        "review_actor": "local_operator",
+        "review_event_id": "a1d1cd8a56cd124dafdf6b9b6b0b3b69df0898523246c6f774583411c2db6688",
+        "reviewer_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+        "useful_starting_point": true
+      },
+      "investment_screen": "Decide whether Project Titan should advance. Focus specifically on the mismatch between the reported debt paydown and ECF sweep schedule and Section 2.02 cash sweep policy. Identify missing or conflicting evidence. Do not infer an entry valuation multiple unless every input is cited.",
+      "investment_screen_passage_count": 3,
+      "investment_screen_retrieval": "screen_bound_v1",
+      "model_failure_trace_id": "trc_a4cdcdb1d205",
+      "product_job": "first_pass_underwriting_fallback",
+      "question_event_id": "b6ed02bf43e6ffe5e1f436c1f6d1937a800b9b1af9dd2eba6c4eafeb917b3e88",
+      "source_classification": "synthetic_engineering_fixture",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+        "buyer_evidence": false,
+        "classification": "synthetic_engineering_fixture",
+        "customer_data_verified": false,
+        "manifest_bound": false,
+        "operator_selected": false,
+        "public_snapshot_sha256": null,
+        "public_source": false,
+        "public_source_count": 0,
+        "synthetic_fixture": true,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+      "source_snapshot_sha256": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1"
+    },
+    "model_name": "deterministic_source_excerpt_v2",
+    "query": "evidence_safe_fallback",
+    "response_sha256": "68ca0f081be0ba63e44ec9eaceefac176e75ae649ca8c62264575fd96d4e8ea1",
+    "routed_tier": "DETERMINISTIC_LOCAL",
+    "session_id": "project_titan_lbo",
+    "spans": [],
+    "timestamp": 1786861773.577097,
+    "total_energy_mwh": null,
+    "total_latency_ms": 0.0,
+    "total_tokens": 0,
+    "trace_id": "trc_8a813e697a21",
+    "vram_peak_gb": null
+  },
+  "verification_kind": "trace_linked_first_pass_product_record"
+}

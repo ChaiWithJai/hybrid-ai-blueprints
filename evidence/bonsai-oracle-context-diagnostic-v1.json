@@ -1,0 +1,583 @@
+{
+  "verification_kind": "first_pass_oracle_context_diagnostic.v1",
+  "recorded_at": "2026-08-16T03:21:43.535702-04:00",
+  "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+  "baseline_responses_sha256": "9a6ceab24ba079ff3c1dfe4782135cbd5514786907180b28c4b3dc80b21c2d25",
+  "absence_contract_sha256": "054a4501f9b2826108ce8059cb00f31139c409e239ae990c8babb2317afa23e3",
+  "semantic_accuracy_state": "unverified",
+  "accuracy_release_passed": false,
+  "cases": [
+    {
+      "case_id": "anaplan_vdr_timeline",
+      "eligible": true,
+      "reason": null,
+      "baseline_response_sha256": "c84cd86c8eb5497b925b5b8fd05e99449fc958b186ddd58e0e17fc5b837b021e",
+      "baseline_probe": {
+        "passed": true,
+        "response_present": true,
+        "citation_token_presence": {
+          "passed": true,
+          "required": [
+            "[01_anaplan_defm14a.htm#html:block:00484]"
+          ],
+          "missing": []
+        },
+        "registered_numeric_token_presence": {
+          "passed": true,
+          "required": [
+            "12",
+            "20",
+            "2022"
+          ],
+          "missing": []
+        },
+        "registered_absence_phrase_policy": {
+          "passed": null,
+          "required": [],
+          "forbidden_hits": []
+        },
+        "semantic_accuracy_state": "unverified"
+      },
+      "oracle": {
+        "context_kind": "registered_positive_passages",
+        "passages": [
+          {
+            "filename": "01_anaplan_defm14a.htm",
+            "anchor": "html:block:00484",
+            "citation": "[01_anaplan_defm14a.htm#html:block:00484]",
+            "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+            "text": "Table of Contents Also on March 12, 2022, Anaplan opened a comprehensive virtual data room to begin sharing detailed financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors. From March 12, 2022 through March 20, 2022, additional diligence materials",
+            "text_sha256": "bd03436471c2f5c93bafd17ac31b6306028290c79f84b6686b230924d03b7fb3"
+          }
+        ],
+        "prompt_sha256": "4846226a78e39a705eebdd33a5de31cc278298e8900eb4a555b3568e1ef51abb",
+        "response": "Anaplan opened its virtual data room on March 12, 2022 [01_anaplan_defm14a.htm#html:block:00484]. The materials contained detailed financial, operational and legal diligence documents as well as the first draft of the Merger Agreement. The intensive diligence period ended on March 20, 2022 [01_anaplan_defm14a.htm#html:block:00484].",
+        "response_sha256": "1d5f57317f2e6b8dca7a665ac9100dc446f0628371ebc9c1a0d5761e1453df36",
+        "provider": "local_bonsai",
+        "model": "27b@q1_0",
+        "latency_ms": 5387.822541990317,
+        "usage": {
+          "prompt_tokens": 205,
+          "completion_tokens": 103,
+          "total_tokens": 308
+        },
+        "raw_metadata": {
+          "request_id": null,
+          "protocol": "lmstudio_native_chat",
+          "reasoning_output_tokens": 0,
+          "tokens_per_second": 36.78760621974844,
+          "time_to_first_token_seconds": 2.4507600000000003,
+          "prompt_suffix_applied": true,
+          "previous_response_id_used": null,
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB"
+        },
+        "error": null,
+        "probe": {
+          "passed": true,
+          "response_present": true,
+          "citation_token_presence": {
+            "passed": true,
+            "required": [
+              "[01_anaplan_defm14a.htm#html:block:00484]"
+            ],
+            "missing": []
+          },
+          "registered_numeric_token_presence": {
+            "passed": true,
+            "required": [
+              "12",
+              "20",
+              "2022"
+            ],
+            "missing": []
+          },
+          "registered_absence_phrase_policy": {
+            "passed": null,
+            "required": [],
+            "forbidden_hits": []
+          },
+          "semantic_accuracy_state": "unverified"
+        }
+      },
+      "localization": "no_deterministic_baseline_failure"
+    },
+    {
+      "case_id": "anaplan_termination_fees",
+      "eligible": true,
+      "reason": null,
+      "baseline_response_sha256": "dc9fd573543f8adb5eb89db6ce5f5fbef6da11724bcf4bf13a1c142ff883f5bd",
+      "baseline_probe": {
+        "passed": true,
+        "response_present": true,
+        "citation_token_presence": {
+          "passed": true,
+          "required": [
+            "[01_anaplan_defm14a.htm#html:block:00207]"
+          ],
+          "missing": []
+        },
+        "registered_numeric_token_presence": {
+          "passed": true,
+          "required": [
+            "$293,122,500",
+            "$586,245,000"
+          ],
+          "missing": []
+        },
+        "registered_absence_phrase_policy": {
+          "passed": null,
+          "required": [],
+          "forbidden_hits": []
+        },
+        "semantic_accuracy_state": "unverified"
+      },
+      "oracle": {
+        "context_kind": "registered_positive_passages",
+        "passages": [
+          {
+            "filename": "01_anaplan_defm14a.htm",
+            "anchor": "html:block:00207",
+            "citation": "[01_anaplan_defm14a.htm#html:block:00207]",
+            "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+            "text": "Table of Contents Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances (in each case as described in the section of this Proxy Statement captioned \u201c The Merger Agreement\u2014Termination Fees \u201d).",
+            "text_sha256": "d727dd7dbeb9784904672674b0965bb181e86b3f0982c8629906980f137427b6"
+          }
+        ],
+        "prompt_sha256": "758669f160cf242a3d88d61c4f71043185e6c07845ffa035a3aa30397b9458d6",
+        "response": "Based on the provided source passage:\n\n*   **Company termination fee:** $293,122,500 [01_anaplan_defm14a.htm#html:block:00207]\n*   **Reverse termination fee:** $586,245,000 [01_anaplan_defm14a.htm#html:block:00207]",
+        "response_sha256": "8fdad59e094ae6c2462b6d87d94ee86b0d6098b3eb2d1bd184c96f5568341090",
+        "provider": "local_bonsai",
+        "model": "27b@q1_0",
+        "latency_ms": 4049.2132920771837,
+        "usage": {
+          "prompt_tokens": 219,
+          "completion_tokens": 92,
+          "total_tokens": 311
+        },
+        "raw_metadata": {
+          "request_id": null,
+          "protocol": "lmstudio_native_chat",
+          "reasoning_output_tokens": 0,
+          "tokens_per_second": 36.83651235104235,
+          "time_to_first_token_seconds": 1.440825,
+          "prompt_suffix_applied": true,
+          "previous_response_id_used": null,
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB"
+        },
+        "error": null,
+        "probe": {
+          "passed": true,
+          "response_present": true,
+          "citation_token_presence": {
+            "passed": true,
+            "required": [
+              "[01_anaplan_defm14a.htm#html:block:00207]"
+            ],
+            "missing": []
+          },
+          "registered_numeric_token_presence": {
+            "passed": true,
+            "required": [
+              "$293,122,500",
+              "$586,245,000"
+            ],
+            "missing": []
+          },
+          "registered_absence_phrase_policy": {
+            "passed": null,
+            "required": [],
+            "forbidden_hits": []
+          },
+          "semantic_accuracy_state": "unverified"
+        }
+      },
+      "localization": "no_deterministic_baseline_failure"
+    },
+    {
+      "case_id": "citrix_financing_mix",
+      "eligible": true,
+      "reason": null,
+      "baseline_response_sha256": "0658b6237971eaabe3512bc3bf6a0fe4dd624c768194582dc61b8294d9f0834d",
+      "baseline_probe": {
+        "passed": true,
+        "response_present": true,
+        "citation_token_presence": {
+          "passed": true,
+          "required": [
+            "[02_citrix_financing_supplement.htm#html:block:00058]"
+          ],
+          "missing": []
+        },
+        "registered_numeric_token_presence": {
+          "passed": true,
+          "required": [
+            "$15.0 billion",
+            "$2.275 billion",
+            "$2.5 billion"
+          ],
+          "missing": []
+        },
+        "registered_absence_phrase_policy": {
+          "passed": null,
+          "required": [],
+          "forbidden_hits": []
+        },
+        "semantic_accuracy_state": "unverified"
+      },
+      "oracle": {
+        "context_kind": "registered_positive_passages",
+        "passages": [
+          {
+            "filename": "02_citrix_financing_supplement.htm",
+            "anchor": "html:block:00058",
+            "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+            "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+            "text": "closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations.",
+            "text_sha256": "50d577b931f1caa23955f66070ac7b314efa32eb0b9ea52d3856b960886a6405"
+          }
+        ],
+        "prompt_sha256": "8202bace08aeda67884c6db269dafe47acb7b6e967d66729b310df45f0bbbfb8",
+        "response": "Based on the supplied source passage:\n\n*   **Debt:** $15.0 billion\n*   **Preferred Equity:** $2.5 billion\n*   **Common Equity:** $2.275 billion (provided by Elliott)",
+        "response_sha256": "625d879dd456cfa6557c6f7a37c465ff76a99ee2217c066cae4bb44b7886fa0c",
+        "provider": "local_bonsai",
+        "model": "27b@q1_0",
+        "latency_ms": 3364.105000044219,
+        "usage": {
+          "prompt_tokens": 294,
+          "completion_tokens": 52,
+          "total_tokens": 346
+        },
+        "raw_metadata": {
+          "request_id": null,
+          "protocol": "lmstudio_native_chat",
+          "reasoning_output_tokens": 0,
+          "tokens_per_second": 37.05825843289177,
+          "time_to_first_token_seconds": 1.8645,
+          "prompt_suffix_applied": true,
+          "previous_response_id_used": null,
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB"
+        },
+        "error": null,
+        "probe": {
+          "passed": false,
+          "response_present": true,
+          "citation_token_presence": {
+            "passed": false,
+            "required": [
+              "[02_citrix_financing_supplement.htm#html:block:00058]"
+            ],
+            "missing": [
+              "[02_citrix_financing_supplement.htm#html:block:00058]"
+            ]
+          },
+          "registered_numeric_token_presence": {
+            "passed": true,
+            "required": [
+              "$15.0 billion",
+              "$2.275 billion",
+              "$2.5 billion"
+            ],
+            "missing": []
+          },
+          "registered_absence_phrase_policy": {
+            "passed": null,
+            "required": [],
+            "forbidden_hits": []
+          },
+          "semantic_accuracy_state": "unverified"
+        }
+      },
+      "localization": "oracle_context_regressed_deterministic_contract"
+    },
+    {
+      "case_id": "citrix_entry_leverage_absent",
+      "eligible": true,
+      "reason": null,
+      "baseline_response_sha256": "8e066d6b30b4f68fe181dfa6c39b40a568cd1a34b56e26b06945926ed2f25d42",
+      "baseline_probe": {
+        "passed": false,
+        "response_present": true,
+        "citation_token_presence": {
+          "passed": true,
+          "required": [
+            "[02_citrix_financing_supplement.htm#html:block:00058]"
+          ],
+          "missing": []
+        },
+        "registered_numeric_token_presence": {
+          "passed": true,
+          "required": [],
+          "missing": []
+        },
+        "registered_absence_phrase_policy": {
+          "passed": false,
+          "required": [
+            "not disclosed",
+            "cannot be calculated from the cited evidence alone"
+          ],
+          "forbidden_hits": []
+        },
+        "semantic_accuracy_state": "unverified"
+      },
+      "oracle": {
+        "context_kind": "whole_corpus_registered_pattern_absence_audit",
+        "passages": [
+          {
+            "filename": "02_citrix_financing_supplement.htm",
+            "anchor": "html:block:00058",
+            "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+            "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+            "text": "closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations.",
+            "text_sha256": "50d577b931f1caa23955f66070ac7b314efa32eb0b9ea52d3856b960886a6405"
+          }
+        ],
+        "prompt_sha256": "01be6100cb797120e2f1ff4f72008130abdfeddfd3b88383ff3dab4c2df01c9a",
+        "response": "not disclosed and cannot be calculated from the cited evidence alone",
+        "response_sha256": "a5bc2c82a32c430cb2ecf4bc0cf51198a21542e0b91c232741334d431178c390",
+        "provider": "local_bonsai",
+        "model": "27b@q1_0",
+        "latency_ms": 3964.7922079311684,
+        "usage": {
+          "prompt_tokens": 471,
+          "completion_tokens": 12,
+          "total_tokens": 483
+        },
+        "raw_metadata": {
+          "request_id": null,
+          "protocol": "lmstudio_native_chat",
+          "reasoning_output_tokens": 0,
+          "tokens_per_second": 39.45577336603779,
+          "time_to_first_token_seconds": 3.418514,
+          "prompt_suffix_applied": true,
+          "previous_response_id_used": null,
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB"
+        },
+        "error": null,
+        "probe": {
+          "passed": false,
+          "response_present": true,
+          "citation_token_presence": {
+            "passed": false,
+            "required": [
+              "[02_citrix_financing_supplement.htm#html:block:00058]"
+            ],
+            "missing": [
+              "[02_citrix_financing_supplement.htm#html:block:00058]"
+            ]
+          },
+          "registered_numeric_token_presence": {
+            "passed": true,
+            "required": [],
+            "missing": []
+          },
+          "registered_absence_phrase_policy": {
+            "passed": true,
+            "required": [
+              "not disclosed",
+              "cannot be calculated from the cited evidence alone"
+            ],
+            "forbidden_hits": []
+          },
+          "semantic_accuracy_state": "unverified"
+        }
+      },
+      "localization": "deterministic_failure_persists_with_registered_oracle_context",
+      "absence_audit": {
+        "passed": true,
+        "scope": "complete_registered_deal_folder",
+        "case_id": "citrix_entry_leverage_absent",
+        "deal_id": "citrix_2022",
+        "contract_sha256": "e6646fc96710f7b12694e19f379d7d68b2c35dd644dd86c864656a48afbe7eb9",
+        "source_manifest_sha256": "1888ade2eb98bf8f7009c660686ebefeb224e1cc94f013af99d5192b882bfb9c",
+        "source_file_count": 2,
+        "parsed_node_count": 2401,
+        "files": [
+          {
+            "filename": "01_citrix_defm14a.htm",
+            "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+            "bytes": 1834175,
+            "node_count": 2307,
+            "parsed_node_manifest_sha256": "8b89be5fb7cbc4a81db26f856efa08a79d5f47ffa99947403eeb7cec31c66095"
+          },
+          {
+            "filename": "02_citrix_financing_supplement.htm",
+            "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+            "bytes": 82805,
+            "node_count": 94,
+            "parsed_node_manifest_sha256": "ecdf0bf6b64e4a25c4f2c7dcfedd1156413f9f32d41ab306a56bf412d9f28c91"
+          }
+        ],
+        "registered_pattern_count": 3,
+        "registered_direct_disclosure_hits": [],
+        "required_confusable_evidence": [
+          {
+            "filename": "01_citrix_defm14a.htm",
+            "anchor": "html:block:00586",
+            "relation": "valuation_multiple_not_entry_debt_to_ebitda",
+            "required_terms": [
+              "CY2022E EBITDA Multiple for Citrix was 13.0x",
+              "fully diluted enterprise value"
+            ],
+            "missing_terms": [],
+            "text_sha256": "e06c24d0af52848c182536c5b8fa1d70257527640117831dc87c8a04fde23c31",
+            "excerpt": "Table of Contents The CY2022E EBITDA Multiple for Citrix was 13.0x based on the Analyst Projections, and the fully diluted enterprise value of Citrix was calculated using the unaffected five-day volume weighted average closing price as of December 7, 2021 (the last trading day before market speculation regarding a potential transaction)."
+          },
+          {
+            "filename": "02_citrix_financing_supplement.htm",
+            "anchor": "html:block:00058",
+            "relation": "financing_amount_not_entry_debt_to_ebitda",
+            "required_terms": [
+              "debt commitment had been increased to $15.0 billion",
+              "preferred equity of $2.5 billion"
+            ],
+            "missing_terms": [],
+            "text_sha256": "50d577b931f1caa23955f66070ac7b314efa32eb0b9ea52d3856b960886a6405",
+            "excerpt": "closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations."
+          },
+          {
+            "filename": "02_citrix_financing_supplement.htm",
+            "anchor": "html:table:0014",
+            "relation": "selected_transaction_multiples_not_citrix_entry_leverage",
+            "required_terms": [
+              "NTM EBITDA Multiple",
+              "Enterprise Value"
+            ],
+            "missing_terms": [],
+            "text_sha256": "4820461fa5e73e6ac87f526cf289b2c20405a3e3cc10ae7c35ff6e9a7e44dc8b",
+            "excerpt": "| | | | | | | | | | | | | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | | Announcement Date | | Target | | Acquiror | | NTM Revenue Multiple | | NTM EBITDA Multiple | | Enterprise Value ($MM) | | 12/20/21 | | Cerner Corporation | | Oracle Corporation | | 4.8x | | 14.1x | | 28,938 | | | | | | | | | | | | | | 08/05/21 | | Cornerstone OnDemand, Inc. | | Clearlake Capital Group, L.P. | | 5.9x | | 18.8x | | 5,238 | | | | | | | | | | | | | | 06/01/21 | | Cloudera, Inc. | | Kohlberg Kravis Roberts & Co. L.P. and Clayton, Dubilier & Rice, LLC | | 5.2x | | 30.4x | | 4,884 | | | | | | | | | | | | |"
+          }
+        ],
+        "semantic_accuracy_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "errors": [],
+        "limitations": [
+          "The implementation team wrote the patterns after inspecting the development corpus.",
+          "A zero pattern count proves only that the registered expressions do not occur in the complete registered folder.",
+          "The scan does not prove that an unregistered synonym or a domain expert would reach the same absence decision.",
+          "The contract is development evidence and has no domain approval."
+        ]
+      },
+      "absence_audit_sha256": "3b5ae50baf8e3e045e8bf27b2fb729c74ddd771c932833adce48684a9ccfea03"
+    },
+    {
+      "case_id": "cma_competition_conclusion",
+      "eligible": true,
+      "reason": null,
+      "baseline_response_sha256": "34b589ab077db493dc28a418e91c64ad06103d9b15be249885d5811d257a5fd5",
+      "baseline_probe": {
+        "passed": false,
+        "response_present": true,
+        "citation_token_presence": {
+          "passed": true,
+          "required": [
+            "[microsoft_activision_cma_final_report.pdf#pdf:page:7]"
+          ],
+          "missing": []
+        },
+        "registered_numeric_token_presence": {
+          "passed": false,
+          "required": [
+            "60",
+            "70 percent"
+          ],
+          "missing": [
+            "70 percent"
+          ]
+        },
+        "registered_absence_phrase_policy": {
+          "passed": null,
+          "required": [],
+          "forbidden_hits": []
+        },
+        "semantic_accuracy_state": "unverified"
+      },
+      "oracle": {
+        "context_kind": "registered_positive_passages",
+        "passages": [
+          {
+            "filename": "microsoft_activision_cma_final_report.pdf",
+            "anchor": "pdf:page:7",
+            "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+            "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+            "text": "Page 7 Summary What we have found 1. The Competition and Markets Authority (CMA) has found that the anticipated acquisition (the Merger) of Activision Blizzard, Inc. (Activision) by Microsoft Corporation (Microsoft) (together, the Parties) may not be expected to result in a substantial lessening of competition (SLC) in console gaming services in the UK. However, the CMA has found that the Merger may be expected to result in an SLC in cloud gaming services in the UK. 2. In relation to console gaming services, we found that Xbox (Microsoft) and PlayStation (Sony) compete closely with each other, and that Activision\u2019s Call of Duty (CoD) is important to the competitive offering of each. The evidence suggests, however, that Microsoft would not find it financially beneficial to make CoD exclusive to Xbox after the Merger. We also found that making CoD available on Xbox on better terms than on PlayStation would not materially harm PlayStation\u2019s ability to compete. On this basis, we found that the Merger would not substantially reduce competition in console gaming services in the UK. 3. In relation to cloud gaming services, we found that Microsoft already has a strong position. It owns a popular gaming platform (Xbox and a large portfolio of games), the leading PC operating system (Windows), and a global cloud computing infrastructure (Azure and Xbox Cloud Gaming), giving it important advantages in running a cloud gaming service. With an estimated 60-70% market share in global cloud gaming services, it is already much stronger than its rivals. 4. We found that the Merger would make Microsoft even stronger and substantially reduce competition in this market. We found that Activision\u2019s titles\u2014including CoD, World of Warcraft, and Overwatch\u2014will be important for the competitive offering of cloud gaming services as the market continues to grow and develop. We found that, after the Merger, Microsoft would find it commercially beneficial to make Activision\u2019s titles exclusive to its own cloud gaming service. Given its already strong position, even a moderate increment to Microsoft\u2019s strength may be expected to substantially reduce competition in this developing market, to the detriment of current and future cloud gaming users. 5. Microsoft offered a behavioural remedy to address our concerns in cloud gaming services (the Microsoft Cloud Remedy). The Microsoft Cloud Remedy did not aim to restore competition to the level that would have 4",
+            "text_sha256": "b52136234e0b92450054fc1274576b82e49a2181c734b13c47c7af11bd486902"
+          }
+        ],
+        "prompt_sha256": "0ae7cd2387ffccd9d6c1f553d2182c3788bf3b96734bf492e3878c89553141dc",
+        "response": "The CMA concluded that the merger may result in a substantial lessening of competition in console gaming services but not in cloud gaming services. For console gaming, it found that Microsoft would not find it financially beneficial to make Activision's Call of Duty exclusive to Xbox after the Merger, and making it available on better terms than PlayStation would not materially harm Sony's ability to compete.\n\nRegarding cloud gaming, the CMA estimated Microsoft already has an estimated 60-70% market share in global cloud gaming services. It concluded that the merger would make Microsoft even stronger and substantially reduce competition in this market, as Activision\u2019s titles will be important for the competitive offering of cloud gaming services.",
+        "response_sha256": "06760d3654bcc21fa6b0325e9047454e55ca691a80a17deb6b387051906df730",
+        "provider": "local_bonsai",
+        "model": "27b@q1_0",
+        "latency_ms": 8681.609708000906,
+        "usage": {
+          "prompt_tokens": 612,
+          "completion_tokens": 141,
+          "total_tokens": 753
+        },
+        "raw_metadata": {
+          "request_id": null,
+          "protocol": "lmstudio_native_chat",
+          "reasoning_output_tokens": 0,
+          "tokens_per_second": 35.73364596472101,
+          "time_to_first_token_seconds": 4.592446,
+          "prompt_suffix_applied": true,
+          "previous_response_id_used": null,
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB"
+        },
+        "error": null,
+        "probe": {
+          "passed": false,
+          "response_present": true,
+          "citation_token_presence": {
+            "passed": false,
+            "required": [
+              "[microsoft_activision_cma_final_report.pdf#pdf:page:7]"
+            ],
+            "missing": [
+              "[microsoft_activision_cma_final_report.pdf#pdf:page:7]"
+            ]
+          },
+          "registered_numeric_token_presence": {
+            "passed": false,
+            "required": [
+              "60",
+              "70 percent"
+            ],
+            "missing": [
+              "70 percent"
+            ]
+          },
+          "registered_absence_phrase_policy": {
+            "passed": null,
+            "required": [],
+            "forbidden_hits": []
+          },
+          "semantic_accuracy_state": "unverified"
+        }
+      },
+      "localization": "deterministic_failure_persists_with_registered_oracle_context"
+    }
+  ],
+  "limitations": [
+    "The registered development labels have no domain approval.",
+    "The probe checks literal citation, number, and absence-policy tokens, not semantic accuracy or human usefulness.",
+    "Supplying the registered passage changes context only; it does not prove why the normal system failed.",
+    "The Citrix absence case scans all 2,401 admitted nodes in both registered files against three disclosed direct-disclosure patterns.",
+    "The patterns were written after inspecting the development corpus and do not prove the absence of unregistered synonyms."
+  ]
+}

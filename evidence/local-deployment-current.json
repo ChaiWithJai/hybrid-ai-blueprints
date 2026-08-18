@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "verification_kind": "measured_local_model_deployment",
+  "measurement_state": "current_host_artifacts_and_process_measured",
+  "recorded_at": "2026-08-17T22:42:50.654234+00:00",
+  "passed": true,
+  "model": {
+    "identifier": "27b@q1_0",
+    "display_name": "Bonsai 27B",
+    "publisher": "lmstudio-community",
+    "architecture": "qwen35",
+    "quantization": {
+      "name": "Q1_0",
+      "bits": 1
+    },
+    "catalog_size_bytes": 4734598240,
+    "actual_artifact_size_bytes": 3803452480,
+    "catalog_size_matches_artifact": false
+  },
+  "artifacts": [
+    {
+      "role": "model_weights",
+      "logical_path": "lmstudio-community/27B/Bonsai-27B-Q1_0.gguf",
+      "size_bytes": 3803452480,
+      "sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0"
+    },
+    {
+      "role": "vision_projection",
+      "logical_path": "lmstudio-community/27B/Bonsai-27B-mmproj-BF16.gguf",
+      "size_bytes": 931145760,
+      "sha256": "acaf5b55d24ebd38c71fa220dc58c9a36776ec543b17728a4b322fc8d92f1de4"
+    }
+  ],
+  "runtime": {
+    "name": "LM Studio llama.cpp",
+    "version": "2.28.2",
+    "executable_bundle": "llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2",
+    "effective_config": {
+      "bind_host": "127.0.0.1",
+      "bind_port": "53395",
+      "fitted_context_length": "16384",
+      "parallel_slots": "4",
+      "key_cache_type": "f16",
+      "value_cache_type": "f16",
+      "flash_attention": "on",
+      "load_mode": "mmap+mlock"
+    }
+  },
+  "hardware": {
+    "machine_model": "Mac17,8",
+    "chip_type": "Apple M5 Pro",
+    "physical_memory": "48 GB"
+  },
+  "limitations": [
+    "This identifies the artifacts and active backend on one host at one time; it is not clean-machine reproduction.",
+    "The LM Studio catalog byte count differs from the filesystem byte count and is recorded rather than normalized away.",
+    "The process command is reduced to an allowlist; API keys and unknown arguments are not stored.",
+    "Artifact identity and runtime configuration do not prove model quality, power use, VRAM use, or network isolation."
+  ]
+}

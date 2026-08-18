@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "marketo_2016",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 1675,
+    "estimated_tokens": 169818,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 32
+  },
+  "source": {
+    "accession": "0001047469-16-014075",
+    "bytes": 1406012,
+    "cik": "0001490660",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1490660/000104746916014075/0001047469-16-014075-index.htm",
+    "path": ".runtime/candidate-deal-sources/marketo_2016/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1490660/000104746916014075/a2229056zdefm14a.htm",
+    "sha256": "fb6796a40c872d4f6191f2ce6b83d2223607d03681a34e4cbdb343139084b8cb"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

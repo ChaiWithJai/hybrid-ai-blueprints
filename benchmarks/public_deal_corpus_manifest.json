@@ -1,0 +1,69 @@
+{
+  "name": "Prism Vault public deal dossier corpus",
+  "version": 2,
+  "version_note": "Microsoft/Activision is isolated in its own room directory; v1 placed the PDF at the corpus root and allowed cross-deal retrieval.",
+  "retrieval_policy": "Use the official publisher when available. An EDGAR mirror may be used only to recover the exact public filing when sec.gov blocks automated retrieval.",
+  "documents": [
+    {
+      "id": "anaplan_defm14a_2022_05_02",
+      "room": "anaplan",
+      "filename": "01_anaplan_defm14a.htm",
+      "path": ".runtime/public-deal-corpus/anaplan/01_anaplan_defm14a.htm",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "canonical_url": "https://www.sec.gov/Archives/edgar/data/1540755/000119312522137023/d309545ddefm14a.htm",
+      "retrieval_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1540755/000119312522137023/d309545ddefm14a.htm",
+        "https://app.boardroomalpha.com/sec_feed/2022/QTR2/0001193125-22-137023/d309545ddefm14a.htm"
+      ],
+      "sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+      "bytes": 1590493,
+      "source_type": "html"
+    },
+    {
+      "id": "citrix_defm14a_2022_03_16",
+      "room": "citrix",
+      "filename": "01_citrix_defm14a.htm",
+      "path": ".runtime/public-deal-corpus/citrix/01_citrix_defm14a.htm",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "canonical_url": "https://www.sec.gov/Archives/edgar/data/877890/000119312522077283/d219122ddefm14a.htm",
+      "retrieval_urls": [
+        "https://www.sec.gov/Archives/edgar/data/877890/000119312522077283/d219122ddefm14a.htm",
+        "https://app.boardroomalpha.com/sec_feed/2022/QTR1/0001193125-22-077283/d219122ddefm14a.htm"
+      ],
+      "sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+      "bytes": 1834175,
+      "source_type": "html"
+    },
+    {
+      "id": "citrix_defa14a_2022_04_13",
+      "room": "citrix",
+      "filename": "02_citrix_financing_supplement.htm",
+      "path": ".runtime/public-deal-corpus/citrix/02_citrix_financing_supplement.htm",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "canonical_url": "https://www.sec.gov/Archives/edgar/data/877890/000119312522104472/d342231ddefa14a.htm",
+      "retrieval_urls": [
+        "https://www.sec.gov/Archives/edgar/data/877890/000119312522104472/d342231ddefa14a.htm",
+        "https://app.boardroomalpha.com/sec_feed/2022/QTR2/0001193125-22-104472/d342231ddefa14a.htm"
+      ],
+      "sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+      "bytes": 82805,
+      "source_type": "html"
+    },
+    {
+      "id": "microsoft_activision_cma_final_report_2023_04_26",
+      "room": "microsoft_activision",
+      "filename": "microsoft_activision_cma_final_report.pdf",
+      "path": ".runtime/public-deal-rooms/microsoft_activision/microsoft_activision_cma_final_report.pdf",
+      "publisher": "UK Competition and Markets Authority",
+      "canonical_url": "https://assets.publishing.service.gov.uk/media/644939aa529eda000c3b0525/Microsoft_Activision_Final_Report_.pdf",
+      "retrieval_urls": [
+        "https://assets.publishing.service.gov.uk/media/644939aa529eda000c3b0525/Microsoft_Activision_Final_Report_.pdf"
+      ],
+      "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+      "bytes": 2880833,
+      "source_type": "pdf",
+      "declared_pages": 418,
+      "render_check_physical_pages": [1, 7, 8]
+    }
+  ]
+}

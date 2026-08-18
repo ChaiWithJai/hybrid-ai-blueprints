@@ -1,0 +1,74 @@
+{
+  "schema_version": 2,
+  "measurement_state": "cold_restart_reproduced",
+  "observed_at": "2026-08-17T18:46:27.462467-04:00",
+  "before": {
+    "application": "Bionic",
+    "pid": 47800,
+    "process_started_at": "2026-08-17T18:36:24-04:00",
+    "api_endpoint": "http://127.0.0.1:1234",
+    "model_identifier": "27b@q1_0",
+    "api_advertised_context_length": 262144,
+    "parallel_slots": 4
+  },
+  "stop_observation": {
+    "graceful_quit_requested": true,
+    "old_pid_exited": true,
+    "loopback_port_1234_closed": true
+  },
+  "restart_commands": [
+    "open -a /Applications/Bionic.app",
+    "$HOME/.lmstudio/bin/lms server start --port 1234 --bind 127.0.0.1",
+    "$HOME/.lmstudio/bin/lms unload 27b@q1_0",
+    "$HOME/.lmstudio/bin/lms load 27b@q1_0 --context-length 16384 --parallel 4 --identifier 27b@q1_0 --yes"
+  ],
+  "after": {
+    "application": "Bionic",
+    "pid": 49901,
+    "process_started_at": "2026-08-17T18:42:39-04:00",
+    "api_endpoint": "http://127.0.0.1:1234",
+    "model_process_pid": 49977,
+    "model_process_started_at": "2026-08-17T18:42:42-04:00",
+    "model_identifier": "27b@q1_0",
+    "model_artifact": "/Users/jaibhagat/.lmstudio/models/lmstudio-community/27B/Bonsai-27B-Q1_0.gguf",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+    "context_length_requested": 16384,
+    "backend_fit_context_length": 16384,
+    "api_advertised_context_length": 262144,
+    "request_context_admission": "loaded_model_tokenizer_with_runtime_margin",
+    "request_context_runtime_margin_tokens": 32,
+    "request_reserved_output_tokens": 4096,
+    "parallel_slots": 4
+  },
+  "verification_artifact": "evidence/bonsai-local-product-verification-cold-restart.json",
+  "verification_artifact_sha256": "d6ff5ed26b6bbead49b1ab724d0664f3b91f51aac49f8ec7e4fa423712010c3e",
+  "benchmark_dataset_sha256": "95a31ad2e745a2ac44117388b3a346b36f238984dac597d8795c8be97301e93a",
+  "dependent_evidence": {
+    "local_deployment": {
+      "path": "evidence/local-deployment-current.json",
+      "sha256": "ac5d02bc685ff8c5bb95b2387678c2efb60dc6265c2c06b51a57fbc70fc225f1"
+    },
+    "live_inference_concurrency": {
+      "path": "evidence/live-inference-concurrency-v1.json",
+      "sha256": "6f0a274043596daf8b32e4573dbae842cdefd8930e678539f90c62df07bcaf27"
+    },
+    "process_network_observation": {
+      "path": "evidence/process-network-observation-v1.json",
+      "sha256": "e10c1239d25728156a3ef8c3fd23ac2aa2d1ba169ee3c98b3a916d6688c0ee88"
+    },
+    "browser_surface": {
+      "path": "evidence/browser-first-pass-cold-restart.json",
+      "sha256": "fffcb5d1f4c3568bef46fccc9d1a7cda152c07c4d454ceaa2bb0d11c6612a76f"
+    }
+  },
+  "limitations": [
+    "This proves one source-bound restart and repeat run on the recorded workstation, not clean-machine portability.",
+    "The API advertises a 262,144 token model maximum. Prism admits requests against the 16,384 token fitted context with a 32 token runtime margin and a 4,096 token output reserve. This run does not prove a 262,144 token workload.",
+    "No VRAM, power, energy, egress, or hardened-isolation claim was measured.",
+    "The four benchmark cases are synthetic engineering regressions without deal-domain approval.",
+    "Filename attribution coverage is not semantic grounding."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "verification_kind": "replayable_output_review_browser_check",
+  "recorded_at": "2026-08-16T08:58:49.214Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "packet": {
+    "packet_sha256": "70ff504594fa99a05a453c325782792ece7a11c73e3635304b5da4f2e166a683",
+    "rubric_sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5",
+    "case_count": 5,
+    "blinded_to_model": true,
+    "model_identity_included": false,
+    "reviewer_roster_ready": false,
+    "unsigned_export_ready": false
+  },
+  "observed_calibration": {
+    "reviewer_roster_authority_state": "unconfigured",
+    "evaluator_available": true,
+    "registered_case_count": 0,
+    "registered_deal_count": 0,
+    "required_case_count": 20,
+    "required_deal_count": 5,
+    "qualified_output_reviewer_count": 0,
+    "principal_output_reviewer_count": 0,
+    "evidence_state": "not_recorded",
+    "calibration_passed": false,
+    "errors": []
+  },
+  "assertions": [
+    {
+      "name": "blinded_identity_state",
+      "passed": true
+    },
+    {
+      "name": "packet_case_count",
+      "passed": true
+    },
+    {
+      "name": "development_boundary",
+      "passed": true
+    },
+    {
+      "name": "closed_roster_guard",
+      "passed": true
+    },
+    {
+      "name": "five_cases_rendered",
+      "passed": true
+    },
+    {
+      "name": "no_dimension_label_preselected",
+      "passed": true
+    },
+    {
+      "name": "no_usefulness_preselected",
+      "passed": true
+    },
+    {
+      "name": "no_deal_decision_preselected",
+      "passed": true
+    },
+    {
+      "name": "unsigned_export_closed",
+      "passed": true
+    },
+    {
+      "name": "api_is_blinded_and_calibration_blocked",
+      "passed": true
+    },
+    {
+      "name": "model_identifier_absent_from_page",
+      "passed": true
+    },
+    {
+      "name": "loading_state_cleared",
+      "passed": true
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-output-review-v1.png",
+    "bytes": 227018,
+    "sha256": "a62bc6a5a518d1720ba44b7f755a6f8ff1dbb0f4042fdf4b10bc0e5c0bcb6aa5"
+  },
+  "limitations": [
+    "This verifies a model blind unsigned review workspace, not reviewer identity or a signed submission.",
+    "The five cases are development data and do not satisfy the calibration sample requirement."
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-pricing-poc.v1.json",
+  "title": "Prism Vault paid proof of concept evidence",
+  "type": "object",
+  "required": [
+    "schema_version", "poc_id", "status", "recorded_at", "buyer",
+    "success_contract", "package_hypothesis", "deals", "price_research",
+    "next_step", "buyer_authorization", "buyer_attestation"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "poc_id": {"type": "string", "minLength": 1},
+    "status": {"const": "completed"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "buyer": {
+      "type": "object",
+      "required": ["buyer_id", "workflow_owner_role", "economic_buyer_role", "budget_authority_confirmed", "buyer_pubkey"],
+      "properties": {
+        "buyer_id": {"type": "string", "minLength": 1},
+        "workflow_owner_role": {"type": "string", "minLength": 1},
+        "economic_buyer_role": {"type": "string", "minLength": 1},
+        "budget_authority_confirmed": {"type": "boolean"},
+        "buyer_pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "success_contract": {
+      "type": "object",
+      "required": ["buyer_effort_committed", "authorized_source_access", "success_criteria_approved", "poc_paid", "paid_amount_usd"],
+      "properties": {
+        "buyer_effort_committed": {"type": "boolean"},
+        "authorized_source_access": {"type": "boolean"},
+        "success_criteria_approved": {"type": "boolean"},
+        "poc_paid": {"type": "boolean"},
+        "paid_amount_usd": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "package_hypothesis": {
+      "type": "object",
+      "required": ["value_unit", "deployment", "included_review_allowance", "collaboration_included", "policy_controls_included", "deployment_support_included"],
+      "properties": {
+        "value_unit": {"const": "accepted_first_pass_review_per_deal_room"},
+        "deployment": {"enum": ["customer_controlled_local", "customer_approved_hybrid"]},
+        "included_review_allowance": {"type": "integer", "minimum": 1},
+        "collaboration_included": {"type": "boolean"},
+        "policy_controls_included": {"type": "boolean"},
+        "deployment_support_included": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "deals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["deal_id", "experiment_role", "closed_historical", "private_folder", "source_snapshot_sha256", "historical_review_minutes", "prism_review_minutes", "useful_starting_point", "accepted_review", "critical_corrections"],
+        "properties": {
+          "deal_id": {"type": "string", "minLength": 1},
+          "experiment_role": {"enum": ["setup_and_correction", "transfer_without_case_specific_change"]},
+          "closed_historical": {"type": "boolean"},
+          "private_folder": {"type": "boolean"},
+          "source_snapshot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "historical_review_minutes": {"type": "number", "exclusiveMinimum": 0},
+          "prism_review_minutes": {"type": "number", "minimum": 0},
+          "useful_starting_point": {"type": "boolean"},
+          "accepted_review": {"type": "boolean"},
+          "critical_corrections": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "price_research": {
+      "type": "object",
+      "required": ["asked_after_use", "currency", "value_unit", "acceptable_price", "expensive_price", "prohibitively_expensive_price"],
+      "properties": {
+        "asked_after_use": {"type": "boolean"},
+        "currency": {"const": "USD"},
+        "value_unit": {"const": "accepted_first_pass_review_per_deal_room"},
+        "acceptable_price": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "expensive_price": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "prohibitively_expensive_price": {"type": ["number", "null"], "exclusiveMinimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "next_step": {
+      "type": "object",
+      "required": ["decision", "paid_amount_usd", "declined_reason"],
+      "properties": {
+        "decision": {"enum": ["agreed_paid_next_step", "declined"]},
+        "paid_amount_usd": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "declined_reason": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "buyer_authorization": {
+      "type": "object",
+      "required": ["channel_id", "event"],
+      "properties": {
+        "channel_id": {"type": "string", "minLength": 1},
+        "event": {
+          "type": "object",
+          "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+          "properties": {
+            "id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "created_at": {"type": "integer", "minimum": 1},
+            "kind": {"type": "integer"},
+            "tags": {"type": "array"},
+            "content": {"type": "string"},
+            "sig": {"type": "string", "pattern": "^[a-f0-9]{128}$"}
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "buyer_attestation": {
+      "type": "object",
+      "required": ["channel_id", "event"],
+      "properties": {
+        "channel_id": {"type": "string", "minLength": 1},
+        "event": {
+          "type": "object",
+          "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+          "properties": {
+            "id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "created_at": {"type": "integer", "minimum": 1},
+            "kind": {"type": "integer"},
+            "tags": {"type": "array"},
+            "content": {"type": "string"},
+            "sig": {"type": "string", "pattern": "^[a-f0-9]{128}$"}
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

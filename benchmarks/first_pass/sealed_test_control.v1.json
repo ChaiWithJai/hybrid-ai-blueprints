@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "prism_vault_first_pass_underwriting",
+  "benchmark_version": "2.0.0",
+  "state": "not_authorized",
+  "public_manifest": {
+    "path": "benchmarks/first_pass/sealed_test_manifest.v1.json",
+    "sha256": "34f879575773804e07993b30eb996e85dfe1faf0281ad5f575af3032571b54fc"
+  },
+  "calibration_result": null,
+  "frozen_system_verification": null,
+  "audit_receipt_path": "evidence/first-pass-sealed-test-contact-v1.json"
+}

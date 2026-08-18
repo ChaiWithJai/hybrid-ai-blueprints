@@ -1,0 +1,260 @@
+{
+  "assertions": [
+    {
+      "name": "raw_event_restored",
+      "passed": true
+    },
+    {
+      "name": "agent_signature_verified",
+      "passed": true
+    },
+    {
+      "name": "verified_message_matches_raw_event",
+      "passed": true
+    },
+    {
+      "name": "provenance_marker_present",
+      "passed": true
+    },
+    {
+      "name": "trace_restored",
+      "passed": true
+    },
+    {
+      "name": "signed_response_matches_trace",
+      "passed": true
+    },
+    {
+      "name": "event_trace_binding_matches",
+      "passed": true
+    },
+    {
+      "name": "marker_trace_metadata_match",
+      "passed": true
+    },
+    {
+      "name": "current_provenance_recomputed",
+      "passed": true
+    },
+    {
+      "name": "current_complete_folder_snapshot_recomputed",
+      "passed": true
+    },
+    {
+      "name": "public_integrity_visible",
+      "passed": true
+    },
+    {
+      "name": "not_accuracy_or_buyer_evidence",
+      "passed": true
+    }
+  ],
+  "canonical_path": "/rooms/local_c25b83f3e1e2/discussion?event=b2ad672a71b494437a3e756875bfcc50d70fa7129a10729f61b52ed144aed2cc",
+  "event": {
+    "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_044ec4638887 source_class=public_filing_corpus provenance=9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456 source_snapshot=a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899 -->\n- **Per-share consideration:** Upon completion of the Merger, you will be entitled to receive the Merger Consideration of $77.50 in cash, without interest, subject to any required tax withholding, for each share of Zendesk common stock that you own (other than any Unconverted Shares) immediately prior to the Effective Time, unless you have properly and validly exercised and do not withdraw your appraisal rights in accordance with and complied with Section 262 of the DGCL. [01_defm14a.htm#html:table:0040]\n- **Stockholder approval:** (a) The Company Stockholder Approval Shall have been obtained. [01_defm14a.htm#html:block:01451]\n- **Regulatory approval:** (c) (i) The waiting period applicable to the consummation of the Merger under the HSR Act shall have expired or been terminated, (ii) all required Consents and expirations or terminations of waiting periods (as applicable) under each Regulatory Law specifically set forth on Section 6.1(c) of the Company Disclosure Letter shall have been obtained or shall have occurred (as applicable) and (iii) the CFIUS Approval shall have been obtained. [01_defm14a.htm#html:block:01453]\n- **Financing condition:** The obligation of Parent and Merger Sub to consummate the Merger is not subject to any financing condition. [01_defm14a.htm#html:block:00122]",
+    "created_at": 1786860997,
+    "id": "b2ad672a71b494437a3e756875bfcc50d70fa7129a10729f61b52ed144aed2cc",
+    "kind": 9,
+    "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+    "sig": "7b3b284d8341c6d0b7094bcd1cb6d4bbfa8c0d83bed5f2ce5a6a2bca61008b5337a168d9435eb3c733e549806a869abc17241c49f9da3b045a361e366a83dbb1",
+    "tags": [
+      [
+        "h",
+        "ef611df4-6d68-4c22-99bb-e2f3521374ad"
+      ]
+    ]
+  },
+  "event_id": "b2ad672a71b494437a3e756875bfcc50d70fa7129a10729f61b52ed144aed2cc",
+  "limitations": [
+    "This proves a signed local publication against an unchanged hash-verified public SEC folder.",
+    "It is a structural provenance and durability check, not domain accuracy, private-customer, buyer, or pricing evidence.",
+    "Buzz and the trace ledger are on the same host and are not independent external trust domains."
+  ],
+  "passed": true,
+  "public_integrity": {
+    "errors": [],
+    "passed": true,
+    "registry_paths": [
+      "benchmarks/first_pass/candidate_companion_sources.v1.json",
+      "benchmarks/first_pass/candidate_deal_sources.v1.json"
+    ],
+    "snapshot_sha256": "c87f0ef7d7a9b254e6d9dee2e958c345cd5abea7583835c7eb3edf39be6c0880",
+    "source_count": 2
+  },
+  "recorded_at_unix": 1786862393.8755589,
+  "room": "local_c25b83f3e1e2",
+  "schema_version": 1,
+  "source_classification": "public_filing_corpus",
+  "source_folder": ".runtime/candidate-deal-sources/zendesk_2022",
+  "source_provenance_sha256": "9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456",
+  "source_snapshot_sha256": "a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899",
+  "trace": {
+    "completion_tokens": 332,
+    "energy_per_token_mwh": null,
+    "evaluations": [
+      {
+        "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+        "metadata": {
+          "guard_version": "deal_room_chat_guard_v1",
+          "part_citations": {
+            "consideration": [
+              "[01_defm14a.htm#html:table:0040]"
+            ],
+            "financing_condition": [
+              "[01_defm14a.htm#html:block:00122]"
+            ],
+            "regulatory_approval": [
+              "[01_defm14a.htm#html:block:01453]"
+            ],
+            "stockholder_approval": [
+              "[01_defm14a.htm#html:block:01451]"
+            ]
+          },
+          "requested_parts": [
+            "consideration",
+            "stockholder_approval",
+            "regulatory_approval",
+            "financing_condition"
+          ]
+        },
+        "name": "deal_room_chat_publication_guard",
+        "passed": true,
+        "score": 1.0,
+        "threshold": 1.0
+      },
+      {
+        "explanation": "Unverified until a domain reviewer checks the answer.",
+        "metadata": {
+          "measurement_state": "awaiting_domain_review"
+        },
+        "name": "human_accuracy_review",
+        "passed": false,
+        "score": 0.0,
+        "threshold": 1.0
+      }
+    ],
+    "metadata": {
+      "answer_event_id": "b2ad672a71b494437a3e756875bfcc50d70fa7129a10729f61b52ed144aed2cc",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "guard_version": "deal_room_chat_guard_v1",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "inference_attempts": 1,
+      "part_citations": {
+        "consideration": [
+          "[01_defm14a.htm#html:table:0040]"
+        ],
+        "financing_condition": [
+          "[01_defm14a.htm#html:block:00122]"
+        ],
+        "regulatory_approval": [
+          "[01_defm14a.htm#html:block:01453]"
+        ],
+        "stockholder_approval": [
+          "[01_defm14a.htm#html:block:01451]"
+        ]
+      },
+      "previous_response_id_used": null,
+      "product_job": "deal_room_chat",
+      "prompt_suffix_applied": true,
+      "protocol": "lmstudio_native_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "b696b706cc2a9659cd0e83f00461448e35603707390165d42d3d7c3f2f40d4ab",
+      "reasoning_output_tokens": 0,
+      "request_id": null,
+      "requested_parts": [
+        "consideration",
+        "stockholder_approval",
+        "regulatory_approval",
+        "financing_condition"
+      ],
+      "result_state": "guard_passed_and_signed_to_buzz",
+      "retrieved_anchors": [
+        {
+          "citation": "[01_defm14a.htm#html:table:0040]",
+          "requested_parts": [
+            "consideration"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:01451]",
+          "requested_parts": [
+            "stockholder_approval"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:01453]",
+          "requested_parts": [
+            "regulatory_approval"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:00122]",
+          "requested_parts": [
+            "financing_condition"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:table:0010]",
+          "requested_parts": [],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[02_financial_10q.htm#html:block:00500]",
+          "requested_parts": [],
+          "source_sha256": "b59857229ce0dd6753f6ef8abfa113aed87b8da13661dd89e648cec2de4ef61e"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:table:0011]",
+          "requested_parts": [],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[02_financial_10q.htm#html:block:00278]",
+          "requested_parts": [],
+          "source_sha256": "b59857229ce0dd6753f6ef8abfa113aed87b8da13661dd89e648cec2de4ef61e"
+        }
+      ],
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "c87f0ef7d7a9b254e6d9dee2e958c345cd5abea7583835c7eb3edf39be6c0880",
+        "public_source": true,
+        "public_source_count": 2,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456",
+      "source_snapshot_sha256": "a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899",
+      "source_snapshot_state": "stable",
+      "time_to_first_token_seconds": 21.717074,
+      "tokens_per_second": 34.32115900486419
+    },
+    "model_name": "27b@q1_0",
+    "prompt_tokens": 2885,
+    "query": "Provenance-bound live retest: What is the final per-share merger consideration and what material closing conditions are disclosed, including stockholder and regulatory approvals and any financing condition?",
+    "response": "- **Per-share consideration:** Upon completion of the Merger, you will be entitled to receive the Merger Consideration of $77.50 in cash, without interest, subject to any required tax withholding, for each share of Zendesk common stock that you own (other than any Unconverted Shares) immediately prior to the Effective Time, unless you have properly and validly exercised and do not withdraw your appraisal rights in accordance with and complied with Section 262 of the DGCL. [01_defm14a.htm#html:table:0040]\n- **Stockholder approval:** (a) The Company Stockholder Approval Shall have been obtained. [01_defm14a.htm#html:block:01451]\n- **Regulatory approval:** (c) (i) The waiting period applicable to the consummation of the Merger under the HSR Act shall have expired or been terminated, (ii) all required Consents and expirations or terminations of waiting periods (as applicable) under each Regulatory Law specifically set forth on Section 6.1(c) of the Company Disclosure Letter shall have been obtained or shall have occurred (as applicable) and (iii) the CFIUS Approval shall have been obtained. [01_defm14a.htm#html:block:01453]\n- **Financing condition:** The obligation of Parent and Merger Sub to consummate the Merger is not subject to any financing condition. [01_defm14a.htm#html:block:00122]",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "session_id": "local_c25b83f3e1e2",
+    "spans": [],
+    "timestamp": 1786860964.349165,
+    "total_energy_mwh": null,
+    "total_latency_ms": 31537.45287505444,
+    "total_tokens": 3217,
+    "trace_id": "trc_044ec4638887",
+    "vram_peak_gb": null
+  },
+  "trace_id": "trc_044ec4638887",
+  "verification_kind": "provenance_bound_publication"
+}

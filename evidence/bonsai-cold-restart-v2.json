@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "measurement_state": "cold_restart_reproduced",
+  "observed_at": "2026-08-14T19:29:11-04:00",
+  "before": {
+    "application": "Bionic",
+    "pid": 23858,
+    "process_started_at": "2026-08-11T14:51:18-04:00",
+    "api_endpoint": "http://127.0.0.1:1234",
+    "model_identifier": "27b@q1_0"
+  },
+  "stop_observation": {
+    "graceful_quit_requested": true,
+    "old_pid_exited": true,
+    "loopback_port_1234_closed": true
+  },
+  "restart_commands": [
+    "open -a /Applications/Bionic.app",
+    "$HOME/.lmstudio/bin/lms server start --port 1234 --bind 127.0.0.1",
+    "$HOME/.lmstudio/bin/lms load 27b@q1_0 --context-length 16384 --parallel 4 --identifier 27b@q1_0 --yes"
+  ],
+  "after": {
+    "application": "Bionic",
+    "pid": 64322,
+    "process_started_at": "2026-08-14T19:26:29-04:00",
+    "api_endpoint": "http://127.0.0.1:1234",
+    "model_process_pid": 64396,
+    "model_identifier": "27b@q1_0",
+    "model_artifact": "/Users/jaibhagat/.lmstudio/models/lmstudio-community/27B/Bonsai-27B-Q1_0.gguf",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "context_length_requested": 16384,
+    "parallel_slots": 4
+  },
+  "verification_artifact": "evidence/bonsai-local-product-verification-cold-restart.json",
+  "verification_artifact_sha256": "bac9a367f44c0c7d5c62bae021610eca2f3dc2edf697c135840c8270dacf9166",
+  "benchmark_dataset_sha256": "f9d286b9b2876d6d3fb81833c2ba61d2e3d0e50908a1e1f5b24b75d39e2119b4",
+  "limitations": [
+    "This proves one cold restart and repeat run on the recorded workstation, not clean-machine portability.",
+    "The serving process used a fitted 16,384-token context for this workload; no 100K-to-262K context claim was tested.",
+    "No VRAM, power, energy, egress, or hardened-isolation claim was measured."
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "name": "Prism Vault deal-room reliability baseline",
+  "version": 3,
+  "cases": [
+    {
+      "id": "horizon_ebitda_stress",
+      "deal_room": "sample_ma_acquisition",
+      "prompt": "Run sensitivity stress-test modeling a 10% and 20% drop in EBITDA.",
+      "expected_terms": ["SENSITIVITY ANALYSIS RESULTS", "Leverage=3.77x", "Coverage=3.11x", "Breach: True"],
+      "structured_expectations": {
+        "required_concepts": [
+          {"id": "project", "any_of": ["novatech"]},
+          {"id": "stress_analysis", "any_of": ["stress", "sensitivity"]},
+          {"id": "leverage", "any_of": ["leverage"]},
+          {"id": "coverage", "any_of": ["coverage"]},
+          {"id": "breach_status", "any_of": ["breach", "fail", "non-compliant", "noncompliant"]}
+        ],
+        "numeric_values": [
+          {"id": "ten_percent_leverage", "value": 3.77, "tolerance": 0.01},
+          {"id": "twenty_percent_leverage", "value": 4.24, "tolerance": 0.01},
+          {"id": "twenty_percent_coverage", "value": 3.11, "tolerance": 0.01}
+        ]
+      },
+      "required_sources": ["01_Senior_Credit_Agreement.md", "02_Consolidated_Financial_Ledger_2025_2026.csv"],
+      "forbidden_terms": ["Section 18.04", "Lehman Brothers", "Covenant Breach", "Status: BREACH"]
+    },
+    {
+      "id": "titan_lbo_sweep",
+      "deal_room": "project_titan_lbo",
+      "prompt": "Run the LBO debt schedule and annual ECF sweep prepayments.",
+      "expected_terms": ["PROJECT TITAN", "Reported ECF=$29.8M", "Ending TLB=$438.8M", "MODEL_POLICY_MISMATCH"],
+      "structured_expectations": {
+        "required_concepts": [
+          {"id": "project", "any_of": ["titan"]},
+          {"id": "ecf", "any_of": ["ecf", "excess cash flow"]},
+          {"id": "term_loan", "any_of": ["tlb", "term loan"]},
+          {"id": "policy_mismatch", "any_of": ["mismatch", "inconsistency", "discrepancy"]}
+        ],
+        "numeric_values": [
+          {"id": "reported_ecf", "value": 29.8, "tolerance": 0.01},
+          {"id": "ending_tlb", "value": 438.8, "tolerance": 0.01}
+        ],
+        "required_patterns": [
+          {"id": "project_identifier", "regex": "PROJECT\\s+TITAN"},
+          {"id": "year1_contract_sweep", "regex": "(?:2026E_LBO_Y1|Year 2026)(?:(?!2027E_LBO_Y2|Year 2027)[\\s\\S]){0,500}?(?:contract_sweep_percent[\\\"']?\\s*[:=]\\s*)?25(?:\\.0)?(?:\\s*%|\\s*[,}]|[\\s\\S]{0,160}?MODEL_POLICY_MISMATCH)"},
+          {"id": "year2_contract_sweep", "regex": "(?:2027E_LBO_Y2|Year 2027)(?:(?!2028E_LBO_Y3|Year 2028)[\\s\\S]){0,500}?(?:contract_sweep_percent[\\\"']?\\s*[:=]\\s*)?0(?:\\.0)?(?:\\s*%|\\s*[,}]|[\\s\\S]{0,160}?MODEL_POLICY_MISMATCH)"}
+        ]
+      },
+      "required_sources": ["01_Confidential_Information_Memorandum.md", "02_LBO_Debt_Financing_Credit_Agreement.md", "03_Three_Statement_Financial_Model_2024_2028.csv"],
+      "forbidden_terms": ["Section 18.04", "Lehman Brothers"]
+    },
+    {
+      "id": "aeroflux_accretion",
+      "deal_room": "project_aeroflux_crossborder_ma",
+      "prompt": "Calculate AeroFlux transaction accretion and pro-forma EPS synergies.",
+      "expected_terms": ["AEROFLUX", "Pro-Forma EPS        : $3.31 USD", "+18.8% ACCRETIVE", "Source Cost Synergy  : $42.5M"],
+      "structured_expectations": {
+        "required_concepts": [
+          {"id": "project", "any_of": ["aeroflux"]},
+          {"id": "eps", "any_of": ["eps", "earnings per share"]},
+          {"id": "accretion", "any_of": ["accretive", "accretion"]},
+          {"id": "synergy", "any_of": ["synergy", "synergies"]}
+        ],
+        "numeric_values": [
+          {"id": "pro_forma_eps", "value": 3.31, "tolerance": 0.01},
+          {"id": "accretion_percent", "value": 18.8, "tolerance": 0.05},
+          {"id": "cost_synergy", "value": 42.5, "tolerance": 0.01},
+          {"id": "revenue_synergy", "value": 17.3, "tolerance": 0.01}
+        ],
+        "required_patterns": [
+          {"id": "buyer_eps_labeled", "regex": "Buyer(?: Standalone)? EPS(?:\\s*\\((?:USD per share|\\$/share)\\))?\\s*:?\\s*\\$?2\\.79[0-9]{0,2}(?:\\s*(?:USD|per share))?\\s*$"},
+          {"id": "pro_forma_eps_labeled", "regex": "Pro[ -]?Forma EPS(?:\\s*\\((?:USD per share|\\$/share)\\))?\\s*:?\\s*\\$?3\\.31[0-9]{0,2}(?:\\s*(?:USD|per share))?\\s*$"},
+          {"id": "cost_synergy_labeled", "regex": "(?:Source )?Cost Synerg(?:y|ies)(?:\\s*\\(Adjusted EBITDA\\))?\\s*:?\\s*\\$?42\\.5(?:0)?M(?:\\s*USD)?\\s*$"},
+          {"id": "revenue_synergy_labeled", "regex": "(?:Source )?Revenue Synerg(?:y|ies)\\s*:?\\s*\\$?17\\.3(?:0)?M(?:\\s*USD)?\\s*$"}
+        ]
+      },
+      "required_sources": ["01_Stock_Purchase_Agreement.md", "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"],
+      "forbidden_terms": ["Section 18.04", "Lehman Brothers", "CFIUS", "Antitrust", "Policy Conclusion", "minimum 1.0%", "minimum 1%"],
+      "forbidden_patterns": [
+        {"id": "eps_labeled_as_millions", "regex": "EPS\\s*:?\\s*\\$?[0-9]+(?:\\.[0-9]+)?M\\b"}
+      ]
+    },
+    {
+      "id": "biovanguard_qoe",
+      "deal_room": "project_biovanguard_carveout",
+      "prompt": "Build the BioVanguard carve-out QoE and standalone EBITDA bridge.",
+      "expected_terms": ["BIOVANGUARD", "Pro-Forma Standalone Clean EBITDA      : $70.2M", "Entry Valuation Multiple at $620M EV   : 8.83x"],
+      "structured_expectations": {
+        "required_concepts": [
+          {"id": "project", "any_of": ["biovanguard"]},
+          {"id": "ebitda", "any_of": ["ebitda"]},
+          {"id": "valuation_multiple", "any_of": ["valuation multiple", "entry multiple", "ev/ebitda"]}
+        ],
+        "numeric_values": [
+          {"id": "clean_ebitda", "value": 70.2, "tolerance": 0.01},
+          {"id": "enterprise_value", "value": 620.0, "tolerance": 0.01},
+          {"id": "entry_multiple", "value": 8.83, "tolerance": 0.01}
+        ]
+      },
+      "required_sources": ["01_Transition_Services_Agreement_TSA.md", "02_Standalone_Adjusted_EBITDA_Bridge.csv"],
+      "forbidden_terms": ["Section 18.04", "Lehman Brothers", "Benchmark Multiple", "policy threshold", "acceptable policy", "Covenant/Policy Compliance", "Percentage Difference from Benchmark"]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "mimecast_2022",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2761,
+    "estimated_tokens": 195934,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 605
+  },
+  "source": {
+    "accession": "0001193125-22-031720",
+    "bytes": 1910068,
+    "cik": "0001644675",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1644675/000119312522031720/0001193125-22-031720-index.htm",
+    "path": ".runtime/candidate-deal-sources/mimecast_2022/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1644675/000119312522031720/d268336ddefm14a.htm",
+    "sha256": "71520049e5432fff550ce0f6b3856aa0d82b13edccf4770ad29326a7d72d17d6"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

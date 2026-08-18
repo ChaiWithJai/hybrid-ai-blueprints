@@ -1,0 +1,66 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 3,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786794363.403081,
+  "dataset_sha256": "ba29433d135bc257a19e89658b4b7274c49bd9dec68fdf82609de80a9cdfaeb8",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 0,
+  "pass_rate": 0.0,
+  "mean_accuracy": 0.7778,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 62678.86,
+  "cases": [
+    {
+      "case_id": "titan_lbo_sweep",
+      "passed": false,
+      "accuracy": 0.7778,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:ecf",
+        "concept:term_loan",
+        "concept:policy_mismatch",
+        "numeric:reported_ecf",
+        "numeric:ending_tlb",
+        "pattern:project_identifier"
+      ],
+      "missing_terms": [
+        "pattern:year1_contract_sweep",
+        "pattern:year2_contract_sweep"
+      ],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Confidential_Information_Memorandum.md",
+        "02_LBO_Debt_Financing_Credit_Agreement.md",
+        "03_Three_Statement_Financial_Model_2024_2028.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_5aa21f1ecae8",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 62678.86,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "Source Filenames Used: 01_Confidential_Information_Memorandum.md, 02_LBO_Debt_Financing_Credit_Agreement.md, 03_Three_Statement_Financial_Model_2024_2028.csv\nDeal Identifier: PROJECT TITAN\n--------------------------------------------------------------------------------\nPeriod          Reported ECF Sweep (M) Reported Ending TLB (M) Implied Sweep % Contract Sweep %  Policy Match Status\n--------------------------------------------------------------------------------\n2026E_LBO_Y1                    29.8                  861.2          49.92             25.0 MODEL_POLICY_MISMATCH\n2027E_LBO_Y2                    52.5                  799.7          49.95              0.0 MODEL_POLICY_MISMATCH\n2028E_LBO_Y3                    80.9                  709.8          49.97              0.0 MODEL_POLICY_MISMATCH\n2029E_LBO_Y4                   110.5                  590.3          50.00              0.0 MODEL_POLICY_MISMATCH\n2030E_LBO_Y5                   142.5                  438.8          50.00              0.0 MODEL_POLICY_MISMATCH",
+      "observed_generated_code": "import math, json, re\n\n# Source filenames used\nsource_filenames = [\"01_Confidential_Information_Memorandum.md\", \"02_LBO_Debt_Financing_Credit_Agreement.md\", \"03_Three_Statement_Financial_Model_2024_2028.csv\"]\ndeal_identifier = \"PROJECT TITAN\"\n\n# Direct numeric literals from evidence\nfirst_lien_net_leverage = [3.25, 2.38, 1.66, 1.07, 0.56]\nfree_cash_flow_pre_debt_service_usd_m = [68.7, 114.1, 170.9, 230.0, 294.0]\nhigh_tier_sweep_percent = 50.0\nhigh_tier_threshold = 4.0\nlow_tier_sweep_percent = 0.0\nmandatory_amortization_usd_m = [9.0, 9.0, 9.0, 9.0, 9.0]\nmid_tier_sweep_percent = 25.0\nmid_tier_threshold = 3.25\nperiods = [\"2026E_LBO_Y1\", \"2027E_LBO_Y2\", \"2028E_LBO_Y3\", \"2029E_LBO_Y4\", \"2030E_LBO_Y5\"]\nreported_ecf_sweep_usd_m = [29.8, 52.5, 80.9, 110.5, 142.5]\nreported_ending_tlb_usd_m = [861.2, 799.7, 709.8, 590.3, 438.8]\n\n# Contract tiers policy\ndef get_contract_sweep_percent(leverage):\n    if leverage > high_tier_threshold:\n        return high_tier_sweep_percent\n    elif leverage >= mid_tier_threshold:\n        return mid_tier_sweep_percent\n    else:\n        return low_tier_sweep_percent\n\n# Policy match status determination\ndef determine_policy_match_status(implied_pct, contract_pct):\n    if abs(implied_pct - contract_pct) < 0.5:\n        return \"PASS\"\n    else:\n        return \"MODEL_POLICY_MISMATCH\"\n\nprint(f\"Source Filenames Used: {', '.join(source_filenames)}\")\nprint(f\"Deal Identifier: {deal_identifier}\")\nprint(\"-\" * 80)\nprint(f\"{'Period':<15} {'Reported ECF Sweep (M)':>20} {'Reported Ending TLB (M)':>22} {'Implied Sweep %':>14} {'Contract Sweep %':>16} {'Policy Match Status':>20}\")\nprint(\"-\" * 80)\n\nfor i in range(len(periods)):\n    period = periods[i]\n    reported_sweep = reported_ecf_sweep_usd_m[i]\n    reported_tlb = reported_ending_tlb_usd_m[i]\n    \n    # Calculate implied sweep percent\n    fcf_before_debt_service = free_cash_flow_pre_debt_service_usd_m[i]\n    mandatory_amortization = mandatory_amortization_usd_m[i]\n    denominator = fcf_before_debt_service - mandatory_amortization\n    \n    if denominator > 0:\n        implied_sweep_pct = (reported_sweep / denominator) * 100.0\n    else:\n        implied_sweep_pct = 0.0\n        \n    # Calculate contract sweep percent based on leverage tier\n    leverage = first_lien_net_leverage[i]\n    contract_sweep_pct = get_contract_sweep_percent(leverage)\n    \n    # Determine policy match status\n    policy_match_status = determine_policy_match_status(implied_sweep_pct, contract_sweep_pct)\n    \n    print(f\"{period:<15} {reported_sweep:>20.1f} {reported_tlb:>22.1f} {implied_sweep_pct:>14.2f} {contract_sweep_pct:>16.1f} {policy_match_status:>20}\")",
+      "generation_attempts": 1,
+      "rejected_scope_violations": []
+    }
+  ]
+}

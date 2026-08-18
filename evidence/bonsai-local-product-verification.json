@@ -1,0 +1,264 @@
+{
+  "verification_kind": "evidence_based_product_check",
+  "runtime": "local",
+  "component_tests": {
+    "passed": true,
+    "tests_run": 31,
+    "tests_skipped": 0,
+    "required_reality_tests_present": true,
+    "missing_required_reality_tests": {}
+  },
+  "unsupported_claim_scan": {
+    "passed": true,
+    "violations": []
+  },
+  "frontend_contract": {
+    "passed": true,
+    "violations": [],
+    "javascript_syntax": "passed"
+  },
+  "cold_restart_evidence": {
+    "passed": true,
+    "record": "evidence/bonsai-cold-restart.json",
+    "verification_artifact": "evidence/bonsai-local-product-verification-cold-restart.json",
+    "before_pid": 23858,
+    "after_pid": 64322,
+    "errors": [],
+    "limitations": [
+      "This proves one cold restart and repeat run on the recorded workstation, not clean-machine portability.",
+      "The serving process used a fitted 16,384-token context for this workload; no 100K-to-262K context claim was tested.",
+      "No VRAM, power, energy, egress, or hardened-isolation claim was measured."
+    ]
+  },
+  "benchmark": {
+    "benchmark_name": "Prism Vault deal-room reliability baseline",
+    "benchmark_version": 2,
+    "runtime": "local",
+    "cloud_context_included": false,
+    "started_at": 1786751285.8847418,
+    "dataset_sha256": "f9d286b9b2876d6d3fb81833c2ba61d2e3d0e50908a1e1f5b24b75d39e2119b4",
+    "runtime_evidence": {
+      "provider_id": "local_bonsai",
+      "kind": "local",
+      "configured": true,
+      "model": "27b@q1_0",
+      "endpoint": "http://127.0.0.1:1234",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "hardware": "MacBook Pro M5 Pro 48GB",
+      "protocol": "lmstudio_native_chat"
+    },
+    "total_cases": 4,
+    "passed_cases": 4,
+    "pass_rate": 1.0,
+    "mean_accuracy": 1.0,
+    "mean_grounding": 1.0,
+    "mean_latency_ms": 16662.27,
+    "cases": [
+      {
+        "case_id": "horizon_ebitda_stress",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:stress_analysis",
+          "concept:leverage",
+          "concept:coverage",
+          "concept:breach_status",
+          "numeric:ten_percent_leverage",
+          "numeric:twenty_percent_leverage",
+          "numeric:twenty_percent_coverage"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Senior_Credit_Agreement.md",
+          "02_Consolidated_Financial_Ledger_2025_2026.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_5aee4ed00833",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 13784.76,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "DEAL: APEX INDUSTRIAL HOLDINGS LLC\nSOURCES USED: 01_Senior_Credit_Agreement.md, 02_Consolidated_Financial_Ledger_2025_2026.csv\n------------------------------------------------------------\n\nStress: 10% EBITDA Drop\n  Stressed Adjusted EBITDA: $22.41M\n  Leverage Ratio: 3.7706:1 (Cap: 3.5:1) -> FAIL\n  Interest Coverage: 3.5016:1 (Floor: 4.0:1) -> FAIL\n\nStress: 20% EBITDA Drop\n  Stressed Adjusted EBITDA: $19.92M\n  Leverage Ratio: 4.2420:1 (Cap: 3.5:1) -> FAIL\n  Interest Coverage: 3.1125:1 (Floor: 4.0:1) -> FAIL",
+        "observed_generated_code": "import math, json, re\n\n# Source filenames and deal identifier\nSOURCE_FILES = [\"01_Senior_Credit_Agreement.md\", \"02_Consolidated_Financial_Ledger_2025_2026.csv\"]\nDEAL_ID = \"APEX INDUSTRIAL HOLDINGS LLC\"\n\n# Parser-extracted typed inputs for Q2-2026 (latest actual period)\nadjusted_ebitda_usd_m = 24.9\ncash_interest_expense_usd_m = 6.4\ncoverage_floor = 4.0\nleverage_cap = 3.5\nnet_debt_usd_m = 84.5\n\n# Stress-test parameters\ndrops = [0.10, 0.20]\n\nprint(f\"DEAL: {DEAL_ID}\")\nprint(\"SOURCES USED:\", \", \".join(SOURCE_FILES))\nprint(\"-\" * 60)\n\nfor drop_pct in drops:\n    stressed_ebitda = adjusted_ebitda_usd_m * (1 - drop_pct)\n    leverage = net_debt_usd_m / stressed_ebitda\n    coverage = stressed_ebitda / cash_interest_expense_usd_m\n    \n    lev_status = \"PASS\" if leverage <= leverage_cap else \"FAIL\"\n    cov_status = \"PASS\" if coverage >= coverage_floor else \"FAIL\"\n    \n    print(f\"\\nStress: {drop_pct*100:.0f}% EBITDA Drop\")\n    print(f\"  Stressed Adjusted EBITDA: ${stressed_ebitda:.2f}M\")\n    print(f\"  Leverage Ratio: {leverage:.4f}:1 (Cap: {leverage_cap}:1) -> {lev_status}\")\n    print(f\"  Interest Coverage: {coverage:.4f}:1 (Floor: {coverage_floor}:1) -> {cov_status}\")"
+      },
+      {
+        "case_id": "titan_lbo_sweep",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:ecf",
+          "concept:term_loan",
+          "concept:policy_mismatch",
+          "numeric:reported_ecf",
+          "numeric:ending_tlb"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Confidential_Information_Memorandum.md",
+          "02_LBO_Debt_Financing_Credit_Agreement.md",
+          "03_Three_Statement_Financial_Model_2024_2028.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_ead6fe11cd5d",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 26592.86,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source Filenames: 01_Confidential_Information_Memorandum.md, 02_LBO_Debt_Financing_Credit_Agreement.md, 03_Three_Statement_Financial_Model_2024_2028.csv\nDeal Identifier: PROJECT TITAN: $2,400,000,000 SPONSOR-BACKED LBO OF CLOUDSCALE NETWORKS INC.\n[\n  {\n    \"period\": \"2026E_LBO_Y1\",\n    \"reported_ecf_sweep_usd_m\": 29.8,\n    \"reported_ending_tlb_usd_m\": 861.2,\n    \"implied_sweep_percent\": 49.92,\n    \"contract_sweep_percent\": 25.0,\n    \"policy_match_status\": \"MISMATCH\"\n  },\n  {\n    \"period\": \"2027E_LBO_Y2\",\n    \"reported_ecf_sweep_usd_m\": 52.5,\n    \"reported_ending_tlb_usd_m\": 799.7,\n    \"implied_sweep_percent\": 49.95,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MISMATCH\"\n  },\n  {\n    \"period\": \"2028E_LBO_Y3\",\n    \"reported_ecf_sweep_usd_m\": 80.9,\n    \"reported_ending_tlb_usd_m\": 709.8,\n    \"implied_sweep_percent\": 49.97,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MISMATCH\"\n  },\n  {\n    \"period\": \"2029E_LBO_Y4\",\n    \"reported_ecf_sweep_usd_m\": 110.5,\n    \"reported_ending_tlb_usd_m\": 590.3,\n    \"implied_sweep_percent\": 50.0,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MISMATCH\"\n  },\n  {\n    \"period\": \"2030E_LBO_Y5\",\n    \"reported_ecf_sweep_usd_m\": 142.5,\n    \"reported_ending_tlb_usd_m\": 438.8,\n    \"implied_sweep_percent\": 50.0,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MISMATCH\"\n  }\n]",
+        "observed_generated_code": "import math, json, re\n\n# Source filenames used\nsource_filenames = [\"01_Confidential_Information_Memorandum.md\", \"02_LBO_Debt_Financing_Credit_Agreement.md\", \"03_Three_Statement_Financial_Model_2024_2028.csv\"]\ndeal_id = \"PROJECT TITAN: $2,400,000,000 SPONSOR-BACKED LBO OF CLOUDSCALE NETWORKS INC.\"\n\n# Direct numeric literals from evidence\nfirst_lien_net_leverage = [3.25, 2.38, 1.66, 1.07, 0.56]\nfree_cash_flow_pre_debt_service_usd_m = [68.7, 114.1, 170.9, 230.0, 294.0]\nhigh_tier_threshold = 4.0\nmandatory_amortization_usd_m = [9.0, 9.0, 9.0, 9.0, 9.0]\nmid_tier_threshold = 3.25\nperiods = [\"2026E_LBO_Y1\", \"2027E_LBO_Y2\", \"2028E_LBO_Y3\", \"2029E_LBO_Y4\", \"2030E_LBO_Y5\"]\nreported_ecf_sweep_usd_m = [29.8, 52.5, 80.9, 110.5, 142.5]\nreported_ending_tlb_usd_m = [861.2, 799.7, 709.8, 590.3, 438.8]\n\n# Policy thresholds from credit agreement\ntier_policy = {\n    \"high\": {\"threshold\": high_tier_threshold, \"sweep_pct\": 50.0},\n    \"mid\": {\"threshold\": mid_tier_threshold, \"sweep_pct\": 25.0},\n    \"low\": {\"threshold\": 3.25, \"sweep_pct\": 0.0}\n}\n\nresults = []\nfor i in range(len(periods)):\n    fcf_net = free_cash_flow_pre_debt_service_usd_m[i] - mandatory_amortization_usd_m[i]\n    if fcf_net <= 0:\n        implied_sweep_pct = 0.0\n    else:\n        implied_sweep_pct = (reported_ecf_sweep_usd_m[i] / fcf_net) * 100\n\n    # Determine contract sweep percent based on leverage tier\n    fl = first_lien_net_leverage[i]\n    if fl > high_tier_threshold:\n        contract_sweep_pct = tier_policy[\"high\"][\"sweep_pct\"]\n    elif fl >= mid_tier_threshold:\n        contract_sweep_pct = tier_policy[\"mid\"][\"sweep_pct\"]\n    else:\n        contract_sweep_pct = tier_policy[\"low\"][\"sweep_pct\"]\n\n    # Compare implied vs contract sweep percent\n    if abs(implied_sweep_pct - contract_sweep_pct) < 0.5:\n        policy_match_status = \"PASS\"\n    else:\n        policy_match_status = \"MISMATCH\"\n\n    results.append({\n        \"period\": periods[i],\n        \"reported_ecf_sweep_usd_m\": reported_ecf_sweep_usd_m[i],\n        \"reported_ending_tlb_usd_m\": reported_ending_tlb_usd_m[i],\n        \"implied_sweep_percent\": round(implied_sweep_pct, 2),\n        \"contract_sweep_percent\": contract_sweep_pct,\n        \"policy_match_status\": policy_match_status\n    })\n\nprint(f\"Source Filenames: {', '.join(source_filenames)}\")\nprint(f\"Deal Identifier: {deal_id}\")\nprint(json.dumps(results, indent=2))"
+      },
+      {
+        "case_id": "aeroflux_accretion",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:eps",
+          "concept:accretion",
+          "concept:synergy",
+          "numeric:pro_forma_eps",
+          "numeric:accretion_percent",
+          "numeric:cost_synergy"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Stock_Purchase_Agreement.md",
+          "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_e0b559c4590e",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 15093.0,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source Filenames: ['01_Stock_Purchase_Agreement.md', '02_Consolidated_MultiCurrency_Financials_EUR_USD.csv']\nDeal/Project Identifier: AeroFlux\nBuyer Standalone EPS: $2.79\nPro-Forma EPS: $3.31\nEPS Accretion Percent: +18.8%\nCost Synergies (USD M): 42.5\nRevenue Synergies (USD M): 17.3\nAntitrust Threshold Check: 25.0M EUR (PASS_LEVERAGE_SAFE)\nCFIUS Clearance: Joint voluntary notice filed with the Committee on Foreign Investment in the United States regarding military drone navigation IP.",
+        "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used\nSOURCE_FILES = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\nDEAL_PROJECT_ID = \"AeroFlux\"\n\n# Direct numeric literals from evidence\nBUYER_DILUTED_SHARES_M = 120.0\nBUYER_NET_INCOME_USD_M = 334.9\nPROFORMA_DILUTED_SHARES_M = 126.8\nPROFORMA_NET_INCOME_USD_M = 420.3\nCOST_SYNERGIES_USD_M = 42.5\nREVENUE_SYNERGIES_USD_M = 17.3\n\n# Calculate buyer standalone EPS\nBUYER_STANDALONE_EPS = BUYER_NET_INCOME_USD_M / BUYER_DILUTED_SHARES_M\n\n# Calculate pro-forma EPS\nPROFORMA_EPS = PROFORMA_NET_INCOME_USD_M / PROFORMA_DILUTED_SHARES_M\n\n# Calculate EPS accretion percent\nEPS_ACCRETION_PCT = (PROFORMA_EPS / BUYER_STANDALONE_EPS - 1) * 100.0\n\n# Print results\nprint(f\"Source Filenames: {SOURCE_FILES}\")\nprint(f\"Deal/Project Identifier: {DEAL_PROJECT_ID}\")\nprint(f\"Buyer Standalone EPS: ${BUYER_STANDALONE_EPS:.2f}\")\nprint(f\"Pro-Forma EPS: ${PROFORMA_EPS:.2f}\")\nprint(f\"EPS Accretion Percent: +{EPS_ACCRETION_PCT:.1f}%\")\nprint(f\"Cost Synergies (USD M): {COST_SYNERGIES_USD_M}\")\nprint(f\"Revenue Synergies (USD M): {REVENUE_SYNERGIES_USD_M}\")\n\n# CFIUS and Antitrust compliance check\nantitrust_threshold = 25.0\ncfius_status = \"CFIUS Clearance: Joint voluntary notice filed with the Committee on Foreign Investment in the United States regarding military drone navigation IP.\"\nprint(f\"Antitrust Threshold Check: {antitrust_threshold}M EUR (PASS_LEVERAGE_SAFE)\")\nprint(f\"{cfius_status}\")"
+      },
+      {
+        "case_id": "biovanguard_qoe",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:ebitda",
+          "concept:valuation_multiple",
+          "numeric:clean_ebitda",
+          "numeric:enterprise_value",
+          "numeric:entry_multiple"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Transition_Services_Agreement_TSA.md",
+          "02_Standalone_Adjusted_EBITDA_Bridge.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_70c12095f48c",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 11178.47,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source Filenames: 01_Transition_Services_Agreement_TSA.md, 02_Standalone_Adjusted_EBITDA_Bridge.csv\nDeal/Project Identifier: BioVanguard carve-out QoE and standalone EBITDA bridge\n{\n  \"purchase_price_usd_m\": 620.0,\n  \"clean_ebitda_usd_m\": 70.2,\n  \"entry_valuation_multiple\": 8.831908831908832\n}",
+        "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used\nsource_filenames = [\"01_Transition_Services_Agreement_TSA.md\", \"02_Standalone_Adjusted_EBITDA_Bridge.csv\"]\ndeal_identifier = \"BioVanguard carve-out QoE and standalone EBITDA bridge\"\n\n# Direct numeric literals from evidence (2025A historical actuals)\nhistorical_carveout_ebitda_usd_m = 59.4\nparent_shared_allocation_eliminated_usd_m = 22.0\nstandalone_newco_costs_usd_m = 9.2\nstranded_supply_chain_usd_m = 2.0\npurchase_price_usd_m = 620.0\n\n# QoE Calculation: Clean EBITDA = historical carve-out EBITDA + eliminated parent allocation - standalone NewCo costs - stranded supply-chain adjustment\nclean_ebitda_usd_m = (historical_carveout_ebitda_usd_m \n                     + parent_shared_allocation_eliminated_usd_m \n                     - standalone_newco_costs_usd_m \n                     - stranded_supply_chain_usd_m)\n\n# Entry valuation multiple = purchase price / clean EBITDA\nentry_valuation_multiple = purchase_price_usd_m / clean_ebitda_usd_m\n\n# Output fields\noutput_fields = {\n    \"purchase_price_usd_m\": purchase_price_usd_m,\n    \"clean_ebitda_usd_m\": clean_ebitda_usd_m,\n    \"entry_valuation_multiple\": entry_valuation_multiple\n}\n\nprint(f\"Source Filenames: {', '.join(source_filenames)}\")\nprint(f\"Deal/Project Identifier: {deal_identifier}\")\nprint(json.dumps(output_fields, indent=2))"
+      }
+    ]
+  },
+  "provider_status": [
+    {
+      "provider_id": "local_bonsai",
+      "kind": "local",
+      "configured": true,
+      "model": "27b@q1_0",
+      "endpoint": "http://127.0.0.1:1234",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "hardware": "MacBook Pro M5 Pro 48GB",
+      "protocol": "lmstudio_native_chat"
+    },
+    {
+      "provider_id": "cloud_ai",
+      "kind": "cloud",
+      "configured": false,
+      "model": null,
+      "endpoint": null,
+      "artifact_sha256": null,
+      "runtime_name": null,
+      "runtime_version": null,
+      "hardware": null,
+      "protocol": "openai_chat_completions"
+    }
+  ],
+  "external_gates": {
+    "rendered_browser_qa": "requires connected browser",
+    "certified_air_gap": "not implemented",
+    "hardened_multi_tenant_isolation": "not implemented",
+    "measured_bonsai_hardware_performance": "per-case latency measured; VRAM and energy telemetry not implemented"
+  },
+  "milestones": {
+    "M0_truthful_baseline": {
+      "passed": true,
+      "evidence": [
+        "component_tests",
+        "unsupported_claim_scan",
+        "frontend_contract"
+      ]
+    },
+    "M1_private_folder_baseline": {
+      "passed": true,
+      "evidence": [
+        "private_folder_http",
+        "source_mutation",
+        "benchmark_negative_control",
+        "benchmark"
+      ]
+    },
+    "M2a_live_bonsai_benchmark": {
+      "passed": true,
+      "evidence": [
+        "configured local endpoint",
+        "native reasoning-off protocol",
+        "per-case provider/model IDs",
+        "local benchmark"
+      ]
+    },
+    "M2_reproducible_bonsai_runtime": {
+      "passed": true,
+      "evidence": [
+        "M2a live benchmark",
+        "hash-bound distinct-process cold-restart run"
+      ]
+    },
+    "M6_rendered_product": {
+      "passed": false,
+      "evidence": [
+        "frontend static contract passed",
+        "rendered browser interaction remains unverified"
+      ]
+    }
+  },
+  "selected_runtime_verified": true,
+  "target_architecture_complete": false
+}

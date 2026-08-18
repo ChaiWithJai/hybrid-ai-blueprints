@@ -1,0 +1,472 @@
+{
+  "verification_kind": "replayable_real_deal_browser_check",
+  "recorded_at": "2026-08-16T08:44:21.789Z",
+  "passed": true,
+  "semantic_claim_state": "multi_part_structural_pass_not_accuracy_release",
+  "accuracy_release_passed": false,
+  "base_url": "http://127.0.0.1:8787",
+  "room": "local_c25b83f3e1e2",
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "source": {
+    "path": ".runtime/candidate-deal-sources/zendesk_2022/01_defm14a.htm",
+    "bytes": 2429570,
+    "sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+  },
+  "buzz": {
+    "channel_id": "ef611df4-6d68-4c22-99bb-e2f3521374ad",
+    "answer_event_id": "5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6",
+    "canonical_path": "/rooms/local_c25b83f3e1e2/discussion?event=5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6"
+  },
+  "observed_runtime_status": {
+    "configured_model": "27b@q1_0",
+    "current_process_model": null,
+    "last_recorded_model": "27b@q1_0",
+    "recorded_history": true,
+    "invoked_in_process": false,
+    "invocation_evidence": "recorded_trace_history"
+  },
+  "observed_signature_verification": {
+    "state": "verified",
+    "scheme": "nip01_event_id_plus_bip340",
+    "verified_event_count": 13
+  },
+  "observed_canvas_verification": {
+    "state": "verified",
+    "scheme": "nip01_event_id_plus_bip340",
+    "event_id": "94fd1e0f33a50c3facbc55d5914fd5b84238c58e9f41f0b6907b68f059c6099e",
+    "author_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca"
+  },
+  "observed_source_provenance": {
+    "classification": "public_filing_corpus",
+    "label": "Hash-verified public filing corpus",
+    "synthetic_fixture": false,
+    "public_source": true,
+    "operator_selected": false,
+    "customer_data_verified": false,
+    "accuracy_release_evidence": false,
+    "buyer_evidence": false,
+    "manifest_bound": true,
+    "public_integrity": {
+      "passed": true,
+      "source_count": 2,
+      "snapshot_sha256": "c87f0ef7d7a9b254e6d9dee2e958c345cd5abea7583835c7eb3edf39be6c0880",
+      "registry_paths": [
+        "benchmarks/first_pass/candidate_companion_sources.v1.json",
+        "benchmarks/first_pass/candidate_deal_sources.v1.json"
+      ],
+      "errors": []
+    },
+    "meaning": "Every visible file in this folder matches a checked-in public acquisition record by path, byte count, and SHA-256. This can demonstrate the workflow but is not private customer, accuracy-release, or buyer evidence."
+  },
+  "workspace_document_count": 2,
+  "observed_trace": {
+    "trace_id": "trc_ada52469fec7",
+    "session_id": "local_c25b83f3e1e2",
+    "timestamp": 1786866764.292907,
+    "query": "Current source-bound replay: What is the final per-share merger consideration and what material closing conditions are disclosed, including stockholder and regulatory approvals and any financing condition?",
+    "response_sha256": "df4f2db8fb25d5a50f496916ea044de771d1d518d78be5d5c28529bf3a4923d9",
+    "model_name": "27b@q1_0",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "total_tokens": 3214,
+    "total_latency_ms": 31486.38,
+    "energy_per_token_mwh": null,
+    "total_energy_mwh": null,
+    "vram_peak_gb": null,
+    "metadata": {
+      "answer_event_id": "5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "guard_version": "deal_room_chat_guard_v1",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "inference_attempts": 1,
+      "part_citations": {
+        "consideration": [
+          "[01_defm14a.htm#html:table:0040]"
+        ],
+        "financing_condition": [
+          "[01_defm14a.htm#html:block:00122]"
+        ],
+        "regulatory_approval": [
+          "[01_defm14a.htm#html:block:01453]"
+        ],
+        "stockholder_approval": [
+          "[01_defm14a.htm#html:block:01451]"
+        ]
+      },
+      "previous_response_id_used": null,
+      "product_job": "deal_room_chat",
+      "prompt_suffix_applied": true,
+      "protocol": "lmstudio_native_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "914e9909f9c7f74f0cf37427f845182f99aded784a589f767505cc5b3c4ccac5",
+      "reasoning_output_tokens": 0,
+      "request_id": null,
+      "requested_parts": [
+        "consideration",
+        "stockholder_approval",
+        "regulatory_approval",
+        "financing_condition"
+      ],
+      "result_state": "guard_passed_and_signed_to_buzz",
+      "retrieved_anchors": [
+        {
+          "citation": "[01_defm14a.htm#html:table:0040]",
+          "requested_parts": [
+            "consideration"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:01451]",
+          "requested_parts": [
+            "stockholder_approval"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:01453]",
+          "requested_parts": [
+            "regulatory_approval"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:block:00122]",
+          "requested_parts": [
+            "financing_condition"
+          ],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:table:0010]",
+          "requested_parts": [],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[02_financial_10q.htm#html:block:00500]",
+          "requested_parts": [],
+          "source_sha256": "b59857229ce0dd6753f6ef8abfa113aed87b8da13661dd89e648cec2de4ef61e"
+        },
+        {
+          "citation": "[01_defm14a.htm#html:table:0011]",
+          "requested_parts": [],
+          "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+        },
+        {
+          "citation": "[02_financial_10q.htm#html:block:00278]",
+          "requested_parts": [],
+          "source_sha256": "b59857229ce0dd6753f6ef8abfa113aed87b8da13661dd89e648cec2de4ef61e"
+        }
+      ],
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "c87f0ef7d7a9b254e6d9dee2e958c345cd5abea7583835c7eb3edf39be6c0880",
+        "public_source": true,
+        "public_source_count": 2,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456",
+      "source_snapshot_sha256": "a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899",
+      "source_snapshot_state": "stable",
+      "time_to_first_token_seconds": 21.86591,
+      "tokens_per_second": 34.981996915683695
+    },
+    "evaluation_state": {
+      "state": "awaiting_review",
+      "label": "Review pending",
+      "explanation": "Unverified until a domain reviewer checks the answer."
+    },
+    "spans": [],
+    "evaluations": [
+      {
+        "name": "deal_room_chat_publication_guard",
+        "score": 1,
+        "passed": true,
+        "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+        "metadata": {
+          "guard_version": "deal_room_chat_guard_v1",
+          "part_citations": {
+            "consideration": [
+              "[01_defm14a.htm#html:table:0040]"
+            ],
+            "financing_condition": [
+              "[01_defm14a.htm#html:block:00122]"
+            ],
+            "regulatory_approval": [
+              "[01_defm14a.htm#html:block:01453]"
+            ],
+            "stockholder_approval": [
+              "[01_defm14a.htm#html:block:01451]"
+            ]
+          },
+          "requested_parts": [
+            "consideration",
+            "stockholder_approval",
+            "regulatory_approval",
+            "financing_condition"
+          ]
+        }
+      },
+      {
+        "name": "human_accuracy_review",
+        "score": 0,
+        "passed": false,
+        "explanation": "Unverified until a domain reviewer checks the answer.",
+        "metadata": {
+          "measurement_state": "awaiting_domain_review"
+        }
+      }
+    ]
+  },
+  "observed_room_registration": {
+    "registry_path": ".runtime/deal_rooms/registrations.v1.json",
+    "registry_sha256": "1d896b54da223f09f16df61ff9028135bad9964f504cb0614b8774821d38d25e",
+    "registry_mtime": 1786862836.6883464,
+    "server_process_started_at": 1786869417.321755,
+    "restored_before_process": true,
+    "room_id": "local_c25b83f3e1e2",
+    "folder_path": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/.runtime/candidate-deal-sources/zendesk_2022"
+  },
+  "expected_observation": {
+    "value": "$77.50",
+    "source_anchors": [
+      "html:table:0040",
+      "html:block:01451",
+      "html:block:01453",
+      "html:block:00122"
+    ],
+    "preview_anchor": "html:block:00122",
+    "preview_value": "not subject to any financing condition"
+  },
+  "assertions": [
+    {
+      "name": "source_folder_bound",
+      "passed": true,
+      "observed": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/.runtime/candidate-deal-sources/zendesk_2022"
+    },
+    {
+      "name": "custom_room_restored_from_persisted_registry",
+      "passed": true,
+      "observed": {
+        "registry_path": ".runtime/deal_rooms/registrations.v1.json",
+        "registry_mtime": 1786862836.6883464,
+        "server_process_started_at": 1786869417.321755
+      }
+    },
+    {
+      "name": "hash_bound_public_source_set",
+      "passed": true,
+      "observed": {
+        "total_documents": 2,
+        "parse_warnings": [],
+        "source_provenance": {
+          "classification": "public_filing_corpus",
+          "label": "Hash-verified public filing corpus",
+          "synthetic_fixture": false,
+          "public_source": true,
+          "operator_selected": false,
+          "customer_data_verified": false,
+          "accuracy_release_evidence": false,
+          "buyer_evidence": false,
+          "manifest_bound": true,
+          "public_integrity": {
+            "passed": true,
+            "source_count": 2,
+            "snapshot_sha256": "c87f0ef7d7a9b254e6d9dee2e958c345cd5abea7583835c7eb3edf39be6c0880",
+            "registry_paths": [
+              "benchmarks/first_pass/candidate_companion_sources.v1.json",
+              "benchmarks/first_pass/candidate_deal_sources.v1.json"
+            ],
+            "errors": []
+          },
+          "meaning": "Every visible file in this folder matches a checked-in public acquisition record by path, byte count, and SHA-256. This can demonstrate the workflow but is not private customer, accuracy-release, or buyer evidence."
+        }
+      }
+    },
+    {
+      "name": "signed_answer_event_present",
+      "passed": true
+    },
+    {
+      "name": "answer_currently_trace_and_source_bound",
+      "passed": true,
+      "observed": {
+        "acceptance_state": "accepted",
+        "guard_version": "deal_room_chat_guard_v1"
+      }
+    },
+    {
+      "name": "answer_event_signature_verified",
+      "passed": true,
+      "observed": {
+        "state": "verified",
+        "scheme": "nip01_event_id_plus_bip340",
+        "verified_event_count": 13
+      }
+    },
+    {
+      "name": "guarded_answer_trace_restored",
+      "passed": true,
+      "observed": {
+        "trace_id": "trc_ada52469fec7",
+        "trace_timestamp": 1786866764.292907,
+        "server_process_started_at": 1786869417.321755
+      }
+    },
+    {
+      "name": "guarded_answer_event_trace_binding",
+      "passed": true,
+      "observed": {
+        "answer_event_id": "5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6",
+        "question_event_id": "914e9909f9c7f74f0cf37427f845182f99aded784a589f767505cc5b3c4ccac5",
+        "guard_version": "deal_room_chat_guard_v1"
+      }
+    },
+    {
+      "name": "guarded_answer_requested_part_contract",
+      "passed": true,
+      "observed": {
+        "requested_parts": [
+          "consideration",
+          "stockholder_approval",
+          "regulatory_approval",
+          "financing_condition"
+        ],
+        "part_citations": {
+          "consideration": [
+            "[01_defm14a.htm#html:table:0040]"
+          ],
+          "financing_condition": [
+            "[01_defm14a.htm#html:block:00122]"
+          ],
+          "regulatory_approval": [
+            "[01_defm14a.htm#html:block:01453]"
+          ],
+          "stockholder_approval": [
+            "[01_defm14a.htm#html:block:01451]"
+          ]
+        }
+      }
+    },
+    {
+      "name": "observed_value_matches_source_bounded_answer",
+      "passed": true,
+      "observed": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_ada52469fec7 source_class=public_filing_corpus provenance=9af7a645a09b82188227e57b375afb8feb9f1bbcd3835a2632fcb2a43143f456 source_snapshot=a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899 -->\n- **Per-share consideration:** Upon completion of the Merger, you will be entitled to receive the Merger Consideration of $77.50 in cash, without interest, subject to any required tax withholding, for each share of Zendesk common stock that you own (other than any Unconverted Shares) immediately prior to the Effective Time, unless you have properly and validly exercised and do not withdraw your appraisal rights in accordance with and complied with Section 262 of the DGCL. [01_defm14a.htm#html:table:0040]\n- **Stockholder approval:** (a) The Company Stockholder Approval Shall have been obtained. [01_defm14a.htm#html:block:01451]\n- **Regulatory approval:** (c) (i) The waiting period applicable to the consummation of the Merger under the HSR Act shall have expired or been terminated, (ii) all required Consents and expirations or terminations of waiting periods (as applicable) under each Regulatory Law specifically set forth on Section 6.1(c) of the Company Disclosure Letter shall have been obtained or shall have occurred (as applicable) and (iii) the CFIUS Approval shall have been obtained. [01_defm14a.htm#html:block:01453]\n- **Financing condition:** The obligation of Parent and Merger Sub to consummate the Merger is not subject to any financing condition. [01_defm14a.htm#html:block:00122]"
+    },
+    {
+      "name": "hash_verified_public_provenance_visible",
+      "passed": true
+    },
+    {
+      "name": "canonical_url_opens_discussion",
+      "passed": true,
+      "destination": "http://127.0.0.1:8787/rooms/local_c25b83f3e1e2/discussion?event=5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6"
+    },
+    {
+      "name": "answer_event_focused",
+      "passed": true
+    },
+    {
+      "name": "verified_signature_visible",
+      "passed": true
+    },
+    {
+      "name": "bonsai_answer_visible",
+      "passed": true
+    },
+    {
+      "name": "machine_trace_marker_hidden_from_human_view",
+      "passed": true
+    },
+    {
+      "name": "human_requested_part_labels_visible",
+      "passed": true
+    },
+    {
+      "name": "bounded_evidence_scope_visible",
+      "passed": true,
+      "observed": {
+        "scope_version": "current_parser_inventory_v1",
+        "source_snapshot_sha256": "a904b92adceb77e46cb43f3c8c4727f40ff6e293aafdba1ba8cc44d0599fc899",
+        "inventory_sha256": "5d0150044cd8bc0d914e025109bdaeb67642451bed63bb677d20c2ef4af88451",
+        "corpus_document_count": 2,
+        "corpus_parsed_node_count": 3126,
+        "corpus_searchable_node_count": 3125,
+        "admitted_passage_count": 8,
+        "admitted_document_count": 2,
+        "measurement_state": "current_parser_inventory_and_trace_bound_passage_selection",
+        "semantic_coverage_measured": false,
+        "full_document_review_claimed": false,
+        "meaning": "The model received the admitted passages, not every parsed node. These counts describe passage selection and do not measure semantic coverage."
+      }
+    },
+    {
+      "name": "runtime_state_boundary_visible",
+      "passed": true,
+      "observed": {
+        "invocation_evidence": "recorded_trace_history",
+        "context_admission": "loaded_model_tokenizer_with_runtime_margin",
+        "context_window_tokens": 16384
+      }
+    },
+    {
+      "name": "answer_citation_visible",
+      "passed": true
+    },
+    {
+      "name": "all_requested_part_citations_exact",
+      "passed": true,
+      "observed": [
+        "html:table:0040",
+        "html:block:01451",
+        "html:block:01453",
+        "html:block:00122"
+      ]
+    },
+    {
+      "name": "citation_navigates_to_exact_anchor",
+      "passed": true,
+      "destination": "http://127.0.0.1:8787/rooms/local_c25b83f3e1e2/files?source=01_defm14a.htm&anchor=html%3Ablock%3A00122"
+    },
+    {
+      "name": "source_preview_contains_exact_cited_passage",
+      "passed": true
+    },
+    {
+      "name": "canvas_signature_verified",
+      "passed": true,
+      "observed": {
+        "state": "verified",
+        "scheme": "nip01_event_id_plus_bip340",
+        "event_id": "94fd1e0f33a50c3facbc55d5914fd5b84238c58e9f41f0b6907b68f059c6099e",
+        "author_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca"
+      }
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-real-deal-zendesk-v1.png",
+    "bytes": 253792,
+    "sha256": "42bc10abe523145e3c852a473de836c06b1001c10316910f00862acbcd07a913"
+  },
+  "limitations": [
+    "This is one public SEC transaction folder with its proxy and financial companion, plus one named extraction task. It is not a domain accuracy release.",
+    "It verifies one Chromium build, not cross-browser or accessibility conformance.",
+    "The four-part answer passed a structural publication guard. It has not received domain review and is not an accuracy release."
+  ]
+}

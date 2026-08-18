@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "sailpoint_2022",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2207,
+    "estimated_tokens": 185977,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 432
+  },
+  "source": {
+    "accession": "0001193125-22-164080",
+    "bytes": 1592457,
+    "cik": "0001627857",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1627857/000119312522164080/0001193125-22-164080-index.htm",
+    "path": ".runtime/candidate-deal-sources/sailpoint_2022/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1627857/000119312522164080/d331334ddefm14a.htm",
+    "sha256": "a55d5f535b1bc8b3f23bf21a3475c9fb72c0a5489d71aa13bc3ea95f706b2ad4"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

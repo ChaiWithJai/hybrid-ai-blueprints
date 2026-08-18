@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "everbridge_2024",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2486,
+    "estimated_tokens": 194189,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 484
+  },
+  "source": {
+    "accession": "0001193125-24-073284",
+    "bytes": 1746183,
+    "cik": "0001437352",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1437352/000119312524073284/0001193125-24-073284-index.htm",
+    "path": ".runtime/candidate-deal-sources/everbridge_2024/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1437352/000119312524073284/d809325ddefm14a.htm",
+    "sha256": "91108a2d476c8502c061695f8cdbe5514ef7d53a4e8b228bd0277ff506fc86ab"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

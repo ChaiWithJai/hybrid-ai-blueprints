@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "verification_kind": "ocr_ground_truth_correction",
+  "recorded_at": "2026-08-16T00:29:00-04:00",
+  "case_id": "cma_cover_page_1",
+  "prior_benchmark_sha256": "f0040c03156b401334346ff02f4fa8a268a8b1ea15dba00a0d5703237e421dbd",
+  "prior_failed_evidence_sha256": "2804696765052f52d045dbc7dab692581f5275a819f0fb38de103dbb6105596b",
+  "prior_failure": {
+    "word_error_rate": 0.3076923076923077,
+    "character_error_rate": 0.3888888888888889,
+    "critical_phrase_recall": 1.0,
+    "engineering_measurement_passed": false
+  },
+  "finding": "The fixed page raster visibly contains the CMA logo words, but the born digital PDF text layer omitted them. Apple Vision returned CMAY instead of CMA and correctly returned Competition & Markets Authority.",
+  "correction": {
+    "added_visual_ground_truth": "cma competition markets authority",
+    "thresholds_changed": false,
+    "benchmark_version_after_correction": "1.1.0",
+    "visual_record": "evidence/ocr-ground-truth-cover-page-1.png",
+    "visual_record_sha256": "3a299c5ed79046ba0354fe31dee16798d7d9220f93e22a7da4166d682b6fb6ff"
+  },
+  "domain_review_performed": false,
+  "human_approved_ocr_release_gate_passed": false,
+  "limitations": [
+    "The implementation team inspected this page after the first OCR run, so the correction is not sealed test evidence.",
+    "The saved raster and correction record are mutable local files and have no external anchor.",
+    "This correction fixes an incomplete oracle. It does not establish OCR accuracy on customer scans."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "anchor": {
+    "entry_count": 179,
+    "head_sha256": "4317c15957be285a298aee7dda8bcabd37abe7a46bbc7d76a826d1714fc4fd87",
+    "ledger_format": "hash_chained_local_jsonl_v1"
+  },
+  "channel_id": "c706e2d1-25aa-4897-b28d-e8ffae80ad20",
+  "content_sha256": "f7851bff9bfb211397ee324ca436a234302e3cf270f928a1ccbb7be917bc33a0",
+  "event_id": "c76d33548dc9393843c7dd69cb4013e926802f04eea59a8f6f80d185720a57b0",
+  "external_trust_domain": false,
+  "limitations": [
+    "The signed event binds one exact trace-ledger prefix.",
+    "The Buzz relay is on the same host and is not an independent timestamp authority.",
+    "A local administrator can rewrite the ledger and operate the relay; this is not immutable audit storage."
+  ],
+  "raw_buzz_event": {
+    "content": "{\"anchor_kind\":\"prism_trace_ledger_anchor.v1\",\"entry_count\":179,\"head_sha256\":\"4317c15957be285a298aee7dda8bcabd37abe7a46bbc7d76a826d1714fc4fd87\",\"ledger_format\":\"hash_chained_local_jsonl_v1\"}",
+    "created_at": 1786846719,
+    "id": "c76d33548dc9393843c7dd69cb4013e926802f04eea59a8f6f80d185720a57b0",
+    "kind": 9,
+    "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+    "sig": "a202c9c47c7a4465ff8b1fff378c0e011a52b7814d35b901c95e05fa8a4df79c7eeb208bfb5c061a36d678613eeec1e5621d87b7f9b7dea1174ceedfedd07cd1",
+    "tags": [
+      [
+        "h",
+        "c706e2d1-25aa-4897-b28d-e8ffae80ad20"
+      ]
+    ]
+  },
+  "recorded_at": "2026-08-15T22:18:39.234613-04:00",
+  "relay_url": "ws://127.0.0.1:3030",
+  "same_host_loopback_relay": true,
+  "signer_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+  "verification": {
+    "anchored_prefix_entry_count": 179,
+    "current_entry_count": 179,
+    "current_head_anchored": true,
+    "errors": [],
+    "event_id": "c76d33548dc9393843c7dd69cb4013e926802f04eea59a8f6f80d185720a57b0",
+    "externally_anchored": false,
+    "meaning": "A verified Buzz signature binds one exact local-ledger prefix. The relay is on the same host, so this is not an independent external timestamp or immutable audit system.",
+    "passed": true,
+    "relay_url": "ws://127.0.0.1:3030",
+    "same_host_loopback_relay": true,
+    "signed_anchor_verified": true
+  },
+  "verification_kind": "signed_buzz_trace_anchor_receipt.v1"
+}

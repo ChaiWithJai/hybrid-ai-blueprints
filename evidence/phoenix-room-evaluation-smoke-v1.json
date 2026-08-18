@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "verification_kind": "explicit_phoenix_otlp_eval_export",
+  "recorded_at": "2026-08-18T12:07:09.345141+00:00",
+  "endpoint": "http://127.0.0.1:6006/v1/traces",
+  "project": "prism-room-evaluation-smoke",
+  "review_record_count": 5,
+  "content_policy": "hashes_only",
+  "snapshot_sha256": "ac6aa874597c2c04f91561be52967f7df1e8ee707c49da8d9b51abd5f08a9331",
+  "exporter_sha256": "456738480a91228d16f0782f5d7297f33a24e92d7210fa5df2e671ae04792954",
+  "transport": "OpenTelemetry OTLP HTTP protobuf",
+  "semantics": "OpenInference EVALUATOR spans with prism.eval.* local extensions",
+  "record_provenance": "synthetic_fixture",
+  "synthetic_fixture": true,
+  "reviewer_identity_verified": false,
+  "human_review_performed_claimed": false,
+  "limitations": [
+    "A successful OTLP export proves collector acceptance, not reviewer identity or label quality.",
+    "Synthetic fixture records do not count as human review.",
+    "The local review ledger remains the authoritative annotation record.",
+    "Prompt, source, and note content is excluded unless --include-content is explicitly supplied."
+  ]
+}

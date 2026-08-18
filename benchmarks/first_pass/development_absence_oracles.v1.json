@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "verification_kind": "first_pass_whole_corpus_absence_contract.v1",
+  "authored_at": "2026-08-16T03:22:00-04:00",
+  "case_id": "citrix_entry_leverage_absent",
+  "deal_id": "citrix_2022",
+  "answer_policy": "refuse_absent",
+  "source_folder": ".runtime/public-deal-corpus/citrix",
+  "registry_path": "benchmarks/first_pass/development_registry.v2.json",
+  "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+  "source_manifest_path": "benchmarks/public_deal_corpus_manifest.json",
+  "source_manifest_sha256": "1888ade2eb98bf8f7009c660686ebefeb224e1cc94f013af99d5192b882bfb9c",
+  "room": "citrix",
+  "sources": [
+    {
+      "filename": "01_citrix_defm14a.htm",
+      "sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+      "bytes": 1834175
+    },
+    {
+      "filename": "02_citrix_financing_supplement.htm",
+      "sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+      "bytes": 82805
+    }
+  ],
+  "registered_direct_disclosure_patterns": [
+    {
+      "id": "ratio_label_then_value",
+      "regex": "(?i)\\b(?:entry|opening|initial|pro[ -]?forma|transaction)?\\s*(?:net\\s+)?(?:debt\\s*(?:to|/)\\s*(?:adjusted\\s+)?ebitda|leverage\\s+multiple)\\s*(?:of|was|is|at|:)?\\s*\\d+(?:\\.\\d+)?\\s*x\\b"
+    },
+    {
+      "id": "value_then_ratio_label",
+      "regex": "(?i)\\b\\d+(?:\\.\\d+)?\\s*x\\b.{0,80}\\b(?:entry|opening|initial|pro[ -]?forma|transaction)\\s+(?:net\\s+)?(?:debt\\s*(?:to|/)\\s*(?:adjusted\\s+)?ebitda|leverage\\s+multiple)\\b"
+    },
+    {
+      "id": "explicit_entry_leverage",
+      "regex": "(?i)\\b(?:entry|opening|initial|pro[ -]?forma|transaction)\\s+(?:net\\s+)?leverage\\b.{0,80}\\b\\d+(?:\\.\\d+)?\\s*x\\b"
+    }
+  ],
+  "required_confusable_evidence": [
+    {
+      "filename": "01_citrix_defm14a.htm",
+      "anchor": "html:block:00586",
+      "required_terms": [
+        "CY2022E EBITDA Multiple for Citrix was 13.0x",
+        "fully diluted enterprise value"
+      ],
+      "relation": "valuation_multiple_not_entry_debt_to_ebitda"
+    },
+    {
+      "filename": "02_citrix_financing_supplement.htm",
+      "anchor": "html:block:00058",
+      "required_terms": [
+        "debt commitment had been increased to $15.0 billion",
+        "preferred equity of $2.5 billion"
+      ],
+      "relation": "financing_amount_not_entry_debt_to_ebitda"
+    },
+    {
+      "filename": "02_citrix_financing_supplement.htm",
+      "anchor": "html:table:0014",
+      "required_terms": [
+        "NTM EBITDA Multiple",
+        "Enterprise Value"
+      ],
+      "relation": "selected_transaction_multiples_not_citrix_entry_leverage"
+    }
+  ],
+  "domain_review": {
+    "status": "not_reviewed",
+    "owner": null,
+    "reviewed_at": null
+  },
+  "semantic_accuracy_state": "unverified",
+  "limitations": [
+    "The implementation team wrote the patterns after inspecting the development corpus.",
+    "A zero pattern count proves only that the registered expressions do not occur in the complete registered folder.",
+    "The scan does not prove that an unregistered synonym or a domain expert would reach the same absence decision.",
+    "The contract is development evidence and has no domain approval."
+  ]
+}

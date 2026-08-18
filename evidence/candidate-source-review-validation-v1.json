@@ -1,0 +1,28 @@
+{
+  "active_principal_reviewer_count": 0,
+  "active_source_reviewer_count": 0,
+  "adjudicated_draft_count": 0,
+  "adjudication_present": false,
+  "agreed_eligible_draft_count": 0,
+  "benchmark_cases_registered": 0,
+  "candidate_deal_count": 29,
+  "disagreement_count": 0,
+  "disagreements": [],
+  "draft_count": 319,
+  "eligible_draft_ids": [],
+  "eligible_for_case_authoring_count": 0,
+  "errors": [],
+  "limitations": [
+    "Eligibility permits later case authoring; it does not register or approve a benchmark case.",
+    "No model output or retrieval rank can substitute for qualified source review."
+  ],
+  "packet_sha256": "61718a6743391e368b022a490de77b78a48f01371d4d31e5c577bd61c8e47fee",
+  "pending_draft_count": 319,
+  "promotion_ready": false,
+  "rejected_draft_count": 0,
+  "rejected_draft_ids": [],
+  "reviewed_draft_count": 0,
+  "submission_count": 0,
+  "validation_passed": true,
+  "verification_kind": "candidate_source_review_validation"
+}

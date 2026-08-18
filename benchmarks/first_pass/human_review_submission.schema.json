@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-human-review-submission.v1.json",
+  "title": "Prism Vault blinded human review submission",
+  "type": "object",
+  "required": [
+    "review_id",
+    "reviewer_id",
+    "reviewer_role",
+    "qualification",
+    "blinded_to_model",
+    "packet_sha256",
+    "rubric_sha256",
+    "reviewer_pubkey",
+    "buzz_event_id",
+    "reviewed_at",
+    "cases"
+  ],
+  "properties": {
+    "review_id": {"type": "string", "minLength": 1},
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "reviewer_role": {"enum": ["qualified_deal_output_reviewer"]},
+    "qualification": {"type": "string", "minLength": 1},
+    "blinded_to_model": {"enum": [true]},
+    "packet_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "rubric_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reviewer_pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "buzz_event_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "case_version",
+          "response_sha256",
+          "dimensions",
+          "useful_starting_point",
+          "decision",
+          "review_time_seconds",
+          "critical_corrections",
+          "major_corrections",
+          "critique"
+        ],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "case_version": {"type": "string", "minLength": 1},
+          "response_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "dimensions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["dimension", "label", "severity", "critique"],
+              "properties": {
+                "dimension": {"type": "string", "minLength": 1},
+                "label": {"enum": ["pass", "fail"]},
+                "severity": {"enum": ["critical", "major", "minor"]},
+                "critique": {"type": "string"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "useful_starting_point": {"type": "boolean"},
+          "decision": {"enum": ["advance", "pause", "stop", "unresolved"]},
+          "review_time_seconds": {"type": "number", "minimum": 0},
+          "critical_corrections": {"type": "integer", "minimum": 0},
+          "major_corrections": {"type": "integer", "minimum": 0},
+          "critique": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

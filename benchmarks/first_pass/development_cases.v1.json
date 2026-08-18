@@ -1,0 +1,196 @@
+{
+  "benchmark_id": "prism_vault_first_pass_underwriting",
+  "version": "1.0.0-dev.1",
+  "split": "development",
+  "domain_approval": "not_reviewed",
+  "source_manifest": "../public_deal_corpus_manifest.json",
+  "cases": [
+    {
+      "id": "anaplan_vdr_timeline",
+      "deal_id": "anaplan_2022",
+      "task_family": "transaction_identity_structure_chronology",
+      "question": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": [
+        "virtual_data_room_open_date",
+        "material_categories",
+        "intensive_diligence_end_date"
+      ],
+      "required_claims": [
+        "The virtual data room opened on March 12, 2022.",
+        "It contained financial, operational, and legal materials.",
+        "The intensive diligence period ended on March 20, 2022."
+      ],
+      "required_citations": [
+        {
+          "filename": "01_anaplan_defm14a.htm",
+          "anchor": "html:block:00484"
+        }
+      ],
+      "forbidden_claims": [],
+      "slices": [
+        "single_document",
+        "multi_component"
+      ],
+      "prior_result": {
+        "model": "27b@q1_0",
+        "label": "pass",
+        "failure_categories": []
+      }
+    },
+    {
+      "id": "anaplan_termination_fees",
+      "deal_id": "anaplan_2022",
+      "task_family": "contract_terms_covenants_and_approvals",
+      "question": "State the company termination fee and the reverse termination fee.",
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": [
+        "company_termination_fee",
+        "reverse_termination_fee"
+      ],
+      "required_claims": [
+        "The company termination fee is $293,122,500.",
+        "The reverse termination fee is $586,245,000."
+      ],
+      "required_citations": [
+        {
+          "filename": "01_anaplan_defm14a.htm",
+          "anchor": "html:block:00207"
+        }
+      ],
+      "forbidden_claims": [],
+      "slices": [
+        "single_document",
+        "critical_numbers",
+        "multi_component"
+      ],
+      "prior_result": {
+        "model": "27b@q1_0",
+        "label": "pass",
+        "failure_categories": []
+      }
+    },
+    {
+      "id": "citrix_financing_mix",
+      "deal_id": "citrix_2022",
+      "task_family": "financing_and_capital_structure",
+      "question": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately.",
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": [
+        "debt_commitment",
+        "preferred_equity",
+        "common_equity",
+        "common_equity_provider"
+      ],
+      "required_claims": [
+        "The debt commitment was $15.0 billion.",
+        "Preferred equity was $2.5 billion.",
+        "Common equity was $2.275 billion and would be provided by Elliott."
+      ],
+      "required_citations": [
+        {
+          "filename": "02_citrix_financing_supplement.htm",
+          "anchor": "html:block:00058"
+        }
+      ],
+      "forbidden_claims": [],
+      "slices": [
+        "single_document",
+        "critical_numbers",
+        "named_party",
+        "multi_component"
+      ],
+      "prior_result": {
+        "model": "27b@q1_0",
+        "label": "fail",
+        "failure_categories": [
+          "component_completeness",
+          "named_party_omission"
+        ]
+      }
+    },
+    {
+      "id": "citrix_entry_leverage_absent",
+      "deal_id": "citrix_2022",
+      "task_family": "risks_conflicts_and_missing_information",
+      "question": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+      "answer_policy": "refuse_absent",
+      "severity": "critical",
+      "requested_components": [
+        "entry_debt_to_ebitda_or_absence"
+      ],
+      "required_claims": [
+        "The exact entry debt to EBITDA leverage multiple is not disclosed and cannot be calculated from the cited evidence alone."
+      ],
+      "required_citations": [
+        {
+          "filename": "02_citrix_financing_supplement.htm",
+          "anchor": "html:block:00058"
+        }
+      ],
+      "forbidden_claims": [
+        "The exact entry debt to EBITDA leverage multiple was 13.0x.",
+        "The selected transactions valuation multiple was the entry debt multiple."
+      ],
+      "slices": [
+        "answer_absence",
+        "confusable_evidence",
+        "critical_number",
+        "semantic_relation"
+      ],
+      "prior_result": {
+        "model": "27b@q1_0",
+        "label": "fail",
+        "failure_categories": [
+          "unsupported_material_claim",
+          "answer_absence",
+          "semantic_relation",
+          "critical_false_pass"
+        ]
+      }
+    },
+    {
+      "id": "cma_competition_conclusion",
+      "deal_id": "microsoft_activision_2023",
+      "task_family": "market_and_regulatory_findings",
+      "question": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": [
+        "console_gaming_conclusion",
+        "cloud_gaming_conclusion",
+        "microsoft_cloud_gaming_market_share"
+      ],
+      "required_claims": [
+        "The CMA did not find a substantial lessening of competition in console gaming.",
+        "The CMA found a substantial lessening of competition in cloud gaming services.",
+        "The CMA estimated Microsoft's cloud gaming market share at 60 to 70 percent."
+      ],
+      "required_citations": [
+        {
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "anchor": "pdf:page:7"
+        }
+      ],
+      "forbidden_claims": [],
+      "slices": [
+        "pdf",
+        "multi_component",
+        "paired_conclusions",
+        "critical_number"
+      ],
+      "prior_result": {
+        "model": "27b@q1_0",
+        "label": "fail",
+        "failure_categories": [
+          "component_completeness",
+          "requested_conclusion_omission"
+        ]
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,157 @@
+{
+  "accuracy_release_passed": false,
+  "artifact": {
+    "acceptance_state": "accepted",
+    "artifact_mode": "model_draft",
+    "authored_by": "local_bonsai",
+    "citations": [
+      "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+      "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+      "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+      "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+      "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]"
+    ],
+    "draft_event_id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+    "guard_version": "evidence_claim_v7",
+    "markdown": "## Recommendation\nRecommendation: ADVANCE\n\n## Transaction\nProject Titan is a leveraged buyout of CloudScale Networks Inc. [01_Confidential_Information_Memorandum.md#node:node_para_2]. The transaction has an Enterprise Value of $2,400,000,000 USD, valued at 12.0x 2025A Adjusted EBITDA [01_Confidential_Information_Memorandum.md#node:node_para_1].\n\n## Valuation and financing\nTotal Sources of Funds are $2,400.0M USD [01_Confidential_Information_Memorandum.md#node:node_tbl_1]. The capital structure consists of a Revolving Credit Facility ($0.0M), First Lien Term Loan B ($900.0M), Second Lien Senior Notes ($300.0M), Subordinated Mezzanine Debt ($240.0M), Sponsor Preferred Equity ($800.0M), and Management Rollover Equity ($160.0M) [01_Confidential_Information_Memorandum.md#node:node_tbl_1]. The Gross Leverage Multiple is 7.20x [01_Confidential_Information_Memorandum.md#node:node_tbl_1].\n\n## Financial quality\nRevenue is projected to grow from $418.0M USD in 2024A to $520.0M USD in 2025A, representing a 24.4% YoY growth rate [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]. Adjusted EBITDA is projected to grow from $150.0M USD in 2024A to $200.0M USD in 2025A, representing a 33.3% YoY growth rate [03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]. The EBITDA Margin is projected to be 38.5% in 2025A [01_Confidential_Information_Memorandum.md#node:node_para_2].\n\n## Risks and approvals\nDividends to Sponsor Equity Holders are strictly prohibited unless Total Net Leverage Ratio is pro-forma $\\le 4.25\\times$ [02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]. The First Lien Term Loan B has a SOFR + 375 bps rate [01_Confidential_Information_Memorandum.md#node:node_tbl_1].\n\n## Missing or conflicting information\nThe disclosed leverage ratio is not explicitly stated in the provided passages. The formula for calculating the leverage ratio is not provided in the cited passages.\n\n## Next review questions\nWhat is the exact formula used to calculate the Total Net Leverage Ratio?",
+    "model": "27b@q1_0",
+    "recommendation": "advance",
+    "restoration_verification": {
+      "author": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+      "bindings": [
+        "nip01_event_id_plus_bip340",
+        "configured_agent_author",
+        "trace_draft_event_id",
+        "room_id",
+        "model",
+        "guard_version",
+        "artifact_mode",
+        "response_text"
+      ],
+      "event_id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+      "state": "verified",
+      "trace_id": "trc_c16aa77253ce"
+    },
+    "restored_from_buzz": true,
+    "trace_id": "trc_c16aa77253ce"
+  },
+  "canonical_path": "/rooms/project_titan_lbo/first-pass",
+  "human_review_state": "pending",
+  "limitations": [
+    "This record proves a trace-linked Buzz product artifact, not domain accuracy.",
+    "Interactive browser behavior is not replayed by this recorder.",
+    "The source set is synthetic and its expected conclusions lack domain-owner approval."
+  ],
+  "product_path_verified": true,
+  "recorded_at": 1786790174.415655,
+  "room": "project_titan_lbo",
+  "runtime": {
+    "buzz_relay": "ws://127.0.0.1:3030",
+    "buzz_relay_live": true,
+    "configured_model": "27b@q1_0",
+    "invocation_evidence": "artifact_trace_id_bound_local_provider_record",
+    "last_invoked_model": "27b@q1_0"
+  },
+  "source_files": [
+    {
+      "bytes": 2605,
+      "filename": "01_Confidential_Information_Memorandum.md",
+      "sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+    },
+    {
+      "bytes": 1973,
+      "filename": "02_LBO_Debt_Financing_Credit_Agreement.md",
+      "sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+    },
+    {
+      "bytes": 2000,
+      "filename": "03_Three_Statement_Financial_Model_2024_2028.csv",
+      "sha256": "4a9bd9c5c67b7d61e4eae4a7695af9e7adadb47ab4b266848f95c51f6b8f9b73"
+    },
+    {
+      "bytes": 1955,
+      "filename": "04_Sponsor_Returns_Sensitivity_IRR_MoIC.json",
+      "sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+    }
+  ],
+  "trace": {
+    "energy_per_token_mwh": null,
+    "evaluations": [
+      {
+        "explanation": "All required first pass headings and a recommendation were present.",
+        "metadata": {},
+        "name": "first_pass_structure",
+        "passed": true,
+        "score": 1.0
+      },
+      {
+        "explanation": "The draft used 5 admitted source citations.",
+        "metadata": {
+          "citations": [
+            "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+            "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+            "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+            "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+            "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]"
+          ]
+        },
+        "name": "citation_presence",
+        "passed": true,
+        "score": 1.0
+      },
+      {
+        "explanation": "Unverified until a human records corrections and usefulness.",
+        "metadata": {
+          "measurement_state": "awaiting_human_review"
+        },
+        "name": "human_accuracy_review",
+        "passed": false,
+        "score": 0.0
+      }
+    ],
+    "metadata": {
+      "artifact_sha256": null,
+      "citation_count": 5,
+      "completed_at": 1786770091.369251,
+      "draft_event_id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+      "evidence_claim_guard": "passed",
+      "first_pass_initial_guard_issues": [
+        "2024A to 2025A YoY growth was stated as 22%, but 418 to 520 implies 24.4%"
+      ],
+      "first_pass_initial_relation_issues": [],
+      "first_pass_repair_attempted": true,
+      "first_pass_repair_transport": "explicit_role_transcript",
+      "guard_version": "evidence_claim_v7",
+      "hardware": null,
+      "investment_screen": "Decide whether Project Titan should advance to the next underwriting stage. Assess revenue growth, EBITDA quality, leverage, debt paydown, downside risk, and the evidence gaps that must be resolved before an investment committee decision.",
+      "numeric_relation_guard": "passed",
+      "previous_response_id_used": null,
+      "product_job": "first_pass_underwriting",
+      "prompt_suffix_applied": true,
+      "protocol": "lmstudio_native_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "9e369da2b939219a952a603d94452314cb1985547255250babfd56320006f979",
+      "reasoning_output_tokens": 0,
+      "request_id": null,
+      "retrieved_passage_count": 11,
+      "runtime_name": null,
+      "runtime_version": null,
+      "started_at": 1786769995.1247969,
+      "time_to_first_token_seconds": 29.421221000000003,
+      "tokens_per_second": 33.58580216189943
+    },
+    "model_name": "27b@q1_0",
+    "query": "first_pass_underwriting",
+    "response_sha256": "03fcbcc72e8d3c3dfc19b9fc87796a3317aafd148ddee77c0040252cef61a592",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "session_id": "project_titan_lbo",
+    "spans": [],
+    "timestamp": 1786769995.1247969,
+    "total_energy_mwh": null,
+    "total_latency_ms": 96182.19,
+    "total_tokens": 8640,
+    "trace_id": "trc_c16aa77253ce",
+    "vram_peak_gb": null
+  },
+  "verification_kind": "trace_linked_first_pass_product_record"
+}

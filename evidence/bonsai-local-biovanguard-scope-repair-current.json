@@ -1,0 +1,61 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 3,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786794363.403093,
+  "dataset_sha256": "ba29433d135bc257a19e89658b4b7274c49bd9dec68fdf82609de80a9cdfaeb8",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 1,
+  "pass_rate": 1.0,
+  "mean_accuracy": 1.0,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 33083.14,
+  "cases": [
+    {
+      "case_id": "biovanguard_qoe",
+      "passed": true,
+      "accuracy": 1.0,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:ebitda",
+        "concept:valuation_multiple",
+        "numeric:clean_ebitda",
+        "numeric:enterprise_value",
+        "numeric:entry_multiple"
+      ],
+      "missing_terms": [],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Transition_Services_Agreement_TSA.md",
+        "02_Standalone_Adjusted_EBITDA_Bridge.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_104f58edb797",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 33083.14,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "Source filenames: 01_Transition_Services_Agreement_TSA.md, 02_Standalone_Adjusted_EBITDA_Bridge.csv\nDeal identifier: PROJECT BIOVANGUARD\nPurchase price (USD M): 620.0\nClean EBITDA (USD M): 70.2\nEntry valuation multiple: 8.83x",
+      "observed_generated_code": "import math\nimport json\nimport re\n\ndeal_id = \"PROJECT BIOVANGUARD\"\ncarveout_ebitda = 59.4\nparent_alloc = 22.0\npurchase_price = 620.0\nnewco_costs = 9.2\nstranded_sc = 2.0\n\nclean_ebitda = carveout_ebitda + parent_alloc - newco_costs - stranded_sc\nentry_multiple = purchase_price / clean_ebitda\n\nprint(f\"Source filenames: 01_Transition_Services_Agreement_TSA.md, 02_Standalone_Adjusted_EBITDA_Bridge.csv\")\nprint(f\"Deal identifier: {deal_id}\")\nprint(f\"Purchase price (USD M): {purchase_price}\")\nprint(f\"Clean EBITDA (USD M): {clean_ebitda}\")\nprint(f\"Entry valuation multiple: {entry_multiple:.2f}x\")",
+      "generation_attempts": 1,
+      "rejected_scope_violations": []
+    }
+  ]
+}

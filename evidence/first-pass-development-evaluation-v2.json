@@ -1,0 +1,459 @@
+{
+  "accuracy_release_passed": false,
+  "artifact_integrity_passed": true,
+  "case_count": 5,
+  "cases": [
+    {
+      "answer_model": {
+        "provider": "local_bonsai",
+        "served_id": "27b@q1_0"
+      },
+      "case_id": "anaplan_vdr_timeline",
+      "case_version": "2.0.0",
+      "deterministic_hard_failure": false,
+      "domain_review_status": "not_reviewed",
+      "evaluations": [
+        {
+          "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+          "dimension": "source_integrity",
+          "evaluator": "deterministic_citation_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "All registered numeric tokens are present.",
+          "dimension": "numerical_correctness",
+          "evaluator": "deterministic_numeric_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "The case does not require an answer absence decision.",
+          "dimension": "calibrated_uncertainty",
+          "evaluator": "deterministic_absence_guard_v1",
+          "label": "not_applicable",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+          "dimension": "workflow_reliability",
+          "evaluator": "deterministic_signed_delivery_guard_v2",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "primary_decision_intent",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "evidence_support",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "component_completeness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "human_usefulness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        }
+      ],
+      "release_decision": "unverified",
+      "response_sha256": "c84cd86c8eb5497b925b5b8fd05e99449fc958b186ddd58e0e17fc5b837b021e",
+      "semantic_state": "unverified"
+    },
+    {
+      "answer_model": {
+        "provider": "local_bonsai",
+        "served_id": "27b@q1_0"
+      },
+      "case_id": "anaplan_termination_fees",
+      "case_version": "2.0.0",
+      "deterministic_hard_failure": false,
+      "domain_review_status": "not_reviewed",
+      "evaluations": [
+        {
+          "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+          "dimension": "source_integrity",
+          "evaluator": "deterministic_citation_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "All registered numeric tokens are present.",
+          "dimension": "numerical_correctness",
+          "evaluator": "deterministic_numeric_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "The case does not require an answer absence decision.",
+          "dimension": "calibrated_uncertainty",
+          "evaluator": "deterministic_absence_guard_v1",
+          "label": "not_applicable",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+          "dimension": "workflow_reliability",
+          "evaluator": "deterministic_signed_delivery_guard_v2",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "primary_decision_intent",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "evidence_support",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "component_completeness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "human_usefulness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        }
+      ],
+      "release_decision": "unverified",
+      "response_sha256": "dc9fd573543f8adb5eb89db6ce5f5fbef6da11724bcf4bf13a1c142ff883f5bd",
+      "semantic_state": "unverified"
+    },
+    {
+      "answer_model": {
+        "provider": "local_bonsai",
+        "served_id": "27b@q1_0"
+      },
+      "case_id": "citrix_financing_mix",
+      "case_version": "2.0.0",
+      "deterministic_hard_failure": false,
+      "domain_review_status": "not_reviewed",
+      "evaluations": [
+        {
+          "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+          "dimension": "source_integrity",
+          "evaluator": "deterministic_citation_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "All registered numeric tokens are present.",
+          "dimension": "numerical_correctness",
+          "evaluator": "deterministic_numeric_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "The case does not require an answer absence decision.",
+          "dimension": "calibrated_uncertainty",
+          "evaluator": "deterministic_absence_guard_v1",
+          "label": "not_applicable",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+          "dimension": "workflow_reliability",
+          "evaluator": "deterministic_signed_delivery_guard_v2",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "primary_decision_intent",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "evidence_support",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "component_completeness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "human_usefulness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        }
+      ],
+      "release_decision": "unverified",
+      "response_sha256": "0658b6237971eaabe3512bc3bf6a0fe4dd624c768194582dc61b8294d9f0834d",
+      "semantic_state": "unverified"
+    },
+    {
+      "answer_model": {
+        "provider": "local_bonsai",
+        "served_id": "27b@q1_0"
+      },
+      "case_id": "citrix_entry_leverage_absent",
+      "case_version": "2.0.0",
+      "deterministic_hard_failure": false,
+      "domain_review_status": "not_reviewed",
+      "evaluations": [
+        {
+          "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+          "dimension": "source_integrity",
+          "evaluator": "deterministic_citation_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No registered numeric fact for deterministic matching.",
+          "dimension": "numerical_correctness",
+          "evaluator": "deterministic_numeric_token_v1",
+          "label": "not_applicable",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "The response states the registered absence and avoids forbidden claims.",
+          "dimension": "calibrated_uncertainty",
+          "evaluator": "deterministic_absence_guard_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+          "dimension": "workflow_reliability",
+          "evaluator": "deterministic_signed_delivery_guard_v2",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "primary_decision_intent",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "evidence_support",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "component_completeness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "human_usefulness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        }
+      ],
+      "release_decision": "unverified",
+      "response_sha256": "8e066d6b30b4f68fe181dfa6c39b40a568cd1a34b56e26b06945926ed2f25d42",
+      "semantic_state": "unverified"
+    },
+    {
+      "answer_model": {
+        "provider": "local_bonsai",
+        "served_id": "27b@q1_0"
+      },
+      "case_id": "cma_competition_conclusion",
+      "case_version": "2.0.0",
+      "deterministic_hard_failure": false,
+      "domain_review_status": "not_reviewed",
+      "evaluations": [
+        {
+          "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+          "dimension": "source_integrity",
+          "evaluator": "deterministic_citation_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "All registered numeric tokens are present.",
+          "dimension": "numerical_correctness",
+          "evaluator": "deterministic_numeric_token_v1",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "The case does not require an answer absence decision.",
+          "dimension": "calibrated_uncertainty",
+          "evaluator": "deterministic_absence_guard_v1",
+          "label": "not_applicable",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+          "dimension": "workflow_reliability",
+          "evaluator": "deterministic_signed_delivery_guard_v2",
+          "label": "pass",
+          "score": 1.0,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "primary_decision_intent",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "evidence_support",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "component_completeness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        },
+        {
+          "critique": "No approved human label exists for this semantic dimension.",
+          "dimension": "human_usefulness",
+          "evaluator": "human_label_required_v1",
+          "label": "unverified",
+          "score": null,
+          "severity": "critical"
+        }
+      ],
+      "release_decision": "unverified",
+      "response_sha256": "34b589ab077db493dc28a418e91c64ad06103d9b15be249885d5811d257a5fd5",
+      "semantic_state": "unverified"
+    }
+  ],
+  "contract_release_ready": false,
+  "contract_structural_passed": true,
+  "deterministic_failure_count": 0,
+  "label_counts": {
+    "not_applicable": 5,
+    "pass": 15,
+    "unverified": 20
+  },
+  "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+  "release_blockers": [
+    "Every case lacks approved semantic and usefulness labels.",
+    "registered cases 5 of 120",
+    "registered deals 3 of 30",
+    "development cases 5 of 60",
+    "calibration cases 0 of 20",
+    "sealed_test cases 0 of 40",
+    "transaction_identity_structure_chronology cases 1 of 10",
+    "purchase_price_and_valuation cases 0 of 20",
+    "financing_and_capital_structure cases 1 of 20",
+    "financial_quality_and_earnings_adjustments cases 0 of 15",
+    "contract_terms_covenants_and_approvals cases 1 of 15",
+    "market_and_regulatory_findings cases 1 of 15",
+    "risks_conflicts_and_missing_information cases 1 of 15",
+    "cross_document_synthesis_and_recommendation cases 0 of 10",
+    "tables_or_calculations fraction 0.0000 below 0.2500",
+    "multiple_documents fraction 0.0000 below 0.4000",
+    "domain approved cases 0 of 5",
+    "product_owner approval is missing",
+    "domain_owner approval is missing",
+    "strategy_owner approval is missing",
+    "security_owner approval is missing",
+    "release thresholds are not approved"
+  ],
+  "responses_path": "evidence/bonsai-public-deal-battletest-responses.json",
+  "responses_sha256": "bb527dcdb6af3c2befa48b67820305ee164b5865c8ce83ebea516ab60eb6570b",
+  "semantic_unverified_count": 5,
+  "signed_delivery_evidence": {
+    "cases": {
+      "anaplan_termination_fees": true,
+      "anaplan_vdr_timeline": true,
+      "citrix_entry_leverage_absent": true,
+      "citrix_financing_mix": true,
+      "cma_competition_conclusion": true
+    },
+    "errors": [],
+    "limitations": [
+      "This proves signed product delivery and exact saved-response linkage, not semantic accuracy or usefulness.",
+      "The relay was live when this artifact was recorded; offline verification uses the embedded raw events.",
+      "The registered development cases still require qualified blinded human review."
+    ],
+    "passed": true,
+    "record": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/evidence/public-deal-buzz-event-verification.json",
+    "verified_case_count": 5
+  },
+  "source_state_unchanged": true,
+  "unauthorized_source_writes": [],
+  "verification_kind": "first_pass_development_evaluation"
+}

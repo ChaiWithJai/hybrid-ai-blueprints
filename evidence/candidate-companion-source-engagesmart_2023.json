@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "engagesmart_2023",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 482,
+    "estimated_tokens": 30788,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 44
+  },
+  "source": {
+    "accession": "0000950170-23-057763",
+    "bytes": 3011249,
+    "filing_date": "2023-11-02",
+    "form": "10-Q",
+    "path": ".runtime/candidate-deal-sources/engagesmart_2023/02_financial_10q.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1863105/000095017023057763/esmt-20230930.htm",
+    "report_date": "2023-09-30",
+    "sha256": "e25a3618f7e0595f4c56e08e552c5652801252d19743ed6298fecd6409dd932b"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

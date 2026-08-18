@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "framework_id": "prism_deal_room_hybrid_evaluation",
+  "version": "1.0.0",
+  "status": "development",
+  "business_job": "Help a deal team decide whether to advance, pause, or stop a deal, and show the next evidence or action needed.",
+  "investment_decision": [
+    "model_quality",
+    "retrieval",
+    "interface_design",
+    "document_fidelity",
+    "deployment_security"
+  ],
+  "principles": [
+    {
+      "id": "observed_failures_first",
+      "owner_lens": "Hamel",
+      "rule": "Create evaluators only for failures found in representative traces or required by a hard product contract."
+    },
+    {
+      "id": "experiment_history",
+      "owner_lens": "Swyx",
+      "rule": "Keep every experiment, baseline, configuration change, trace, and regression so the team can compare what changed."
+    },
+    {
+      "id": "criteria_drift_is_versioned",
+      "owner_lens": "Shreya",
+      "rule": "Human review may change a criterion, but each change creates a new version and invalidates prior judge calibration for that criterion."
+    },
+    {
+      "id": "business_value_controls_priority",
+      "owner_lens": "PrismML",
+      "rule": "Observed review time, corrections, evidence quality, decision usefulness, preference, and willingness to pay choose the next investment."
+    },
+    {
+      "id": "no_single_score",
+      "owner_lens": "shared",
+      "rule": "Do not combine safety, accuracy, usefulness, cost, latency, privacy, and willingness to pay into one score."
+    }
+  ],
+  "workload_families": [
+    {
+      "id": "deal_room_first_pass",
+      "status": "active",
+      "tasks": [
+        "diligence_chronology",
+        "financing_stack",
+        "regulatory_finding",
+        "transaction_summary",
+        "valuation_and_returns",
+        "risk_and_missing_evidence"
+      ]
+    },
+    {
+      "id": "coding_agent",
+      "status": "next",
+      "tasks": [
+        "repository_change",
+        "tool_use",
+        "execution_correctness",
+        "review_and_recovery"
+      ]
+    }
+  ],
+  "evaluation_layers": [
+    {
+      "id": "document_fidelity",
+      "question": "Did Prism preserve the source content and structure needed for the task?",
+      "methods": ["deterministic", "human_review"],
+      "primary_measures": ["parser_coverage", "table_cell_accuracy", "ocr_error_rate", "anchor_resolution"]
+    },
+    {
+      "id": "retrieval",
+      "question": "Did the evidence packet contain every passage needed to answer the question?",
+      "methods": ["deterministic"],
+      "primary_measures": ["recall_at_k", "mrr", "two_hop_recall_at_k"]
+    },
+    {
+      "id": "answer",
+      "question": "Did the answer use the evidence correctly and complete the requested decision task?",
+      "methods": ["deterministic", "human_calibrated_llm_judge"],
+      "primary_measures": ["material_claim_support", "critical_number_accuracy", "requested_component_recall", "calibrated_uncertainty"]
+    },
+    {
+      "id": "workflow",
+      "question": "Did the agent complete the whole task and recover safely from failures?",
+      "methods": ["deterministic", "human_review"],
+      "primary_measures": ["end_to_end_success", "first_failed_transition", "tool_error_rate", "publication_guard_recovery"]
+    },
+    {
+      "id": "human_use",
+      "question": "Did the workflow reduce expert effort while preserving the quality of the decision?",
+      "methods": ["blinded_domain_review"],
+      "primary_measures": ["review_seconds", "critical_corrections", "major_corrections", "evidence_quality", "decision_usefulness", "workflow_preference"]
+    },
+    {
+      "id": "deployment",
+      "question": "Did the selected local, cloud, or hybrid route satisfy privacy, policy, reliability, latency, and cost requirements?",
+      "methods": ["deterministic", "operator_review", "buyer_review"],
+      "primary_measures": ["route_success", "egress_authorized", "content_exposure", "latency_ms", "cost_usd", "energy_mwh_per_token"]
+    },
+    {
+      "id": "business_value",
+      "question": "Will a buyer fund the result and under what unit, package, and conditions?",
+      "methods": ["buyer_interview"],
+      "primary_measures": ["acceptable_price", "expensive_price", "prohibitive_price", "paid_next_step", "decline_reason"]
+    }
+  ],
+  "route_contract": {
+    "modes": ["local", "cloud", "hybrid"],
+    "required_run_fields": [
+      "experiment_id",
+      "dataset_version",
+      "case_id",
+      "workflow_family",
+      "route_mode",
+      "answer_model",
+      "judge_model",
+      "prompt_sha256",
+      "evaluator_version",
+      "source_snapshot_sha256",
+      "retrieval_config_sha256",
+      "output_sha256",
+      "started_at",
+      "ended_at",
+      "latency_ms",
+      "input_tokens",
+      "output_tokens",
+      "cost_usd",
+      "energy_mwh_per_token",
+      "egress_authorized",
+      "content_exposure",
+      "runtime_error"
+    ],
+    "comparison_rules": [
+      "Use the same dataset, source snapshot, question, evidence packet, answer contract, and limits for all modes.",
+      "Blind human reviewers to route and model identity.",
+      "Do not replace a failed route with a simulated or manually written answer.",
+      "Report paired case differences and failure counts before aggregate rates.",
+      "Keep latency, cost, energy, privacy, and quality as separate measures."
+    ]
+  },
+  "evaluator_registry": [
+    {
+      "id": "source_integrity",
+      "kind": "deterministic",
+      "status": "active",
+      "decision": "release_gate"
+    },
+    {
+      "id": "critical_number_accuracy",
+      "kind": "deterministic",
+      "status": "active",
+      "decision": "release_gate"
+    },
+    {
+      "id": "requested_component_recall",
+      "kind": "deterministic_then_semantic",
+      "status": "development",
+      "decision": "release_gate"
+    },
+    {
+      "id": "material_claim_support",
+      "kind": "llm_judge",
+      "status": "blocked_on_human_labels",
+      "candidate_judge": "bonsai_27b",
+      "prompt_bundle": "benchmarks/judges/deal_room_semantic_judges.v1.json",
+      "prompt_version": "1.0.0",
+      "criterion": "Every material claim is supported by the cited passage, and the cited passage supports the stated relation."
+    },
+    {
+      "id": "decision_task_completion",
+      "kind": "llm_judge",
+      "status": "blocked_on_human_labels",
+      "candidate_judge": "bonsai_27b",
+      "prompt_bundle": "benchmarks/judges/deal_room_semantic_judges.v1.json",
+      "prompt_version": "1.0.0",
+      "criterion": "The answer completes the named deal task and states the decision effect without adding a different task."
+    },
+    {
+      "id": "material_omission",
+      "kind": "llm_judge",
+      "status": "blocked_on_human_labels",
+      "candidate_judge": "bonsai_27b",
+      "prompt_bundle": "benchmarks/judges/deal_room_semantic_judges.v1.json",
+      "prompt_version": "1.0.0",
+      "criterion": "The answer does not omit a material fact that the evidence packet contains and the task requires."
+    },
+    {
+      "id": "calibrated_uncertainty",
+      "kind": "llm_judge",
+      "status": "blocked_on_human_labels",
+      "candidate_judge": "bonsai_27b",
+      "prompt_bundle": "benchmarks/judges/deal_room_semantic_judges.v1.json",
+      "prompt_version": "1.0.0",
+      "criterion": "The answer names missing or conflicting evidence and does not present an unsupported inference as a disclosed fact."
+    },
+    {
+      "id": "human_decision_usefulness",
+      "kind": "blinded_domain_review",
+      "status": "ready_for_pilot",
+      "decision": "investment_and_product_value"
+    }
+  ],
+  "judge_validation": {
+    "minimum_labels_per_failure_mode": 100,
+    "target_pass_labels": 50,
+    "target_fail_labels": 50,
+    "splits": {
+      "train": 0.15,
+      "dev": 0.45,
+      "test": 0.4
+    },
+    "train_use": "few_shot_examples_only",
+    "dev_use": "prompt_iteration",
+    "test_use": "one_final_measurement",
+    "target_tpr": 0.9,
+    "target_tnr": 0.9,
+    "minimum_tpr": 0.8,
+    "minimum_tnr": 0.8,
+    "maximum_critical_false_passes": 0,
+    "report": ["confusion_matrix", "tpr", "tnr", "parse_failure_rate", "bias_corrected_pass_rate", "bootstrap_95_percent_interval"],
+    "revalidation_triggers": [
+      "judge_model_change",
+      "judge_quantization_change",
+      "judge_prompt_change",
+      "criterion_change",
+      "answer_model_change",
+      "retrieval_change",
+      "new_workload_family",
+      "ninety_days_elapsed"
+    ]
+  },
+  "business_gates": {
+    "minimum_useful_starting_point_fraction": 0.8,
+    "minimum_median_review_time_reduction": 0.3,
+    "maximum_critical_corrections": 0,
+    "buyer_price_range_required": true,
+    "paid_next_step_or_decline_reason_required": true
+  },
+  "dashboard_views": [
+    "decision",
+    "experiments",
+    "evaluators",
+    "traces_and_review",
+    "business_value"
+  ],
+  "aggregation_policy": {
+    "single_composite_score": false,
+    "hard_failure_can_be_averaged_away": false,
+    "show_missing_as_zero": false,
+    "show_unmeasured_as_pass": false,
+    "required_comparisons": ["absolute_result", "baseline_delta", "paired_case_delta", "confidence_interval"]
+  }
+}

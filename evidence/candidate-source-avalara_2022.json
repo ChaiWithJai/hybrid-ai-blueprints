@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "avalara_2022",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2249,
+    "estimated_tokens": 175189,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 491
+  },
+  "source": {
+    "accession": "0001193125-22-242344",
+    "bytes": 1609596,
+    "cik": "0001348036",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1348036/000119312522242344/0001193125-22-242344-index.htm",
+    "path": ".runtime/candidate-deal-sources/avalara_2022/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1348036/000119312522242344/d397623ddefm14a.htm",
+    "sha256": "213a74065363aa3290cd284f7d73f2d8feba45def4c610c9f143a1b663d83c9c"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

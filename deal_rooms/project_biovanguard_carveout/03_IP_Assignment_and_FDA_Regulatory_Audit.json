@@ -1,0 +1,30 @@
+{
+  "deal_name": "PROJECT_BIOVANGUARD_CARVEOUT",
+  "purchase_price_usd_m": 620.0,
+  "seller_entity": "Pharmaxis Global Life Sciences Inc.",
+  "buyer_entity": "BioVanguard Therapeutics Holdings LLC",
+  "fda_regulatory_assets": {
+    "oncology_biomarker_pma": {
+      "pma_number": "PMA-24-09881",
+      "device_class": "CLASS_III_IVD",
+      "transferability_status": "APPROVED_SECTION_513_TRANSFER",
+      "fda_target_completion_date": "2026-05-15"
+    },
+    "companion_diagnostic_510k": {
+      "k_number": "K233409",
+      "indication": "HER2/neu Liquid Biopsy NextGen Sequencing",
+      "audit_status": "FULL_COMPLIANCE_ZERO_483_OBSERVATIONS"
+    }
+  },
+  "ip_portfolio": {
+    "granted_us_patents": 18,
+    "pending_international_wipo_applications": 12,
+    "patent_cliff_earliest_expiry_year": 2039,
+    "freedom_to_operate_opinion": "CLEAR_NO_INFRINGING_THIRD_PARTY_CLAIMS"
+  },
+  "tsa_budget_summary": {
+    "total_tsa_contract_value_usd_m": 19.2,
+    "parent_reimbursement_schedule": "MONTHLY_ADVANCE",
+    "penalty_for_delayed_exit_per_month_usd_k": 150.0
+  }
+}

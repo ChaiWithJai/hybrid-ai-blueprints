@@ -1,0 +1,210 @@
+{
+  "verification_kind": "replayable_case_authoring_browser_check",
+  "recorded_at": "2026-08-16T09:49:48.967Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "assertions": [
+    {
+      "name": "empty_source_review_gate",
+      "passed": true
+    },
+    {
+      "name": "queue_count_matches_api",
+      "passed": true
+    },
+    {
+      "name": "approval_and_registration_truth",
+      "passed": true
+    },
+    {
+      "name": "owner_control_closed",
+      "passed": true
+    },
+    {
+      "name": "unsigned_export_closed",
+      "passed": true
+    },
+    {
+      "name": "no_preselected_evaluation_slice",
+      "passed": true
+    },
+    {
+      "name": "api_preserves_stage_boundaries",
+      "passed": true
+    }
+  ],
+  "observed_state": {
+    "eligible_draft_count": 0,
+    "total_draft_count": 319,
+    "owner_roster_ready": false,
+    "browser_owner_authentication_ready": false,
+    "unsigned_export_ready": false,
+    "pipeline": {
+      "source_review": {
+        "submission_count": 0,
+        "eligible_count": 0,
+        "rejected_count": 0,
+        "disagreement_count": 0,
+        "pending_count": 319,
+        "validation_passed": true
+      },
+      "case_approval": {
+        "roster_authority_state": "unconfigured",
+        "active_domain_case_owner_count": 0,
+        "recorded_approval_count": 0,
+        "unregistered_approval_count": 0,
+        "registered_approval_count": 0,
+        "storage": "hash_chained_content_addressed_signed_approval_ledger"
+      },
+      "registration": {
+        "ledger_valid": true,
+        "candidate_cases_registered": 0,
+        "total_cases_registered": 5,
+        "total_deals_registered": 3
+      },
+      "calibration": {
+        "reviewer_roster_authority_state": "unconfigured",
+        "evaluator_available": true,
+        "registered_case_count": 0,
+        "registered_deal_count": 0,
+        "required_case_count": 20,
+        "required_deal_count": 5,
+        "qualified_output_reviewer_count": 0,
+        "principal_output_reviewer_count": 0,
+        "evidence_state": "not_recorded",
+        "calibration_passed": false,
+        "errors": []
+      },
+      "release": {
+        "accuracy_release_ready": false,
+        "domain_approved_cases": 0,
+        "target_cases": 120,
+        "target_deals": 30,
+        "blocker_count": 18
+      },
+      "buzz_review_channel": {
+        "configured": true,
+        "channel_id": "c706e2d1-25aa-4897-b28d-e8ffae80ad20",
+        "signature_verification": "nip01_event_id_plus_bip340"
+      },
+      "governance": {
+        "configured": false,
+        "valid": true,
+        "receipt_count": 0,
+        "required_receipt_count": 12,
+        "signature_verification": "nip01_event_id_plus_bip340_material_bound",
+        "authority_boundary": "The checked-in trust root is local configuration. Each promotion receipt must still be signed by its assigned role over the exact benchmark material hash."
+      },
+      "benchmark_decisions": {
+        "decision_count": 10,
+        "release_satisfied_count": 0,
+        "all_release_satisfied": false,
+        "decisions": [
+          {
+            "number": 1,
+            "key": "job_under_certification",
+            "title": "Job under certification",
+            "state": "awaiting_owner_approval",
+            "release_satisfied": false,
+            "evidence": "Produce an evidence-backed first pass underwriting brief from an authorized M&A folder and a stated investment screen so a private equity deal professional can decide whether to advance, pause, or stop review.",
+            "blocker": "Signed, material-bound product and domain owner approvals are missing."
+          },
+          {
+            "number": 2,
+            "key": "label_authority",
+            "title": "Label authority",
+            "state": "awaiting_qualified_reviewers",
+            "release_satisfied": false,
+            "evidence": "0 source reviewers, 0 source principals, 0 output reviewers, 0 output principals",
+            "blocker": "Signed authorities and qualified independent reviewers are missing."
+          },
+          {
+            "number": 3,
+            "key": "error_severity",
+            "title": "Error severity",
+            "state": "contract_only",
+            "release_satisfied": false,
+            "evidence": "0 of 5 cases have domain approval.",
+            "blocker": "Domain owners have not approved case severity and expected results."
+          },
+          {
+            "number": 4,
+            "key": "dataset_size_and_coverage",
+            "title": "Dataset size and coverage",
+            "state": "dataset_incomplete",
+            "release_satisfied": false,
+            "evidence": "5 of 120 cases across 3 of 30 deals.",
+            "blocker": "Registered case, deal, task family, or required slice coverage is incomplete."
+          },
+          {
+            "number": 5,
+            "key": "leakage_control",
+            "title": "Leakage control",
+            "state": "sealed_set_unavailable",
+            "release_satisfied": false,
+            "evidence": "0 sealed cases. Controller state: not_authorized. Preflight: blocked.",
+            "blocker": "The full sealed test preflight is blocked before external bytes are read."
+          },
+          {
+            "number": 6,
+            "key": "model_roles",
+            "title": "Model roles",
+            "state": "roles_incomplete",
+            "release_satisfied": false,
+            "evidence": "Judge calibration: not_recorded. Human labels remain authoritative.",
+            "blocker": "Independent human labels and judge calibration are incomplete."
+          },
+          {
+            "number": 7,
+            "key": "failure_localization",
+            "title": "Failure localization",
+            "state": "engineering_diagnostic_only",
+            "release_satisfied": false,
+            "evidence": "Five development cases have a recomputed oracle context diagnostic.",
+            "blocker": "Semantic localization lacks calibrated human labels."
+          },
+          {
+            "number": 8,
+            "key": "private_data_and_evaluation_records",
+            "title": "Private data and evaluation records",
+            "state": "private_pilot_not_recorded",
+            "release_satisfied": false,
+            "evidence": "Signed private pilot evidence: not_recorded.",
+            "blocker": "No authorized buyer signed private deal room record exists."
+          },
+          {
+            "number": 9,
+            "key": "required_comparisons",
+            "title": "Required comparisons",
+            "state": "engineering_comparison_only",
+            "release_satisfied": false,
+            "evidence": "The deterministic baseline and local Bonsai engineering comparison exist.",
+            "blocker": "No frozen, labeled release comparison exists."
+          },
+          {
+            "number": 10,
+            "key": "release_thresholds",
+            "title": "Release thresholds",
+            "state": "thresholds_unapproved",
+            "release_satisfied": false,
+            "evidence": "Signed threshold approvals: False. Accuracy release: False.",
+            "blocker": "Threshold approval, calibration, or the release contract is incomplete."
+          }
+        ],
+        "meaning": "Each decision reports current evidence and its next blocker. A contract or engineering diagnostic does not count as human or release evidence."
+      }
+    }
+  },
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-case-authoring-v1.png",
+    "bytes": 212151,
+    "sha256": "94923c957e5aae4ad057a368f1f8affaea9624b2329aad6ce02f1498f9a31f4b"
+  },
+  "limitations": [
+    "This verifies the rendered empty gate and unsigned export boundary, not domain accuracy.",
+    "No source reviews or case approvals have been created by this browser check."
+  ]
+}

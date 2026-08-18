@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "prism_workspace_eval_v1",
+  "measurement_state": "development_evaluation_not_domain_certification",
+  "dataset_sha256": "539acf1b60e6e564dc2ca1f78a787c2c5a8844c1870597db615bf1d8d8adf312",
+  "rag": {
+    "cases": [
+      {
+        "case_id": "rag_debt_stack",
+        "query_type": "single_fact_lookup",
+        "k": 3,
+        "relevant_citations": [
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+        ],
+        "retrieved_citations": [
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+          "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+          "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_1]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": null,
+        "passed": true
+      },
+      {
+        "case_id": "rag_ecf_sweep",
+        "query_type": "single_fact_lookup",
+        "k": 2,
+        "relevant_citations": [
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]"
+        ],
+        "retrieved_citations": [
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]",
+          "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_tbl_1]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+          "[01_Confidential_Information_Memorandum.md#node:node_para_2]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": null,
+        "passed": true
+      },
+      {
+        "case_id": "rag_interest_coverage",
+        "query_type": "multi_hop",
+        "k": 3,
+        "relevant_citations": [
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_tbl_1]"
+        ],
+        "retrieved_citations": [
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_tbl_1]",
+          "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": true,
+        "passed": true
+      },
+      {
+        "case_id": "rag_sponsor_irr",
+        "query_type": "single_fact_lookup",
+        "k": 2,
+        "relevant_citations": [
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]"
+        ],
+        "retrieved_citations": [
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_entry_ebitda_multiple]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_initial_sponsor_equity_usd_m]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_sponsor_entity]",
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": null,
+        "passed": true
+      },
+      {
+        "case_id": "rag_value_creation",
+        "query_type": "broad_coverage",
+        "k": 5,
+        "relevant_citations": [
+          "[01_Confidential_Information_Memorandum.md#node:node_para_4]"
+        ],
+        "retrieved_citations": [
+          "[01_Confidential_Information_Memorandum.md#node:node_para_4]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+          "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+          "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+          "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_entry_enterprise_value_usd_m]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": null,
+        "passed": true
+      },
+      {
+        "case_id": "rag_builder_basket",
+        "query_type": "single_fact_lookup",
+        "k": 2,
+        "relevant_citations": [
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]"
+        ],
+        "retrieved_citations": [
+          "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]"
+        ],
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "two_hop_recall_at_k": null,
+        "passed": true
+      }
+    ],
+    "mean_recall_at_k": 1.0,
+    "mrr": 1.0,
+    "two_hop_pass_rate": 1.0,
+    "passed": true
+  },
+  "generation": {
+    "cases": [
+      {
+        "case_id": "generation_debt_stack_saved_bonsai",
+        "trace_source": "evidence/browser-titan-debt-chat-v1.json",
+        "response_sha256": "329b9d8c75e9e9b0b4498c9a0f4e0b2ff74008a0b87238e208f2cfad8eb95026",
+        "faithfulness": {
+          "passed": true,
+          "citation_present": true,
+          "guard_violations": [],
+          "meaning": "Numbers and material terms passed the deterministic source guard. Semantic faithfulness remains unreviewed."
+        },
+        "answer_relevance": {
+          "passed": true,
+          "missing_required_terms": [],
+          "forbidden_hits": [],
+          "meaning": "The registered requested components are present and registered out-of-scope equity rows are absent."
+        },
+        "passed": true,
+        "human_validation": "pending"
+      }
+    ],
+    "negative_controls": [
+      {
+        "case_id": "generation_debt_stack_saved_bonsai",
+        "control": "wrong_number",
+        "expected_failure": "faithfulness",
+        "caught": true
+      },
+      {
+        "case_id": "generation_debt_stack_saved_bonsai",
+        "control": "missing_component",
+        "expected_failure": "answer_relevance",
+        "caught": true
+      }
+    ],
+    "passed": true,
+    "human_validation": "pending"
+  },
+  "agentic_workflows": {
+    "cases": [
+      {
+        "workflow_id": "workflow_source_bound_answer",
+        "description": "Retrieve the debt table, invoke local Bonsai, pass the publication guard, sign to Buzz, and render the answer.",
+        "evidence_file": "evidence/browser-titan-debt-chat-v1.json",
+        "passed": true,
+        "first_failure": null,
+        "transitions": [
+          {
+            "from": "question",
+            "to": "retrieved evidence",
+            "assertion": "source_hash_and_anchor_bound",
+            "passed": true,
+            "observed": {
+              "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822",
+              "anchor": "node:node_tbl_1"
+            }
+          },
+          {
+            "from": "retrieved evidence",
+            "to": "guarded answer",
+            "assertion": "capital_structure_contract_bound",
+            "passed": true,
+            "observed": {
+              "capital_structure": [
+                "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+              ]
+            }
+          },
+          {
+            "from": "guarded answer",
+            "to": "signed Buzz event",
+            "assertion": "accepted_answer_signature_verified",
+            "passed": true,
+            "observed": {
+              "event_id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028"
+            }
+          },
+          {
+            "from": "signed Buzz event",
+            "to": "human-visible answer",
+            "assertion": "human_debt_label_and_values_visible",
+            "passed": true,
+            "observed": "B\nBonsai\nVerified signature \u00b7 current source guard\n3:56 AM\nDebt tranches and amounts: Revolving Credit Facility ($150M Commitment): $0.0; First Lien Term Loan B (SOFR + 375 bps): $900.0; Second Lien Senior Notes (Fixed 8.75%): $300.0; Subordinated Mezzanine Debt (PIK 11.50%): $240.0 [SOURCE [01_Confidential_Information_Memorandum.md#node:node_tbl_1]]\nEvidence scope: 8 passages selected from 21 searchable nodes"
+          }
+        ]
+      },
+      {
+        "workflow_id": "workflow_guard_recovery",
+        "description": "Keep the failed attempt, retry once, and publish only the source-bound answer.",
+        "evidence_file": "evidence/browser-titan-debt-chat-v1.json",
+        "passed": true,
+        "first_failure": null,
+        "transitions": [
+          {
+            "from": "first generation",
+            "to": "rejection retained",
+            "assertion": "prior_rejection_retained",
+            "passed": true,
+            "observed": {
+              "event_id": "6744212841337f7f235bd8e3043cfb6e2b2d945cc1dc84e5693a416863604e68",
+              "trace_id": "trc_66b4c6474ca3"
+            }
+          },
+          {
+            "from": "retry",
+            "to": "publication guard pass",
+            "assertion": "every_debt_instrument_visible_in_signed_answer",
+            "passed": true,
+            "observed": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_45332789cdfb source_class=synthetic_engineering_fixture provenance=31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e source_snapshot=b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1 -->\n- **Debt tranches and amounts:** Revolving Credit Facility ($150M Commitment): $0.0; First Lien Term Loan B (SOFR + 375 bps): $900.0; Second Lien Senior Notes (Fixed 8.75%): $300.0; Subordinated Mezzanine Debt (PIK 11.50%): $240.0 [SOURCE [01_Confidential_Information_Memorandum.md#node:node_tbl_1]]"
+          },
+          {
+            "from": "published event",
+            "to": "restart restoration",
+            "assertion": "accepted_trace_restored_after_restart",
+            "passed": true,
+            "observed": {
+              "trace_timestamp": 1786866944.029014,
+              "server_process_started_at": 1786869417.321755
+            }
+          }
+        ]
+      },
+      {
+        "workflow_id": "workflow_citation_followup",
+        "description": "Preview a cited passage without losing place, carry it into chat, and open the exact full source when needed.",
+        "evidence_file": "evidence/browser-customer-demo-v1.json",
+        "passed": true,
+        "first_failure": null,
+        "transitions": [
+          {
+            "from": "citation",
+            "to": "in-place passage",
+            "assertion": "citation_preview_preserves_current_view",
+            "passed": true,
+            "observed": {
+              "url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
+              "source": "02_LBO_Debt_Financing_Credit_Agreement.md",
+              "anchor": "node:node_para_3"
+            }
+          },
+          {
+            "from": "in-place passage",
+            "to": "scoped composer",
+            "assertion": "citation_context_reaches_persistent_composer",
+            "passed": true,
+            "observed": {
+              "panel_hidden": "true",
+              "context_visible": true,
+              "context_label": "Debt terms \u00b7 Paragraph 3",
+              "input_focused": true
+            }
+          },
+          {
+            "from": "in-place passage",
+            "to": "exact full source",
+            "assertion": "citation_preview_opens_exact_full_source",
+            "passed": true,
+            "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=02_LBO_Debt_Financing_Credit_Agreement.md&anchor=node%3Anode_para_3"
+          }
+        ]
+      }
+    ],
+    "end_to_end_pass_rate": 1.0,
+    "passed": true
+  },
+  "chat_error_discovery": {
+    "source_event_count": 38,
+    "requested_sample_count": 10,
+    "loaded_sample_count": 10,
+    "sampling": "ten preselected strata spanning request, fallback, rejection, review, replay, and accepted answer",
+    "samples": [
+      {
+        "id": "423c0bc3ac7be4942a73980caec60553db8decc3adee95850f439abd68ba81fc",
+        "stratum": "first_pass_request",
+        "created_at": 1786769834,
+        "acceptance_state": null,
+        "content": "## First pass requested\n\nAssess whether the deal should advance to deeper review. Focus on transaction structure, valuation, financing, financial quality, material risks, required approvals, missing information, and the next questions a deal team should answer.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "workflow_event_noise",
+            "reason": "A workflow request should not dominate the human conversation."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "59aa332d37b386ef8a56f864f529e9097b235064f27c4f791df9b3f12b627c59",
+        "stratum": "fallback",
+        "created_at": 1786769879,
+        "acceptance_state": "quarantined_uncommitted",
+        "content": "**Uncommitted agent event quarantined**\n\nBuzz verified this signed event, but Prism found no matching trace and current source binding. The candidate content is not presented as an answer.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "publication_rejection",
+            "reason": "The candidate failed a source or publication guard."
+          },
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+        "stratum": "quarantined_model_draft",
+        "created_at": 1786770091,
+        "acceptance_state": "quarantined_uncommitted",
+        "content": "**Uncommitted agent event quarantined**\n\nBuzz verified this signed event, but Prism found no matching trace and current source binding. The candidate content is not presented as an answer.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "publication_rejection",
+            "reason": "The candidate failed a source or publication guard."
+          },
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "a1d1cd8a56cd124dafdf6b9b6b0b3b69df0898523246c6f774583411c2db6688",
+        "stratum": "operator_review",
+        "created_at": 1786861773,
+        "acceptance_state": null,
+        "content": "## Source evidence packet reviewed\n\nReview subject: deterministic source evidence packet\n\nArtifact mode: evidence_safe_fallback\n\nDecision: PAUSE\n\nUseful starting point: Yes\n\nCritical corrections: 1\n\nMajor corrections: 0\n\nNotes: Source excerpts were useful; one correction remains. This is an operator smoke review, not domain review.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [],
+        "human_annotation": null
+      },
+      {
+        "id": "e363248b89e3d7e95d4f212e656bce48c9dcf95d4aa68d6279139cda18e11c4d",
+        "stratum": "fallback_after_review",
+        "created_at": 1786861773,
+        "acceptance_state": "evidence_safe_fallback",
+        "content": "<!-- prism:first-pass-draft model=deterministic_source_excerpt_v2 recommendation=pause guard=source_excerpt_v2 mode=evidence_safe_fallback trace=trc_8a813e697a21 model_failure_trace=trc_a4cdcdb1d205 source_class=synthetic_engineering_fixture provenance=31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e source_snapshot=b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1 -->\n# Evidence-safe first pass fallback\n\n## Recommendation\n\nRecommendation: PAUSE\n\nPrism generated this evidence-safe fallback because the Bonsai candidate failed deterministic evidence checks. PAUSE is a system safety disposition, not a model recommendation. The rejected model run remains a separate trace.\n\n## Investment screen evidence\n\n### Screen-matched source excerpt 1\n\n> Section 2.02: Mandatory Excess Cash Flow (ECF) Prepayment Sweep Within 90 days following each fiscal year end, the Borrower shall prepay outstanding Term Loan B principal in an amount equal to the applicable ECF percentage: * **50.0% of ECF** if First Lien Net Leverage Ratio $> 4.00\\times$. * **25.0% of ECF** if First Lien Net Leverage Ratio is between $3.25\\times$ and $4.00\\times$. * **0.0% of ECF** if First Lien Net Leverage Ratio $< 3.25\\times$. ---\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_3]\n\n### Screen-matched source excerpt 2\n\n> Financial Ledger | Line_Item_USD_M | 2024A | 2025A | 2026E_LBO_Y1 | 2027E_LBO_Y2 | 2028E_LBO_Y3 | 2029E_LBO_Y4 | 2030E_LBO_Y5 | | --- | --- | --- | --- | --- | --- | --- | --- | | Revenue | 418.0 | 520.0 | 624.0 | 736.0 | 854.0 | 973.5 | 1090.0 | | Revenue_YoY_Growth | 22.0% | 24.4% | 20.0% | 17.9% | 16.0% | 14.0% | 12.0% | | COGS | 125.4 | 145.6 | 168.5 | 191.4 | 213.5 | 238.5 | 261.6 | | Gross_Profit | 292.6 | 374.4 | 455.5 | 544.6 | 640.5 | 735.0 | 828.4 | | Gross_Margin | 70.0% | 72.0% | 73.0% | 74.0% | 75.0% | 75.5% | 76.0% | | Operating_Expenses_SG_and_A | 142.6 | 174.4 | 206.0 | 235.5 | 264.7 | 292.0 | 316.1 | | Adjusted_EBITDA | 150.0 | 200.0 | 249.5 | 309.1 | 375.8 | 443.0 | 512.3 | | EBITDA_Margin | 35.9% | 38.5% | 40.0% | 42.0% | 44.0% | 45.5% | 47.0% | | D_and_A | 30.0 | 38.0 | 45.0 | 50.0 | 55.0 | 60.0 | 65.0 | | EBIT_Operating_Income | 120.0 | 162.0 | 204.5 | 259.1 | 320.8 \u2026 [excerpt truncated]\n\n[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]\n\n### Screen-matched source excerpt 3\n\n> Project Name Project Titan LBO Returns Analysis\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]\n\n## Transaction\n\n### Source excerpt 1\n\n> 2. TRANSACTION FINANCING STRUCTURE (SOURCES & USES) | Sources of Funds | Amount ($M) | % Total | Leverage Multiple | | --- | --- | --- | --- | | **Revolving Credit Facility ($150M Commitment)** | $0.0 | 0.0% | 0.00x | | **First Lien Term Loan B (SOFR + 375 bps)** | $900.0 | 37.5% | 4.50x | | **Second Lien Senior Notes (Fixed 8.75%)** | $300.0 | 12.5% | 1.50x | | **Subordinated Mezzanine Debt (PIK 11.50%)** | $240.0 | 10.0% | 1.20x | | **Sponsor Preferred Equity (Fund VIII)** | $800.0 | 33.3% | \u2014 | | **Management Rollover Equity** | $160.0 | 6.7% | \u2014 | | **Total Sources of Funds** | **$2,400.0** | **100.0%** | **7.20x Gross** |\n\n[01_Confidential_Information_Memorandum.md#node:node_tbl_1]\n\n### Source excerpt 2\n\n> 1. EXECUTIVE SUMMARY & INVESTMENT THESIS CloudScale Networks Inc. is the leading provider of enterprise hybrid-cloud orchestration, software-defined SD-WAN controllers, and distributed edge AI routing infrastructure. * **Target 2025A Revenue:** $520.0M USD (24.5% YoY Organic Growth). * **Target 2025A Adjusted EBITDA:** $200.0M USD (38.5% EBITDA Margin). * **Sponsor Equity Check:** $960.0M USD (40.0% of Total Sources). * **Funded Debt Financing:** $1,440.0M USD (60.0% of Total Sources, 7.20x Gross Leverage / 6.00x Net Leverage). ---\n\n[01_Confidential_Information_Memorandum.md#node:node_para_2]\n\n## Valuation and financing\n\n### Source excerpt 1\n\n> Returns Matrix By Exit Year { \"2028_3_Year_Exit\": { \"projected_exit_ebitda_usd_m\": 375.8, \"ending_net_debt_usd_m\": 1257.5, \"multiples_sensitivity\": [ { \"exit_multiple\": 10.0, \"exit_ev\": 3758.0, \"exit_equity_value\": 2500.5, \"sponsor_proceeds\": 2083.7, \"sponsor_moic\": 2.6, \"sponsor_irr_pct\": 37.5 }, { \"exit_multiple\": 12.0, \"exit_ev\": 4509.6, \"exit_equity_value\": 3252.1, \"sponsor_proceeds\": 2710.1, \"sponsor_moic\": 3.39, \"sponsor_irr_pct\": 50.2 }, { \"exit_multiple\": 14.0, \"exit_ev\": 5261.2, \"exit_equity_value\": 4003.7, \"sponsor_proceeds\": 3336.4, \"sponsor_moic\": 4.17, \"sponsor_irr_pct\": 60.9 } ] }, \"2030_5_Year_Exit\": { \"projected_exit_ebitda_usd_m\": 512.3, \"ending_net_debt_usd_m\": 1002.4, \"multiples_sensitivity\": [ { \"exit_multiple\": 10.0, \"exit_ev\": 5123.0, \"exit_equity_value\": 4120.6, \"sponsor_proceeds\": 3433.8, \"sponsor_moic\": 4.29, \"sponsor_irr_pct\": 33.8 }, { \"exit_multiple\": 12.0, \u2026 [excerpt truncated]\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]\n\n### Source excerpt 2\n\n> 2. TRANSACTION FINANCING STRUCTURE (SOURCES & USES) | Uses of Funds | Amount ($M) | % Total | Description | | --- | --- | --- | --- | | **Purchase Equity from Public Shareholders** | $2,250.0 | 93.8% | $48.00 per share tender offer | | **Refinance Existing Debt** | $95.0 | 4.0% | Extinguish Series A/B bank loans | | **Financing & Underwriting Fees** | $35.0 | 1.5% | 2.5% on Term Loan + 1.5% on Notes | | **Sponsor Advisory & Legal Fees** | $20.0 | 0.8% | M&A legal, accounting & IT carve-out | | **Total Uses of Funds** | **$2,400.0** | **100.0%** | Balanced Sources & Uses |\n\n[01_Confidential_Information_Memorandum.md#node:node_tbl_2]\n\n## Financial quality\n\n### Source excerpt 1\n\n> 3. VALUE CREATION DRIVERS & EXPANSION LEVERS 1. **Pricing Power & Packaging Overhaul:** Transition legacy perpetual appliance licenses to 100% cloud ARR model, expanding Net Revenue Retention (NRR) from 114% to 128%. 2. **Gross Margin Accretion:** Consolidate co-location datacenter footprint and optimize low-bit on-premise AI acceleration, reducing COGS by $18.5M over 24 months. 3. **M&A Bolt-On Pipeline:** Identified three actionable tuck-in assets with $45M aggregate EBITDA at 6.0x-8.0x multiples.\n\n[01_Confidential_Information_Memorandum.md#node:node_para_4]\n\n### Source excerpt 2\n\n> Section 3.01: Builder Basket Conditions Dividends to Sponsor Equity Holders (Restricted Payments) are strictly prohibited unless all of the following conditions are met: 1. No Event of Default has occurred and is continuing. 2. Total Net Leverage Ratio is pro-forma $\\le 4.25\\times$ (or First Lien $\\le 3.00\\times$). 3. Aggregate dividend amount does not exceed the available \"Builder Basket\" ($50\\%$ of cumulative Consolidated Net Income since Closing Date plus equity contributions).\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]\n\n## Risks and approvals\n\n### Source excerpt 1\n\n> Covenant Risk Summary { \"year_1_interest_coverage_warning\": \"Year 1 interest coverage is 2.53x vs 2.75x covenant floor due to initial SOFR swap spread. Requires $10M interest rate collar hedge.\", \"deleveraging_trajectory\": \"Deleverages from 5.53x Net Debt / EBITDA at close down to 1.96x by Year 5 via mandatory ECF sweep.\" }\n\n[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_covenant_risk_summary]\n\n### Source excerpt 2\n\n> Section 2.01: Maximum First Lien Net Leverage Ratio The Borrower covenants that the First Lien Net Leverage Ratio as of the end of each Fiscal Quarter shall not exceed the levels set forth below:\n\n[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_2]\n\n## Missing or conflicting information\n\nThis fallback does not infer missing facts or resolve conflicts. It contains only the bounded excerpts shown above. A human must inspect the cited source passages and the rest of the authorized folder before treating an omission as real.\n\n## Next review questions\n\n1. Which transaction parties, approvals, and closing conditions are explicitly disclosed?\n2. Which valuation and leverage definitions are stated, and which would require calculation?\n3. Which financial values conflict across source documents or periods?\n4. Which material risks require documents outside the admitted excerpts?",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "91da79170a11f851fc7673178fa4553ede221e321748d4b49dbd33345f445a96",
+        "stratum": "question",
+        "created_at": 1786841297,
+        "acceptance_state": null,
+        "content": "What are the disclosed debt tranches and amounts for Project Titan? Cite the source for every amount.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [],
+        "human_annotation": null
+      },
+      {
+        "id": "6744212841337f7f235bd8e3043cfb6e2b2d945cc1dc84e5693a416863604e68",
+        "stratum": "rejection",
+        "created_at": 1786841353,
+        "acceptance_state": "quarantined_uncommitted",
+        "content": "**Uncommitted agent event quarantined**\n\nBuzz verified this signed event, but Prism found no matching trace and current source binding. The candidate content is not presented as an answer.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "publication_rejection",
+            "reason": "The candidate failed a source or publication guard."
+          },
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "2ef893cb14bbb5a0e9c8b843cbcda1d1efcd6378a06c3320fe62185e6a327f02",
+        "stratum": "quarantined_answer",
+        "created_at": 1786842450,
+        "acceptance_state": "quarantined_uncommitted",
+        "content": "**Uncommitted agent event quarantined**\n\nBuzz verified this signed event, but Prism found no matching trace and current source binding. The candidate content is not presented as an answer.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [
+          {
+            "mode": "publication_rejection",
+            "reason": "The candidate failed a source or publication guard."
+          },
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          },
+          {
+            "mode": "raw_citation_wrapper",
+            "reason": "The stored answer uses a machine citation wrapper; the product renderer must normalize it."
+          }
+        ],
+        "human_annotation": null
+      },
+      {
+        "id": "a1e0d0fdec8233fa147009dd4ec766203a3c6722a600920b32bfa8b0ffbf100e",
+        "stratum": "replay_question",
+        "created_at": 1786866898,
+        "acceptance_state": null,
+        "content": "Current source-bound replay: What are the disclosed debt tranches and amounts for Project Titan? Cite the source for every amount.",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": null
+        },
+        "agent_suggestions": [],
+        "human_annotation": null
+      },
+      {
+        "id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028",
+        "stratum": "accepted_answer",
+        "created_at": 1786867001,
+        "acceptance_state": "accepted",
+        "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_45332789cdfb source_class=synthetic_engineering_fixture provenance=31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e source_snapshot=b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1 -->\n- **Debt tranches and amounts:** Revolving Credit Facility ($150M Commitment): $0.0; First Lien Term Loan B (SOFR + 375 bps): $900.0; Second Lien Senior Notes (Fixed 8.75%): $300.0; Subordinated Mezzanine Debt (PIK 11.50%): $240.0 [SOURCE [01_Confidential_Information_Memorandum.md#node:node_tbl_1]]",
+        "metadata": {
+          "signature_verified": true,
+          "guard_version": "deal_room_chat_guard_v1"
+        },
+        "agent_suggestions": [
+          {
+            "mode": "machine_markup_in_raw_trace",
+            "reason": "The stored trace begins with an internal Prism marker; the product renderer must hide it."
+          },
+          {
+            "mode": "raw_citation_wrapper",
+            "reason": "The stored answer uses a machine citation wrapper; the product renderer must normalize it."
+          }
+        ],
+        "human_annotation": null
+      }
+    ],
+    "agent_suggestion_count": 13,
+    "human_annotation_count": 0,
+    "review_state": "awaiting_human_free_text_review"
+  },
+  "release_decision": {
+    "passed": false,
+    "reason": "Development checks do not substitute for blinded domain review or validated human labels."
+  },
+  "limitations": [
+    "Project Titan is a synthetic engineering fixture.",
+    "The retrieval set contains six manually mapped development questions and is not a sealed test set.",
+    "The generation set contains one saved Bonsai answer and deterministic checks only.",
+    "Agent suggestions in chat error discovery are not human labels.",
+    "No cloud or hybrid comparison was run in this benchmark."
+  ]
+}

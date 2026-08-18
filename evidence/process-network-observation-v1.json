@@ -1,0 +1,194 @@
+{
+  "air_gap_proved": false,
+  "limitations": [
+    "Socket snapshots can miss short-lived connections between samples.",
+    "No packet bodies or DNS activity were captured.",
+    "Docker guest traffic and unrelated host processes are outside this record's scope.",
+    "This is not whole-host monitoring, firewall enforcement, or DLP evidence.",
+    "No zero-egress, air-gap, or production network-isolation claim follows from this record."
+  ],
+  "observation": {
+    "invalid_hosts": [],
+    "non_loopback_hosts": [],
+    "wildcard_hosts": []
+  },
+  "packet_capture_used": false,
+  "passed": true,
+  "prism_status_sha256": "beec025da82a80acd3818c476a212de455604fe32e9ae005128f3f6cf73cf4d9",
+  "processes": {
+    "bionic_app": {
+      "command": "/Applications/Bionic.app/Contents/MacOS/Bionic",
+      "pid": 49901,
+      "ppid": 1
+    },
+    "bonsai_llama_server": {
+      "command": "/Users/jaibhagat/.lmstudio/extensions/backends/llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2/llama-server --model /Users/jaibhagat/.lmstudio/models/lmstudio-community/27B/Bonsai-27B-Q1_0.gguf --host 127.0.0.1 --port 53395 --api-key [REDACTED] --verbosity 3 --no-webui --jinja --chat-template-file /var/folders/14/z92b0d4x745_xf89y3zd51yh0000gn/T/lmstudio-llama-chat-template-8BKj0y/chat-template.jinja --reasoning-budget-message I have to answer now. --fit on --fit-ctx 16384 --ctx-checkpoints 32 --batch-size 2048 --ubatch-size 512 --threads 13 --parallel 4 --cache-type-k f16 --cache-type-v f16 --mmproj /Users/jaibhagat/.lmstudio/models/lmstudio-community/27B/Bonsai-27B-mmproj-BF16.gguf --flash-attn on --kv-offload --kv-unified --load-mode mmap+mlock",
+      "pid": 49977,
+      "ppid": 49901
+    },
+    "prism_server": {
+      "command": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python server.py 8787",
+      "pid": 46973,
+      "ppid": 11345
+    }
+  },
+  "recorded_at": "2026-08-17T18:43:33.997878-04:00",
+  "request": {
+    "completed": true,
+    "endpoint": "http://127.0.0.1:1234/api/v1/chat",
+    "http_status": 200,
+    "latency_ms": 968.028,
+    "model": "27b@q1_0",
+    "model_instance_id": "27b@q1_0",
+    "protocol": "lmstudio_native_chat",
+    "reasoning_output_tokens": 0,
+    "reasoning_requested": "off",
+    "response_matched_requested_text": true,
+    "response_sha256": "87f0f1e7f627282e4f5a8f0f32cf1af54a25bfa1521bdc052a4f2467a70d40f7"
+  },
+  "samples": [
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:32.851794-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf32\nn127.0.0.1:1234->127.0.0.1:54408\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf52\nn127.0.0.1:54409->127.0.0.1:53395\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\nf6\nn127.0.0.1:53395->127.0.0.1:54409\nTST=ESTABLISHED\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:32.941650-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf32\nn127.0.0.1:1234->127.0.0.1:54408\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf52\nn127.0.0.1:54409->127.0.0.1:53395\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\nf6\nn127.0.0.1:53395->127.0.0.1:54409\nTST=ESTABLISHED\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.120309-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf32\nn127.0.0.1:1234->127.0.0.1:54408\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf52\nn127.0.0.1:54409->127.0.0.1:53395\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\nf6\nn127.0.0.1:53395->127.0.0.1:54409\nTST=ESTABLISHED\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.298193-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf32\nn127.0.0.1:1234->127.0.0.1:54408\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf52\nn127.0.0.1:54409->127.0.0.1:53395\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\nf6\nn127.0.0.1:53395->127.0.0.1:54409\nTST=ESTABLISHED\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.472646-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\nf4\nn127.0.0.1:8787->127.0.0.1:54410\nTST=ESTABLISHED\nTQR=0\nTQS=0\np49901\ncBionic\nf32\nn127.0.0.1:1234->127.0.0.1:54408\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf52\nn127.0.0.1:54409->127.0.0.1:53395\nTST=ESTABLISHED\nTQR=0\nTQS=0\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\nf6\nn127.0.0.1:53395->127.0.0.1:54409\nTST=ESTABLISHED\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.642377-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.824071-04:00"
+    },
+    {
+      "lsof_exit_code": 1,
+      "lsof_output": "p46973\ncPython\nf3\nn127.0.0.1:8787\nTST=LISTEN\nTQR=0\nTQS=0\np49901\ncBionic\nf57\nn127.0.0.1:1234\nTST=LISTEN\nTQR=0\nTQS=0\nf66\nn127.0.0.1:41343\nTST=LISTEN\nTQR=0\nTQS=0\np49977\ncllama-server\nf3\nn127.0.0.1:53395\nTST=LISTEN\nTQR=0\nTQS=0\n",
+      "lsof_stderr": "",
+      "pids": [
+        46973,
+        49901,
+        49911,
+        49912,
+        49913,
+        49921,
+        49939,
+        49977
+      ],
+      "sampled_at": "2026-08-17T18:43:33.997476-04:00"
+    }
+  ],
+  "scope": "named host processes and descendants during one direct local-model request",
+  "verification": {
+    "air_gap_proved": false,
+    "errors": [],
+    "invalid_hosts": [],
+    "meaning": "No non-loopback endpoint was present in the sampled sockets for the named processes. Sampling can miss short-lived connections and does not inspect packets or Docker guest traffic.",
+    "non_loopback_hosts": [],
+    "observed_socket_count": 48,
+    "passed": true,
+    "sample_count": 8,
+    "wildcard_hosts": [],
+    "zero_egress_proved": false
+  },
+  "verification_kind": "process_socket_observation.v1",
+  "zero_egress_proved": false
+}

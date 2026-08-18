@@ -1,0 +1,500 @@
+{
+  "verification_kind": "replayable_titan_debt_chat_browser_check_v1",
+  "recorded_at": "2026-08-16T08:44:53.963Z",
+  "passed": true,
+  "measurement_state": "structural_guard_passed_awaiting_domain_review",
+  "accuracy_release_passed": false,
+  "base_url": "http://127.0.0.1:8787",
+  "room": "project_titan_lbo",
+  "query": "What are the disclosed debt tranches and amounts for Project Titan? Cite the source for every amount.",
+  "source": {
+    "path": "deal_rooms/project_titan_lbo/01_Confidential_Information_Memorandum.md",
+    "bytes": 2605,
+    "sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822",
+    "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+  },
+  "buzz": {
+    "question_event_id": "a43e8011022de9017c875a149c4ac59423840979fed28b073a8c0e4481e6a454",
+    "accepted_answer_event_id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028",
+    "prior_rejection_event_id": "6744212841337f7f235bd8e3043cfb6e2b2d945cc1dc84e5693a416863604e68",
+    "canonical_path": "/rooms/project_titan_lbo/discussion?event=788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028",
+    "signature_verification": {
+      "state": "verified",
+      "scheme": "nip01_event_id_plus_bip340",
+      "verified_event_count": 38
+    }
+  },
+  "accepted_trace": {
+    "trace_id": "trc_45332789cdfb",
+    "session_id": "project_titan_lbo",
+    "timestamp": 1786866944.029014,
+    "query": "What are the disclosed debt tranches and amounts for Project Titan? Cite the source for every amount.",
+    "response_sha256": "42e82f69c1a0a9e9963d122b18708925669ee4c04ba333681ea4b85b77fe99ad",
+    "model_name": "27b@q1_0",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "total_tokens": 3573,
+    "total_latency_ms": 28113.83,
+    "energy_per_token_mwh": null,
+    "total_energy_mwh": null,
+    "vram_peak_gb": null,
+    "metadata": {
+      "answer_event_id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "guard_version": "deal_room_chat_guard_v1",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "inference_attempts": 2,
+      "part_citations": {
+        "capital_structure": [
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+        ]
+      },
+      "previous_response_id_used": null,
+      "product_job": "deal_room_chat",
+      "prompt_suffix_applied": true,
+      "protocol": "lmstudio_native_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "a43e8011022de9017c875a149c4ac59423840979fed28b073a8c0e4481e6a454",
+      "reasoning_output_tokens": 0,
+      "request_id": null,
+      "requested_parts": [
+        "capital_structure"
+      ],
+      "result_state": "guard_passed_and_signed_to_buzz",
+      "retrieved_anchors": [
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+          "requested_parts": [
+            "capital_structure"
+          ],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        },
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+          "requested_parts": [],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        },
+        {
+          "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+          "requested_parts": [],
+          "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+        },
+        {
+          "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+          "requested_parts": [],
+          "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+        },
+        {
+          "citation": "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+          "requested_parts": [],
+          "source_sha256": "4a9bd9c5c67b7d61e4eae4a7695af9e7adadb47ab4b266848f95c51f6b8f9b73"
+        },
+        {
+          "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_1]",
+          "requested_parts": [],
+          "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+        },
+        {
+          "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "requested_parts": [],
+          "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+        },
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+          "requested_parts": [],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        }
+      ],
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "source_classification": "synthetic_engineering_fixture",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+        "buyer_evidence": false,
+        "classification": "synthetic_engineering_fixture",
+        "customer_data_verified": false,
+        "manifest_bound": false,
+        "operator_selected": false,
+        "public_snapshot_sha256": null,
+        "public_source": false,
+        "public_source_count": 0,
+        "synthetic_fixture": true,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+      "source_snapshot_sha256": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1",
+      "source_snapshot_state": "stable",
+      "time_to_first_token_seconds": 24.383469,
+      "tokens_per_second": 34.679239650131706
+    },
+    "evaluation_state": {
+      "state": "awaiting_review",
+      "label": "Review pending",
+      "explanation": "Unverified until a domain reviewer checks the answer."
+    },
+    "spans": [],
+    "evaluations": [
+      {
+        "name": "deal_room_chat_publication_guard",
+        "score": 1,
+        "passed": true,
+        "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+        "metadata": {
+          "guard_version": "deal_room_chat_guard_v1",
+          "part_citations": {
+            "capital_structure": [
+              "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+            ]
+          },
+          "requested_parts": [
+            "capital_structure"
+          ]
+        }
+      },
+      {
+        "name": "human_accuracy_review",
+        "score": 0,
+        "passed": false,
+        "explanation": "Unverified until a domain reviewer checks the answer.",
+        "metadata": {
+          "measurement_state": "awaiting_domain_review"
+        }
+      }
+    ]
+  },
+  "prior_rejected_trace": {
+    "trace_id": "trc_66b4c6474ca3",
+    "session_id": "project_titan_lbo",
+    "timestamp": 1786841297.940591,
+    "query": "What are the disclosed debt tranches and amounts for Project Titan? Cite the source for every amount.",
+    "response_sha256": "5ac943f93e8d76af458065e74b36619973624fab699db8659d37ee976b1b36bf",
+    "model_name": "27b@q1_0",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "total_tokens": 3438,
+    "total_latency_ms": 28169.26,
+    "energy_per_token_mwh": null,
+    "total_energy_mwh": null,
+    "vram_peak_gb": null,
+    "metadata": {
+      "error": "Bonsai answer failed the publication guard: number(s) $300., $799., 2028. are absent from the cited passage; material term(s) absent from the cited passage: agreement, amounts, credit, csv, disclosed, financing, model, node",
+      "guard_version": "deal_room_chat_guard_v1",
+      "guard_violations": [
+        "number(s) $300., $799., 2028. are absent from the cited passage",
+        "material term(s) absent from the cited passage: agreement, amounts, credit, csv, disclosed, financing, model, node"
+      ],
+      "inference_attempts": 2,
+      "product_job": "deal_room_chat",
+      "provider_id": "local_bonsai",
+      "question_event_id": "91da79170a11f851fc7673178fa4553ede221e321748d4b49dbd33345f445a96",
+      "rejected_response_sha256": "5ac943f93e8d76af458065e74b36619973624fab699db8659d37ee976b1b36bf",
+      "rejection_event_id": "6744212841337f7f235bd8e3043cfb6e2b2d945cc1dc84e5693a416863604e68",
+      "result_state": "rejected_before_buzz_answer",
+      "retrieved_anchors": [
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+          "requested_parts": [],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        },
+        {
+          "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+          "requested_parts": [],
+          "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+        },
+        {
+          "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+          "requested_parts": [],
+          "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+        },
+        {
+          "citation": "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+          "requested_parts": [],
+          "source_sha256": "4a9bd9c5c67b7d61e4eae4a7695af9e7adadb47ab4b266848f95c51f6b8f9b73"
+        },
+        {
+          "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_1]",
+          "requested_parts": [],
+          "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+        },
+        {
+          "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+          "requested_parts": [],
+          "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+        },
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+          "requested_parts": [],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        },
+        {
+          "citation": "[01_Confidential_Information_Memorandum.md#node:node_para_2]",
+          "requested_parts": [],
+          "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+        }
+      ]
+    },
+    "evaluation_state": {
+      "state": "rejected",
+      "label": "Guard rejected",
+      "explanation": "Bonsai answer failed the publication guard: number(s) $300., $799., 2028. are absent from the cited passage; material term(s) absent from the cited passage: agreement, amounts, credit, csv, disclosed, financing, model, node"
+    },
+    "spans": [],
+    "evaluations": [
+      {
+        "name": "deal_room_chat_publication_guard",
+        "score": 0,
+        "passed": false,
+        "explanation": "Bonsai answer failed the publication guard: number(s) $300., $799., 2028. are absent from the cited passage; material term(s) absent from the cited passage: agreement, amounts, credit, csv, disclosed, financing, model, node",
+        "metadata": {
+          "measurement_state": "rejected"
+        }
+      }
+    ]
+  },
+  "observed_runtime_status": {
+    "configured_model": "27b@q1_0",
+    "last_recorded_model": "27b@q1_0",
+    "recorded_history": true,
+    "invoked_in_process": false,
+    "invocation_evidence": "recorded_trace_history",
+    "provider_network_scope": "loopback_ip_literal",
+    "server_process_started_at": 1786869417.321755
+  },
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "assertions": [
+    {
+      "name": "buzz_workspace_ready",
+      "passed": true
+    },
+    {
+      "name": "trace_ledger_verified",
+      "passed": true,
+      "observed": {
+        "format": "hash_chained_local_jsonl_v1",
+        "integrity": "hash_chained_not_signed_not_externally_anchored",
+        "verified": true,
+        "signed": false,
+        "externally_anchored": false,
+        "entry_count": 226,
+        "head_sha256": "536d70f68bebfea27595a9bad137c8d0987cd745aaf60c6b3d45851cdb55e8ba",
+        "meaning": "Every creation and update is hash chained and verified on load. The ledger detects edits, reordering, and internal deletion, but a local administrator can rewrite or truncate the file because the head is not signed or anchored outside this machine. Signed Buzz events are verified separately."
+      }
+    },
+    {
+      "name": "runtime_history_separate_from_current_process",
+      "passed": true,
+      "observed": {
+        "recorded_history": true,
+        "invoked_in_process": false,
+        "invocation_evidence": "recorded_trace_history"
+      }
+    },
+    {
+      "name": "source_hash_and_anchor_bound",
+      "passed": true,
+      "observed": {
+        "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822",
+        "anchor": "node:node_tbl_1"
+      }
+    },
+    {
+      "name": "accepted_question_signature_verified",
+      "passed": true,
+      "observed": {
+        "event_id": "a43e8011022de9017c875a149c4ac59423840979fed28b073a8c0e4481e6a454"
+      }
+    },
+    {
+      "name": "accepted_answer_signature_verified",
+      "passed": true,
+      "observed": {
+        "event_id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028"
+      }
+    },
+    {
+      "name": "accepted_trace_event_binding",
+      "passed": true,
+      "observed": {
+        "answer_event_id": "788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028",
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "guard_version": "deal_room_chat_guard_v1",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "inference_attempts": 2,
+        "part_citations": {
+          "capital_structure": [
+            "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+          ]
+        },
+        "previous_response_id_used": null,
+        "product_job": "deal_room_chat",
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "provider_id": "local_bonsai",
+        "question_event_id": "a43e8011022de9017c875a149c4ac59423840979fed28b073a8c0e4481e6a454",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "requested_parts": [
+          "capital_structure"
+        ],
+        "result_state": "guard_passed_and_signed_to_buzz",
+        "retrieved_anchors": [
+          {
+            "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]",
+            "requested_parts": [
+              "capital_structure"
+            ],
+            "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+          },
+          {
+            "citation": "[01_Confidential_Information_Memorandum.md#node:node_para_1]",
+            "requested_parts": [],
+            "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+          },
+          {
+            "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_project_name]",
+            "requested_parts": [],
+            "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+          },
+          {
+            "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_4]",
+            "requested_parts": [],
+            "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+          },
+          {
+            "citation": "[03_Three_Statement_Financial_Model_2024_2028.csv#node:node_csv_table]",
+            "requested_parts": [],
+            "source_sha256": "4a9bd9c5c67b7d61e4eae4a7695af9e7adadb47ab4b266848f95c51f6b8f9b73"
+          },
+          {
+            "citation": "[02_LBO_Debt_Financing_Credit_Agreement.md#node:node_para_1]",
+            "requested_parts": [],
+            "source_sha256": "3cddb352703c0a56129d41111cf402e61e432454b5b88046f08ad1be461614b1"
+          },
+          {
+            "citation": "[04_Sponsor_Returns_Sensitivity_IRR_MoIC.json#node:sec_returns_matrix_by_exit_year]",
+            "requested_parts": [],
+            "source_sha256": "19e5c2174c43fdfbd77746afd4d43131b4b094d334c3fe26670a4755631adb00"
+          },
+          {
+            "citation": "[01_Confidential_Information_Memorandum.md#node:node_tbl_2]",
+            "requested_parts": [],
+            "source_sha256": "8c54cc5786e74bdd8c4b052b9497ddd3628188ca02ab717e8c2c940d414ed822"
+          }
+        ],
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "source_classification": "synthetic_engineering_fixture",
+        "source_provenance": {
+          "accuracy_release_evidence": false,
+          "binding_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+          "buyer_evidence": false,
+          "classification": "synthetic_engineering_fixture",
+          "customer_data_verified": false,
+          "manifest_bound": false,
+          "operator_selected": false,
+          "public_snapshot_sha256": null,
+          "public_source": false,
+          "public_source_count": 0,
+          "synthetic_fixture": true,
+          "version": "room_source_provenance_v1"
+        },
+        "source_provenance_sha256": "31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e",
+        "source_snapshot_sha256": "b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1",
+        "source_snapshot_state": "stable",
+        "time_to_first_token_seconds": 24.383469,
+        "tokens_per_second": 34.679239650131706
+      }
+    },
+    {
+      "name": "capital_structure_contract_bound",
+      "passed": true,
+      "observed": {
+        "capital_structure": [
+          "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+        ]
+      }
+    },
+    {
+      "name": "every_debt_instrument_visible_in_signed_answer",
+      "passed": true,
+      "observed": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_45332789cdfb source_class=synthetic_engineering_fixture provenance=31c6f85229094b6034eca3700512f990d4f9729a58c9471611095e036e0f9e6e source_snapshot=b1041d999b205faa538d03ee5a93b8f22ae95de0db3a68e44550833f6f47bbb1 -->\n- **Debt tranches and amounts:** Revolving Credit Facility ($150M Commitment): $0.0; First Lien Term Loan B (SOFR + 375 bps): $900.0; Second Lien Senior Notes (Fixed 8.75%): $300.0; Subordinated Mezzanine Debt (PIK 11.50%): $240.0 [SOURCE [01_Confidential_Information_Memorandum.md#node:node_tbl_1]]"
+    },
+    {
+      "name": "equity_rows_excluded_from_debt_answer",
+      "passed": true
+    },
+    {
+      "name": "structural_pass_is_not_accuracy_release",
+      "passed": true,
+      "observed": {
+        "state": "awaiting_review",
+        "label": "Review pending",
+        "explanation": "Unverified until a domain reviewer checks the answer."
+      }
+    },
+    {
+      "name": "prior_rejection_retained",
+      "passed": true,
+      "observed": {
+        "event_id": "6744212841337f7f235bd8e3043cfb6e2b2d945cc1dc84e5693a416863604e68",
+        "trace_id": "trc_66b4c6474ca3"
+      }
+    },
+    {
+      "name": "accepted_trace_restored_after_restart",
+      "passed": true,
+      "observed": {
+        "trace_timestamp": 1786866944.029014,
+        "server_process_started_at": 1786869417.321755
+      }
+    },
+    {
+      "name": "canonical_discussion_event_focused",
+      "passed": true,
+      "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/discussion?event=788aca9757257f827756715f99e3adb0af83ae71366d1acbeb48c1047574a028"
+    },
+    {
+      "name": "verified_signature_visible",
+      "passed": true
+    },
+    {
+      "name": "human_debt_label_and_values_visible",
+      "passed": true,
+      "observed": "B\nBonsai\nVerified signature · current source guard\n3:56 AM\nDebt tranches and amounts: Revolving Credit Facility ($150M Commitment): $0.0; First Lien Term Loan B (SOFR + 375 bps): $900.0; Second Lien Senior Notes (Fixed 8.75%): $300.0; Subordinated Mezzanine Debt (PIK 11.50%): $240.0 [SOURCE [01_Confidential_Information_Memorandum.md#node:node_tbl_1]]\nEvidence scope: 8 passages selected from 21 searchable nodes"
+    },
+    {
+      "name": "machine_marker_hidden",
+      "passed": true
+    },
+    {
+      "name": "exact_citation_visible",
+      "passed": true,
+      "observed": "[01_Confidential_Information_Memorandum.md#node:node_tbl_1]"
+    },
+    {
+      "name": "citation_opens_exact_source_anchor",
+      "passed": true,
+      "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=01_Confidential_Information_Memorandum.md&anchor=node%3Anode_tbl_1"
+    },
+    {
+      "name": "source_preview_contains_debt_table",
+      "passed": true
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-titan-debt-chat-v1.png",
+    "bytes": 306311,
+    "sha256": "26dd808163233866b071f498cab5e13813b4527a11a9dd5ed23aa1e287fcc4d1"
+  },
+  "limitations": [
+    "This is one synthetic Titan source set and one debt-structure question, not a deal-domain accuracy release.",
+    "The deterministic checks prove source admission, completeness against named debt rows, citation support, signed delivery, and restart restoration. They do not prove economic interpretation.",
+    "The browser replay covers one Chromium build, not accessibility conformance or every browser."
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "verification_kind": "replayable_browser_surface_check",
+  "recorded_at": "2026-08-17T22:43:38.404Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "room": "project_titan_lbo",
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "artifact": {
+    "trace_id": "trc_8a813e697a21",
+    "draft_event_id": "e363248b89e3d7e95d4f212e656bce48c9dcf95d4aa68d6279139cda18e11c4d",
+    "guard_version": "source_excerpt_v2",
+    "acceptance_state": "evidence_safe_fallback"
+  },
+  "observed_runtime_status": {
+    "configured_model": "27b@q1_0",
+    "current_process_model": "27b@q1_0",
+    "last_recorded_model": "27b@q1_0",
+    "recorded_history": true,
+    "invoked_in_process": true,
+    "invocation_evidence": "current_process_trace"
+  },
+  "observed_measured_deployment": {
+    "verified": true,
+    "measurement_state": "current_host_artifacts_and_process_measured",
+    "record": "evidence/local-deployment-current.json",
+    "record_sha256": "ac5d02bc685ff8c5bb95b2387678c2efb60dc6265c2c06b51a57fbc70fc225f1",
+    "verified_at": "2026-08-17T22:42:52.656970+00:00",
+    "cache_basis": "record_bytes_plus_artifact_device_inode_size_mtime_ctime",
+    "model": "27b@q1_0",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "artifact_count": 2,
+    "runtime": {
+      "name": "LM Studio llama.cpp",
+      "version": "2.28.2",
+      "executable_bundle": "llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2",
+      "effective_config": {
+        "bind_host": "127.0.0.1",
+        "bind_port": "53395",
+        "fitted_context_length": "16384",
+        "parallel_slots": "4",
+        "key_cache_type": "f16",
+        "value_cache_type": "f16",
+        "flash_attention": "on",
+        "load_mode": "mmap+mlock"
+      }
+    },
+    "hardware": {
+      "machine_model": "Mac17,8",
+      "chip_type": "Apple M5 Pro",
+      "physical_memory": "48 GB"
+    },
+    "catalog_size_matches_artifact": false,
+    "errors": [],
+    "limitations": [
+      "This identifies the artifacts and active backend on one host at one time; it is not clean-machine reproduction.",
+      "The LM Studio catalog byte count differs from the filesystem byte count and is recorded rather than normalized away.",
+      "The process command is reduced to an allowlist; API keys and unknown arguments are not stored.",
+      "Artifact identity and runtime configuration do not prove model quality, power use, VRAM use, or network isolation."
+    ],
+    "meaning": "The current files and active llama-server match the saved deployment. This is separate from provider invocation, quality, and clean-machine reproduction.",
+    "artifact_files_verified": true,
+    "active_runtime": {
+      "verified": true,
+      "process_count": 1,
+      "runtime_version": "2.28.2",
+      "executable_bundle": "llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2",
+      "effective_config": {
+        "bind_host": "127.0.0.1",
+        "bind_port": "53395",
+        "fitted_context_length": "16384",
+        "parallel_slots": "4",
+        "key_cache_type": "f16",
+        "value_cache_type": "f16",
+        "flash_attention": "on",
+        "load_mode": "mmap+mlock"
+      },
+      "errors": [],
+      "checked_at": "2026-08-17T22:43:35.289681+00:00"
+    }
+  },
+  "observed_trace_store": {
+    "format": "hash_chained_local_jsonl_v1",
+    "integrity": "hash_chained_not_signed_not_externally_anchored",
+    "verified": true,
+    "signed": false,
+    "externally_anchored": false,
+    "entry_count": 247,
+    "head_sha256": "981f066edf1310dd99fdb3b0bb4d806774fa4340101cc7af821f0468e16a35f8",
+    "meaning": "Every creation and update is hash chained and verified on load. The ledger detects edits, reordering, and internal deletion, but a local administrator can rewrite or truncate the file because the head is not signed or anchored outside this machine. Signed Buzz events are verified separately."
+  },
+  "observed_document_ingestion": {
+    "supported_types": [
+      "md",
+      "txt",
+      "csv",
+      "json",
+      "html",
+      "xlsx",
+      "pdf"
+    ],
+    "pdf_ocr": {
+      "available": true,
+      "platform": "Darwin",
+      "engine": "apple_vision_vnrecognizetextrequest",
+      "render_dpi": 300,
+      "commands": {
+        "pdftoppm": true,
+        "swiftc": true
+      },
+      "source_present": true,
+      "local_only": true,
+      "limitations": [
+        "OCR text is ordered by recognized bounding boxes; reading order can be wrong.",
+        "OCR does not reconstruct tables, merged cells, columns, or document layout.",
+        "Recognition confidence is engine output, not a measured accuracy score.",
+        "This adapter is available only on the measured macOS prototype toolchain."
+      ]
+    },
+    "meaning": "PDF pages without usable embedded text use bounded Apple Vision OCR when the measured macOS toolchain is available. OCR does not reconstruct tables or document layout, and its accuracy has not been benchmarked."
+  },
+  "observed_cloud_consent": {
+    "authority_configured": false,
+    "provider_configured": false,
+    "dispatch_ready_for_signed_request": false,
+    "dispatch_configured_for_signed_request": false,
+    "context_release_requires_distinct_signature": true,
+    "relay_restoration_required": true,
+    "maximum_consent_lifetime_seconds": 900,
+    "replay_ledger": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/.runtime/cloud-consent-uses.v1.json",
+    "default": "deny_before_network",
+    "meaning": "Cloud dispatch needs a short-lived policy Buzz signature. Deal-room context needs a second signature from a distinct configured data-owner key. Prism must restore each exact event from Buzz before consuming it or calling the provider. Both bind the prompt hash, room snapshot, provider, model, nonce, and expiry."
+  },
+  "observed_trace_aggregate_boundary": {
+    "total_recorded_traces": 225,
+    "aggregate_eligible_traces": 205,
+    "excluded_trace_count": 20
+  },
+  "deployment_record_sha256": "ac5d02bc685ff8c5bb95b2387678c2efb60dc6265c2c06b51a57fbc70fc225f1",
+  "observed_canvas_verification": {
+    "state": "verified",
+    "scheme": "nip01_event_id_plus_bip340",
+    "event_id": "cefe6d8f25ebfb562068089e82f22a08516497c5aeb530216e621a33fa455a62",
+    "author_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca"
+  },
+  "observed_review_state": {
+    "trace_id": "trc_966327634c9e",
+    "state": "awaiting_review",
+    "label": "Review pending",
+    "explanation": "Unverified until a domain reviewer checks the answer."
+  },
+  "assertions": [
+    {
+      "name": "synthetic_source_provenance_visible",
+      "passed": true,
+      "observed": {
+        "classification": "synthetic_engineering_fixture",
+        "label": "Synthetic demonstration fixture",
+        "synthetic_fixture": true,
+        "public_source": false,
+        "operator_selected": false,
+        "customer_data_verified": false,
+        "accuracy_release_evidence": false,
+        "buyer_evidence": false,
+        "meaning": "Prism ships these fabricated files for engineering demonstrations. They are not a real transaction, customer data, domain accuracy evidence, or buyer evidence."
+      }
+    },
+    {
+      "name": "review_control_visible",
+      "passed": true
+    },
+    {
+      "name": "review_control_enabled",
+      "passed": true
+    },
+    {
+      "name": "trace_visible",
+      "passed": true
+    },
+    {
+      "name": "guard_visible",
+      "passed": true
+    },
+    {
+      "name": "draft_provenance_visible",
+      "passed": true
+    },
+    {
+      "name": "runtime_state_boundary_visible",
+      "passed": true
+    },
+    {
+      "name": "inline_citations_visible",
+      "passed": true,
+      "observed": 4
+    },
+    {
+      "name": "canonical_citation_navigation",
+      "passed": true,
+      "source": "02_LBO_Debt_Financing_Credit_Agreement.md",
+      "anchor": "node:node_para_3",
+      "destination": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=02_LBO_Debt_Financing_Credit_Agreement.md&anchor=node%3Anode_para_3"
+    },
+    {
+      "name": "exact_anchor_preview",
+      "passed": true
+    },
+    {
+      "name": "canvas_signature_verified",
+      "passed": true,
+      "observed": {
+        "state": "verified",
+        "scheme": "nip01_event_id_plus_bip340",
+        "event_id": "cefe6d8f25ebfb562068089e82f22a08516497c5aeb530216e621a33fa455a62",
+        "author_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca"
+      }
+    },
+    {
+      "name": "trace_derived_runtime_state_card",
+      "passed": true
+    },
+    {
+      "name": "hybrid_cloud_consent_boundary_visible",
+      "passed": true,
+      "observed": {
+        "authority_configured": false,
+        "provider_configured": false,
+        "dispatch_ready_for_signed_request": false,
+        "dispatch_configured_for_signed_request": false,
+        "context_release_requires_distinct_signature": true,
+        "relay_restoration_required": true,
+        "maximum_consent_lifetime_seconds": 900,
+        "replay_ledger": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/.runtime/cloud-consent-uses.v1.json",
+        "default": "deny_before_network",
+        "meaning": "Cloud dispatch needs a short-lived policy Buzz signature. Deal-room context needs a second signature from a distinct configured data-owner key. Prism must restore each exact event from Buzz before consuming it or calling the provider. Both bind the prompt hash, room snapshot, provider, model, nonce, and expiry."
+      }
+    },
+    {
+      "name": "measured_deployment_identity_visible",
+      "passed": true,
+      "observed": {
+        "verified": true,
+        "measurement_state": "current_host_artifacts_and_process_measured",
+        "record": "evidence/local-deployment-current.json",
+        "record_sha256": "ac5d02bc685ff8c5bb95b2387678c2efb60dc6265c2c06b51a57fbc70fc225f1",
+        "verified_at": "2026-08-17T22:42:52.656970+00:00",
+        "cache_basis": "record_bytes_plus_artifact_device_inode_size_mtime_ctime",
+        "model": "27b@q1_0",
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "artifact_count": 2,
+        "runtime": {
+          "name": "LM Studio llama.cpp",
+          "version": "2.28.2",
+          "executable_bundle": "llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2",
+          "effective_config": {
+            "bind_host": "127.0.0.1",
+            "bind_port": "53395",
+            "fitted_context_length": "16384",
+            "parallel_slots": "4",
+            "key_cache_type": "f16",
+            "value_cache_type": "f16",
+            "flash_attention": "on",
+            "load_mode": "mmap+mlock"
+          }
+        },
+        "hardware": {
+          "machine_model": "Mac17,8",
+          "chip_type": "Apple M5 Pro",
+          "physical_memory": "48 GB"
+        },
+        "catalog_size_matches_artifact": false,
+        "errors": [],
+        "limitations": [
+          "This identifies the artifacts and active backend on one host at one time; it is not clean-machine reproduction.",
+          "The LM Studio catalog byte count differs from the filesystem byte count and is recorded rather than normalized away.",
+          "The process command is reduced to an allowlist; API keys and unknown arguments are not stored.",
+          "Artifact identity and runtime configuration do not prove model quality, power use, VRAM use, or network isolation."
+        ],
+        "meaning": "The current files and active llama-server match the saved deployment. This is separate from provider invocation, quality, and clean-machine reproduction.",
+        "artifact_files_verified": true,
+        "active_runtime": {
+          "verified": true,
+          "process_count": 1,
+          "runtime_version": "2.28.2",
+          "executable_bundle": "llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2",
+          "effective_config": {
+            "bind_host": "127.0.0.1",
+            "bind_port": "53395",
+            "fitted_context_length": "16384",
+            "parallel_slots": "4",
+            "key_cache_type": "f16",
+            "value_cache_type": "f16",
+            "flash_attention": "on",
+            "load_mode": "mmap+mlock"
+          },
+          "errors": [],
+          "checked_at": "2026-08-17T22:43:35.289681+00:00"
+        }
+      }
+    },
+    {
+      "name": "deployment_and_invocation_states_separate",
+      "passed": true,
+      "observed": {
+        "deployment_verified": true,
+        "invoked_in_process": true
+      }
+    },
+    {
+      "name": "trace_store_integrity_boundary_visible",
+      "passed": true,
+      "observed": {
+        "format": "hash_chained_local_jsonl_v1",
+        "integrity": "hash_chained_not_signed_not_externally_anchored",
+        "verified": true,
+        "signed": false,
+        "externally_anchored": false,
+        "entry_count": 247,
+        "head_sha256": "981f066edf1310dd99fdb3b0bb4d806774fa4340101cc7af821f0468e16a35f8",
+        "meaning": "Every creation and update is hash chained and verified on load. The ledger detects edits, reordering, and internal deletion, but a local administrator can rewrite or truncate the file because the head is not signed or anchored outside this machine. Signed Buzz events are verified separately."
+      }
+    },
+    {
+      "name": "scanned_pdf_ocr_boundary_visible",
+      "passed": true,
+      "observed": {
+        "available": true,
+        "platform": "Darwin",
+        "engine": "apple_vision_vnrecognizetextrequest",
+        "render_dpi": 300,
+        "commands": {
+          "pdftoppm": true,
+          "swiftc": true
+        },
+        "source_present": true,
+        "local_only": true,
+        "limitations": [
+          "OCR text is ordered by recognized bounding boxes; reading order can be wrong.",
+          "OCR does not reconstruct tables, merged cells, columns, or document layout.",
+          "Recognition confidence is engine output, not a measured accuracy score.",
+          "This adapter is available only on the measured macOS prototype toolchain."
+        ]
+      }
+    },
+    {
+      "name": "verification_fixture_exclusion_visible",
+      "passed": true,
+      "observed": {
+        "total_recorded_traces": 225,
+        "aggregate_eligible_traces": 205,
+        "excluded_trace_count": 20,
+        "example_trace_id": "trc_48fe3bc3193a"
+      }
+    },
+    {
+      "name": "evidence_trace_visible",
+      "passed": true
+    },
+    {
+      "name": "review_pending_not_rejected",
+      "passed": true,
+      "observed": {
+        "state": "awaiting_review",
+        "label": "Review pending",
+        "explanation": "Unverified until a domain reviewer checks the answer."
+      },
+      "trace_id": "trc_966327634c9e"
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-first-pass-v7.png",
+    "bytes": 179073,
+    "sha256": "06c0ef4319c42b030611518f3dc6386a9aac9d4546df7c966dcadb7eae339163"
+  },
+  "limitations": [
+    "This replays the local Titan surface on one Chrome build, not cross-browser compatibility.",
+    "It verifies rendering and navigation, not deal-domain accuracy or accessibility conformance."
+  ]
+}

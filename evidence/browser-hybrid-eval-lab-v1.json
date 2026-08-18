@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "verification_kind": "live_native_hybrid_eval_lab_browser_check",
+  "recorded_at": "2026-08-18T16:43:16Z",
+  "base_url": "http://127.0.0.1:8787",
+  "canonical_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/evaluation",
+  "room": "project_titan_lbo",
+  "asset_version": "hybrid-eval-lab-v1",
+  "passed": true,
+  "assertions": [
+    {"id": "single_room_application", "passed": true, "evidence": "Overview, Sources, Activity, and Evaluation remained the four primary room tabs."},
+    {"id": "native_eval_lab", "passed": true, "evidence": "Review queue and Eval lab switched inside the existing Evaluation tab without URL change."},
+    {"id": "local_route_truth", "passed": true, "evidence": "Bonsai local showed model 27b@q1_0, 10 development cases, and 0 human reviewed cases."},
+    {"id": "cloud_missing_is_not_measured", "passed": true, "evidence": "Cloud showed Not measured, no model run recorded, and 0 cases."},
+    {"id": "hybrid_missing_is_not_measured", "passed": true, "evidence": "Bonsai and cloud showed Not measured, no model run recorded, and 0 cases."},
+    {"id": "no_composite_score", "passed": true, "evidence": "The release gate panel explicitly displayed No composite score."},
+    {"id": "judge_untrusted", "passed": true, "evidence": "Bonsai as judge showed Not trusted and 0 of 100 criterion-specific labels."},
+    {"id": "business_value_unmeasured", "passed": true, "evidence": "All eight buyer value measures showed Not measured."},
+    {"id": "truth_boundaries_visible", "passed": true, "evidence": "The lab stated that development checks are not domain accuracy evidence and an uncalibrated judge cannot control release."},
+    {"id": "review_queue_restores", "passed": true, "evidence": "Switching back to Review queue restored the trace review pane while the Eval lab became hidden."},
+    {"id": "mobile_width", "passed": true, "evidence": "At a 390 by 844 viewport, document width and body width both remained 390 pixels."},
+    {"id": "mobile_subtabs", "passed": true, "evidence": "The repaired Evaluation subtab control rendered at 48 pixels high and 354 pixels wide."},
+    {"id": "browser_console", "passed": true, "evidence": "No warning or error console entries were recorded."}
+  ],
+  "source_sha256": {
+    "web/index.html": "b840492b737e0bbcead0b8b03f0bf7643268ba21953869c14557ddd48fb3bc74",
+    "web/app.js": "a48720e741750efd9554dde2a4b65089caae56d8188f63df509611ac7dc5cc11",
+    "web/style.css": "213fb42516ff831aeb16430da644a878de57ed5066bc0fc934e3267a6c6e244d",
+    "benchmarks/evaluation_framework.v1.json": "b294eb41fdaa4d7ff29cab52bc71fbedcb361c46472faef5d0f634836e6bf131",
+    "benchmarks/judges/deal_room_semantic_judges.v1.json": "5d76ae6a738617dda3ed02df2a2d381bc494ccb03f394873e301589954dbf574",
+    "core/evaluation_dashboard.py": "9dbc83a142cd858016fc01306b3d79cec33bee89941de019dbe4564ff8987160",
+    "core/evaluation_experiments.py": "f488b813796ca278ca57173c7f9296fa8fa81597e90a9bb38350f383fcf186d8",
+    "core/evaluator_validation.py": "70a21ee458c422876a693462ecfc8d47667281dd2d79099b83d25b7b0c6bdf0a",
+    "core/semantic_judge.py": "72aa35817a77bbc2850b6c0490f8e528e8c82f61b94552d047b3aa5de01b1147"
+  },
+  "test_suite": {"command": "python3 -m unittest discover -s tests -p test_*.py", "passed": 519, "failed": 0},
+  "limitations": [
+    "This verifies the current native dashboard and truthful empty states. It does not create human labels, cloud outputs, hybrid outputs, buyer evidence, or an accuracy release.",
+    "The Project Titan room is a synthetic development fixture.",
+    "The live browser check used the in-app Chromium surface. It is not a fresh cross-browser or assistive technology certification."
+  ]
+}

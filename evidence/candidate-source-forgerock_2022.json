@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "forgerock_2022",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2364,
+    "estimated_tokens": 187358,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 474
+  },
+  "source": {
+    "accession": "0001140361-22-044962",
+    "bytes": 2723537,
+    "cik": "0001543916",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1543916/000114036122044962/0001140361-22-044962-index.htm",
+    "path": ".runtime/candidate-deal-sources/forgerock_2022/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1543916/000114036122044962/ny20005538x3_defm14a.htm",
+    "sha256": "19a740320c1536be84195c3b6f560236b1579ce05f0930abd08cce6b90cf0493"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

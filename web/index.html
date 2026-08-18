@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Prism Vault — Deal room</title>
+    <link rel="stylesheet" href="/style.css?v=hybrid-eval-lab-v1">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="room-rail" aria-label="Deal room" data-content-id="segment.room_switcher">
+        <a class="brand" href="/" aria-label="Prism Vault home">
+          <span class="brand-mark" aria-hidden="true"><i></i></span>
+          <span><strong>Prism</strong><small>Vault</small></span>
+        </a>
+
+        <button class="new-room-button" id="open-folder-button" type="button" data-content-id="copy.open_folder">
+          <span aria-hidden="true">＋</span> Open folder
+        </button>
+
+        <div class="rail-label">Current room</div>
+        <nav class="room-list" id="room-list" aria-label="Current deal room"></nav>
+        <div hidden><span id="relay-dot"></span><strong id="relay-label">Checking</strong><small id="relay-detail">Checking</small></div>
+      </aside>
+
+      <main class="workspace">
+        <header class="room-header" data-content-id="segment.room_identity">
+          <div class="room-heading">
+            <div class="eyebrow"><span id="document-count">Files</span></div>
+            <h1 id="room-name">Opening workspace</h1>
+            <p class="room-summary" id="room-description-header">Loading room summary.</p>
+            <span class="provenance-label sr-only" id="room-provenance">Source provenance pending</span>
+          </div>
+          <div class="header-actions">
+            <button class="header-button" id="copy-room-link" type="button" data-content-id="copy.copy_link">Copy link</button>
+            <button class="header-button" id="toggle-context" type="button" aria-label="Toggle room details" data-content-id="copy.room_details">Room details</button>
+          </div>
+        </header>
+
+        <nav class="workspace-tabs" aria-label="Room views" role="tablist" data-content-id="segment.primary_navigation">
+          <button class="workspace-tab active" id="tab-first-pass" data-view="first-pass" type="button" role="tab" aria-controls="view-first-pass">Overview</button>
+          <button class="workspace-tab" id="tab-files" data-view="files" type="button" role="tab" aria-controls="view-files">Sources</button>
+          <button class="workspace-tab" id="tab-conversation" data-view="conversation" type="button" role="tab" aria-controls="view-conversation">Activity</button>
+          <button class="workspace-tab" id="tab-evaluation" data-view="evaluation" type="button" role="tab" aria-controls="view-evaluation">Evaluation</button>
+        </nav>
+
+        <section class="view-panel first-pass-panel active" id="view-first-pass" role="tabpanel" aria-labelledby="tab-first-pass">
+          <div class="first-pass-header" data-content-id="segment.decision_question">
+            <div>
+              <span class="eyebrow">Decision question</span>
+              <h2>What should the team decide?</h2>
+            </div>
+            <span class="brief-status" id="brief-status">Not started</span>
+          </div>
+
+          <div class="first-pass-grid">
+            <form class="screen-card" id="first-pass-form">
+              <div class="screen-heading">
+                <span class="eyebrow">Question</span>
+                <h3>Name the decision and the facts that would change it.</h3>
+              </div>
+              <label class="sr-only" for="investment-screen">Decision focus</label>
+              <textarea id="investment-screen" rows="5" required></textarea>
+              <div class="screen-footer">
+                <span id="first-pass-hint">The review will link each finding to a file.</span>
+                <button class="primary-button primary-action" id="run-first-pass" type="submit">Review deal room</button>
+              </div>
+            </form>
+            <div hidden><span id="contract-model">Checking</span><span id="contract-buzz">Checking</span><span id="contract-cloud">Checking</span></div>
+          </div>
+
+          <section class="draft-section" id="draft-section" hidden>
+            <div class="draft-toolbar">
+              <div><span class="eyebrow" id="draft-kind">Decision review</span><h3 id="draft-recommendation">Review pending</h3></div>
+              <div class="brief-actions"><div class="draft-meta" id="draft-meta"></div><button class="secondary-button" id="show-analysis-controls" type="button">Edit question</button></div>
+            </div>
+            <article class="markup-document first-pass-draft" id="first-pass-draft"></article>
+
+            <form class="review-card" id="review-form" data-content-id="segment.team_decision">
+              <div class="review-heading">
+                <span class="eyebrow">Team decision</span>
+                <h3>What will the team do?</h3>
+              </div>
+              <fieldset class="decision-control">
+                <legend>Decision</legend>
+                <label><input type="radio" name="review-decision" value="advance" required><span>Advance</span></label>
+                <label><input type="radio" name="review-decision" value="pause"><span>Pause</span></label>
+                <label><input type="radio" name="review-decision" value="stop"><span>Stop</span></label>
+              </fieldset>
+              <label class="review-notes">Notes<textarea id="review-notes" rows="4" placeholder="Record the reason and next action."></textarea></label>
+              <details class="review-details">
+                <summary>Add review details</summary>
+                <div class="review-measures">
+                  <label>Critical corrections<input id="critical-corrections" type="number" min="0" value="0"></label>
+                  <label>Major corrections<input id="major-corrections" type="number" min="0" value="0"></label>
+                </div>
+                <label class="useful-check"><input id="useful-starting-point" type="checkbox"><span>Useful starting point</span></label>
+              </details>
+              <div class="review-footer">
+                <span id="review-hint">The decision will stay with this room.</span>
+                <button class="primary-button" id="publish-review" type="submit">Save decision</button>
+              </div>
+            </form>
+          </section>
+
+          <div class="first-pass-empty" id="first-pass-empty">
+            <span class="sculpture" aria-hidden="true"></span>
+            <p>No first pass has been run for this room.</p>
+          </div>
+        </section>
+
+        <section class="view-panel" id="view-conversation" role="tabpanel" aria-labelledby="tab-conversation" data-content-id="segment.activity">
+          <div class="activity-heading">
+            <div><span class="eyebrow">Activity</span><h2>Deal conversation</h2></div>
+            <p>Questions, answers, and team notes stay with this room.</p>
+          </div>
+          <div class="conversation" id="conversation" aria-live="polite" aria-relevant="additions">
+            <div class="empty-conversation">
+              <span class="sculpture" aria-hidden="true"></span>
+              <h2>Ask about the deal or leave a note.</h2>
+              <p>Messages stay with this room.</p>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="view-panel document-panel" id="view-digest" aria-labelledby="tab-digest" data-content-id="segment.decision_notes">
+          <div class="document-toolbar">
+            <div><span class="eyebrow" id="digest-state">Room record</span><h2 id="digest-title">Decision notes</h2></div>
+            <button class="secondary-button" id="edit-digest-button" type="button">Edit notes</button>
+          </div>
+          <article class="markup-document" id="digest-rendered"></article>
+          <form class="digest-editor" id="digest-form" hidden>
+            <textarea id="digest-input" aria-label="Decision notes"></textarea>
+            <div><button class="quiet-button" id="cancel-digest" type="button">Cancel</button><button class="primary-button" type="submit">Save notes</button></div>
+          </form>
+        </section>
+
+        <section class="view-panel document-panel" id="view-files" role="tabpanel" aria-labelledby="tab-files" data-content-id="segment.sources">
+          <div class="document-toolbar"><div><span class="eyebrow">Sources</span><h2>Deal room files</h2><small>Select a file to read the passage used in the review.</small></div></div>
+          <div class="files-grid"><div class="source-list" id="source-list"></div><article class="source-preview" id="source-preview" tabindex="-1" aria-live="polite"><p>Select a file to inspect its parsed preview.</p></article></div>
+        </section>
+
+        <section class="view-panel document-panel" id="view-evidence" aria-labelledby="tab-evidence" data-content-id="segment.technical_details">
+          <div class="document-toolbar"><div><span class="eyebrow">Technical details</span><h2>Room diagnostics</h2><small>Use this page when the room or analysis needs troubleshooting.</small></div></div>
+          <div class="evidence-grid" id="evidence-grid"></div>
+          <div class="run-list" id="run-list"></div>
+        </section>
+
+        <section class="view-panel document-panel evaluation-panel" id="view-evaluation" role="tabpanel" aria-labelledby="tab-evaluation" data-content-id="segment.human_error_discovery">
+          <div class="evaluation-header">
+            <div>
+              <span class="eyebrow">Room evaluation</span>
+              <h2>What should Prism improve next?</h2>
+              <p id="evaluation-next-action">Compare evidence, review failures, and let buyer value determine the next investment.</p>
+            </div>
+            <div class="evaluation-status">
+              <strong id="evaluation-count">Loading review</strong>
+              <span id="evaluation-phase">Breadth phase, saturation not claimed</span>
+            </div>
+          </div>
+
+          <nav class="evaluation-mode-tabs" aria-label="Evaluation views" role="tablist">
+            <button class="evaluation-mode-tab active" id="evaluation-mode-review" data-evaluation-mode="review" type="button" role="tab" aria-selected="true" aria-controls="evaluation-review-pane">Review queue</button>
+            <button class="evaluation-mode-tab" id="evaluation-mode-lab" data-evaluation-mode="lab" type="button" role="tab" aria-selected="false" aria-controls="evaluation-lab-pane">Eval lab</button>
+          </nav>
+
+          <div class="evaluation-mode-pane active" id="evaluation-review-pane" role="tabpanel" aria-labelledby="evaluation-mode-review">
+          <div class="evaluation-layout">
+            <article class="evaluation-trace-card">
+              <div class="evaluation-trace-heading">
+                <div><span class="eyebrow" id="evaluation-stratum">Trace</span><h3 id="evaluation-trace-title">Loading trace</h3><small id="evaluation-trace-meta"></small></div>
+                <span id="evaluation-counter">0 of 0</span>
+              </div>
+              <div class="evaluation-turns" id="evaluation-turns"></div>
+              <details class="evaluation-metadata"><summary>Trace metadata</summary><pre id="evaluation-machine"></pre></details>
+              <fieldset class="evaluation-judgment">
+                <legend>Trace judgment</legend>
+                <button class="evaluation-pass" data-evaluation-label="pass" type="button">1 · Pass</button>
+                <button class="evaluation-fail" data-evaluation-label="fail" type="button">2 · Fail</button>
+                <button class="evaluation-defer" data-evaluation-label="defer" type="button">D · Defer</button>
+              </fieldset>
+              <label class="evaluation-note">Review note<textarea id="evaluation-note" rows="4" placeholder="What failed first? What evidence changed your judgment?"></textarea></label>
+              <div class="evaluation-reviewer"><label for="evaluation-reviewer">Reviewer</label><input id="evaluation-reviewer" value="local reviewer"><small>Self asserted local identity</small></div>
+              <div class="evaluation-navigation">
+                <button class="secondary-button" id="evaluation-previous" type="button">← Previous</button>
+                <div><label class="sr-only" for="evaluation-jump-id">Trace ID</label><input id="evaluation-jump-id" placeholder="Trace ID"><button class="secondary-button" id="evaluation-jump" type="button">Go</button></div>
+                <button class="secondary-button" id="evaluation-next" type="button">Next →</button>
+              </div>
+            </article>
+
+            <aside class="evaluation-sidebar">
+              <section class="evaluation-card">
+                <div class="evaluation-card-heading"><h3>Agent suggestions</h3><span>Proposals only</span></div>
+                <div id="evaluation-suggestions"><p>No suggestions for this trace.</p></div>
+              </section>
+              <section class="evaluation-card evaluation-contract">
+                <h3>Review contract</h3>
+                <p>Judge the full contextual trace. Write the first failure in your own words. Agent suggestions do not count as labels unless you accept them.</p>
+              </section>
+              <section class="evaluation-card">
+                <div class="evaluation-card-heading"><h3>Observability</h3><span id="evaluation-phoenix-state">Checking Phoenix</span></div>
+                <p id="evaluation-phoenix-copy">The local review ledger is authoritative.</p>
+                <dl class="evaluation-observability"><div><dt>Evaluator spans</dt><dd id="evaluation-otel-records">0</dd></div><div><dt>Content</dt><dd id="evaluation-otel-content">Hashes</dd></div></dl>
+                <a class="text-link" id="evaluation-phoenix-link" href="http://127.0.0.1:6006" target="_blank" rel="noreferrer">Open Phoenix</a>
+              </section>
+            </aside>
+          </div>
+
+          <div class="evaluation-dashboard">
+            <section class="evaluation-card evaluation-coverage-card">
+              <div class="evaluation-card-heading"><div><span class="eyebrow">Coverage</span><h3>Room trace map</h3></div><span id="evaluation-coverage-summary">Loading</span></div>
+              <p>Outlined marks are sampled. Orange marks have a human judgment. Faded marks remain in the room corpus.</p>
+              <svg id="evaluation-map" viewBox="0 0 800 390" role="img" aria-label="Room trace coverage map"></svg>
+              <div class="evaluation-legend" id="evaluation-legend"></div>
+            </section>
+            <section class="evaluation-card evaluation-learning-card">
+              <div class="evaluation-card-heading"><div><span class="eyebrow">Learning loop</span><h3>What the review has found</h3></div><span id="evaluation-saturation">Saturation not claimed</span></div>
+              <div class="evaluation-metrics"><div><strong id="evaluation-reviewed">0</strong><small>Reviewed</small></div><div><strong id="evaluation-failures">0</strong><small>Failures</small></div><div><strong id="evaluation-pending">0</strong><small>Suggestions</small></div><div><strong id="evaluation-corpus">0</strong><small>Room traces</small></div></div>
+              <div class="evaluation-learning-actions"><button class="secondary-button" id="evaluation-add-breadth" type="button">Add diverse traces</button><button class="secondary-button" id="evaluation-scan-depth" type="button" disabled>Scan for repeated failures</button></div>
+              <p class="evaluation-boundary" id="evaluation-learning-summary">Human labels and agent suggestions remain separate.</p>
+              <div class="evaluation-patterns" id="evaluation-patterns"></div>
+            </section>
+          </div>
+          </div>
+
+          <div class="evaluation-mode-pane" id="evaluation-lab-pane" role="tabpanel" aria-labelledby="evaluation-mode-lab" hidden>
+            <section class="eval-lab-decision" aria-labelledby="eval-lab-decision-title">
+              <div><span class="eyebrow">Investment decision</span><h3 id="eval-lab-decision-title">Not enough evidence</h3><p id="eval-lab-decision-reason">Loading the room evaluation contract.</p></div>
+              <div class="eval-lab-next"><small>Next action</small><strong id="eval-lab-next-action">Load evaluation evidence</strong></div>
+            </section>
+
+            <section class="eval-lab-section" aria-labelledby="eval-lab-routes-title">
+              <div class="eval-lab-section-heading"><div><span class="eyebrow">Hybrid AI</span><h3 id="eval-lab-routes-title">Compare the same work three ways</h3></div><p>Missing runs stay unmeasured. Route failures are never replaced with simulated answers.</p></div>
+              <div class="eval-lab-routes" id="eval-lab-routes"></div>
+            </section>
+
+            <div class="eval-lab-two-column">
+              <section class="evaluation-card eval-lab-card" aria-labelledby="eval-lab-gates-title">
+                <div class="evaluation-card-heading"><div><span class="eyebrow">Readiness</span><h3 id="eval-lab-gates-title">Release gates</h3></div><span>No composite score</span></div>
+                <div class="eval-lab-list" id="eval-lab-gates"></div>
+              </section>
+              <section class="evaluation-card eval-lab-card eval-lab-calibration" aria-labelledby="eval-lab-calibration-title">
+                <div class="evaluation-card-heading"><div><span class="eyebrow">Bonsai as judge</span><h3 id="eval-lab-calibration-title">Calibration before trust</h3></div><span id="eval-lab-judge-state">Not trusted</span></div>
+                <div id="eval-lab-calibration"></div>
+              </section>
+            </div>
+
+            <section class="eval-lab-section" aria-labelledby="eval-lab-experiments-title">
+              <div class="eval-lab-section-heading"><div><span class="eyebrow">History</span><h3 id="eval-lab-experiments-title">Experiments</h3></div><p>Every result keeps its dataset, route, baseline, and release state.</p></div>
+              <div class="eval-lab-table-wrap"><table class="eval-lab-table"><thead><tr><th>Experiment</th><th>Route</th><th>Cases</th><th>Measures</th><th>Release</th></tr></thead><tbody id="eval-lab-experiments"></tbody></table></div>
+            </section>
+
+            <section class="eval-lab-section" aria-labelledby="eval-lab-evaluators-title">
+              <div class="eval-lab-section-heading"><div><span class="eyebrow">Evaluator registry</span><h3 id="eval-lab-evaluators-title">Checks and judges</h3></div><p>Narrow judges begin as candidates and earn trust against held-out human labels.</p></div>
+              <div class="eval-lab-evaluators" id="eval-lab-evaluators"></div>
+            </section>
+
+            <div class="eval-lab-two-column">
+              <section class="evaluation-card eval-lab-card" aria-labelledby="eval-lab-layers-title">
+                <div class="evaluation-card-heading"><div><span class="eyebrow">Workload map</span><h3 id="eval-lab-layers-title">Seven layers of evidence</h3></div><span>Deal room first</span></div>
+                <div class="eval-lab-layers" id="eval-lab-layers"></div>
+              </section>
+              <section class="evaluation-card eval-lab-card" aria-labelledby="eval-lab-business-title">
+                <div class="evaluation-card-heading"><div><span class="eyebrow">Buyer value</span><h3 id="eval-lab-business-title">What users will pay for</h3></div><span id="eval-lab-business-state">Not measured</span></div>
+                <div class="eval-lab-business" id="eval-lab-business"></div>
+              </section>
+            </div>
+
+            <section class="eval-lab-boundaries" aria-labelledby="eval-lab-boundaries-title"><h3 id="eval-lab-boundaries-title">Truth boundaries</h3><ul id="eval-lab-boundaries"></ul></section>
+          </div>
+        </section>
+
+        <form class="composer workspace-composer" id="message-form" data-content-id="segment.contextual_chat">
+          <div class="composer-context" id="composer-context" hidden>
+            <span><small>Asking about</small><strong id="composer-context-label"></strong></span>
+            <button id="clear-composer-context" type="button" aria-label="Clear source context">×</button>
+          </div>
+          <label class="sr-only" for="message-input">Ask Bonsai or message the team</label>
+          <textarea id="message-input" rows="1" placeholder="Ask about this deal or leave a team note" required></textarea>
+          <div class="composer-footer">
+            <label class="agent-toggle">
+              <input id="ask-bonsai" type="checkbox" checked>
+              <span class="toggle-track"><span></span></span>
+              Ask Bonsai
+            </label>
+            <div class="composer-actions">
+              <span id="composer-hint">Your question will stay with this room.</span>
+              <button class="send-button" id="send-button" type="submit" aria-label="Send message">↑</button>
+            </div>
+          </div>
+        </form>
+      </main>
+
+      <div class="citation-scrim" id="citation-scrim" hidden></div>
+      <aside class="citation-preview-panel" id="citation-preview-panel" role="dialog" aria-modal="true" aria-labelledby="citation-preview-title" aria-hidden="true" inert data-content-id="segment.citation_preview">
+        <button class="citation-close" id="close-citation-preview" type="button" aria-label="Close citation preview">×</button>
+        <span class="eyebrow">Cited passage</span>
+        <h2 id="citation-preview-title">Source passage</h2>
+        <p class="citation-preview-meta" id="citation-preview-meta"></p>
+        <article class="citation-preview-content" id="citation-preview-content" tabindex="-1"></article>
+        <div class="citation-preview-actions">
+          <button class="secondary-button" id="ask-about-citation" type="button">Ask about this</button>
+          <button class="primary-button" id="open-full-source" type="button">Open full source</button>
+        </div>
+      </aside>
+
+      <aside class="context-panel" id="context-panel" aria-label="Room context" data-content-id="segment.room_details">
+        <div class="context-section">
+          <div class="model-pill" id="model-pill" title="Local analysis status">
+            <span class="model-orb"></span>
+            <span><small>Analysis model</small><strong id="model-name">Bonsai 27B</strong></span>
+            <span class="model-state" id="model-state">Checking</span>
+          </div>
+        </div>
+        <div class="context-section room-note">
+          <span class="eyebrow">Room details</span>
+          <p id="room-description">Loading local deal-room context.</p>
+        </div>
+        <div class="context-section">
+          <div class="context-heading"><h3>Files</h3><button class="text-button" data-open-view="files" type="button">View all</button></div>
+          <div class="compact-sources" id="compact-sources"></div>
+        </div>
+        <div class="context-section">
+          <div class="context-heading"><h3>Room status</h3></div>
+          <dl class="truth-list">
+            <div><dt>Team activity</dt><dd id="truth-history">Checking</dd></div>
+            <div><dt>Files</dt><dd id="truth-source-provenance">Checking</dd></div>
+            <div><dt>File location</dt><dd>This Mac</dd></div>
+          </dl>
+        </div>
+        <div class="context-section context-links">
+          <button class="text-button" id="tab-digest" data-view="digest" data-open-view="digest" type="button" aria-controls="view-digest">Decision notes</button>
+          <button class="text-button" id="tab-evidence" data-view="evidence" data-open-view="evidence" type="button" aria-controls="view-evidence">Technical details</button>
+        </div>
+      </aside>
+    </div>
+
+    <dialog class="folder-dialog" id="folder-dialog" data-content-id="segment.open_folder">
+      <form method="dialog" class="dialog-card" id="folder-form">
+        <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+        <span class="dialog-shape" aria-hidden="true"></span>
+        <span class="eyebrow">New private room</span>
+        <h2>Open a deal room folder</h2>
+        <p>Choose a folder on this Mac. Prism shows the files before it creates the shared room.</p>
+        <label for="folder-path">Absolute folder path</label>
+        <input id="folder-path" name="folder-path" placeholder="/Users/you/Deals/Project Cedar" autocomplete="off" required>
+        <section class="folder-preview" id="folder-preview" aria-live="polite" hidden>
+          <div class="folder-preview-heading"><strong id="folder-preview-summary">Folder preview</strong><span id="folder-preview-size"></span></div>
+          <small class="folder-preview-provenance" id="folder-preview-provenance">Source provenance pending</small>
+          <ul id="folder-preview-files"></ul>
+          <div class="folder-preview-warnings" id="folder-preview-warnings" hidden></div>
+          <small>Review this inventory before Prism creates a Buzz channel. Source bytes stay in the selected folder.</small>
+        </section>
+        <div class="dialog-status" id="folder-status"></div>
+        <button class="primary-button full-width" id="create-room-button" value="default" type="submit">Preview folder</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="/app.js?v=hybrid-eval-lab-v1"></script>
+  </body>
+</html>

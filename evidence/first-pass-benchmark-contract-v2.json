@@ -1,0 +1,172 @@
+{
+  "files": {
+    "candidate_approval_ledger": {
+      "path": "benchmarks/first_pass/candidate_case_approval_records.v1.json",
+      "sha256": "fb31a872f84bab589b8f69d794ad35c12f54b9e7549353f02654f5f563c9721e"
+    },
+    "candidate_companion_sources": {
+      "path": "benchmarks/first_pass/candidate_companion_sources.v1.json",
+      "sha256": "01ac0afab0d2d3937474b26ec49478227458a5bbe164e75ee13941a46068583b"
+    },
+    "candidate_question_drafts": {
+      "path": "benchmarks/first_pass/candidate_question_drafts.v1.json",
+      "sha256": "103a80eed4e32b82f995e596ac5a64af8869fbcc85410671cd2b8f1319d820af"
+    },
+    "candidate_registration_ledger": {
+      "path": "benchmarks/first_pass/candidate_case_registrations.v1.json",
+      "sha256": "933714e0267124943a4923023803f60bb6f7eda447ea6c2a3fd6e2f24258bfe3"
+    },
+    "candidate_sources": {
+      "path": "benchmarks/first_pass/candidate_deal_sources.v1.json",
+      "sha256": "d8db6195ebee48a0d47af20976cdc4acf56a68f55db69df1cc469ca2196b9bc4"
+    },
+    "case_schema": {
+      "path": "benchmarks/first_pass/case.schema.json",
+      "sha256": "fecc844667ee43aa6ed452874e82411f062a91fc7f9839dbe14cc546335f4555"
+    },
+    "manifest": {
+      "path": "benchmarks/first_pass/benchmark_manifest.v2.json",
+      "sha256": "3aa1d8066fb8592e02002fc3a299ee36752cdf28d1fe74ba5c63df4591f5212b"
+    },
+    "output_reviewer_roster": {
+      "path": "benchmarks/first_pass/output_reviewer_roster.v1.json",
+      "sha256": "5b6706fdca1e026d0f2be902d0964bfee98aa43da3a3e08716250ddef01b1b68"
+    },
+    "output_reviewer_roster_schema": {
+      "path": "benchmarks/first_pass/output_reviewer_roster.schema.json",
+      "sha256": "8bc140de800d548af4ca868fd45b7164efaa4f8da75d2299c7faf31fb6504016"
+    },
+    "registry": {
+      "path": "benchmarks/first_pass/development_registry.v2.json",
+      "sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7"
+    },
+    "rubric": {
+      "path": "benchmarks/first_pass/rubric.v1.json",
+      "sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5"
+    },
+    "sealed_test_control": {
+      "path": "benchmarks/first_pass/sealed_test_control.v1.json",
+      "sha256": "226d89ba4a8a5c48aaff4ff81d61f025175c5e8da3bab7e6b9b8d5ce13b7b854"
+    },
+    "sealed_test_control_schema": {
+      "path": "benchmarks/first_pass/sealed_test_control.schema.json",
+      "sha256": "7310954ba10fc15ea25aa6791dfe0c312a8794b95c8a3c19e5fb5302148ff1d9"
+    },
+    "sealed_test_public_manifest": {
+      "path": "benchmarks/first_pass/sealed_test_manifest.v1.json",
+      "sha256": "34f879575773804e07993b30eb996e85dfe1faf0281ad5f575af3032571b54fc"
+    },
+    "sealed_test_public_manifest_schema": {
+      "path": "benchmarks/first_pass/sealed_test_manifest.schema.json",
+      "sha256": "0efdeac1521b5692f2573566bf683f2d18d77c4b087520e85b1fafe6ffc5ce75"
+    },
+    "source_evidence": {
+      "path": "evidence/public-deal-corpus-verification-v2.json",
+      "sha256": "88678965dc9ae7674aecdea2c94e584a226963ab7a8b706e8907949d972f9ff5"
+    },
+    "source_manifest": {
+      "path": "benchmarks/public_deal_corpus_manifest.json",
+      "sha256": "1888ade2eb98bf8f7009c660686ebefeb224e1cc94f013af99d5192b882bfb9c"
+    },
+    "source_reviewer_roster": {
+      "path": "benchmarks/first_pass/source_reviewer_roster.v1.json",
+      "sha256": "5b6706fdca1e026d0f2be902d0964bfee98aa43da3a3e08716250ddef01b1b68"
+    },
+    "source_reviewer_roster_schema": {
+      "path": "benchmarks/first_pass/source_reviewer_roster.schema.json",
+      "sha256": "a71efba8aeed54e7b8e6057e4711618a0ad36603a22b38cee48febf7477824c7"
+    }
+  },
+  "inventory": {
+    "calibration_cases": 0,
+    "calibration_deals": 0,
+    "candidate_approvals_recorded": 0,
+    "candidate_approvals_unregistered": 0,
+    "candidate_cases_registered": 0,
+    "candidate_companion_sources_acquired": 29,
+    "candidate_companion_sources_discovered": 29,
+    "candidate_companion_sources_with_tables": 29,
+    "candidate_deals_acquired_not_registered": 29,
+    "candidate_deals_not_acquired": 0,
+    "candidate_deals_with_multiple_acquired_documents": 29,
+    "candidate_deals_with_question_drafts": 29,
+    "candidate_question_drafts_not_registered": 319,
+    "candidate_task_family_counts": {
+      "contract_terms_covenants_and_approvals": 58,
+      "cross_document_synthesis_and_recommendation": 29,
+      "financial_quality_and_earnings_adjustments": 58,
+      "financing_and_capital_structure": 58,
+      "market_and_regulatory_findings": 29,
+      "purchase_price_and_valuation": 29,
+      "risks_conflicts_and_missing_information": 29,
+      "transaction_identity_structure_chronology": 29
+    },
+    "development_cases": 5,
+    "domain_approved_cases": 0,
+    "pipeline_task_family_capacity": {
+      "contract_terms_covenants_and_approvals": 59,
+      "cross_document_synthesis_and_recommendation": 29,
+      "financial_quality_and_earnings_adjustments": 58,
+      "financing_and_capital_structure": 59,
+      "market_and_regulatory_findings": 30,
+      "purchase_price_and_valuation": 29,
+      "risks_conflicts_and_missing_information": 30,
+      "transaction_identity_structure_chronology": 30
+    },
+    "pipeline_task_family_capacity_ready": true,
+    "registered_cases": 5,
+    "registered_deals": 3,
+    "sealed_test_cases": 0,
+    "slice_counts": {
+      "answer_absence": 1,
+      "conflicting_or_confusable_evidence": 1,
+      "multiple_documents": 0,
+      "tables_or_calculations": 0
+    },
+    "slice_fractions": {
+      "answer_absence": 0.2,
+      "conflicting_or_confusable_evidence": 0.2,
+      "multiple_documents": 0.0,
+      "tables_or_calculations": 0.0
+    },
+    "sourcing_pipeline_deals": 32,
+    "target_calibration_cases": 20,
+    "target_calibration_deals": 5,
+    "target_cases": 120,
+    "target_deals": 30,
+    "task_family_counts": {
+      "contract_terms_covenants_and_approvals": 1,
+      "financing_and_capital_structure": 1,
+      "market_and_regulatory_findings": 1,
+      "risks_conflicts_and_missing_information": 1,
+      "transaction_identity_structure_chronology": 1
+    }
+  },
+  "release_failures": [
+    "registered cases 5 of 120",
+    "registered deals 3 of 30",
+    "development cases 5 of 60",
+    "calibration cases 0 of 20",
+    "sealed_test cases 0 of 40",
+    "transaction_identity_structure_chronology cases 1 of 10",
+    "purchase_price_and_valuation cases 0 of 20",
+    "financing_and_capital_structure cases 1 of 20",
+    "financial_quality_and_earnings_adjustments cases 0 of 15",
+    "contract_terms_covenants_and_approvals cases 1 of 15",
+    "market_and_regulatory_findings cases 1 of 15",
+    "risks_conflicts_and_missing_information cases 1 of 15",
+    "cross_document_synthesis_and_recommendation cases 0 of 10",
+    "tables_or_calculations fraction 0.0000 below 0.2500",
+    "multiple_documents fraction 0.0000 below 0.4000",
+    "domain approved cases 0 of 5",
+    "product_owner approval is missing",
+    "domain_owner approval is missing",
+    "strategy_owner approval is missing",
+    "security_owner approval is missing",
+    "release thresholds are not approved"
+  ],
+  "release_ready": false,
+  "structural_errors": [],
+  "structural_passed": true,
+  "verification_kind": "first_pass_benchmark_contract"
+}

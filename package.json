@@ -1,0 +1,23 @@
+{
+  "name": "hybrid-ai-blueprints",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Runnable Hybrid AI Blueprints sponsored and stewarded by PrismML.",
+  "scripts": {
+    "setup:browser": "playwright-core install chromium",
+    "setup:browsers": "playwright-core install chromium firefox webkit",
+    "verify:browser": "node scripts/verify_browser_surface.mjs",
+    "verify:customer-demo": "node scripts/verify_customer_demo_surface.mjs",
+    "verify:accessibility": "node scripts/verify_accessibility_surface.mjs",
+    "verify:cross-browser": "node scripts/verify_cross_browser_surface.mjs",
+    "verify:source-review": "node scripts/verify_source_review_surface.mjs",
+    "verify:case-authoring": "node scripts/verify_case_authoring_surface.mjs",
+    "verify:output-review": "node scripts/verify_output_review_surface.mjs",
+    "verify:output-review-completion": "node scripts/verify_output_review_completion_surface.mjs",
+    "verify:folder-preview": "node scripts/verify_folder_preview_surface.mjs",
+    "verify:buzz-polling": "node scripts/verify_buzz_polling_surface.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
+  }
+}

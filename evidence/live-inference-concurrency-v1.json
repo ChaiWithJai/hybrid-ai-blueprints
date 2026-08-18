@@ -1,0 +1,2759 @@
+{
+  "schema_version": 1,
+  "verification_kind": "live_inference_http_concurrency",
+  "measurement_state": "real_bonsai_request_with_concurrent_status_probes",
+  "recorded_at": "2026-08-17T22:43:32.486932+00:00",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "room": "local_bbfa4e91f7ee",
+  "request": {
+    "prompt_sha256": "52d3a2aeebafef623073298308888f0e45aefea8246de4c2b8fe5ca0d70dcacc",
+    "http_status": 201,
+    "duration_ms": 39693.388,
+    "answer_state": "accepted",
+    "response_sha256": "63a7c6c25fd9d69e77f5dfe7fbdbe172cb01fa96827a8501a9e0e074f7e619bc"
+  },
+  "product_evidence": {
+    "question_event_id": "08ab93e902e8b0a2affca71418c414642508f801c3f310fedd52604b29571018",
+    "answer_event_id": "7f237b6c7122a0b000e1847c7112e6f2a4bdb8aa2c6e111e1d8b53e81ea0249f",
+    "trace_id": "trc_966327634c9e",
+    "question_signature_verified": true,
+    "answer_signature_verified": true,
+    "trace_result_state": "guard_passed_and_signed_to_buzz",
+    "provider_id": "local_bonsai",
+    "model": "27b@q1_0",
+    "model_latency_ms": 39316.57,
+    "context_admission": "loaded_model_tokenizer_with_runtime_margin",
+    "admitted_input_tokens": 4986,
+    "runtime_input_tokens": 4956,
+    "runtime_completion_tokens": 37,
+    "context_runtime_margin_tokens": 32,
+    "reserved_output_tokens": 4096,
+    "fitted_context_tokens": 16384
+  },
+  "responsiveness": {
+    "probe_count": 387,
+    "in_flight_probe_count": 387,
+    "max_status_latency_ms": 248.452,
+    "threshold_ms": 2000,
+    "probes": [
+      {
+        "latency_ms": 110.64,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 62.445,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 54.621,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 84.276,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 177.454,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 144.173,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.874,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.257,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 53.721,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.587,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.224,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 66.036,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 50.106,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.664,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.516,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.501,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.971,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 65.388,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 68.773,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 66.484,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 109.816,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 248.452,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.777,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.632,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.205,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.311,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.254,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.301,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.842,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.988,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.501,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.247,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.942,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.337,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.122,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.546,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.76,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.967,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.328,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.601,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.11,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.149,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.418,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.891,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.19,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.252,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.134,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.679,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.882,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.068,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 50.89,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.197,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.884,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.121,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.648,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.234,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.375,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.23,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.066,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.641,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.157,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.489,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.079,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.7,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.574,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.636,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.414,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.658,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.114,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.549,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.15,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.312,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.952,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.654,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.794,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.876,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.624,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.625,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.909,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.194,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.278,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.64,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.524,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.874,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.645,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.035,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.908,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 43.787,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.234,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.504,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.431,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.504,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.573,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.145,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.199,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.867,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.253,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.925,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.53,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.714,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 53.792,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.245,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.732,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.794,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.83,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.748,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 50.57,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.063,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.364,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.897,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.56,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.081,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.449,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.628,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.635,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.696,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.512,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.867,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.403,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.1,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.227,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.526,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.991,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.148,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.175,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.519,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.184,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.613,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.683,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.596,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.05,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.975,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.792,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.763,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.036,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.344,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.041,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.111,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.599,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.151,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.176,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.738,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.365,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.463,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.079,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.341,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.164,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.526,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.237,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.586,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.247,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.724,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.657,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.032,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.216,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.23,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 50.033,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.481,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 43.899,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.169,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.66,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.618,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.424,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.53,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.088,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.674,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.468,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.934,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.18,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.167,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.198,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.599,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.923,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.894,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.72,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.155,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.41,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.443,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.598,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.945,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 54.059,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.146,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.475,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.183,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.248,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.211,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 50.259,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.576,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.067,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.416,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.922,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.086,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.279,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.711,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 42.464,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.723,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.142,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.298,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.78,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.878,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.701,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.805,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.215,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.286,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.45,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.471,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.794,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.207,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.024,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.022,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.096,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.526,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.239,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.082,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.936,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.766,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 56.938,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.239,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.104,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.237,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.441,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.183,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.098,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.296,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.327,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.887,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.985,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.638,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.71,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.694,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.349,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.541,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.486,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.232,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.355,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.379,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.046,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.33,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.631,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.425,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.047,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.58,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.889,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.504,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.675,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.55,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.537,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.218,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.6,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.555,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.438,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.278,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.643,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.234,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.038,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.349,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.146,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.667,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.264,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.242,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.291,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.473,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.627,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.115,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.492,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.395,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.599,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.326,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.257,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.989,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.641,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.912,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.805,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.754,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.903,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.355,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.188,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.75,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.346,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.698,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.258,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.288,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.291,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.072,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.977,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.385,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.517,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.395,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.324,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.137,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.703,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.127,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.226,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.333,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.069,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.127,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.686,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.295,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.088,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.789,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.958,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 54.766,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.849,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 44.941,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.311,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.888,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.475,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.163,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.509,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.768,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.283,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.134,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.785,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.902,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.453,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.355,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.542,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.766,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.021,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.874,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.757,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.558,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.475,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.206,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.396,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.817,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 54.18,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.17,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.924,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.737,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.82,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.309,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.728,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.05,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.292,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.829,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.955,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.212,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.253,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.055,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.661,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.313,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.849,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.344,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.213,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.506,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.166,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.814,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.151,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.112,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.718,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.706,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.11,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.5,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.78,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.942,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.263,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.698,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.528,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.452,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.443,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.963,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.909,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.93,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.46,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 49.288,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.974,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.124,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.119,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.868,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.48,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 48.675,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 47.887,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 46.27,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 45.673,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.629,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.227,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.435,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.499,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 53.869,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 52.212,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.89,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.116,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.89,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 53.045,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 51.497,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      },
+      {
+        "latency_ms": 111.941,
+        "http_status": 200,
+        "product_stage": "local_prototype",
+        "deployment_verified": true,
+        "request_was_in_flight": true
+      }
+    ]
+  },
+  "deployment_record_sha256": "ac5d02bc685ff8c5bb95b2387678c2efb60dc6265c2c06b51a57fbc70fc225f1",
+  "limitations": [
+    "This proves status responsiveness during one real local inference request, not a load or soak test.",
+    "The accepted answer passed a structural publication guard and remains unverified for domain accuracy.",
+    "Signed-event booleans come from the independently signature-checking Buzz bridge; raw-event checks are covered by separate evidence.",
+    "The 2,000 ms status threshold is a prototype responsiveness guard, not a production service-level objective.",
+    "The loaded-model tokenizer count includes an explicit 32-token runtime-wrapper margin because Bionic's reported input can differ from the direct llama.cpp template count."
+  ]
+}

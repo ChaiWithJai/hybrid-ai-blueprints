@@ -1,0 +1,45 @@
+{
+  "after": {
+    "bytes_sha256": "162eb07f9aabbe207ea65feab77351a1edf38cf806f8bcfeea64b9d85fafa8ba",
+    "entry_count": 115,
+    "head_sha256": "b6ce8886cfff39f64b0d9841a369977c183d12ea3e5b1366df4166780142ccc0"
+  },
+  "before": {
+    "bytes_sha256": "d7bd9bf6eaf341c36daa559761e8e7275e3c3bee7aafa5cb53fd33afc8f7ac54",
+    "entry_count": 95,
+    "head_sha256": "6a18a120bc29b6ee8bb3581d92d134e067acbe31dd90103a5510649e35db0364"
+  },
+  "candidate_count": 20,
+  "limitations": [
+    "The correction identifies one exact pair of repository-owned verification requests.",
+    "The original events remain in the local chain; the correction does not erase history.",
+    "The ledger is not signed or externally anchored and can be rewritten by a local administrator."
+  ],
+  "measurement_state": "fixture_contamination_labelled",
+  "recorded_at": "2026-08-15T21:41:08.989557+00:00",
+  "records_deleted": 0,
+  "schema_version": 1,
+  "trace_ids": [
+    "trc_040a33ffd676",
+    "trc_0cc2ac81221d",
+    "trc_151a3f34f01d",
+    "trc_1b63079a41c9",
+    "trc_233df85b05f7",
+    "trc_4605c5e86267",
+    "trc_48fe3bc3193a",
+    "trc_591fa246c67a",
+    "trc_599f50e8a624",
+    "trc_66332a9f9f86",
+    "trc_71e77cf56aed",
+    "trc_762053558b5c",
+    "trc_7827f28f0dd9",
+    "trc_aeea8ce8d91f",
+    "trc_b4c4331dfe73",
+    "trc_cda165cc23b8",
+    "trc_d4588a003c8e",
+    "trc_d4771935b8bc",
+    "trc_e545f16f7b6c",
+    "trc_fbdaa50d2e20"
+  ],
+  "trace_store": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/.runtime/evals/traces.jsonl"
+}

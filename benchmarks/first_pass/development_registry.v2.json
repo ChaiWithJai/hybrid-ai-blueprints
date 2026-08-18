@@ -1,0 +1,152 @@
+{
+  "benchmark_id": "prism_vault_first_pass_underwriting",
+  "version": "2.0.0-dev.1",
+  "split": "development",
+  "domain_approval": "not_reviewed",
+  "source_manifest": "../public_deal_corpus_manifest.json",
+  "cases": [
+    {
+      "id": "anaplan_vdr_timeline",
+      "version": "2.0.0",
+      "deal_id": "anaplan_2022",
+      "near_duplicate_family_id": null,
+      "split": "development",
+      "task_family": "transaction_identity_structure_chronology",
+      "question": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+      "investment_screen": null,
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": [
+        "virtual_data_room_open_date",
+        "material_categories",
+        "intensive_diligence_end_date"
+      ],
+      "required_claims": [
+        {"id": "claim_vdr_open", "text": "The virtual data room opened on March 12, 2022.", "severity": "critical", "citation_ids": ["cite_vdr_timeline"]},
+        {"id": "claim_vdr_materials", "text": "It contained financial, operational, and legal materials.", "severity": "major", "citation_ids": ["cite_vdr_timeline"]},
+        {"id": "claim_diligence_end", "text": "The intensive diligence period ended on March 20, 2022.", "severity": "critical", "citation_ids": ["cite_vdr_timeline"]}
+      ],
+      "required_citations": [
+        {"id": "cite_vdr_timeline", "filename": "01_anaplan_defm14a.htm", "anchor": "html:block:00484", "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f", "evidence_excerpt_sha256": null}
+      ],
+      "calculations": [],
+      "acceptable_absence_terms": [],
+      "forbidden_claims": [],
+      "slices": ["single_document", "multi_component"],
+      "source_snapshot_sha256": "3d7e5995f973453d4d0f8839e8efd1b4197d468dfd33436b148c4c2221053cc9",
+      "domain_review": {"status": "not_reviewed", "owner": null, "reviewed_at": null}
+    },
+    {
+      "id": "anaplan_termination_fees",
+      "version": "2.0.0",
+      "deal_id": "anaplan_2022",
+      "near_duplicate_family_id": null,
+      "split": "development",
+      "task_family": "contract_terms_covenants_and_approvals",
+      "question": "State the company termination fee and the reverse termination fee.",
+      "investment_screen": null,
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": ["company_termination_fee", "reverse_termination_fee"],
+      "required_claims": [
+        {"id": "claim_company_fee", "text": "The company termination fee is $293,122,500.", "severity": "critical", "citation_ids": ["cite_termination_fees"]},
+        {"id": "claim_reverse_fee", "text": "The reverse termination fee is $586,245,000.", "severity": "critical", "citation_ids": ["cite_termination_fees"]}
+      ],
+      "required_citations": [
+        {"id": "cite_termination_fees", "filename": "01_anaplan_defm14a.htm", "anchor": "html:block:00207", "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f", "evidence_excerpt_sha256": null}
+      ],
+      "calculations": [],
+      "acceptable_absence_terms": [],
+      "forbidden_claims": [],
+      "slices": ["single_document", "critical_numbers", "multi_component"],
+      "source_snapshot_sha256": "3d7e5995f973453d4d0f8839e8efd1b4197d468dfd33436b148c4c2221053cc9",
+      "domain_review": {"status": "not_reviewed", "owner": null, "reviewed_at": null}
+    },
+    {
+      "id": "citrix_financing_mix",
+      "version": "2.0.0",
+      "deal_id": "citrix_2022",
+      "near_duplicate_family_id": null,
+      "split": "development",
+      "task_family": "financing_and_capital_structure",
+      "question": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately.",
+      "investment_screen": null,
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": ["debt_commitment", "preferred_equity", "common_equity", "common_equity_provider"],
+      "required_claims": [
+        {"id": "claim_debt", "text": "The debt commitment was $15.0 billion.", "severity": "critical", "citation_ids": ["cite_financing_mix"]},
+        {"id": "claim_preferred", "text": "Preferred equity was $2.5 billion.", "severity": "critical", "citation_ids": ["cite_financing_mix"]},
+        {"id": "claim_common", "text": "Common equity was $2.275 billion and would be provided by Elliott.", "severity": "critical", "citation_ids": ["cite_financing_mix"]}
+      ],
+      "required_citations": [
+        {"id": "cite_financing_mix", "filename": "02_citrix_financing_supplement.htm", "anchor": "html:block:00058", "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f", "evidence_excerpt_sha256": null}
+      ],
+      "calculations": [],
+      "acceptable_absence_terms": [],
+      "forbidden_claims": [],
+      "slices": ["single_document", "critical_numbers", "named_party", "multi_component"],
+      "source_snapshot_sha256": "be41e55c32112f82136c03473e12d2f5ccd4ed0e6b4f1985d5e4939440ae83f1",
+      "domain_review": {"status": "not_reviewed", "owner": null, "reviewed_at": null}
+    },
+    {
+      "id": "citrix_entry_leverage_absent",
+      "version": "2.0.0",
+      "deal_id": "citrix_2022",
+      "near_duplicate_family_id": null,
+      "split": "development",
+      "task_family": "risks_conflicts_and_missing_information",
+      "question": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+      "investment_screen": null,
+      "answer_policy": "refuse_absent",
+      "severity": "critical",
+      "requested_components": ["entry_debt_to_ebitda_or_absence"],
+      "required_claims": [
+        {"id": "claim_entry_leverage_absent", "text": "The exact entry debt to EBITDA leverage multiple is not disclosed and cannot be calculated from the cited evidence alone.", "severity": "critical", "citation_ids": ["cite_financing_evidence"]}
+      ],
+      "required_citations": [
+        {"id": "cite_financing_evidence", "filename": "02_citrix_financing_supplement.htm", "anchor": "html:block:00058", "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f", "evidence_excerpt_sha256": null}
+      ],
+      "calculations": [],
+      "acceptable_absence_terms": ["not disclosed", "cannot be calculated from the cited evidence alone"],
+      "forbidden_claims": ["The exact entry debt to EBITDA leverage multiple was 13.0x.", "The selected transactions valuation multiple was the entry debt multiple."],
+      "slices": ["answer_absence", "confusable_evidence", "critical_number", "semantic_relation"],
+      "source_snapshot_sha256": "be41e55c32112f82136c03473e12d2f5ccd4ed0e6b4f1985d5e4939440ae83f1",
+      "domain_review": {"status": "not_reviewed", "owner": null, "reviewed_at": null}
+    },
+    {
+      "id": "cma_competition_conclusion",
+      "version": "2.0.0",
+      "deal_id": "microsoft_activision_2023",
+      "near_duplicate_family_id": null,
+      "split": "development",
+      "task_family": "market_and_regulatory_findings",
+      "question": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+      "investment_screen": null,
+      "answer_policy": "answer",
+      "severity": "critical",
+      "requested_components": ["console_gaming_conclusion", "cloud_gaming_conclusion", "microsoft_cloud_gaming_market_share"],
+      "required_claims": [
+        {"id": "claim_console", "text": "The CMA did not find a substantial lessening of competition in console gaming.", "severity": "critical", "citation_ids": ["cite_cma_conclusions"]},
+        {"id": "claim_cloud", "text": "The CMA found a substantial lessening of competition in cloud gaming services.", "severity": "critical", "citation_ids": ["cite_cma_conclusions"]},
+        {"id": "claim_market_share", "text": "The CMA estimated Microsoft's cloud gaming market share at 60 to 70 percent.", "severity": "critical", "citation_ids": ["cite_cma_conclusions"]}
+      ],
+      "required_citations": [
+        {"id": "cite_cma_conclusions", "filename": "microsoft_activision_cma_final_report.pdf", "anchor": "pdf:page:7", "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8", "evidence_excerpt_sha256": null}
+      ],
+      "calculations": [],
+      "acceptable_absence_terms": [],
+      "forbidden_claims": [],
+      "slices": ["pdf", "multi_component", "paired_conclusions", "critical_number"],
+      "source_snapshot_sha256": "3c449cc06749b879c32fc04ef4e884b9eebd875da55f3fa37c5c6d145492e9cf",
+      "domain_review": {"status": "not_reviewed", "owner": null, "reviewed_at": null}
+    }
+  ],
+  "prior_results": {
+    "anaplan_vdr_timeline": {"model": "27b@q1_0", "label": "pass", "failure_categories": []},
+    "anaplan_termination_fees": {"model": "27b@q1_0", "label": "pass", "failure_categories": []},
+    "citrix_financing_mix": {"model": "27b@q1_0", "label": "fail", "failure_categories": ["component_completeness", "named_party_omission"]},
+    "citrix_entry_leverage_absent": {"model": "27b@q1_0", "label": "fail", "failure_categories": ["unsupported_material_claim", "answer_absence", "semantic_relation", "critical_false_pass"]},
+    "cma_competition_conclusion": {"model": "27b@q1_0", "label": "fail", "failure_categories": ["component_completeness", "requested_conclusion_omission"]}
+  }
+}

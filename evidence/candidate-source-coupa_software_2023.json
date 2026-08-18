@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "coupa_software_2023",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2208,
+    "estimated_tokens": 179411,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 520
+  },
+  "source": {
+    "accession": "0001193125-23-012656",
+    "bytes": 1682222,
+    "cik": "0001385867",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1385867/000119312523012656/0001193125-23-012656-index.htm",
+    "path": ".runtime/candidate-deal-sources/coupa_software_2023/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1385867/000119312523012656/d434243ddefm14a.htm",
+    "sha256": "9026449b6aae19e5947ab2870e4b408c909f3e0cad4a4e6cc420bb3e5d85f909"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

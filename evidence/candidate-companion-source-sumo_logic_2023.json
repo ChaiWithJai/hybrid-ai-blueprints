@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "sumo_logic_2023",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 1348,
+    "estimated_tokens": 102704,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 78
+  },
+  "source": {
+    "accession": "0001643269-23-000016",
+    "bytes": 2118324,
+    "filing_date": "2023-03-16",
+    "form": "10-K",
+    "path": ".runtime/candidate-deal-sources/sumo_logic_2023/02_financial_10k.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1643269/000164326923000016/sumo-20230131.htm",
+    "report_date": "2023-01-31",
+    "sha256": "3a5793f05fae543fb25cd3d2c68ba1edb6a3fa214cd73cd6fda2c4050612cbbe"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

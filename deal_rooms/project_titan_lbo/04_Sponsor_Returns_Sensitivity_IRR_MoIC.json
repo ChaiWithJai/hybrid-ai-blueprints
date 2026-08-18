@@ -1,0 +1,33 @@
+{
+  "project_name": "Project Titan LBO Returns Analysis",
+  "target_company": "CloudScale Networks Inc.",
+  "sponsor_entity": "Apex Horizon Capital Partners (Fund VIII)",
+  "initial_sponsor_equity_usd_m": 800.0,
+  "management_rollover_usd_m": 160.0,
+  "entry_ebitda_multiple": 12.0,
+  "entry_enterprise_value_usd_m": 2400.0,
+  "returns_matrix_by_exit_year": {
+    "2028_3_Year_Exit": {
+      "projected_exit_ebitda_usd_m": 375.8,
+      "ending_net_debt_usd_m": 1257.5,
+      "multiples_sensitivity": [
+        {"exit_multiple": 10.0, "exit_ev": 3758.0, "exit_equity_value": 2500.5, "sponsor_proceeds": 2083.7, "sponsor_moic": 2.60, "sponsor_irr_pct": 37.5},
+        {"exit_multiple": 12.0, "exit_ev": 4509.6, "exit_equity_value": 3252.1, "sponsor_proceeds": 2710.1, "sponsor_moic": 3.39, "sponsor_irr_pct": 50.2},
+        {"exit_multiple": 14.0, "exit_ev": 5261.2, "exit_equity_value": 4003.7, "sponsor_proceeds": 3336.4, "sponsor_moic": 4.17, "sponsor_irr_pct": 60.9}
+      ]
+    },
+    "2030_5_Year_Exit": {
+      "projected_exit_ebitda_usd_m": 512.3,
+      "ending_net_debt_usd_m": 1002.4,
+      "multiples_sensitivity": [
+        {"exit_multiple": 10.0, "exit_ev": 5123.0, "exit_equity_value": 4120.6, "sponsor_proceeds": 3433.8, "sponsor_moic": 4.29, "sponsor_irr_pct": 33.8},
+        {"exit_multiple": 12.0, "exit_ev": 6147.6, "exit_equity_value": 5145.2, "sponsor_proceeds": 4287.7, "sponsor_moic": 5.36, "sponsor_irr_pct": 40.0},
+        {"exit_multiple": 14.0, "exit_ev": 7172.2, "exit_equity_value": 6169.8, "sponsor_proceeds": 5141.5, "sponsor_moic": 6.43, "sponsor_irr_pct": 45.1}
+      ]
+    }
+  },
+  "covenant_risk_summary": {
+    "year_1_interest_coverage_warning": "Year 1 interest coverage is 2.53x vs 2.75x covenant floor due to initial SOFR swap spread. Requires $10M interest rate collar hedge.",
+    "deleveraging_trajectory": "Deleverages from 5.53x Net Debt / EBITDA at close down to 1.96x by Year 5 via mandatory ECF sweep."
+  }
+}

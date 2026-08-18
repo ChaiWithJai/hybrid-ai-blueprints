@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "verification_kind": "browser_human_error_discovery_v1",
+  "recorded_at": "2026-08-18T04:10:56.022Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8794",
+  "fixture_only": true,
+  "human_review_performed": false,
+  "source_sha256": {
+    "tools/eval_review/index.html": "78b49b959a39ed900aca145fe752ad428e3d7c3642556b49e9aac8f5b37e6919",
+    "tools/eval_review/server.py": "68bcdcf6281edc6f3216e35d7d02064a9499bcccee6c0325117085327bdefcbb",
+    "core/error_discovery.py": "d2834858dcef1abdb5661c43e351324e619c0b337f49201bf165fa213a1e8aac"
+  },
+  "assertions": [
+    {
+      "name": "ten_diverse_contextual_traces_loaded",
+      "passed": true,
+      "observed": {
+        "sample_count": 10,
+        "context_turns": 5,
+        "focus_turns": 1
+      }
+    },
+    {
+      "name": "five_fixture_reviews_persist_and_unlock_depth",
+      "passed": true,
+      "observed": {
+        "before_reload": "5 reviewed · 5 remaining",
+        "after_reload": "5 reviewed · 5 remaining",
+        "depth_phase": true
+      }
+    },
+    {
+      "name": "coverage_separates_corpus_sample_and_annotations",
+      "passed": true,
+      "observed": {
+        "corpus": 38,
+        "sampled": 10,
+        "annotated": 5
+      }
+    },
+    {
+      "name": "agent_suggestions_remain_separate_and_saturation_is_not_claimed",
+      "passed": true,
+      "observed": {
+        "summary": "5 of 10 sampled traces reviewed. Human labels and agent suggestions remain separate. Saturation is not claimed.",
+        "pending_suggestions": 32
+      }
+    },
+    {
+      "name": "breadth_batch_expands_sample",
+      "passed": true,
+      "observed": "5 of 13 sampled traces reviewed. Human labels and agent suggestions remain separate. Saturation is not claimed."
+    },
+    {
+      "name": "phoenix_status_and_private_observability_are_visible",
+      "passed": true,
+      "observed": {
+        "phoenix_live": true,
+        "records": "5",
+        "content": "Hashes"
+      }
+    },
+    {
+      "name": "mobile_has_no_horizontal_overflow",
+      "passed": true,
+      "observed": {
+        "scroll": 390,
+        "viewport": 390
+      }
+    },
+    {
+      "name": "browser_console_has_no_errors_or_warnings",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "screenshot": {
+    "path": "evidence/browser-error-discovery-v1.png",
+    "bytes": 55748,
+    "sha256": "29a7aecd1da24e6433053b9c681aa01eacd0d686e8a3a87fa81a7aeb87b16cc5"
+  },
+  "limitations": [
+    "All five labels are synthetic browser fixtures and do not count as human review.",
+    "The fixture proves interface behavior, persistence, and measurement boundaries. It does not prove deal accuracy or reviewer identity.",
+    "The canonical review ledger remains empty."
+  ]
+}

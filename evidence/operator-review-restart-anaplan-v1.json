@@ -1,0 +1,50 @@
+{
+  "accuracy_release_passed": false,
+  "artifact_mode": "evidence_safe_fallback",
+  "canonical_path": "/rooms/local_a6f2e0313e17/first-pass",
+  "digest_event_id": "97e6934b5fd24e7a92dde77f6a4bea2417bad8c1a0ba36eb855edaaeafbe235c",
+  "draft_event_id": "0638098321d5dde451013e1b5ed44ad5801b44fab2700564122ea638bc9e9337",
+  "limitations": [
+    "The action is a local operator durability smoke review, not domain review.",
+    "The review does not assess the accuracy or usefulness of the fallback.",
+    "The source is a public SEC filing, not a private virtual data room."
+  ],
+  "recorded_at": 1786857738.366872,
+  "review": {
+    "authentication_scope": "local_operator_bridge",
+    "benchmark_domain_review": false,
+    "canonical_path": "/rooms/local_a6f2e0313e17/digest",
+    "canvas_event_id": "97e6934b5fd24e7a92dde77f6a4bea2417bad8c1a0ba36eb855edaaeafbe235c",
+    "critical_corrections": 0,
+    "decision": "pause",
+    "major_corrections": 0,
+    "notes": "Automated durability smoke review. This is not domain review and does not assess accuracy.",
+    "restored_from_buzz": true,
+    "review_actor": "local_operator",
+    "review_event_id": "f2a0c9a60522f3dde56e58f1da07d66c44b3a90e2eb3715e4b140d9f8601a842",
+    "reviewer_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+    "signature_verification": {
+      "author_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+      "canvas_event_id": "97e6934b5fd24e7a92dde77f6a4bea2417bad8c1a0ba36eb855edaaeafbe235c",
+      "review_event_id": "f2a0c9a60522f3dde56e58f1da07d66c44b3a90e2eb3715e4b140d9f8601a842",
+      "scheme": "nip01_event_id_plus_bip340",
+      "state": "verified"
+    },
+    "useful_starting_point": false
+  },
+  "review_event_created_at": 1786857715,
+  "review_predates_server_process": true,
+  "review_subject": "source_evidence_packet",
+  "room": "local_a6f2e0313e17",
+  "server_process_started_at": 1786857725.306803,
+  "source_files": [
+    {
+      "bytes": 1590493,
+      "filename": "01_anaplan_defm14a.htm",
+      "sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+    }
+  ],
+  "source_folder": ".runtime/public-deal-corpus/anaplan",
+  "trace_id": "trc_de076bcd7756",
+  "verification_kind": "signed_operator_review_restart_record"
+}

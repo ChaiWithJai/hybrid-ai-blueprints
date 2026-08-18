@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "medallia_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2453,
+    "estimated_tokens": 186981,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 514
+  },
+  "source": {
+    "accession": "0001140361-21-031243",
+    "bytes": 2575276,
+    "cik": "0001540184",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1540184/000114036121031243/0001140361-21-031243-index.htm",
+    "path": ".runtime/candidate-deal-sources/medallia_2021/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1540184/000114036121031243/ny20000194x7_defm14a.htm",
+    "sha256": "ed2c54058466a1ac610114a2183955b32269c854aa6b53d892ba266d70cc7e13"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

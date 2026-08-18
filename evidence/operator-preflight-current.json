@@ -1,0 +1,134 @@
+{
+  "verification_kind": "operator_preflight",
+  "phase": "live",
+  "measurement_state": "same_host_preflight_not_clean_machine_reproduction",
+  "required_passed": true,
+  "checks": [
+    {
+      "name": "python_version",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": "3.14.6",
+      "remediation": "Install Python 3.11 or newer."
+    },
+    {
+      "name": "project_files",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": [],
+      "remediation": "Run from a complete Prism checkout."
+    },
+    {
+      "name": "docker_cli",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": "/usr/local/bin/docker",
+      "remediation": "Install Docker Desktop or another Docker Engine with Compose."
+    },
+    {
+      "name": "docker_daemon",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": "29.6.2",
+      "remediation": "Start the Docker daemon and confirm the current user can access it."
+    },
+    {
+      "name": "docker_compose",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": "Docker Compose version v5.3.1",
+      "remediation": "Install the Docker Compose plugin."
+    },
+    {
+      "name": "buzz_binaries",
+      "required": true,
+      "passed": true,
+      "state": "installed",
+      "observed": {
+        "missing": [],
+        "installer_prerequisites_present": true
+      },
+      "remediation": "Run python3 scripts/buzz_install_tools.py with network access on the first setup."
+    },
+    {
+      "name": "model_endpoint_loopback",
+      "required": true,
+      "passed": true,
+      "state": "ready",
+      "observed": "http://127.0.0.1:1234",
+      "remediation": "Use an http://127.0.0.1 or http://localhost LM Studio endpoint."
+    },
+    {
+      "name": "bonsai_model_loaded",
+      "required": true,
+      "passed": true,
+      "state": "loaded",
+      "observed": {
+        "catalog_present": true,
+        "loaded": true,
+        "reasoning_off_supported": true,
+        "display_name": "Bonsai 27B",
+        "api_advertised_max_context_length": 262144,
+        "api_declared_loaded_context_lengths": [
+          262144
+        ],
+        "loaded_instance_ids": [
+          "27b@q1_0"
+        ]
+      },
+      "remediation": "Start LM Studio and load '27b@q1_0'; catalog presence alone is not sufficient."
+    },
+    {
+      "name": "reasoning_off_capability",
+      "required": true,
+      "passed": true,
+      "state": "supported",
+      "observed": true,
+      "remediation": "Use a loaded model/runtime that advertises the native reasoning-off option."
+    },
+    {
+      "name": "benchmark_deployment_metadata",
+      "required": false,
+      "passed": false,
+      "state": "optional_missing",
+      "observed": {
+        "artifact_sha256": null,
+        "runtime_name": null,
+        "runtime_version": null,
+        "hardware": null
+      },
+      "remediation": "Set the PRISM_LOCAL_AI_ARTIFACT_SHA256, RUNTIME, RUNTIME_VERSION, and HARDWARE variables before a benchmark claim."
+    },
+    {
+      "name": "buzz_relay_live",
+      "required": true,
+      "passed": true,
+      "state": "live",
+      "observed": {
+        "http_status": 200,
+        "body": "ok"
+      },
+      "remediation": "Run python3 scripts/buzz_up.py and inspect Docker service health."
+    },
+    {
+      "name": "buzz_identity_permissions",
+      "required": true,
+      "passed": true,
+      "state": "private",
+      "observed": "0o600",
+      "remediation": "Regenerate or chmod .runtime/buzz/identities.env to mode 0600."
+    }
+  ],
+  "limitations": [
+    "This checks the current host only. It does not prove a clean physical machine setup.",
+    "A loaded model proves availability, not artifact identity, quality, or performance.",
+    "LM Studio API context metadata does not prove the backend's effective fitted context or a workload at that length.",
+    "Loopback endpoints do not prove zero egress or an air gap.",
+    "Optional deployment metadata is required separately before benchmark claims."
+  ]
+}

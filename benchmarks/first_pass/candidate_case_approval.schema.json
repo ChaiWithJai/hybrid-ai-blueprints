@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/candidate-case-approval.v1.json",
+  "title": "Prism candidate benchmark case approval",
+  "type": "object",
+  "required": [
+    "approval_id", "draft_id", "source_review_packet_sha256",
+    "source_review_ids", "source_review_event_ids", "source_adjudication_id",
+    "source_adjudication_event_id", "domain_owner_id", "qualification",
+    "reviewer_pubkey", "buzz_event_id", "approved_at",
+    "confusable_citations", "case"
+  ],
+  "properties": {
+    "approval_id": {"type": "string", "minLength": 1},
+    "draft_id": {"type": "string", "minLength": 1},
+    "source_review_packet_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_review_ids": {
+      "type": "array", "minItems": 2, "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "source_review_event_ids": {
+      "type": "array", "minItems": 2, "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+    },
+    "source_adjudication_id": {"type": ["string", "null"], "minLength": 1},
+    "source_adjudication_event_id": {
+      "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"
+    },
+    "domain_owner_id": {"type": "string", "minLength": 1},
+    "qualification": {"type": "string", "minLength": 1},
+    "reviewer_pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "buzz_event_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_at": {"type": "string", "format": "date-time"},
+    "confusable_citations": {
+      "type": "array", "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "case": {"type": "object"}
+  },
+  "additionalProperties": false
+}

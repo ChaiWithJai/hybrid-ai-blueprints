@@ -1,0 +1,40 @@
+{
+  "evidence_kind": "real_local_model_smoke_test",
+  "recorded_at": "2026-08-14",
+  "trace_id": "trc_7cab5588e7d1",
+  "runtime_path_passed": true,
+  "product_acceptance_passed": false,
+  "product_acceptance_failure": "The response omitted the benchmark-required explicit covenant-breach field.",
+  "provider": {
+    "provider_id": "local_bonsai",
+    "model": "27b@q1_0",
+    "protocol": "lmstudio_native_chat",
+    "runtime": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0"
+  },
+  "generation": {
+    "prompt_tokens": 3389,
+    "completion_tokens": 551,
+    "total_tokens": 3940,
+    "reasoning_output_tokens": 0,
+    "latency_ms": 84224.79915618896,
+    "sandbox_status": "OK"
+  },
+  "observed_output": {
+    "period": "Q2-2026",
+    "base_adjusted_ebitda_usd_m": 24.9,
+    "base_net_debt_usd_m": 84.5,
+    "base_cash_interest_usd_m": 6.4,
+    "ten_percent_drop": {"leverage": 3.77, "coverage": 3.50},
+    "twenty_percent_drop": {"leverage": 4.24, "coverage": 3.11},
+    "required_sources_cited": true
+  },
+  "guard_history": [
+    "A 2048-token response was rejected after reaching the exact output cap.",
+    "A later complete script was rejected by AST validation before execution.",
+    "A sandboxed Q1-2025 calculation was not accepted as the latest-period answer.",
+    "The final smoke run used parser-derived latest-period guidance and passed execution."
+  ]
+}

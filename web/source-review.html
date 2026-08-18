@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Source review — Prism Vault</title>
+    <link rel="stylesheet" href="/source-review.css?v=4">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Prism <span>Vault</span></a>
+      <div class="title-block"><span class="eyebrow">Benchmark workshop</span><h1>Source review</h1></div>
+      <div class="truth"><span class="truth-dot"></span><span id="truth-label">Loading review contract</span></div>
+    </header>
+
+    <main class="review-shell">
+      <aside class="queue-panel" aria-label="Candidate question queue">
+        <div class="queue-head">
+          <div><span class="eyebrow">Question inventory</span><h2 id="queue-count">116 drafts</h2></div>
+          <label class="search"><span class="sr-only">Filter drafts</span><input id="queue-search" type="search" placeholder="Company or task"></label>
+        </div>
+        <div class="queue-list" id="queue-list" aria-live="polite"></div>
+      </aside>
+
+      <section class="source-workbench">
+        <div class="empty-state" id="review-loading"><p>Opening the source-bound review packet…</p></div>
+        <div id="review-content" hidden>
+          <nav class="breadcrumb"><a href="/">Workspace</a><span>›</span><a href="/benchmark/case-authoring">Case authoring</a><span>›</span><a href="/benchmark/output-review">Output review</a><span>›</span><a href="/benchmark/pricing-poc">Pricing proof</a><span>›</span><strong id="draft-breadcrumb"></strong></nav>
+          <section class="pipeline" aria-labelledby="pipeline-title">
+            <div class="pipeline-heading">
+              <div><span class="eyebrow">Promotion pipeline</span><h2 id="pipeline-title">Evidence must clear every gate</h2></div>
+              <span class="pipeline-release" id="pipeline-release">Checking release gate</span>
+            </div>
+            <ol class="pipeline-stages">
+              <li data-pipeline-stage="source-review"><span>1</span><div><strong>Source review</strong><small id="stage-source-count">Checking decisions</small></div></li>
+              <li data-pipeline-stage="case-approval"><span>2</span><div><strong>Case approval</strong><small id="stage-approval-count">Checking owners</small></div></li>
+              <li data-pipeline-stage="registration"><span>3</span><div><strong>Registration</strong><small id="stage-registration-count">Checking ledger</small></div></li>
+              <li data-pipeline-stage="calibration"><span>4</span><div><strong>Judge calibration</strong><small id="stage-calibration-count">Checking labels</small></div></li>
+              <li data-pipeline-stage="accuracy-release"><span>5</span><div><strong>Accuracy release</strong><small id="stage-release-count">Checking target</small></div></li>
+            </ol>
+            <p class="pipeline-boundary" id="pipeline-boundary">No later stage is implied by an earlier stage.</p>
+          </section>
+          <section class="benchmark-decisions" aria-labelledby="benchmark-decisions-title">
+            <div class="benchmark-decisions-heading">
+              <div><span class="eyebrow">Benchmark design</span><h2 id="benchmark-decisions-title">Ten decisions, current evidence</h2></div>
+              <span class="benchmark-decisions-count" id="benchmark-decisions-count">Checking ten decisions</span>
+            </div>
+            <div class="benchmark-decisions-list" id="benchmark-decisions-list"></div>
+            <p class="benchmark-decisions-boundary" id="benchmark-decisions-boundary"></p>
+          </section>
+          <section class="governance-cockpit" aria-labelledby="governance-title">
+            <div class="governance-heading">
+              <div><span class="eyebrow">Promotion custody</span><h2 id="governance-title">Who signed what?</h2></div>
+              <span class="governance-count" id="governance-count">Checking signed receipts</span>
+            </div>
+            <p class="governance-summary" id="governance-summary"></p>
+            <div class="governance-matrix" id="governance-matrix"></div>
+            <details class="governance-materials">
+              <summary>Inspect exact material hashes</summary>
+              <div id="governance-materials"></div>
+            </details>
+            <p class="governance-boundary" id="governance-boundary"></p>
+          </section>
+          <section class="diagnostic" aria-labelledby="diagnostic-title">
+            <div class="diagnostic-heading">
+              <div><span class="eyebrow">Failure localization</span><h2 id="diagnostic-title">What changed with registered evidence only?</h2></div>
+              <span class="diagnostic-state">Accuracy unverified</span>
+            </div>
+            <p class="diagnostic-summary" id="diagnostic-summary">Loading saved oracle-context evidence.</p>
+            <div class="diagnostic-cases" id="diagnostic-cases"></div>
+            <p class="diagnostic-boundary" id="diagnostic-boundary"></p>
+          </section>
+          <div class="question-heading">
+            <div><span class="eyebrow" id="draft-family"></span><h2 id="draft-company"></h2></div>
+            <span class="state-pill" id="draft-state"></span>
+          </div>
+
+          <section class="question-card">
+            <span class="eyebrow">Provisional question</span>
+            <p id="provisional-question"></p>
+            <div class="source-binding"><span id="source-filename"></span><code id="source-hash"></code></div>
+          </section>
+
+          <section class="evidence-section">
+            <div class="section-heading"><div><span class="eyebrow">Source evidence</span><h3>Inspect before deciding</h3></div><p>Retrieval order and model identity are hidden. Open the filing context around each candidate.</p></div>
+            <div class="evidence-options" id="evidence-options"></div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="decision-panel" aria-label="Independent source decision">
+        <form id="source-review-form">
+          <div class="decision-head"><span class="eyebrow">Independent review</span><h2>Record your source decision</h2><p>No answer or approval is selected for you.</p></div>
+
+          <label>Approved reviewer<select id="reviewer-id" required><option value="">Choose your identity</option></select></label>
+          <p class="qualification" id="reviewer-qualification"></p>
+
+          <fieldset><legend>Draft decision</legend><div class="segmented">
+            <label><input type="radio" name="source-decision" value="approve" required><span>Approve</span></label>
+            <label><input type="radio" name="source-decision" value="revise"><span>Revise</span></label>
+            <label><input type="radio" name="source-decision" value="reject"><span>Reject</span></label>
+          </div></fieldset>
+
+          <label>Final question<textarea id="final-question" rows="4" maxlength="2000" required></textarea></label>
+
+          <fieldset><legend>Answer policy</legend><div class="policy-options">
+            <label><input type="radio" name="answer-policy" value="supported" required><span><strong>Supported</strong><small>The filing supports explicit claims.</small></span></label>
+            <label><input type="radio" name="answer-policy" value="refuse_absent"><span><strong>Refuse when absent</strong><small>The requested fact is not disclosed.</small></span></label>
+            <label><input type="radio" name="answer-policy" value="unresolved"><span><strong>Unresolved</strong><small>Reject this draft without a label.</small></span></label>
+          </div></fieldset>
+
+          <label>Expected claims, one per line<textarea id="expected-claims" rows="4" placeholder="Write facts from the source, not a model answer."></textarea></label>
+          <label>Absence basis<textarea id="absence-basis" rows="3" maxlength="4000" placeholder="Required when the correct behavior is to refuse because the source is silent."></textarea></label>
+          <label>Review rationale<textarea id="review-rationale" rows="4" maxlength="4000" required placeholder="Why is this question and source interpretation fit for the benchmark?"></textarea></label>
+          <label class="context-check"><input id="source-context-checked" type="checkbox" required><span>I inspected the proposed passages in their filing context.</span></label>
+
+          <div class="guard-note" id="guard-note">Two independently matching rostered reviews are required. This action cannot register a benchmark case.</div>
+          <button class="submit-button" id="export-source-review" type="submit">Download unsigned review</button>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </aside>
+    </main>
+    <script type="module" src="/source-review.mjs?v=8"></script>
+  </body>
+</html>

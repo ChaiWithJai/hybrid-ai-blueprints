@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "realpage_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 857,
+    "estimated_tokens": 60375,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 69
+  },
+  "source": {
+    "accession": "0001286225-20-000036",
+    "bytes": 2714290,
+    "filing_date": "2020-11-06",
+    "form": "10-Q",
+    "path": ".runtime/candidate-deal-sources/realpage_2021/02_financial_10q.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1286225/000128622520000036/rp-20200930.htm",
+    "report_date": "2020-09-30",
+    "sha256": "42eceb684621df913adb3f574d5e556c46f3b1f0348987f5e6fd936a08875738"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

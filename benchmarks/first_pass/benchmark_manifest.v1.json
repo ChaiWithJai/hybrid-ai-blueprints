@@ -1,0 +1,73 @@
+{
+  "benchmark_id": "prism_vault_first_pass_underwriting",
+  "version": "1.0.0",
+  "status": "design",
+  "created_at": "2026-08-14T00:00:00-04:00",
+  "certified_job": "Produce an evidence-backed first pass underwriting brief from an authorized M&A folder and a stated investment screen so a private equity deal professional can decide whether to advance, pause, or stop review.",
+  "buyer_segment": "private_equity_deal_team",
+  "output_type": "first_pass_underwriting_brief",
+  "decision_values": [
+    "advance",
+    "pause",
+    "stop"
+  ],
+  "target": {
+    "cases": 120,
+    "minimum_deals": 30,
+    "splits": {
+      "development": {
+        "cases": 60,
+        "minimum_deals": 15
+      },
+      "calibration": {
+        "cases": 20,
+        "minimum_deals": 5
+      },
+      "sealed_test": {
+        "cases": 40,
+        "minimum_deals": 10
+      }
+    },
+    "task_families": {
+      "transaction_identity_structure_chronology": 10,
+      "purchase_price_and_valuation": 20,
+      "financing_and_capital_structure": 20,
+      "financial_quality_and_earnings_adjustments": 15,
+      "contract_terms_covenants_and_approvals": 15,
+      "market_and_regulatory_findings": 15,
+      "risks_conflicts_and_missing_information": 15,
+      "cross_document_synthesis_and_recommendation": 10
+    },
+    "minimum_slice_fractions": {
+      "answer_absence": 0.2,
+      "tables_or_calculations": 0.25,
+      "multiple_documents": 0.4,
+      "conflicting_or_confusable_evidence": 0.1
+    }
+  },
+  "split_policy": {
+    "unit": "deal",
+    "near_duplicate_family_isolation": true,
+    "sealed_answers_in_repository": false,
+    "test_contact_invalidates_version": true
+  },
+  "current_inventory": {
+    "development_cases": 5,
+    "development_deals": 3,
+    "calibration_cases": 0,
+    "sealed_test_cases": 0,
+    "domain_approved_cases": 0,
+    "development_case_file": "development_cases.v1.json",
+    "source_manifest": "../public_deal_corpus_manifest.json",
+    "prior_benchmark": "../public_deal_battletest.json"
+  },
+  "approvals": {
+    "product_owner": null,
+    "domain_owner": null,
+    "strategy_owner": null,
+    "security_owner": null,
+    "thresholds_approved": false,
+    "sealed_test_open_authorized": false
+  }
+}
+

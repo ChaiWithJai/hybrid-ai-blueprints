@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Output review | Prism Vault</title>
+    <link rel="stylesheet" href="/output-review.css?v=1">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Prism <span>Vault</span></a>
+      <div class="title-block"><span class="eyebrow">Benchmark workshop</span><h1>Blinded output review</h1></div>
+      <div class="blind-state"><span></span>Model identity withheld</div>
+    </header>
+
+    <main class="review-shell">
+      <aside class="queue-panel" aria-label="Output review cases">
+        <div class="queue-head">
+          <span class="eyebrow">Development packet</span>
+          <h2 id="queue-title">Loading cases</h2>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <p id="progress-label">No cases completed</p>
+        </div>
+        <div class="queue-list" id="case-list" aria-live="polite"></div>
+        <div class="queue-boundary">Development review supports error analysis. It does not count as calibration or an accuracy release.</div>
+      </aside>
+
+      <section class="case-workbench">
+        <div class="empty-state" id="review-loading"><p>Opening the blinded packet.</p></div>
+        <div id="review-content" hidden>
+          <nav class="breadcrumb"><a href="/">Workspace</a><span>›</span><a href="/benchmark/source-review">Benchmark</a><span>›</span><a href="/benchmark/pricing-poc">Pricing proof</a><span>›</span><strong id="case-breadcrumb"></strong></nav>
+          <div class="case-heading">
+            <div><span class="eyebrow" id="case-family"></span><h2 id="case-question"></h2></div>
+            <span class="severity" id="case-severity"></span>
+          </div>
+
+          <section class="response-card">
+            <div class="section-heading"><div><span class="eyebrow">Brief to review</span><h3>Model identity is not included</h3></div><code id="response-hash"></code></div>
+            <pre id="case-response"></pre>
+          </section>
+
+          <section class="reference-grid">
+            <article><span class="eyebrow">Requested components</span><ul id="requested-components"></ul></article>
+            <article><span class="eyebrow">Expected claims</span><ul id="required-claims"></ul></article>
+            <article><span class="eyebrow">Required citations</span><ul id="required-citations"></ul></article>
+            <article><span class="eyebrow">Registered calculations</span><ul id="registered-calculations"></ul></article>
+            <article><span class="eyebrow">Forbidden claims</span><ul id="forbidden-claims"></ul></article>
+          </section>
+        </div>
+      </section>
+
+      <aside class="decision-panel" aria-label="Output review decision">
+        <div class="decision-head"><span class="eyebrow">Independent review</span><h2>Review the current brief</h2><p>Save every case before downloading one unsigned submission.</p></div>
+        <label>Approved reviewer<select id="reviewer-id"><option value="">Choose your identity</option></select></label>
+        <p class="qualification" id="reviewer-qualification"></p>
+        <form id="case-review-form">
+          <div id="dimension-controls"></div>
+          <fieldset><legend>Useful starting point</legend><div class="segmented two"><label><input type="radio" name="useful" value="yes"><span>Yes</span></label><label><input type="radio" name="useful" value="no"><span>No</span></label></div></fieldset>
+          <label>Deal decision<select id="deal-decision"><option value="">Choose a decision</option><option value="advance">Advance</option><option value="pause">Pause</option><option value="stop">Stop</option><option value="unresolved">Unresolved</option></select></label>
+          <div class="number-grid"><label>Review seconds<input id="review-time" type="number" min="0" step="1"></label><label>Critical corrections<input id="critical-corrections" type="number" min="0" step="1"></label><label>Major corrections<input id="major-corrections" type="number" min="0" step="1"></label></div>
+          <label>Overall critique<textarea id="overall-critique" rows="3" maxlength="4000"></textarea></label>
+          <button class="secondary-button" id="save-case" type="submit">Save this case</button>
+        </form>
+        <div class="guard-note" id="guard-note">Export is closed because the reviewer authority key has not been provisioned. Free-text identity and approval flags are not accepted.</div>
+        <button class="submit-button" id="export-review" type="button" disabled>Download unsigned submission</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </aside>
+    </main>
+    <script type="module" src="/output-review.mjs?v=2"></script>
+  </body>
+</html>

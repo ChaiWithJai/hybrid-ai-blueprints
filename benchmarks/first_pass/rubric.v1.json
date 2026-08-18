@@ -1,0 +1,106 @@
+{
+  "rubric_id": "prism_vault_first_pass_underwriting",
+  "version": "1.0.0",
+  "status": "proposed",
+  "labels": [
+    "pass",
+    "fail",
+    "not_applicable",
+    "unverified"
+  ],
+  "severity_levels": {
+    "critical": "The error can change the deal decision or create unsupported confidence.",
+    "major": "The error omits a required result or makes review materially harder.",
+    "minor": "The error affects presentation without changing the supported conclusion."
+  },
+  "dimensions": [
+    {
+      "id": "primary_decision_intent",
+      "method": "human_calibrated_semantic_judge",
+      "description": "The brief completes the requested first pass job and supports its advance, pause, or stop recommendation."
+    },
+    {
+      "id": "evidence_support",
+      "method": "deterministic_then_human_calibrated_semantic_judge",
+      "description": "Every material factual claim is supported by the cited passage and the cited passage supports the stated relation."
+    },
+    {
+      "id": "numerical_correctness",
+      "method": "deterministic",
+      "description": "Required numbers, units, formulas, inputs, and tolerances are correct and reproducible."
+    },
+    {
+      "id": "component_completeness",
+      "method": "checklist_then_human_calibrated_semantic_judge",
+      "description": "The brief includes every explicitly requested party, value, conclusion, and result shape."
+    },
+    {
+      "id": "calibrated_uncertainty",
+      "method": "checklist_then_human_calibrated_semantic_judge",
+      "description": "The brief states when evidence is missing or conflicting and does not invent a plausible value."
+    },
+    {
+      "id": "source_integrity",
+      "method": "deterministic",
+      "description": "Every source hash, page, anchor, and canonical evidence link resolves to the frozen snapshot."
+    },
+    {
+      "id": "workflow_reliability",
+      "method": "deterministic",
+      "description": "The run returns a recorded result within its limits and publishes the signed Buzz event and canonical URL."
+    },
+    {
+      "id": "human_usefulness",
+      "method": "blinded_domain_review",
+      "description": "A deal professional can use the brief as the starting point for first review."
+    }
+  ],
+  "hard_gates": {
+    "source_snapshot_hash_match": 1.0,
+    "citation_anchor_resolution": 1.0,
+    "maximum_material_unsupported_claims_in_critical_cases": 0,
+    "critical_numerical_accuracy": 1.0,
+    "critical_answer_absence_recall": 1.0,
+    "critical_requested_component_recall": 1.0,
+    "minimum_overall_requested_component_recall": 0.95,
+    "maximum_unauthorized_source_folder_writes": 0,
+    "maximum_empty_invalid_or_unrecorded_sealed_completions": 0,
+    "canonical_buzz_delivery": 1.0
+  },
+  "judge_gates": {
+    "maximum_critical_false_passes": 0,
+    "minimum_fail_recall": 0.95,
+    "minimum_fail_precision": 0.9,
+    "minimum_cohens_kappa": 0.75,
+    "maximum_parse_failure_rate": 0.0,
+    "maximum_pairwise_order_flip_rate": 0.05
+  },
+  "pilot_value_gates": {
+    "minimum_useful_starting_point_fraction": 0.8,
+    "minimum_median_review_time_reduction": 0.3,
+    "maximum_critical_corrections_on_transfer_deal": 0,
+    "buyer_price_range_required": true,
+    "paid_next_step_or_recorded_decline_reason_required": true
+  },
+  "aggregation_policy": {
+    "single_composite_release_score": false,
+    "hard_failure_can_be_averaged_away": false,
+    "all_hard_gates_required": true
+  },
+  "governance": {
+    "owner": null,
+    "content_hash_required_for_run": true,
+    "human_calibration_required": true,
+    "sealed_test_required": true,
+    "recalibration_triggers": [
+      "answer_model_or_quantization_change",
+      "judge_model_or_quantization_change",
+      "prompt_or_rubric_change",
+      "retrieval_or_context_change",
+      "new_deal_task_family",
+      "human_agreement_decline",
+      "three_months_since_last_calibration"
+    ]
+  }
+}
+

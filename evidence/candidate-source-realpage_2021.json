@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "realpage_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2171,
+    "estimated_tokens": 181974,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 367
+  },
+  "source": {
+    "accession": "0001193125-21-029970",
+    "bytes": 1494926,
+    "cik": "0001286225",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1286225/000119312521029970/0001193125-21-029970-index.htm",
+    "path": ".runtime/candidate-deal-sources/realpage_2021/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1286225/000119312521029970/d52613ddefm14a.htm",
+    "sha256": "981e5e51495574af6f4e2ddcbff0568b2cd5e8b1126b3eb21f0f58d45ced2d5f"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

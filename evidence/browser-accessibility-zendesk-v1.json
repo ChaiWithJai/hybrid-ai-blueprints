@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "verification_kind": "browser_accessibility_smoke",
+  "semantic_state": "accessibility_smoke_pass_not_conformance",
+  "recorded_at": "2026-08-16T08:45:11.749Z",
+  "room": "local_c25b83f3e1e2",
+  "answer_event_id": "5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6",
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "assertions": [
+    {
+      "name": "document_language_declared",
+      "passed": true
+    },
+    {
+      "name": "single_main_landmark",
+      "passed": true
+    },
+    {
+      "name": "single_page_heading",
+      "passed": true
+    },
+    {
+      "name": "document_ids_unique",
+      "passed": true,
+      "observed": []
+    },
+    {
+      "name": "room_views_use_tab_contract",
+      "passed": true
+    },
+    {
+      "name": "one_tab_selected_and_focusable",
+      "passed": true
+    },
+    {
+      "name": "inactive_panels_hidden",
+      "passed": true
+    },
+    {
+      "name": "visible_controls_have_names",
+      "passed": true,
+      "observed": []
+    },
+    {
+      "name": "arrow_keys_move_and_activate_tabs",
+      "passed": true
+    },
+    {
+      "name": "keyboard_focus_is_visible",
+      "passed": true,
+      "observed": {
+        "outlineStyle": "solid",
+        "outlineWidth": "3px"
+      }
+    },
+    {
+      "name": "citation_is_keyboard_operable",
+      "passed": true,
+      "observed": "http://127.0.0.1:8787/rooms/local_c25b83f3e1e2/files?source=01_defm14a.htm&anchor=html%3Ablock%3A00122"
+    },
+    {
+      "name": "citation_moves_focus_to_source",
+      "passed": true
+    },
+    {
+      "name": "focused_source_contains_exact_passage",
+      "passed": true
+    },
+    {
+      "name": "folder_dialog_traps_initial_focus",
+      "passed": true
+    },
+    {
+      "name": "dialog_escape_restores_trigger_focus",
+      "passed": true
+    },
+    {
+      "name": "reduced_motion_disables_animation",
+      "passed": true,
+      "observed": {
+        "transitionDuration": "0s",
+        "scrollBehavior": "auto"
+      }
+    },
+    {
+      "name": "mobile_page_has_no_unintended_horizontal_overflow",
+      "passed": true,
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "name": "visible_targets_are_at_least_24_pixels",
+      "passed": true,
+      "observed": []
+    }
+  ],
+  "assertion_count": 18,
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-accessibility-zendesk-v1.png",
+    "bytes": 96177,
+    "sha256": "65de26fbd8b59730eede640a1c6abccb3f1cc67998fb1254a9df954ef9ed4217"
+  },
+  "passed": true,
+  "limitations": [
+    "This is an automated keyboard and semantic smoke check, not WCAG conformance or assistive-technology review.",
+    "It covers one Chromium build and two viewport sizes, not cross-browser behavior.",
+    "It does not assess the deal-domain accuracy of the displayed answer."
+  ]
+}

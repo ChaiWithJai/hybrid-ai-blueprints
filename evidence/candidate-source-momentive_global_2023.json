@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "momentive_global_2023",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2587,
+    "estimated_tokens": 216833,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 480
+  },
+  "source": {
+    "accession": "0001140361-23-021031",
+    "bytes": 2870298,
+    "cik": "0001739936",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1739936/000114036123021031/0001140361-23-021031-index.htm",
+    "path": ".runtime/candidate-deal-sources/momentive_global_2023/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1739936/000114036123021031/ny20008458x3_defm14a.htm",
+    "sha256": "9e860a48cb2702bbcd874711584f0bef897b5e44e5cb2355273834746890789a"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

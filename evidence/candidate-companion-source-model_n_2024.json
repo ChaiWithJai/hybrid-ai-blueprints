@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "model_n_2024",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 912,
+    "estimated_tokens": 68325,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 57
+  },
+  "source": {
+    "accession": "0001118417-24-000103",
+    "bytes": 1450206,
+    "filing_date": "2024-05-07",
+    "form": "10-Q",
+    "path": ".runtime/candidate-deal-sources/model_n_2024/02_financial_10q.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1118417/000111841724000103/modn-20240331.htm",
+    "report_date": "2024-03-31",
+    "sha256": "379fda8d817879f8e4ad490152cf54b76a2cbc69c9968ab283bd041c03dc31c7"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

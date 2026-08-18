@@ -1,0 +1,108 @@
+{
+  "verification_kind": "behavioral_buzz_polling_browser_check",
+  "recorded_at": "2026-08-15T21:43:04.694Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "room": "project_titan_lbo",
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "timing": {
+    "configured_poll_interval_ms": 3500,
+    "injected_second_request_delay_ms": 4000,
+    "request_count": 4,
+    "max_concurrent_message_requests": 1,
+    "timeline": [
+      {
+        "index": 1,
+        "started_at_ms": 1786830173073,
+        "finished_at_ms": 1786830173096
+      },
+      {
+        "index": 2,
+        "started_at_ms": 1786830176666,
+        "finished_at_ms": 1786830180701
+      },
+      {
+        "index": 3,
+        "started_at_ms": 1786830180702,
+        "finished_at_ms": 1786830180725
+      },
+      {
+        "index": 4,
+        "started_at_ms": 1786830184548,
+        "finished_at_ms": 1786830184578
+      }
+    ],
+    "hidden_request_count": 3
+  },
+  "observed_server_message_read_policy": {
+    "policy": "coalesce_exact_inflight_no_stale_message_cache",
+    "active": 0,
+    "leader_reads": 56,
+    "joined_followers": 1,
+    "failed_reads": 0
+  },
+  "assertions": [
+    {
+      "name": "delayed_poll_crossed_timer_interval",
+      "passed": true
+    },
+    {
+      "name": "no_overlapping_message_requests",
+      "passed": true,
+      "observed": 1
+    },
+    {
+      "name": "queued_refresh_executed",
+      "passed": true,
+      "observed": 4
+    },
+    {
+      "name": "server_reports_inflight_only_policy",
+      "passed": true,
+      "observed": {
+        "policy": "coalesce_exact_inflight_no_stale_message_cache",
+        "active": 0,
+        "leader_reads": 56,
+        "joined_followers": 1,
+        "failed_reads": 0
+      }
+    },
+    {
+      "name": "verified_messages_remain_visible",
+      "passed": true
+    },
+    {
+      "name": "hidden_tab_poll_suppressed",
+      "passed": true,
+      "observed": {
+        "before": 3,
+        "after": 4
+      }
+    },
+    {
+      "name": "visible_tab_refresh_resumed",
+      "passed": true,
+      "observed": {
+        "hidden_count": 3,
+        "visible_count": 4
+      }
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-buzz-polling-v1.png",
+    "bytes": 198786,
+    "sha256": "8faeddae517fda4ee9877741778fda13de171ff4714cc3725c6c19951b57c395"
+  },
+  "limitations": [
+    "This is one Chromium timing control on one workstation, not a Buzz load or soak test.",
+    "The delayed response is injected in the browser route; relay latency is not claimed.",
+    "The server coalesces only identical in-flight reads and deliberately does not cache completed message lists."
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "root_job": "job.make_deal_decision",
+  "decision_rule": "A visible segment must answer a deal team question, support the next decision, or provide the source needed to resolve uncertainty.",
+  "nodes": [
+    {
+      "id": "job.make_deal_decision",
+      "kind": "job",
+      "statement": "Decide whether to advance, pause, or stop a deal, and know what must happen next."
+    },
+    {
+      "id": "question.where_am_i",
+      "kind": "user_question",
+      "statement": "Which deal room am I reviewing?"
+    },
+    {
+      "id": "question.what_is_the_status",
+      "kind": "user_question",
+      "statement": "Is the deal ready to advance?"
+    },
+    {
+      "id": "question.why_is_it_blocked",
+      "kind": "user_question",
+      "statement": "Why is the review paused?"
+    },
+    {
+      "id": "question.what_should_i_check",
+      "kind": "user_question",
+      "statement": "Which files should I check next?"
+    },
+    {
+      "id": "question.what_will_we_do",
+      "kind": "user_question",
+      "statement": "What will the team do?"
+    },
+    {
+      "id": "segment.room_switcher",
+      "kind": "segment",
+      "surface": "rail",
+      "user_question": "question.where_am_i",
+      "placement": "persistent left rail",
+      "defense": "The user must know the active room and must be able to replace it. Other rooms are hidden because they do not help with the active decision.",
+      "copy": ["copy.open_folder", "copy.current_room"]
+    },
+    {
+      "id": "segment.room_identity",
+      "kind": "segment",
+      "surface": "header",
+      "user_question": "question.where_am_i",
+      "placement": "top of every room view",
+      "defense": "The deal name, file count, short scope, and file origin prevent the user from reviewing the wrong room.",
+      "copy": ["copy.files", "copy.demo_files", "copy.copy_link", "copy.room_details"]
+    },
+    {
+      "id": "segment.primary_navigation",
+      "kind": "segment",
+      "surface": "header",
+      "user_question": "job.make_deal_decision",
+      "placement": "below room identity",
+      "defense": "Overview supports the decision, Sources supports source checks, Activity supports coordination, and Evaluation supports review of room errors. Technical and saved-note views stay outside the main navigation.",
+      "copy": ["copy.overview", "copy.sources", "copy.activity", "copy.evaluation"]
+    },
+    {
+      "id": "segment.decision_question",
+      "kind": "segment",
+      "surface": "overview before review",
+      "user_question": "question.what_is_the_status",
+      "placement": "first object when no review exists",
+      "defense": "The review must start from the team's decision rather than a generic request for analysis.",
+      "copy": ["copy.what_should_team_decide", "copy.name_decision", "copy.review_deal_room"]
+    },
+    {
+      "id": "segment.pause_reason",
+      "kind": "segment",
+      "surface": "overview after review",
+      "user_question": "question.why_is_it_blocked",
+      "placement": "directly below the decision status",
+      "defense": "The user needs the reason for a pause before reading supporting material.",
+      "copy": ["copy.not_ready", "copy.why_paused", "copy.source_rule_failure"]
+    },
+    {
+      "id": "segment.decision_question_result",
+      "kind": "segment",
+      "surface": "overview after review",
+      "user_question": "question.what_is_the_status",
+      "placement": "between the status reason and the sources",
+      "defense": "The saved question constrains what the review is meant to resolve.",
+      "copy": ["copy.decision_question", "copy.titan_question", "copy.edit_question"]
+    },
+    {
+      "id": "segment.priority_sources",
+      "kind": "segment",
+      "surface": "overview after review",
+      "user_question": "question.what_should_i_check",
+      "placement": "after the decision question",
+      "defense": "Each button opens one exact cited passage. Raw excerpts and repeated citations stay off the overview because they delay source inspection.",
+      "copy": ["copy.review_next", "copy.debt_terms", "copy.financial_model", "copy.sponsor_returns", "copy.deal_overview"]
+    },
+    {
+      "id": "segment.team_decision",
+      "kind": "segment",
+      "surface": "overview after sources",
+      "user_question": "question.what_will_we_do",
+      "placement": "after the status, question, and priority sources",
+      "defense": "The team records an action only after the reason and sources are visible.",
+      "copy": ["copy.team_decision", "copy.team_action", "copy.advance", "copy.pause", "copy.stop", "copy.notes", "copy.save_decision"]
+    },
+    {
+      "id": "segment.sources",
+      "kind": "segment",
+      "surface": "Sources",
+      "user_question": "question.what_should_i_check",
+      "placement": "primary navigation",
+      "defense": "The source view shows files and exact cited passages. Parser counts and model context statistics are excluded from the file list.",
+      "copy": ["copy.deal_room_files", "copy.select_file"]
+    },
+    {
+      "id": "segment.activity",
+      "kind": "segment",
+      "surface": "Activity",
+      "user_question": "question.what_will_we_do",
+      "placement": "primary navigation",
+      "defense": "The team needs one place for questions and notes tied to the room.",
+      "copy": ["copy.ask_or_note", "copy.messages_stay", "copy.ask_bonsai"]
+    },
+    {
+      "id": "segment.room_details",
+      "kind": "segment",
+      "surface": "drawer",
+      "user_question": "question.where_am_i",
+      "placement": "opened only on request",
+      "defense": "File origin, local model state, room status, decision notes, and diagnostics support trust and troubleshooting but do not belong in the decision path.",
+      "copy": ["copy.analysis_model", "copy.room_status", "copy.decision_notes", "copy.technical_details"]
+    },
+    {
+      "id": "segment.decision_notes",
+      "kind": "segment",
+      "surface": "secondary view",
+      "user_question": "question.what_will_we_do",
+      "placement": "opened from the saved decision or room details",
+      "defense": "Saved team notes are useful after a decision but should not compete with the current review.",
+      "copy": ["copy.decision_notes", "copy.edit_notes", "copy.save_notes"]
+    },
+    {
+      "id": "segment.technical_details",
+      "kind": "segment",
+      "surface": "secondary view",
+      "user_question": "job.make_deal_decision",
+      "placement": "opened from room details",
+      "defense": "Diagnostics are available when the room fails, but their provider, trace, and runtime language stays outside the deal review.",
+      "copy": ["copy.technical_details", "copy.room_diagnostics", "copy.troubleshooting_only"]
+    },
+    {
+      "id": "segment.open_folder",
+      "kind": "segment",
+      "surface": "dialog",
+      "user_question": "question.where_am_i",
+      "placement": "opened from the rail",
+      "defense": "The dialog changes the deal room and previews files before the user creates it.",
+      "copy": ["copy.open_folder", "copy.open_deal_room_folder", "copy.preview_folder"]
+    },
+    {
+      "id": "segment.citation_preview",
+      "kind": "segment",
+      "surface": "citation preview",
+      "user_question": "question.what_should_i_check",
+      "placement": "opens over the current view before Sources",
+      "defense": "The user can inspect the cited passage without losing the decision or conversation, then continue to the full file when more context is needed.",
+      "copy": ["copy.cited_passage", "copy.ask_about_this", "copy.open_full_source"]
+    },
+    {
+      "id": "segment.contextual_chat",
+      "kind": "segment",
+      "surface": "persistent room composer",
+      "user_question": "question.what_will_we_do",
+      "placement": "bottom of every room view",
+      "defense": "Questions and notes can arise while reading a decision or source. The composer stays in reach and carries explicit source context when the user asks from a citation.",
+      "copy": ["copy.asking_about", "copy.ask_bonsai", "copy.question_stays"]
+    },
+    {"id": "copy.open_folder", "kind": "copy", "text": "Open folder", "defense": "Names the user's object and action without product terminology."},
+    {"id": "copy.current_room", "kind": "copy", "text": "Current room", "defense": "Explains why only one room appears in the rail."},
+    {"id": "copy.files", "kind": "copy", "text": "files", "defense": "Uses the user's object instead of parser sources."},
+    {"id": "copy.demo_files", "kind": "copy", "text": "Demo files", "defense": "Discloses the fixture in two words."},
+    {"id": "copy.copy_link", "kind": "copy", "text": "Copy link", "defense": "Names the immediate collaboration action."},
+    {"id": "copy.room_details", "kind": "copy", "text": "Room details", "defense": "Holds trust and technical information outside the review."},
+    {"id": "copy.overview", "kind": "copy", "text": "Overview", "defense": "Shows the current decision and sources."},
+    {"id": "copy.sources", "kind": "copy", "text": "Sources", "defense": "Uses the established term for cited files."},
+    {"id": "copy.activity", "kind": "copy", "text": "Activity", "defense": "Covers team questions and notes without naming the transport."},
+    {"id": "copy.evaluation", "kind": "copy", "text": "Evaluation", "defense": "Names the room review task in one common word."},
+    {"id": "copy.what_should_team_decide", "kind": "copy", "text": "What should the team decide?", "defense": "Starts with the human decision rather than the model task."},
+    {"id": "copy.name_decision", "kind": "copy", "text": "Name the decision and the facts that would change it.", "defense": "Tells the user what makes a useful question."},
+    {"id": "copy.review_deal_room", "kind": "copy", "text": "Review deal room", "defense": "Promises a review rather than a broad analysis."},
+    {"id": "copy.not_ready", "kind": "copy", "text": "Not ready to advance", "defense": "States the decision consequence instead of a system safety label."},
+    {"id": "copy.why_paused", "kind": "copy", "text": "Why the review is paused", "defense": "Introduces the reason for the current status."},
+    {"id": "copy.source_rule_failure", "kind": "copy", "text": "The automated review did not meet the source rules. Check the priority files before the team advances.", "defense": "Explains the failure and the next action without trace language."},
+    {"id": "copy.decision_question", "kind": "copy", "text": "Decision question", "defense": "Names the constraint that shaped the review."},
+    {"id": "copy.titan_question", "kind": "copy", "text": "Should Project Titan advance despite the mismatch between debt paydown and the Section 2.02 cash sweep terms?", "defense": "Keeps the commercial decision and the material conflict in one sentence."},
+    {"id": "copy.edit_question", "kind": "copy", "text": "Edit question", "defense": "Lets the user change the review scope."},
+    {"id": "copy.review_next", "kind": "copy", "text": "Review next", "defense": "Introduces the exact sources that can resolve the decision."},
+    {"id": "copy.debt_terms", "kind": "copy", "text": "Debt terms", "defense": "Replaces the long credit agreement filename with the deal concept."},
+    {"id": "copy.financial_model", "kind": "copy", "text": "Financial model", "defense": "Names the source by its deal function."},
+    {"id": "copy.sponsor_returns", "kind": "copy", "text": "Sponsor returns", "defense": "Names the decision use of the sensitivity file."},
+    {"id": "copy.deal_overview", "kind": "copy", "text": "Deal overview", "defense": "Names the transaction summary source."},
+    {"id": "copy.team_decision", "kind": "copy", "text": "Team decision", "defense": "Separates the team's action from the automated review."},
+    {"id": "copy.team_action", "kind": "copy", "text": "What will the team do?", "defense": "Asks for an action after the review."},
+    {"id": "copy.advance", "kind": "copy", "text": "Advance", "defense": "Uses the deal team's three state decision vocabulary."},
+    {"id": "copy.pause", "kind": "copy", "text": "Pause", "defense": "Uses the deal team's three state decision vocabulary."},
+    {"id": "copy.stop", "kind": "copy", "text": "Stop", "defense": "Uses the deal team's three state decision vocabulary."},
+    {"id": "copy.notes", "kind": "copy", "text": "Notes", "defense": "Leaves room for the reason and next action."},
+    {"id": "copy.save_decision", "kind": "copy", "text": "Save decision", "defense": "Names the durable action and its object."},
+    {"id": "copy.deal_room_files", "kind": "copy", "text": "Deal room files", "defense": "Names the source collection in domain language."},
+    {"id": "copy.select_file", "kind": "copy", "text": "Select a file to read the passage used in the review.", "defense": "Explains the source view's single task."},
+    {"id": "copy.ask_or_note", "kind": "copy", "text": "Ask about the deal or leave a note.", "defense": "Covers the two allowed activity actions."},
+    {"id": "copy.messages_stay", "kind": "copy", "text": "Messages stay with this room.", "defense": "Explains why the Activity view exists."},
+    {"id": "copy.ask_bonsai", "kind": "copy", "text": "Ask Bonsai", "defense": "Makes model participation an explicit user choice."},
+    {"id": "copy.analysis_model", "kind": "copy", "text": "Analysis model", "defense": "Names the model's role without making it the page subject."},
+    {"id": "copy.room_status", "kind": "copy", "text": "Room status", "defense": "Groups trust information under a plain label."},
+    {"id": "copy.decision_notes", "kind": "copy", "text": "Decision notes", "defense": "Names the saved team record by its domain use."},
+    {"id": "copy.edit_notes", "kind": "copy", "text": "Edit notes", "defense": "Names the secondary editing action."},
+    {"id": "copy.save_notes", "kind": "copy", "text": "Save notes", "defense": "Names the secondary save action."},
+    {"id": "copy.technical_details", "kind": "copy", "text": "Technical details", "defense": "Signals that the view is for diagnosis rather than deal work."},
+    {"id": "copy.room_diagnostics", "kind": "copy", "text": "Room diagnostics", "defense": "Names what the technical view contains."},
+    {"id": "copy.troubleshooting_only", "kind": "copy", "text": "Use this page when the room or analysis needs troubleshooting.", "defense": "Explains when the technical view is useful."},
+    {"id": "copy.open_deal_room_folder", "kind": "copy", "text": "Open a deal room folder", "defense": "Names the folder operation in domain language."},
+    {"id": "copy.preview_folder", "kind": "copy", "text": "Preview folder", "defense": "The first action is inspection rather than publication."}
+    ,{"id": "copy.cited_passage", "kind": "copy", "text": "Cited passage", "defense": "Names the exact evidence unit shown before the full file."}
+    ,{"id": "copy.ask_about_this", "kind": "copy", "text": "Ask about this", "defense": "Carries the open passage into the room question without making the user copy a filename."}
+    ,{"id": "copy.open_full_source", "kind": "copy", "text": "Open full source", "defense": "Continues from the passage to the full file only when more context is needed."}
+    ,{"id": "copy.asking_about", "kind": "copy", "text": "Asking about", "defense": "Makes the source scope of the next message visible and removable."}
+    ,{"id": "copy.question_stays", "kind": "copy", "text": "Your question will stay with this room.", "defense": "Explains the durable room behavior at the moment of composition."}
+  ],
+  "edges": [
+    ["job.make_deal_decision", "question.where_am_i"],
+    ["job.make_deal_decision", "question.what_is_the_status"],
+    ["question.what_is_the_status", "question.why_is_it_blocked"],
+    ["question.why_is_it_blocked", "question.what_should_i_check"],
+    ["question.what_should_i_check", "question.what_will_we_do"],
+    ["question.where_am_i", "segment.room_switcher"],
+    ["question.where_am_i", "segment.room_identity"],
+    ["job.make_deal_decision", "segment.primary_navigation"],
+    ["question.what_is_the_status", "segment.decision_question"],
+    ["question.what_is_the_status", "segment.pause_reason"],
+    ["question.why_is_it_blocked", "segment.decision_question_result"],
+    ["question.what_should_i_check", "segment.priority_sources"],
+    ["question.what_will_we_do", "segment.team_decision"],
+    ["question.what_should_i_check", "segment.sources"],
+    ["question.what_will_we_do", "segment.activity"],
+    ["question.where_am_i", "segment.room_details"],
+    ["question.what_will_we_do", "segment.decision_notes"],
+    ["segment.room_details", "segment.technical_details"],
+    ["question.where_am_i", "segment.open_folder"]
+    ,["question.what_should_i_check", "segment.citation_preview"]
+    ,["question.what_will_we_do", "segment.contextual_chat"]
+  ],
+  "forbidden_primary_copy": [
+    "Turn the room into a decision.",
+    "Ready to analyze",
+    "Bonsai on this Mac",
+    "Team activity connected",
+    "Source brief",
+    "Investment screen evidence",
+    "Preview source excerpt",
+    "estimated tokens",
+    "Room truth",
+    "System details"
+  ]
+}

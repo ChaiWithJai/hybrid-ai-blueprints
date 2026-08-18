@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-sealed-test-manifest.v1.json",
+  "title": "Public inventory for the externally held sealed test",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "benchmark_version",
+    "state",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {"enum": [1]},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "benchmark_version": {"type": "string", "minLength": 1},
+    "state": {"enum": ["not_registered", "registered_unopened"]},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "case_version",
+          "deal_id",
+          "source_snapshot_sha256",
+          "task_family",
+          "slices",
+          "near_duplicate_family_id",
+          "secret_case_sha256"
+        ],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "case_version": {"type": "string", "minLength": 1},
+          "deal_id": {"type": "string", "minLength": 1},
+          "source_snapshot_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "task_family": {"type": "string", "minLength": 1},
+          "slices": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "near_duplicate_family_id": {"type": ["string", "null"]},
+          "secret_case_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

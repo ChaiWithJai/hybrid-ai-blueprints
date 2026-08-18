@@ -1,0 +1,61 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 2,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786744776.919831,
+  "dataset_sha256": "f9d286b9b2876d6d3fb81833c2ba61d2e3d0e50908a1e1f5b24b75d39e2119b4",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 0,
+  "pass_rate": 0.0,
+  "mean_accuracy": 0.7143,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 34363.56,
+  "cases": [
+    {
+      "case_id": "aeroflux_accretion",
+      "passed": false,
+      "accuracy": 0.7143,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:eps",
+        "concept:accretion",
+        "concept:synergy",
+        "numeric:accretion_percent"
+      ],
+      "missing_terms": [
+        "numeric:pro_forma_eps",
+        "numeric:cost_synergy"
+      ],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Stock_Purchase_Agreement.md",
+        "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_42e3cf203a3b",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 34363.56,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "DEAL: PROJECT AEROFLUX\nBUYER: Vortex Global Aerospace Corp. | SELLER: AeroDynamics SA Shareholder Syndicate\nSOURCES USED: 01_Stock_Purchase_Agreement.md, 02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\nBUYER EPS: 3.62\nPRO-FORMA EPS: 4.31\nEPS ACCRETION: +18.8%\nCOST SYNERGIES: -18.5M USD\nREVENUE SYNERGIES: 12.0M USD\nCFIUS STATUS: CFIUS Clearance: Joint voluntary notice filed with the Committee on Foreign Investment in the United States regarding military drone navigation IP.\nANTITRUST STATUS: European Commission Antitrust: Approval under Council Regulation (EC) No 139/2004 without Phase II divestiture requirements exceeding \u20ac25M in annual revenue.",
+      "observed_generated_code": "import math, json, re\n\n# Deal identifiers from evidence\nDEAL_NAME = \"PROJECT AEROFLUX\"\nBUYER = \"Vortex Global Aerospace Corp.\"\nSELLER = \"AeroDynamics SA Shareholder Syndicate\"\nSOURCE_FILES = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\n\n# Direct numeric literals from evidence (USD M)\nBUYER_NET_INCOME = 435.0\nBUYER_DILUTED_SHARES = 120.0\nPROFORMA_COMBINED_INCOME = 545.9\nPROFORMA_DILUTED_SHARES = 126.8\nCOST_SYNERGIES = -18.5\nREVENUE_SYNERGIES = 12.0\n\n# Buyer standalone EPS\nbuyer_eps = BUYER_NET_INCOME / BUYER_DILUTED_SHARES\n\n# Pro-forma EPS\npro_forma_eps = PROFORMA_COMBINED_INCOME / PROFORMA_DILUTED_SHARES\n\n# Accretion %\naccretion_pct = (pro_forma_eps / buyer_eps - 1) * 100\n\nprint(f\"DEAL: {DEAL_NAME}\")\nprint(f\"BUYER: {BUYER} | SELLER: {SELLER}\")\nprint(f\"SOURCES USED: {', '.join(SOURCE_FILES)}\")\nprint(f\"BUYER EPS: {buyer_eps:.2f}\")\nprint(f\"PRO-FORMA EPS: {pro_forma_eps:.2f}\")\nprint(f\"EPS ACCRETION: +{accretion_pct:.1f}%\")\nprint(f\"COST SYNERGIES: {COST_SYNERGIES}M USD\")\nprint(f\"REVENUE SYNERGIES: {REVENUE_SYNERGIES}M USD\")\n\n# CFIUS & Antitrust checks from evidence\ncfius_status = \"CFIUS Clearance: Joint voluntary notice filed with the Committee on Foreign Investment in the United States regarding military drone navigation IP.\"\nantitrust_status = \"European Commission Antitrust: Approval under Council Regulation (EC) No 139/2004 without Phase II divestiture requirements exceeding \u20ac25M in annual revenue.\"\n\nprint(f\"CFIUS STATUS: {cfius_status}\")\nprint(f\"ANTITRUST STATUS: {antitrust_status}\")"
+    }
+  ]
+}

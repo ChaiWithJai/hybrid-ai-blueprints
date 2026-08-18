@@ -1,0 +1,117 @@
+{
+  "verification_kind": "live_xlsx_webui_buzz_success_and_guard_rejection",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-15T13:38:57Z",
+  "passed": true,
+  "measurement_state": "structural_guard_passed_awaiting_domain_review",
+  "accuracy_release_passed": false,
+  "room": "local_bbfa4e91f7ee",
+  "channel_id": "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7",
+  "source": {
+    "filename": "Pricing_Workbook.xlsx",
+    "live_temporary_copy": "/private/tmp/prismml-xlsx-dealroom.vdJHKP/Pricing_Workbook.xlsx",
+    "sha256": "5e6ce879cc694bbfcd7d9030446fca6c09492c53cef50e5e158d6672b240eab3",
+    "citation": "[Pricing_Workbook.xlsx#xlsx:sheet:3]",
+    "observed_value": "9997.2%",
+    "formula_boundary": "Cached formulas were not recalculated."
+  },
+  "accepted_run": {
+    "question": "Report the stored first-year ROI for the ML Platform scenario. Use the exact admitted workbook citation and explicitly say the formula is cached and was not recalculated.",
+    "question_event_id": "b959398910ab0436848bf00097e616701239cd344c7fae0e2f75ee68dcca4095",
+    "answer_event_id": "e2e4dd53c46fa59e19c0c5c004ab1330ce5bf2a8d0eec837747db1506c93069c",
+    "canonical_path": "/rooms/local_bbfa4e91f7ee/discussion?event=e2e4dd53c46fa59e19c0c5c004ab1330ce5bf2a8d0eec837747db1506c93069c",
+    "trace_id": "trc_e17854df2941",
+    "provider": "local_bonsai",
+    "model": "27b@q1_0",
+    "response": "- **answer**: First-year ROI for the ML Platform scenario is 9997.2% [Pricing_Workbook.xlsx#xlsx:sheet:3]. Cached formulas were not recalculated.",
+    "response_sha256": "be5e8e5cdd3b4709fa249ecfd17410cdbacbe1680035cfa27b994694f58e3948",
+    "latency_ms": 2516.142416978255,
+    "prompt_tokens": 4926,
+    "completion_tokens": 42,
+    "inference_attempts": 1,
+    "question_signature_verified": true,
+    "answer_signature_verified": true,
+    "publication_guard_passed": true
+  },
+  "rejected_run": {
+    "question": "Identify this workbook and state what its README says it is for. Cite the exact workbook sheet anchor, and state that cached formulas were not recalculated.",
+    "question_event_id": "3ef8892bf2cb5cff4d21e4d70f3f43ecc147f7c9e12bcef7bf097ec7f4cf22ed",
+    "rejection_event_id": "7d03467ffc1f3f453d2a4d5778e523ed93daff21d90cc3e96ba8037ffe0d5fb9",
+    "trace_id": "trc_cbebae58cefb",
+    "reason": "Bonsai answer failed the publication guard: material term(s) absent from the cited passage: via",
+    "draft_published_as_answer": false,
+    "question_signature_verified": true,
+    "rejection_signature_verified": true
+  },
+  "browser_observation": {
+    "browser": "Codex in-app Chromium",
+    "verified_event_count": 11,
+    "accepted_answer_visible": true,
+    "rejected_state_visible": true,
+    "citation_target": "/rooms/local_bbfa4e91f7ee/files?source=Pricing_Workbook.xlsx&anchor=xlsx%3Asheet%3A3",
+    "source_preview_value_visible": true,
+    "cached_formula_boundary_visible": true,
+    "console_error_count": 0
+  },
+  "direct_acp_observation": {
+    "required_for_v0": false,
+    "status": "experimental_failed_live_response_gate",
+    "scope_controls_passed": true,
+    "single_channel": "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7",
+    "owner_only": true,
+    "memory_disabled": true,
+    "source_query_manual_latency_seconds": 0.1,
+    "failure": "The generic coding-agent loop made repeated model calls, then its MCP tool invocation timed out after 90 seconds and no signed reply was published.",
+    "release_behavior": "Direct ACP is opt-in and labeled experimental. The default surface uses the proven source-scoped WebUI provider path and signed Buzz publication."
+  },
+  "buzz_identities": {
+    "owner_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+    "agent_pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876"
+  },
+  "raw_buzz_events": {
+    "3ef8892bf2cb5cff4d21e4d70f3f43ecc147f7c9e12bcef7bf097ec7f4cf22ed": {
+      "content": "Identify this workbook and state what its README says it is for. Cite the exact workbook sheet anchor, and state that cached formulas were not recalculated.",
+      "created_at": 1786800943,
+      "id": "3ef8892bf2cb5cff4d21e4d70f3f43ecc147f7c9e12bcef7bf097ec7f4cf22ed",
+      "kind": 9,
+      "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+      "sig": "eb6ec1ebda2f917270fc185d405bade40ddf7fd3c56b9cacc935f7148ade127b0e719182a8178f0ada4a087a3af0fc98a0efde29dc7e472fef282f23d290f6e5",
+      "tags": [["h", "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7"]]
+    },
+    "7d03467ffc1f3f453d2a4d5778e523ed93daff21d90cc3e96ba8037ffe0d5fb9": {
+      "content": "<!-- prism:deal-room-answer model=rejected guard=deal_room_chat_guard_v1 trace=trc_cbebae58cefb -->\n**Bonsai answer rejected**\n\nPrism saved the question but did not publish the model draft because it failed the evidence guard: Bonsai answer failed the publication guard: material term(s) absent from the cited passage: via\n\nTrace: `trc_cbebae58cefb`. No answer or accuracy claim was accepted.",
+      "created_at": 1786801008,
+      "id": "7d03467ffc1f3f453d2a4d5778e523ed93daff21d90cc3e96ba8037ffe0d5fb9",
+      "kind": 9,
+      "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+      "sig": "9117e0ff8c09e029b598aa148343ec3fb9003545b5466f823570ebbf154204304493022ff47dc8ec9653ecac82f13bcaa8f12ac1f142262416c98c6db4c13ca1",
+      "tags": [["h", "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7"]]
+    },
+    "b959398910ab0436848bf00097e616701239cd344c7fae0e2f75ee68dcca4095": {
+      "content": "Report the stored first-year ROI for the ML Platform scenario. Use the exact admitted workbook citation and explicitly say the formula is cached and was not recalculated.",
+      "created_at": 1786801025,
+      "id": "b959398910ab0436848bf00097e616701239cd344c7fae0e2f75ee68dcca4095",
+      "kind": 9,
+      "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+      "sig": "9a28b1be6aa1d5144e01bd419551c5198b8d75bf9ccd96309724a4d6029aac5cd1295a87082fad4290def0c2184c69ae3cd7eb3717eec4f6dab393a80c85e80a",
+      "tags": [["h", "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7"]]
+    },
+    "e2e4dd53c46fa59e19c0c5c004ab1330ce5bf2a8d0eec837747db1506c93069c": {
+      "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_e17854df2941 -->\n- **answer**: First-year ROI for the ML Platform scenario is 9997.2% [Pricing_Workbook.xlsx#xlsx:sheet:3]. Cached formulas were not recalculated.",
+      "created_at": 1786801028,
+      "id": "e2e4dd53c46fa59e19c0c5c004ab1330ce5bf2a8d0eec837747db1506c93069c",
+      "kind": 9,
+      "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+      "sig": "c47cfecff758c57601c83fdf76b7a1d29f7295c212f521c067cdc6bdc5c98bad1c1084c302a438ec94eb9b507e738ecb4747a5d1820b3213289491b9c2f4e162",
+      "tags": [["h", "f6f6917f-d4a0-498e-8f6e-fe643c7acbf7"]]
+    }
+  },
+  "limitations": [
+    "This is one workbook and two live prompts, not the versioned domain benchmark.",
+    "The accepted answer has not been approved by a deal-domain reviewer.",
+    "Prism used stored cached formula values and did not recalculate the workbook.",
+    "The source is a temporary local folder registration, not a repository-owned corpus artifact.",
+    "Generic direct Buzz ACP response behavior did not pass and is not part of the required v0 surface.",
+    "Artifact identity, hardware, runtime version, energy, VRAM, network egress, and clean physical machine reproduction were not measured in this run."
+  ]
+}

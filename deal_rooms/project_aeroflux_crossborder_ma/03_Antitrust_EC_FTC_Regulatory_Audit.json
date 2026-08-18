@@ -1,0 +1,33 @@
+{
+  "deal_code": "PROJECT_AEROFLUX",
+  "buyer_jurisdiction": "United States (Delaware)",
+  "target_jurisdiction": "France (Occitanie)",
+  "total_consideration_eur_m": 850.0,
+  "exchange_rate_eur_usd": 1.08,
+  "total_consideration_usd_m": 918.0,
+  "regulatory_filings": {
+    "european_commission_dg_comp": {
+      "filing_status": "PHASE_1_CLEARANCE_RECEIVED",
+      "market_share_combined_pct": 28.4,
+      "remedies_required": "NONE",
+      "clearance_date": "2026-01-20"
+    },
+    "us_cfius_national_security": {
+      "filing_type": "VOLUNTARY_JOINT_NOTICE",
+      "filing_status": "SAFE_HARBOR_APPROVED",
+      "dual_use_avionics_risk": "MITIGATED_VIA_US_SUBSIDIARY_BOARD",
+      "clearance_date": "2026-02-05"
+    },
+    "french_fdi_tresor": {
+      "filing_status": "AUTHORIZED_WITH_EMPLOYMENT_CONDITIONS",
+      "conditions": "Maintain 850 R&D engineering positions in Toulouse for minimum 36 months.",
+      "compliance_officer_assigned": "Jean-Luc Moreau"
+    }
+  },
+  "synergy_confidence_index": {
+    "cost_synergies_achievable_usd_m": 42.5,
+    "revenue_synergies_achievable_usd_m": 17.3,
+    "integration_costs_usd_m": 25.0,
+    "payback_period_months": 14.5
+  }
+}

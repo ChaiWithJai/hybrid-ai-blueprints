@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/candidate-source-adjudication.v1.json",
+  "title": "Prism candidate source review adjudication",
+  "type": "object",
+  "required": ["adjudication_id", "principal_reviewer_id", "qualification", "packet_sha256", "reviewer_pubkey", "buzz_event_id", "adjudicated_at", "decisions"],
+  "properties": {
+    "adjudication_id": {"type": "string", "minLength": 1},
+    "principal_reviewer_id": {"type": "string", "minLength": 1},
+    "qualification": {"type": "string", "minLength": 1},
+    "packet_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reviewer_pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "buzz_event_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "adjudicated_at": {"type": "string", "format": "date-time"},
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["draft_id", "selected_review_id", "rationale"],
+        "properties": {
+          "draft_id": {"type": "string", "minLength": 1},
+          "selected_review_id": {"type": "string", "minLength": 1},
+          "rationale": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

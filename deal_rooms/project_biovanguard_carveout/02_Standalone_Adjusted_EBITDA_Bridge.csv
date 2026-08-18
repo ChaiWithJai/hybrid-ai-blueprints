@@ -1,0 +1,13 @@
+Bridge_Component,2024A_USD_M,2025A_USD_M,2026E_ProForma_USD_M,2027E_ProForma_USD_M,Notes_and_Methodology
+Reported_Division_Revenue,185.0,220.0,265.0,318.0,Historical carve-out revenue line
+Reported_Division_Gross_Profit,120.2,147.4,180.2,219.4,68.0% historical gross margin
+Division_Operating_Expenses_Historical,75.0,88.0,102.0,118.0,Direct divisional SG&A
+Historical_Carveout_EBITDA,45.2,59.4,78.2,101.4,Division standalone before allocations
+Less_Parent_Corporate_Shared_Allocations,-18.5,-22.0,-24.5,-26.0,Parent IT, legal, HR corporate tax allocation
+Reported_Operating_Income_Carveout,26.7,37.4,53.7,75.4,GAAP audited carve-out EBIT
+Addback_Parent_Shared_Overhead_Elimination,+18.5,+22.0,+24.5,+26.0,Reverse corporate parent allocation
+Less_Standalone_NewCo_Corporate_Costs,-8.5,-9.2,-10.0,-10.5,Dedicated NewCo C-suite, legal, standalone ERP
+Less_Stranded_Supply_Chain_Adjustment,-2.5,-2.0,-1.0,0.0,Temporary commercial markup on reagents
+Pro_Forma_Clean_Adjusted_EBITDA,52.7,70.2,91.7,116.9,M&A Quality of Earnings (QoE) Adjusted EBITDA
+Clean_EBITDA_Margin_Pct,28.5%,31.9%,34.6%,36.8%,Expansion driven by standalone autonomy
+Transaction_Valuation_Multiple_8_8x,N/A,620.0,N/A,N/A,$620.0M Purchase Price (8.83x 2025A Clean EBITDA)

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "verification_kind": "public_pdf_visual_claim_correction",
+  "recorded_at": "2026-08-16T00:28:03Z",
+  "reason": "Three v1 corpus records claimed that a human checked PDF renders, but no reviewer identity or review receipt existed.",
+  "correction": {
+    "human_visual_review_state": "not_recorded",
+    "human_visual_review_passed": null,
+    "active_evidence": "evidence/public-deal-corpus-verification-v2.json",
+    "active_evidence_sha256": "88678965dc9ae7674aecdea2c94e584a226963ab7a8b706e8907949d972f9ff5",
+    "active_manifest_sha256": "1888ade2eb98bf8f7009c660686ebefeb224e1cc94f013af99d5192b882bfb9c"
+  },
+  "corrected_records": [
+    {
+      "path": "evidence/public-deal-battletest-verification-run1.json",
+      "prior_sha256": "64e7505e3b4939c3fe4d92f8e8f0dfdf6c6245b3d785f12e1dd575d3e466be03",
+      "corrected_sha256": "c876608fe504cd8e87e7f1cc9b5341a8bac905653d489e3948f39e544ba93f83",
+      "visual_review_state": "superseded_unsubstantiated_claim"
+    },
+    {
+      "path": "evidence/public-deal-battletest-verification.json",
+      "prior_sha256": "f93ac0fbac99cf26215bcec8a9f31a68d1ca59c32cdaa5501fe6025cb5abc82c",
+      "corrected_sha256": "63c8ecf2f19f181ff12be8222266732e72ee385aa10356ddae6a1706566460ff",
+      "visual_review_state": "superseded_unsubstantiated_claim"
+    },
+    {
+      "path": "evidence/public-deal-corpus-verification.json",
+      "prior_sha256": "f4202b7c6c3c04f1db319bb8583198037df5f754bc74a31d59129fced156889e",
+      "corrected_sha256": "c34000f3ff8d2c0596945628e66585662b67dcaed75188bd8a9be8714344c0f3",
+      "visual_review_state": "superseded_unsubstantiated_claim"
+    }
+  ],
+  "limitations": [
+    "The prior hashes preserve identity, not the original bytes.",
+    "The corrected files and this record are mutable local files, not signed or externally anchored evidence.",
+    "The v2 automated render check does not prove legibility, page identity, reading order, or layout accuracy."
+  ]
+}

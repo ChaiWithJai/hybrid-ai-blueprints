@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "pluralsight_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2612,
+    "estimated_tokens": 211499,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 502
+  },
+  "source": {
+    "accession": "0001193125-21-021711",
+    "bytes": 1948655,
+    "cik": "0001725579",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1725579/000119312521021711/0001193125-21-021711-index.htm",
+    "path": ".runtime/candidate-deal-sources/pluralsight_2021/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1725579/000119312521021711/d20870ddefm14a.htm",
+    "sha256": "21466cdd8b0575e3ccc13d66b9299653f80779057010a5e79c5ed6a52043f44f"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-run-record.v1.json",
+  "title": "Prism Vault first pass run record",
+  "type": "object",
+  "required": [
+    "run_id",
+    "case_id",
+    "case_version",
+    "started_at",
+    "completed_at",
+    "source_snapshot_sha256",
+    "answer_model",
+    "prompt_sha256",
+    "rubric_sha256",
+    "response",
+    "pipeline",
+    "evaluations",
+    "delivery",
+    "release_decision"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": "string", "minLength": 1},
+    "case_version": {"type": "string", "minLength": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "source_snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "answer_model": {"$ref": "#/$defs/model"},
+    "judge_model": {
+      "oneOf": [
+        {"$ref": "#/$defs/model"},
+        {"type": "null"}
+      ]
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["name", "version", "hardware", "context_limit", "sampling"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": ["string", "null"]},
+        "hardware": {"type": "string", "minLength": 1},
+        "context_limit": {"type": "integer", "minimum": 1},
+        "sampling": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "prompt_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "rubric_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "retrieval": {
+      "type": "object",
+      "required": ["limit", "passage_ids", "oracle_context_run_id"],
+      "properties": {
+        "limit": {"type": "integer", "minimum": 1},
+        "passage_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "oracle_context_run_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "object",
+      "required": ["text", "structured_brief", "citations"],
+      "properties": {
+        "text": {"type": "string"},
+        "structured_brief": {"type": ["object", "null"]},
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["filename", "anchor"],
+            "properties": {
+              "filename": {"type": "string", "minLength": 1},
+              "anchor": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pipeline": {
+      "type": "object",
+      "required": ["ingestion", "retrieval", "generation", "evaluation", "delivery"],
+      "properties": {
+        "ingestion": {"$ref": "#/$defs/stage"},
+        "retrieval": {"$ref": "#/$defs/stage"},
+        "generation": {"$ref": "#/$defs/stage"},
+        "evaluation": {"$ref": "#/$defs/stage"},
+        "delivery": {"$ref": "#/$defs/stage"}
+      },
+      "additionalProperties": false
+    },
+    "evaluations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dimension", "label", "score", "severity", "critique", "evaluator"],
+        "properties": {
+          "dimension": {"type": "string", "minLength": 1},
+          "label": {"enum": ["pass", "fail", "not_applicable", "unverified"]},
+          "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "severity": {"enum": ["critical", "major", "minor"]},
+          "critique": {"type": "string"},
+          "evaluator": {"type": "string", "minLength": 1},
+          "evaluator_version": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "human_review": {
+      "type": ["object", "null"],
+      "properties": {
+        "reviewer_id": {"type": "string"},
+        "blind_to_model": {"type": "boolean"},
+        "useful_starting_point": {"type": "boolean"},
+        "decision": {"enum": ["advance", "pause", "stop", "unresolved"]},
+        "review_time_seconds": {"type": "number", "minimum": 0},
+        "critical_corrections": {"type": "integer", "minimum": 0},
+        "major_corrections": {"type": "integer", "minimum": 0},
+        "critique": {"type": "string"}
+      },
+      "required": [
+        "reviewer_id",
+        "blind_to_model",
+        "useful_starting_point",
+        "decision",
+        "review_time_seconds",
+        "critical_corrections",
+        "major_corrections",
+        "critique"
+      ],
+      "additionalProperties": false
+    },
+    "telemetry": {
+      "type": "object",
+      "properties": {
+        "latency_ms": {"type": "number", "minimum": 0},
+        "time_to_first_token_ms": {"type": ["number", "null"], "minimum": 0},
+        "prompt_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "completion_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "peak_memory_bytes": {"type": ["integer", "null"], "minimum": 0},
+        "energy_mwh": {"type": ["number", "null"], "minimum": 0},
+        "cost_usd": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "delivery": {
+      "type": "object",
+      "required": ["buzz_channel_id", "buzz_event_id", "canonical_url", "signed"],
+      "properties": {
+        "buzz_channel_id": {"type": ["string", "null"]},
+        "buzz_event_id": {"type": ["string", "null"]},
+        "canonical_url": {"type": ["string", "null"]},
+        "signed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "release_decision": {
+      "enum": ["pass", "fail", "unverified"]
+    }
+  },
+  "$defs": {
+    "model": {
+      "type": "object",
+      "required": ["provider", "served_id", "artifact_sha256", "quantization"],
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "served_id": {"type": "string", "minLength": 1},
+        "artifact_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "quantization": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "stage": {
+      "type": "object",
+      "required": ["status", "error"],
+      "properties": {
+        "status": {"enum": ["pass", "fail", "not_run"]},
+        "error": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
+

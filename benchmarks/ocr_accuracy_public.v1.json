@@ -1,0 +1,116 @@
+{
+  "benchmark_kind": "public_ma_clean_raster_ocr_accuracy",
+  "benchmark_version": "1.2.0",
+  "preregistered_at": "2026-08-16T00:26:00-04:00",
+  "ground_truth_corrections": [
+    {
+      "corrected_at": "2026-08-16T00:29:00-04:00",
+      "case_id": "cma_cover_page_1",
+      "reason": "The born digital text layer omitted the visible CMA logo text. A saved raster inspection confirmed that the page shows CMA and Competition & Markets Authority.",
+      "prior_benchmark_sha256": "f0040c03156b401334346ff02f4fa8a268a8b1ea15dba00a0d5703237e421dbd",
+      "prior_failed_evidence_sha256": "2804696765052f52d045dbc7dab692581f5275a819f0fb38de103dbb6105596b",
+      "visual_record": "evidence/ocr-ground-truth-cover-page-1.png",
+      "visual_record_sha256": "3a299c5ed79046ba0354fe31dee16798d7d9220f93e22a7da4166d682b6fb6ff",
+      "thresholds_changed": false,
+      "domain_review_performed": false
+    }
+  ],
+  "implementation_changes": [
+    {
+      "changed_at": "2026-08-16T03:08:00-04:00",
+      "reason": "A resolution sweep on the unchanged image-only cover page returned CMA at 150 DPI and at every tested setting from 250 through 600 DPI, while 200 DPI returned CMAY. The product OCR raster was changed from 200 to 300 DPI without adding document-specific vocabulary.",
+      "prior_benchmark_sha256": "5e336da55dd2af46e45719902b0939c37b05257360ce9ec6775fa9b16bb2fcd8",
+      "prior_failed_evidence_sha256": "ae777443f67fd4d66a007f270b1c6b7b2a58cce3e09c8a2806ad1b948ed72780",
+      "prior_ocr_adapter_sha256": "a50b754b19b1e5f7cce90fff43274aa721074de746f7d20754ce4b275b58bf8b",
+      "diagnostic_record": "evidence/ocr-resolution-diagnostic-v1.json",
+      "diagnostic_record_sha256": "aaf1d2e8c4e99a1dd8d8bddf96ebc544ac7e453b9e2479cfff85845f4ade8019",
+      "thresholds_changed": false,
+      "source_pages_changed": false,
+      "expected_text_changed": false,
+      "document_specific_vocabulary_added": false,
+      "independent_test": false
+    }
+  ],
+  "source": {
+    "document_id": "microsoft_activision_cma_final_report_2023_04_26",
+    "publisher": "UK Competition and Markets Authority",
+    "canonical_url": "https://assets.publishing.service.gov.uk/media/644939aa529eda000c3b0525/Microsoft_Activision_Final_Report_.pdf",
+    "local_path": ".runtime/public-deal-rooms/microsoft_activision/microsoft_activision_cma_final_report.pdf",
+    "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+    "bytes": 2880833
+  },
+  "derivative_contract": {
+    "kind": "single_page_image_only_pdf",
+    "render_dpi": 200,
+    "renderer": "pdftoppm",
+    "image_to_pdf": "sips",
+    "embedded_text_must_be_empty": true
+  },
+  "recognition_contract": {
+    "engine": "apple_vision_vnrecognizetextrequest",
+    "render_dpi": 300,
+    "recognition_level": "accurate",
+    "language_correction": true,
+    "document_specific_vocabulary": []
+  },
+  "thresholds": {
+    "maximum_word_error_rate": 0.08,
+    "maximum_character_error_rate": 0.04,
+    "minimum_critical_phrase_recall": 1.0,
+    "every_case_must_pass": true
+  },
+  "cases": [
+    {
+      "case_id": "cma_cover_page_1",
+      "physical_page": 1,
+      "expected_normalized_text": "anticipated acquisition by microsoft of activision blizzard inc final report 26 april 2023 cma competition markets authority",
+      "expected_normalized_text_sha256": "c84bbc3abfe0e9234baae50f168e1d0e3ceeb27acf0bd526bd681fd33f0fda9f",
+      "critical_phrases": [
+        "microsoft",
+        "activision blizzard inc",
+        "final report",
+        "26 april 2023",
+        "cma",
+        "competition markets authority"
+      ]
+    },
+    {
+      "case_id": "cma_summary_page_7",
+      "physical_page": 7,
+      "expected_normalized_text": "summary what we have found 1 the competition and markets authority cma has found that the anticipated acquisition the merger of activision blizzard inc activision by microsoft corporation microsoft together the parties may not be expected to result in a substantial lessening of competition slc in console gaming services in the uk however the cma has found that the merger may be expected to result in an slc in cloud gaming services in the uk 2 in relation to console gaming services we found that xbox microsoft and playstation sony compete closely with each other and that activision s call of duty cod is important to the competitive offering of each the evidence suggests however that microsoft would not find it financially beneficial to make cod exclusive to xbox after the merger we also found that making cod available on xbox on better terms than on playstation would not materially harm playstation s ability to compete on this basis we found that the merger would not substantially reduce competition in console gaming services in the uk 3 in relation to cloud gaming services we found that microsoft already has a strong position it owns a popular gaming platform xbox and a large portfolio of games the leading pc operating system windows and a global cloud computing infrastructure azure and xbox cloud gaming giving it important advantages in running a cloud gaming service with an estimated 60 70 market share in global cloud gaming services it is already much stronger than its rivals 4 we found that the merger would make microsoft even stronger and substantially reduce competition in this market we found that activision s titles including cod world of warcraft and overwatch will be important for the competitive offering of cloud gaming services as the market continues to grow and develop we found that after the merger microsoft would find it commercially beneficial to make activision s titles exclusive to its own cloud gaming service given its already strong position even a moderate increment to microsoft s strength may be expected to substantially reduce competition in this developing market to the detriment of current and future cloud gaming users 5 microsoft offered a behavioural remedy to address our concerns in cloud gaming services the microsoft cloud remedy the microsoft cloud remedy did not aim to restore competition to the level that would have 4",
+      "expected_normalized_text_sha256": "511d34badabfb07670b15034f44c0afea29676db2287d251f3c4528dc827ee3b",
+      "critical_phrases": [
+        "competition and markets authority",
+        "substantial lessening of competition",
+        "console gaming services",
+        "cloud gaming services",
+        "60 70 market share",
+        "call of duty",
+        "azure and xbox cloud gaming"
+      ]
+    },
+    {
+      "case_id": "cma_summary_page_8",
+      "physical_page": 8,
+      "expected_normalized_text": "prevailed absent the merger but rather to impose obligations on microsoft to support cloud gaming service providers using certain business models such as by allowing them to stream certain games purchased by users through certain storefronts for a ten year period 6 we found that the microsoft cloud remedy had several shortcomings connected with the growing and fast moving nature of cloud gaming services in particular the scope of the remedy was limited to cloud gaming providers with specific business models as a result microsoft would not have to supply activision s full range of games to providers that absent the merger may have entered into a different type of commercial relationship with activision eg through exclusive content joint marketing arrangements or a multi game subscription service like game pass or to cloud gaming providers that may decide to operate using a non windows pc operating system eg linux it also did not provide for competition through differentiation in content the complexity of the remedy in the context of a dynamic market that is evolving also meant that it had a high risk of circumvention and that it would have been difficult to monitor effectively in light of these shortcomings we could not be sufficiently confident that the microsoft cloud remedy would have addressed our concerns and we found that the only effective remedy to the slc is to prohibit the merger 7 at a late stage in our process over a year after the merger was announced and after competition authorities in the eu the uk and the us expressed concerns about the merger microsoft told us that it had entered into agreements with nintendo and three cloud gaming service providers to allow certain activision content to be made available on their platforms after the merger microsoft told us that these agreements along with microsoft s plan to enter the mobile gaming market and its intention to place activision s content on game pass microsoft s multi game subscription service were relevant customer benefits rcbs that would make prohibition disproportionate 8 we found that most of these did not qualify as rcbs we found that the merger itself would not increase rather it would decrease the incentive that activision would have had absent the merger to enter into these agreements we also found that the impact of these agreements was highly uncertain and we could not be confident that they would lead to material benefits for customers as for microsoft s plans to enter the mobile gaming market we found that these plans were far from certain especially in current circumstances where the largest mobile os google s android and apple s ios either currently prohibit rival mobile gaming app stores or impose strict limits on their ability to monetise content 5",
+      "expected_normalized_text_sha256": "99c81e7a746e22d8306e94fab4a81ae828d0e36f6b3277fe4508c4eb8b29fcc8",
+      "critical_phrases": [
+        "ten year period",
+        "microsoft cloud remedy",
+        "non windows pc operating system",
+        "prohibit the merger",
+        "nintendo",
+        "relevant customer benefits",
+        "google s android",
+        "apple s ios"
+      ]
+    }
+  ],
+  "limitations": [
+    "The reference text comes from the born digital text layer of the same fixed public PDF pages.",
+    "The image only inputs are clean 200 DPI raster derivatives, not naturally scanned customer documents.",
+    "The three pages contain prose and a cover page. They do not measure tables, handwriting, stamps, damaged scans, or multi column reading order in general.",
+    "The implementation team selected these pages and phrases. No independent domain reviewer approved the labels.",
+    "A passing run is an engineering OCR measurement and does not satisfy the human approved OCR release gate."
+  ]
+}

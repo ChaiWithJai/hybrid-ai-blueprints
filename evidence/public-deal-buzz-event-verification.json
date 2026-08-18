@@ -1,0 +1,892 @@
+{
+  "agent_pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+  "cases": [
+    {
+      "accepted_answer_matches_saved_response": true,
+      "answer_event_id": "2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+      "answer_event_integrity_passed": true,
+      "answer_event_marker_matches_trace": true,
+      "answer_state": "accepted",
+      "buzz_channel_id": "dc0661c2-705e-47f8-b47b-8899c730175f",
+      "canonical_path": "/rooms/local_a6f2e0313e17/discussion?event=2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+      "case_id": "anaplan_vdr_timeline",
+      "passed": true,
+      "question_event_id": "10ac876f7f125043cddb0e718ae24f36c469d35666ce4e048166d5909625a33c",
+      "question_matches_execution_benchmark": true,
+      "raw_events": {
+        "10ac876f7f125043cddb0e718ae24f36c469d35666ce4e048166d5909625a33c": {
+          "content": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end? Cite the filing and exact source anchor.",
+          "created_at": 1786862837,
+          "id": "10ac876f7f125043cddb0e718ae24f36c469d35666ce4e048166d5909625a33c",
+          "kind": 9,
+          "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+          "sig": "0b4ba7a802858e213d4ba359834d2371d94bb001b7b7fa8abb1c6fac3e6a359fdefc91bbea9246c07ebde98dc4aa75a495633e22d679d2025233b30a2ec7bc9d",
+          "tags": [
+            [
+              "h",
+              "dc0661c2-705e-47f8-b47b-8899c730175f"
+            ]
+          ]
+        },
+        "2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0": {
+          "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_aa090c1195f0 source_class=public_filing_corpus provenance=e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe source_snapshot=fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8 -->\n- **answer**: Anaplan opened its virtual data room on March 12, 2022; it contained financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors; the intensive diligence period ended on March 20, 2022. [01_anaplan_defm14a.htm#html:block:00484]",
+          "created_at": 1786862853,
+          "id": "2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+          "kind": 9,
+          "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+          "sig": "5c560e28c498b3411e930facb13e6bad53f016faee6050ba8cc2c760157a3b460089e38396e5160e1e488b3ecb2bbe774b13e4c7d44086d1ce951e85cbc20736",
+          "tags": [
+            [
+              "h",
+              "dc0661c2-705e-47f8-b47b-8899c730175f"
+            ]
+          ]
+        }
+      },
+      "rejection_event_matches_saved_outcome": false,
+      "room_id": "local_a6f2e0313e17",
+      "trace": {
+        "completion_tokens": 90,
+        "energy_per_token_mwh": null,
+        "evaluations": [
+          {
+            "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+            "metadata": {
+              "guard_version": "deal_room_chat_guard_v1",
+              "part_citations": {},
+              "requested_parts": []
+            },
+            "name": "deal_room_chat_publication_guard",
+            "passed": true,
+            "score": 1.0,
+            "threshold": 1.0
+          },
+          {
+            "explanation": "Unverified until a domain reviewer checks the answer.",
+            "metadata": {
+              "measurement_state": "awaiting_domain_review"
+            },
+            "name": "human_accuracy_review",
+            "passed": false,
+            "score": 0.0,
+            "threshold": 1.0
+          }
+        ],
+        "metadata": {
+          "answer_event_id": "2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "guard_version": "deal_room_chat_guard_v1",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+          "inference_attempts": 1,
+          "part_citations": {},
+          "previous_response_id_used": null,
+          "product_job": "deal_room_chat",
+          "prompt_suffix_applied": true,
+          "protocol": "lmstudio_native_chat",
+          "provider_id": "local_bonsai",
+          "question_event_id": "10ac876f7f125043cddb0e718ae24f36c469d35666ce4e048166d5909625a33c",
+          "reasoning_output_tokens": 0,
+          "request_id": null,
+          "requested_parts": [],
+          "result_state": "guard_passed_and_signed_to_buzz",
+          "retrieved_anchors": [
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00484]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00434]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00441]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00458]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00482]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00908]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00904]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:01699]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            }
+          ],
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "source_classification": "public_filing_corpus",
+          "source_provenance": {
+            "accuracy_release_evidence": false,
+            "binding_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+            "buyer_evidence": false,
+            "classification": "public_filing_corpus",
+            "customer_data_verified": false,
+            "manifest_bound": true,
+            "operator_selected": false,
+            "public_snapshot_sha256": "dedf6898195a10765509c3d1ead56aa46665e484d9dc2123752fd59b88018ea5",
+            "public_source": true,
+            "public_source_count": 1,
+            "synthetic_fixture": false,
+            "version": "room_source_provenance_v1"
+          },
+          "source_provenance_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+          "source_snapshot_sha256": "fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8",
+          "source_snapshot_state": "stable",
+          "time_to_first_token_seconds": 13.143646,
+          "tokens_per_second": 35.24672117376281
+        },
+        "model_name": "27b@q1_0",
+        "prompt_tokens": 1773,
+        "query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end? Cite the filing and exact source anchor.",
+        "response": "- **answer**: Anaplan opened its virtual data room on March 12, 2022; it contained financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors; the intensive diligence period ended on March 20, 2022. [01_anaplan_defm14a.htm#html:block:00484]",
+        "routed_tier": "LOCAL_BONSAI_27B",
+        "session_id": "local_a6f2e0313e17",
+        "spans": [],
+        "timestamp": 1786862837.308906,
+        "total_energy_mwh": null,
+        "total_latency_ms": 15844.508041976951,
+        "total_tokens": 1863,
+        "trace_id": "trc_aa090c1195f0",
+        "vram_peak_gb": null
+      },
+      "trace_integrity_passed": true
+    },
+    {
+      "accepted_answer_matches_saved_response": true,
+      "answer_event_id": "e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+      "answer_event_integrity_passed": true,
+      "answer_event_marker_matches_trace": true,
+      "answer_state": "accepted",
+      "buzz_channel_id": "dc0661c2-705e-47f8-b47b-8899c730175f",
+      "canonical_path": "/rooms/local_a6f2e0313e17/discussion?event=e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+      "case_id": "anaplan_termination_fees",
+      "passed": true,
+      "question_event_id": "b25b8b5e7ff8b290eb34a70591f3543f970ae779c9038ce4dd4670a0d7b8b04f",
+      "question_matches_execution_benchmark": true,
+      "raw_events": {
+        "b25b8b5e7ff8b290eb34a70591f3543f970ae779c9038ce4dd4670a0d7b8b04f": {
+          "content": "State the company termination fee and the reverse termination fee. Cite the filing and exact source anchors.",
+          "created_at": 1786862853,
+          "id": "b25b8b5e7ff8b290eb34a70591f3543f970ae779c9038ce4dd4670a0d7b8b04f",
+          "kind": 9,
+          "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+          "sig": "2283d4dcf35cd661e8f2624655ae0fefc91dd494cb5536e711650d9f2dd39f14fc80a0981eb566895e3f9bb406a3f46b7aa00425332822bfd808d31d68605dab",
+          "tags": [
+            [
+              "h",
+              "dc0661c2-705e-47f8-b47b-8899c730175f"
+            ]
+          ]
+        },
+        "e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1": {
+          "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_c2ecc9b6abda source_class=public_filing_corpus provenance=e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe source_snapshot=fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8 -->\n- **Termination fee:** Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances. [01_anaplan_defm14a.htm#html:block:00207]",
+          "created_at": 1786862871,
+          "id": "e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+          "kind": 9,
+          "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+          "sig": "6d79ba399a2140560f31acbca0f7c43ac827c885b990af83520dd42252806c36288576eeaee973d47d7c578638a11b2924dd7fbc348d5fe6759f2c5aafb4c63a",
+          "tags": [
+            [
+              "h",
+              "dc0661c2-705e-47f8-b47b-8899c730175f"
+            ]
+          ]
+        }
+      },
+      "rejection_event_matches_saved_outcome": false,
+      "room_id": "local_a6f2e0313e17",
+      "trace": {
+        "completion_tokens": 111,
+        "energy_per_token_mwh": null,
+        "evaluations": [
+          {
+            "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+            "metadata": {
+              "guard_version": "deal_room_chat_guard_v1",
+              "part_citations": {
+                "termination_fee": [
+                  "[01_anaplan_defm14a.htm#html:block:00207]"
+                ]
+              },
+              "requested_parts": [
+                "termination_fee"
+              ]
+            },
+            "name": "deal_room_chat_publication_guard",
+            "passed": true,
+            "score": 1.0,
+            "threshold": 1.0
+          },
+          {
+            "explanation": "Unverified until a domain reviewer checks the answer.",
+            "metadata": {
+              "measurement_state": "awaiting_domain_review"
+            },
+            "name": "human_accuracy_review",
+            "passed": false,
+            "score": 0.0,
+            "threshold": 1.0
+          }
+        ],
+        "metadata": {
+          "answer_event_id": "e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "guard_version": "deal_room_chat_guard_v1",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+          "inference_attempts": 1,
+          "part_citations": {
+            "termination_fee": [
+              "[01_anaplan_defm14a.htm#html:block:00207]"
+            ]
+          },
+          "previous_response_id_used": null,
+          "product_job": "deal_room_chat",
+          "prompt_suffix_applied": true,
+          "protocol": "lmstudio_native_chat",
+          "provider_id": "local_bonsai",
+          "question_event_id": "b25b8b5e7ff8b290eb34a70591f3543f970ae779c9038ce4dd4670a0d7b8b04f",
+          "reasoning_output_tokens": 0,
+          "request_id": null,
+          "requested_parts": [
+            "termination_fee"
+          ],
+          "result_state": "guard_passed_and_signed_to_buzz",
+          "retrieved_anchors": [
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00207]",
+              "requested_parts": [
+                "termination_fee"
+              ],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:table:0158]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00968]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:01624]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:01628]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:01633]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:00972]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            },
+            {
+              "citation": "[01_anaplan_defm14a.htm#html:block:01611]",
+              "requested_parts": [],
+              "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+            }
+          ],
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "source_classification": "public_filing_corpus",
+          "source_provenance": {
+            "accuracy_release_evidence": false,
+            "binding_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+            "buyer_evidence": false,
+            "classification": "public_filing_corpus",
+            "customer_data_verified": false,
+            "manifest_bound": true,
+            "operator_selected": false,
+            "public_snapshot_sha256": "dedf6898195a10765509c3d1ead56aa46665e484d9dc2123752fd59b88018ea5",
+            "public_source": true,
+            "public_source_count": 1,
+            "synthetic_fixture": false,
+            "version": "room_source_provenance_v1"
+          },
+          "source_provenance_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+          "source_snapshot_sha256": "fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8",
+          "source_snapshot_state": "stable",
+          "time_to_first_token_seconds": 13.65151,
+          "tokens_per_second": 34.67225504286084
+        },
+        "model_name": "27b@q1_0",
+        "prompt_tokens": 2155,
+        "query": "State the company termination fee and the reverse termination fee. Cite the filing and exact source anchors.",
+        "response": "- **Termination fee:** Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances. [01_anaplan_defm14a.htm#html:block:00207]",
+        "routed_tier": "LOCAL_BONSAI_27B",
+        "session_id": "local_a6f2e0313e17",
+        "spans": [],
+        "timestamp": 1786862853.6776419,
+        "total_energy_mwh": null,
+        "total_latency_ms": 17075.30583301559,
+        "total_tokens": 2266,
+        "trace_id": "trc_c2ecc9b6abda",
+        "vram_peak_gb": null
+      },
+      "trace_integrity_passed": true
+    },
+    {
+      "accepted_answer_matches_saved_response": true,
+      "answer_event_id": "d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+      "answer_event_integrity_passed": true,
+      "answer_event_marker_matches_trace": true,
+      "answer_state": "accepted",
+      "buzz_channel_id": "ed1c17ae-85a9-4301-a25b-3512d5b256a3",
+      "canonical_path": "/rooms/local_3e826d45a754/discussion?event=d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+      "case_id": "citrix_financing_mix",
+      "passed": true,
+      "question_event_id": "e9732e6a65b60831ea77ccacbac4ae8cb719fc61495e48f6a827e9f397cad5d5",
+      "question_matches_execution_benchmark": true,
+      "raw_events": {
+        "d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d": {
+          "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_c75907caeb31 source_class=public_filing_corpus provenance=26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200 source_snapshot=bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf -->\n- **Debt**: $15.0 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Preferred Equity**: $2.5 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Common Equity**: $2.275 billion provided by Elliott [02_citrix_financing_supplement.htm#html:block:00058]",
+          "created_at": 1786862893,
+          "id": "d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+          "kind": 9,
+          "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+          "sig": "e32777ba16e835e98bfdcaab5f54d0622238710af94ca25646c04ddc16ecaed7d24d587afdee8bd2722c6b2d76733e62bed5336d387d10d50552f2ab2d216a9c",
+          "tags": [
+            [
+              "h",
+              "ed1c17ae-85a9-4301-a25b-3512d5b256a3"
+            ]
+          ]
+        },
+        "e9732e6a65b60831ea77ccacbac4ae8cb719fc61495e48f6a827e9f397cad5d5": {
+          "content": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and cite the exact source anchor.",
+          "created_at": 1786862871,
+          "id": "e9732e6a65b60831ea77ccacbac4ae8cb719fc61495e48f6a827e9f397cad5d5",
+          "kind": 9,
+          "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+          "sig": "6919607d7cb60b294eff9bc9c0009f8060701ce00b7261ff50132a52b8263e691831762840e64d769a4c8d54180e36cd7a778f8882c15e42e0a39442ebb41eaf",
+          "tags": [
+            [
+              "h",
+              "ed1c17ae-85a9-4301-a25b-3512d5b256a3"
+            ]
+          ]
+        }
+      },
+      "rejection_event_matches_saved_outcome": false,
+      "room_id": "local_3e826d45a754",
+      "trace": {
+        "completion_tokens": 102,
+        "energy_per_token_mwh": null,
+        "evaluations": [
+          {
+            "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+            "metadata": {
+              "guard_version": "deal_room_chat_guard_v1",
+              "part_citations": {},
+              "requested_parts": []
+            },
+            "name": "deal_room_chat_publication_guard",
+            "passed": true,
+            "score": 1.0,
+            "threshold": 1.0
+          },
+          {
+            "explanation": "Unverified until a domain reviewer checks the answer.",
+            "metadata": {
+              "measurement_state": "awaiting_domain_review"
+            },
+            "name": "human_accuracy_review",
+            "passed": false,
+            "score": 0.0,
+            "threshold": 1.0
+          }
+        ],
+        "metadata": {
+          "answer_event_id": "d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "guard_version": "deal_room_chat_guard_v1",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+          "inference_attempts": 1,
+          "part_citations": {},
+          "previous_response_id_used": null,
+          "product_job": "deal_room_chat",
+          "prompt_suffix_applied": true,
+          "protocol": "lmstudio_native_chat",
+          "provider_id": "local_bonsai",
+          "question_event_id": "e9732e6a65b60831ea77ccacbac4ae8cb719fc61495e48f6a827e9f397cad5d5",
+          "reasoning_output_tokens": 0,
+          "request_id": null,
+          "requested_parts": [],
+          "result_state": "guard_passed_and_signed_to_buzz",
+          "retrieved_anchors": [
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00504]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+              "requested_parts": [],
+              "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00536]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:table:0101]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00884]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[02_citrix_financing_supplement.htm#html:block:00075]",
+              "requested_parts": [],
+              "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:01583]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:01763]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            }
+          ],
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "source_classification": "public_filing_corpus",
+          "source_provenance": {
+            "accuracy_release_evidence": false,
+            "binding_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+            "buyer_evidence": false,
+            "classification": "public_filing_corpus",
+            "customer_data_verified": false,
+            "manifest_bound": true,
+            "operator_selected": false,
+            "public_snapshot_sha256": "32a1ecaf5cf4e14209537f4b8cda7c769f6692e1e14f62f864ef13254c518ba9",
+            "public_source": true,
+            "public_source_count": 2,
+            "synthetic_fixture": false,
+            "version": "room_source_provenance_v1"
+          },
+          "source_provenance_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+          "source_snapshot_sha256": "bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf",
+          "source_snapshot_state": "stable",
+          "time_to_first_token_seconds": 18.354795,
+          "tokens_per_second": 35.08843144735308
+        },
+        "model_name": "27b@q1_0",
+        "prompt_tokens": 2594,
+        "query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and cite the exact source anchor.",
+        "response": "- **Debt**: $15.0 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Preferred Equity**: $2.5 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Common Equity**: $2.275 billion provided by Elliott [02_citrix_financing_supplement.htm#html:block:00058]",
+        "routed_tier": "LOCAL_BONSAI_27B",
+        "session_id": "local_3e826d45a754",
+        "spans": [],
+        "timestamp": 1786862871.429631,
+        "total_energy_mwh": null,
+        "total_latency_ms": 21643.757082987577,
+        "total_tokens": 2696,
+        "trace_id": "trc_c75907caeb31",
+        "vram_peak_gb": null
+      },
+      "trace_integrity_passed": true
+    },
+    {
+      "accepted_answer_matches_saved_response": true,
+      "answer_event_id": "c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+      "answer_event_integrity_passed": true,
+      "answer_event_marker_matches_trace": true,
+      "answer_state": "accepted",
+      "buzz_channel_id": "ed1c17ae-85a9-4301-a25b-3512d5b256a3",
+      "canonical_path": "/rooms/local_3e826d45a754/discussion?event=c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+      "case_id": "citrix_entry_leverage_absent",
+      "passed": true,
+      "question_event_id": "da67a98975d6e6c44a04df6118240d284e7b974f758b51e48b31de3bdbfc7b09",
+      "question_matches_execution_benchmark": true,
+      "raw_events": {
+        "c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033": {
+          "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_167e056175d6 source_class=public_filing_corpus provenance=26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200 source_snapshot=bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf -->\n- **Entry debt-to-EBITDA disclosure:** The exact entry debt-to-EBITDA leverage multiple is not disclosed and cannot be calculated from the cited passage alone. [02_citrix_financing_supplement.htm#html:block:00058]",
+          "created_at": 1786862909,
+          "id": "c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+          "kind": 9,
+          "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+          "sig": "ed3019c3363afe272c39f30825844abc83efbe26a05ddb53fa460663eee21c6a3060f705df4e11c7292325a085a54ccaa6c777fcbaca7e042869ac677edd18e5",
+          "tags": [
+            [
+              "h",
+              "ed1c17ae-85a9-4301-a25b-3512d5b256a3"
+            ]
+          ]
+        },
+        "da67a98975d6e6c44a04df6118240d284e7b974f758b51e48b31de3bdbfc7b09": {
+          "content": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction? Cite the source used.",
+          "created_at": 1786862893,
+          "id": "da67a98975d6e6c44a04df6118240d284e7b974f758b51e48b31de3bdbfc7b09",
+          "kind": 9,
+          "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+          "sig": "bbf80e09033e0046b98138073c12fd42afd52d27486b62d18dc17fb00ddc89e5cdec948f7c52c35b9191edae24f64d85de654b05da18d88c301d493988490335",
+          "tags": [
+            [
+              "h",
+              "ed1c17ae-85a9-4301-a25b-3512d5b256a3"
+            ]
+          ]
+        }
+      },
+      "rejection_event_matches_saved_outcome": false,
+      "room_id": "local_3e826d45a754",
+      "trace": {
+        "completion_tokens": 57,
+        "energy_per_token_mwh": null,
+        "evaluations": [
+          {
+            "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+            "metadata": {
+              "guard_version": "deal_room_chat_guard_v1",
+              "part_citations": {
+                "entry_leverage_absence": [
+                  "[02_citrix_financing_supplement.htm#html:block:00058]"
+                ]
+              },
+              "requested_parts": [
+                "entry_leverage_absence"
+              ]
+            },
+            "name": "deal_room_chat_publication_guard",
+            "passed": true,
+            "score": 1.0,
+            "threshold": 1.0
+          },
+          {
+            "explanation": "Unverified until a domain reviewer checks the answer.",
+            "metadata": {
+              "measurement_state": "awaiting_domain_review"
+            },
+            "name": "human_accuracy_review",
+            "passed": false,
+            "score": 0.0,
+            "threshold": 1.0
+          }
+        ],
+        "metadata": {
+          "answer_event_id": "c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "guard_version": "deal_room_chat_guard_v1",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+          "inference_attempts": 1,
+          "part_citations": {
+            "entry_leverage_absence": [
+              "[02_citrix_financing_supplement.htm#html:block:00058]"
+            ]
+          },
+          "previous_response_id_used": null,
+          "product_job": "deal_room_chat",
+          "prompt_suffix_applied": true,
+          "protocol": "lmstudio_native_chat",
+          "provider_id": "local_bonsai",
+          "question_event_id": "da67a98975d6e6c44a04df6118240d284e7b974f758b51e48b31de3bdbfc7b09",
+          "reasoning_output_tokens": 0,
+          "request_id": null,
+          "requested_parts": [
+            "entry_leverage_absence"
+          ],
+          "result_state": "guard_passed_and_signed_to_buzz",
+          "retrieved_anchors": [
+            {
+              "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+              "requested_parts": [
+                "entry_leverage_absence"
+              ],
+              "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00586]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[02_citrix_financing_supplement.htm#html:block:00071]",
+              "requested_parts": [],
+              "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00588]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00600]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00412]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00603]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            },
+            {
+              "citation": "[01_citrix_defm14a.htm#html:block:00440]",
+              "requested_parts": [],
+              "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+            }
+          ],
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "source_classification": "public_filing_corpus",
+          "source_provenance": {
+            "accuracy_release_evidence": false,
+            "binding_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+            "buyer_evidence": false,
+            "classification": "public_filing_corpus",
+            "customer_data_verified": false,
+            "manifest_bound": true,
+            "operator_selected": false,
+            "public_snapshot_sha256": "32a1ecaf5cf4e14209537f4b8cda7c769f6692e1e14f62f864ef13254c518ba9",
+            "public_source": true,
+            "public_source_count": 2,
+            "synthetic_fixture": false,
+            "version": "room_source_provenance_v1"
+          },
+          "source_provenance_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+          "source_snapshot_sha256": "bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf",
+          "source_snapshot_state": "stable",
+          "time_to_first_token_seconds": 13.92262,
+          "tokens_per_second": 35.55515633976508
+        },
+        "model_name": "27b@q1_0",
+        "prompt_tokens": 2173,
+        "query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction? Cite the source used.",
+        "response": "- **Entry debt-to-EBITDA disclosure:** The exact entry debt-to-EBITDA leverage multiple is not disclosed and cannot be calculated from the cited passage alone. [02_citrix_financing_supplement.htm#html:block:00058]",
+        "routed_tier": "LOCAL_BONSAI_27B",
+        "session_id": "local_3e826d45a754",
+        "spans": [],
+        "timestamp": 1786862893.680366,
+        "total_energy_mwh": null,
+        "total_latency_ms": 15860.471375053748,
+        "total_tokens": 2230,
+        "trace_id": "trc_167e056175d6",
+        "vram_peak_gb": null
+      },
+      "trace_integrity_passed": true
+    },
+    {
+      "accepted_answer_matches_saved_response": true,
+      "answer_event_id": "747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+      "answer_event_integrity_passed": true,
+      "answer_event_marker_matches_trace": true,
+      "answer_state": "accepted",
+      "buzz_channel_id": "056d5514-b06c-417f-a6ec-4680c6f75d09",
+      "canonical_path": "/rooms/local_fcc02710f5ab/discussion?event=747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+      "case_id": "cma_competition_conclusion",
+      "passed": true,
+      "question_event_id": "7890ac5dbfa6c1712c93219800277e1965428c231793d3b0b796c555c3343658",
+      "question_matches_execution_benchmark": true,
+      "raw_events": {
+        "747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641": {
+          "content": "<!-- prism:deal-room-answer model=27b@q1_0 guard=deal_room_chat_guard_v1 trace=trc_b50e529415eb source_class=public_filing_corpus provenance=c32f92853d910f4a3b59505fc2310806c70599b0d841e5dc89aa1cfa5389aefc source_snapshot=e9739c4ceff2f19e67d621b1d40f239e9742f0ad19c7611cf20974fde184724c -->\n- **answer**: The CMA found that the Merger would result in an SLC in cloud gaming services but not in console gaming services; it estimated Microsoft's cloud gaming market share at 60-70%. [microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+          "created_at": 1786862968,
+          "id": "747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+          "kind": 9,
+          "pubkey": "23279b7b640cdae783e992d24a79f46bc9bef1b55f2ddf437b0b7cbda8b27876",
+          "sig": "5d06e6d1cb96b896d258c9647699da2a6cbd329d53d152b6ffc919fb0783f59ec5da8f4f91449fdc83bf4142a61d851b6782d04d4cbb5d2c50c1f6a57ed8c1c1",
+          "tags": [
+            [
+              "h",
+              "056d5514-b06c-417f-a6ec-4680c6f75d09"
+            ]
+          ]
+        },
+        "7890ac5dbfa6c1712c93219800277e1965428c231793d3b0b796c555c3343658": {
+          "content": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft? Cite the PDF page.",
+          "created_at": 1786862910,
+          "id": "7890ac5dbfa6c1712c93219800277e1965428c231793d3b0b796c555c3343658",
+          "kind": 9,
+          "pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+          "sig": "9adcc758bff9afc61dcbffa0418aee9a2c8ad6a0983bda50f304f3717041fd9154fc44f25a6dff89e0cd91271a6cab00fc4df456db371caf44370014c2cfc362",
+          "tags": [
+            [
+              "h",
+              "056d5514-b06c-417f-a6ec-4680c6f75d09"
+            ]
+          ]
+        }
+      },
+      "rejection_event_matches_saved_outcome": false,
+      "room_id": "local_fcc02710f5ab",
+      "trace": {
+        "completion_tokens": 62,
+        "energy_per_token_mwh": null,
+        "evaluations": [
+          {
+            "explanation": "Every detected requested part had a same-line citation to qualifying retrieved evidence, claimed numbers appeared in the cited passage, and material terms came from the source or the user's question. This is a structural guard, not an accuracy score.",
+            "metadata": {
+              "guard_version": "deal_room_chat_guard_v1",
+              "part_citations": {},
+              "requested_parts": []
+            },
+            "name": "deal_room_chat_publication_guard",
+            "passed": true,
+            "score": 1.0,
+            "threshold": 1.0
+          },
+          {
+            "explanation": "Unverified until a domain reviewer checks the answer.",
+            "metadata": {
+              "measurement_state": "awaiting_domain_review"
+            },
+            "name": "human_accuracy_review",
+            "passed": false,
+            "score": 0.0,
+            "threshold": 1.0
+          }
+        ],
+        "metadata": {
+          "answer_event_id": "747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+          "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+          "guard_version": "deal_room_chat_guard_v1",
+          "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+          "inference_attempts": 2,
+          "part_citations": {},
+          "previous_response_id_used": null,
+          "product_job": "deal_room_chat",
+          "prompt_suffix_applied": true,
+          "protocol": "lmstudio_native_chat",
+          "provider_id": "local_bonsai",
+          "question_event_id": "7890ac5dbfa6c1712c93219800277e1965428c231793d3b0b796c555c3343658",
+          "reasoning_output_tokens": 0,
+          "request_id": null,
+          "requested_parts": [],
+          "result_state": "guard_passed_and_signed_to_buzz",
+          "retrieved_anchors": [
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:221]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:375]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:72]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:217]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:349]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:409]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            },
+            {
+              "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:209]",
+              "requested_parts": [],
+              "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+            }
+          ],
+          "runtime_name": "LM Studio llama.cpp",
+          "runtime_version": "2.28.2",
+          "source_classification": "public_filing_corpus",
+          "source_provenance": {
+            "accuracy_release_evidence": false,
+            "binding_sha256": "c32f92853d910f4a3b59505fc2310806c70599b0d841e5dc89aa1cfa5389aefc",
+            "buyer_evidence": false,
+            "classification": "public_filing_corpus",
+            "customer_data_verified": false,
+            "manifest_bound": true,
+            "operator_selected": false,
+            "public_snapshot_sha256": "a56dfd42b98fa36eedd7c4532fa4dd74ba8f87fbca99189576f1ec03c0a840e8",
+            "public_source": true,
+            "public_source_count": 1,
+            "synthetic_fixture": false,
+            "version": "room_source_provenance_v1"
+          },
+          "source_provenance_sha256": "c32f92853d910f4a3b59505fc2310806c70599b0d841e5dc89aa1cfa5389aefc",
+          "source_snapshot_sha256": "e9739c4ceff2f19e67d621b1d40f239e9742f0ad19c7611cf20974fde184724c",
+          "source_snapshot_state": "stable",
+          "time_to_first_token_seconds": 26.068437999999997,
+          "tokens_per_second": 34.220395907902976
+        },
+        "model_name": "27b@q1_0",
+        "prompt_tokens": 3705,
+        "query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft? Cite the PDF page.",
+        "response": "- **answer**: The CMA found that the Merger would result in an SLC in cloud gaming services but not in console gaming services; it estimated Microsoft's cloud gaming market share at 60-70%. [microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+        "routed_tier": "LOCAL_BONSAI_27B",
+        "session_id": "local_fcc02710f5ab",
+        "spans": [],
+        "timestamp": 1786862910.677432,
+        "total_energy_mwh": null,
+        "total_latency_ms": 28219.711583922617,
+        "total_tokens": 3767,
+        "trace_id": "trc_b50e529415eb",
+        "vram_peak_gb": null
+      },
+      "trace_integrity_passed": true
+    }
+  ],
+  "execution_benchmark_sha256": "bfd26f0d59a3962e319fd7ff6a2560331d9911c03fdcc74aa834dcc4c2da2037",
+  "limitations": [
+    "This proves signed product delivery and exact saved-response linkage, not semantic accuracy or usefulness.",
+    "The relay was live when this artifact was recorded; offline verification uses the embedded raw events.",
+    "The registered development cases still require qualified blinded human review."
+  ],
+  "owner_pubkey": "ea0bb8b19b572f3882c1c605ddfe2ef322ba202b83e060a837376ff2d7eae4ca",
+  "passed": true,
+  "persistence": "buzz_signed_event_log",
+  "recorded_at_unix": 1786863077.3411882,
+  "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+  "relay_live_at_recording": true,
+  "responses_sha256": "9a6ceab24ba079ff3c1dfe4782135cbd5514786907180b28c4b3dc80b21c2d25",
+  "schema": "prism.public_deal_buzz_event_verification.v3"
+}

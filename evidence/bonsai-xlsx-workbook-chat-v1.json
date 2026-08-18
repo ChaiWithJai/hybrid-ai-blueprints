@@ -1,0 +1,89 @@
+{
+  "verification_kind": "live_xlsx_structural_product_smoke",
+  "schema_version": "1.0",
+  "recorded_at": "2026-08-15T12:38:41.360561+00:00",
+  "passed": true,
+  "measurement_state": "structural_guard_passed_awaiting_domain_review",
+  "accuracy_release_passed": false,
+  "room": "local_bbfa4e91f7ee",
+  "canonical_path": "/rooms/local_bbfa4e91f7ee/discussion?event=09d73b05b7cf5b68aa68a16b7d320ce861808de6030492bf4640e9186ba0296f",
+  "source": {
+    "filename": "Pricing_Workbook.xlsx",
+    "operator_selected_original": "/Users/jaibhagat/Downloads/PrismML GTM Workbook.xlsx",
+    "live_temporary_copy": "/private/tmp/prismml-xlsx-dealroom.vdJHKP/Pricing_Workbook.xlsx",
+    "bytes": 62654,
+    "sha256": "5e6ce879cc694bbfcd7d9030446fca6c09492c53cef50e5e158d6672b240eab3",
+    "sheet_count": 8,
+    "cached_formula_cell_count": 60,
+    "uncached_formula_cell_count": 0,
+    "formatted_numeric_cell_count": 50,
+    "unsupported_number_format_cell_count": 42,
+    "citation": "[Pricing_Workbook.xlsx#xlsx:sheet:3]",
+    "observed_value": "9997.2%",
+    "raw_cell_value": "99.97222222",
+    "format_code": "0.0%"
+  },
+  "runtime": {
+    "provider_id": "local_bonsai",
+    "model_name": "27b@q1_0",
+    "routed_tier": "LOCAL_BONSAI_27B",
+    "protocol": "lmstudio_native_chat",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "fitted_context_tokens": 16384
+  },
+  "observed_trace": {
+    "trace_id": "trc_a941c0ec2c72",
+    "question": "Report the stored first-year ROI for the ML Platform scenario. Use the exact admitted workbook citation and explicitly say the formula is cached and was not recalculated.",
+    "response": "- **answer**: First-year ROI for the ML Platform scenario is 9997.2% [Pricing_Workbook.xlsx#xlsx:sheet:3]. Cached formulas were not recalculated.",
+    "response_sha256": "be5e8e5cdd3b4709fa249ecfd17410cdbacbe1680035cfa27b994694f58e3948",
+    "result_state": "guard_passed_and_signed_to_buzz",
+    "inference_attempts": 1,
+    "prompt_tokens": 4926,
+    "completion_tokens": 42,
+    "total_tokens": 4968,
+    "total_latency_ms": 37953.060999978334,
+    "time_to_first_token_seconds": 36.449597000000004,
+    "question_event_id": "d728eda0c6d0ad67c70124c9f8892364a8ba28aacca3f5146150cb355da24641",
+    "answer_event_id": "09d73b05b7cf5b68aa68a16b7d320ce861808de6030492bf4640e9186ba0296f",
+    "publication_guard_passed": true,
+    "human_accuracy_review_passed": false
+  },
+  "browser_observation": {
+    "engine": "chromium",
+    "signature_state": "verified",
+    "citation_button_visible": true,
+    "citation_target": "/rooms/local_bbfa4e91f7ee/files?source=Pricing_Workbook.xlsx&anchor=xlsx%3Asheet%3A3",
+    "source_preview_value_visible": true,
+    "cached_formula_boundary_visible": true,
+    "verified_after_prism_restart": true,
+    "console_error_count": 0
+  },
+  "failure_then_repair": {
+    "rejected_trace_id": "trc_f413f7300a29",
+    "rejected_claim": "99.97222222%",
+    "cause": "The parser exposed the stored numeric value but ignored the cell's 0.0% style, so the model invented a percent rendering that was absent from admitted evidence.",
+    "guard_behavior": "The draft stayed in the local trace and Prism published a separate signed rejection state instead of an answer.",
+    "repair": "The parser now preserves raw values and applies a bounded audited number-format subset. Unsupported formats remain raw and are counted."
+  },
+  "assertions": [
+    {"name": "exact_source_hash_bound", "passed": true},
+    {"name": "raw_value_and_format_preserved", "passed": true},
+    {"name": "cached_formula_boundary_disclosed", "passed": true},
+    {"name": "publication_guard_passed", "passed": true},
+    {"name": "answer_signed_to_buzz", "passed": true},
+    {"name": "exact_citation_opened_in_browser", "passed": true},
+    {"name": "source_preview_value_matched_answer", "passed": true},
+    {"name": "signed_answer_restored_after_prism_restart", "passed": true},
+    {"name": "browser_console_clean", "passed": true},
+    {"name": "domain_accuracy_review", "passed": false}
+  ],
+  "limitations": [
+    "This is one operator-selected workbook and one question, not a benchmark or domain-accuracy result.",
+    "The source was copied into a temporary folder and is not a repository-owned reproducible corpus artifact.",
+    "Prism used cached formula values and did not recalculate the workbook.",
+    "Only a bounded subset of number formats is implemented; 42 numeric cells used unsupported formats and remained raw.",
+    "No Excel, LibreOffice, or independent calculation oracle was used to verify workbook parity.",
+    "No deal-domain reviewer has approved the answer.",
+    "Energy, VRAM, and network egress were not measured."
+  ]
+}

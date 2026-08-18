@@ -1,0 +1,135 @@
+{
+  "verification_kind": "synthetic_pricing_poc_completion_browser_fixture",
+  "recorded_at": "2026-08-16T11:40:51.599Z",
+  "passed": true,
+  "synthetic_buyer_fixture": true,
+  "buyer_evidence_recorded": false,
+  "pricing_poc_passed": false,
+  "base_url": "http://127.0.0.1:8787",
+  "assertions": [
+    {
+      "name": "fixture_banner_visible",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_downloaded",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_has_no_buyer_attestation",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_has_no_buyer_authorization",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_passes_browser_contract",
+      "passed": true
+    },
+    {
+      "name": "two_distinct_source_hashes",
+      "passed": true
+    },
+    {
+      "name": "setup_and_transfer_roles_preserved",
+      "passed": true
+    },
+    {
+      "name": "post_use_prices_ordered",
+      "passed": true
+    },
+    {
+      "name": "fixture_key_is_public_only",
+      "passed": true
+    },
+    {
+      "name": "download_does_not_submit",
+      "passed": true
+    },
+    {
+      "name": "fixture_does_not_change_server_evidence",
+      "passed": true
+    }
+  ],
+  "fixture_unsigned_record": {
+    "schema_version": 1,
+    "poc_id": "fixture-pricing-poc-001",
+    "status": "completed",
+    "recorded_at": "2026-08-16T11:40:51.459Z",
+    "buyer": {
+      "buyer_id": "fixture-buyer-001",
+      "workflow_owner_role": "fixture workflow owner",
+      "economic_buyer_role": "fixture economic buyer",
+      "budget_authority_confirmed": true,
+      "buyer_pubkey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "success_contract": {
+      "buyer_effort_committed": true,
+      "authorized_source_access": true,
+      "success_criteria_approved": true,
+      "poc_paid": true,
+      "paid_amount_usd": 5000
+    },
+    "package_hypothesis": {
+      "value_unit": "accepted_first_pass_review_per_deal_room",
+      "deployment": "customer_controlled_local",
+      "included_review_allowance": 2,
+      "collaboration_included": true,
+      "policy_controls_included": true,
+      "deployment_support_included": true
+    },
+    "deals": [
+      {
+        "deal_id": "fixture-setup",
+        "experiment_role": "setup_and_correction",
+        "closed_historical": true,
+        "private_folder": true,
+        "source_snapshot_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "historical_review_minutes": 240,
+        "prism_review_minutes": 120,
+        "useful_starting_point": true,
+        "accepted_review": true,
+        "critical_corrections": 1
+      },
+      {
+        "deal_id": "fixture-transfer",
+        "experiment_role": "transfer_without_case_specific_change",
+        "closed_historical": true,
+        "private_folder": true,
+        "source_snapshot_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "historical_review_minutes": 200,
+        "prism_review_minutes": 100,
+        "useful_starting_point": true,
+        "accepted_review": true,
+        "critical_corrections": 0
+      }
+    ],
+    "price_research": {
+      "asked_after_use": true,
+      "currency": "USD",
+      "value_unit": "accepted_first_pass_review_per_deal_room",
+      "acceptable_price": 1000,
+      "expensive_price": 2500,
+      "prohibitively_expensive_price": 5000
+    },
+    "next_step": {
+      "decision": "agreed_paid_next_step",
+      "paid_amount_usd": 10000,
+      "declined_reason": null
+    }
+  },
+  "fixture_unsigned_record_sha256": "f985bd1b659d932d710846ec7617b6b5b1c07aaece43c0df92f934d5173dd004",
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-pricing-poc-completion-fixture-v1.png",
+    "bytes": 528574,
+    "sha256": "7b354daa4c4b033a3adededbd3cc3e02160239c15281e7c977b3cbd2a2208468"
+  },
+  "limitations": [
+    "The buyer identity, authority, keys, deal hashes, timings, and prices are synthetic browser fixture data.",
+    "This proves unsigned record construction only. It does not publish an authority or buyer event, record customer evidence, establish willingness to pay, or prove revenue."
+  ]
+}

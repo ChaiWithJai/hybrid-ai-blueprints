@@ -1,0 +1,499 @@
+{
+  "verification_kind": "replayable_source_review_browser_check",
+  "recorded_at": "2026-08-16T10:10:41.555Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "assertions": [
+    {
+      "name": "source_gate_truth",
+      "passed": true
+    },
+    {
+      "name": "approval_gate_truth",
+      "passed": true
+    },
+    {
+      "name": "registration_gate_truth",
+      "passed": true
+    },
+    {
+      "name": "calibration_gate_truth",
+      "passed": true
+    },
+    {
+      "name": "release_gate_truth",
+      "passed": true
+    },
+    {
+      "name": "ten_decision_count_visible",
+      "passed": true
+    },
+    {
+      "name": "ten_decision_cards_visible",
+      "passed": true
+    },
+    {
+      "name": "ten_decision_api_matches_surface",
+      "passed": true
+    },
+    {
+      "name": "governance_receipt_count_visible",
+      "passed": true
+    },
+    {
+      "name": "governance_unconfigured_truth",
+      "passed": true
+    },
+    {
+      "name": "governance_matrix_geometry",
+      "passed": true
+    },
+    {
+      "name": "governance_material_hashes_visible",
+      "passed": true
+    },
+    {
+      "name": "governance_private_key_not_requested",
+      "passed": true
+    },
+    {
+      "name": "attestation_boundary",
+      "passed": true
+    },
+    {
+      "name": "oracle_summary_truth",
+      "passed": true
+    },
+    {
+      "name": "oracle_citrix_regression",
+      "passed": true
+    },
+    {
+      "name": "oracle_cma_persistent_failure",
+      "passed": true
+    },
+    {
+      "name": "whole_corpus_absence_audit_visible",
+      "passed": true
+    },
+    {
+      "name": "no_preselected_decision",
+      "passed": true
+    },
+    {
+      "name": "no_preselected_answer_policy",
+      "passed": true
+    },
+    {
+      "name": "unsigned_export_closed_without_roster",
+      "passed": true
+    },
+    {
+      "name": "unconfigured_authority_visible",
+      "passed": true
+    },
+    {
+      "name": "pipeline_api_matches_surface",
+      "passed": true
+    },
+    {
+      "name": "packet_binding_matches_api",
+      "passed": true
+    },
+    {
+      "name": "all_release_task_families_have_review_leads",
+      "passed": true
+    },
+    {
+      "name": "two_cross_document_question_families_are_visible",
+      "passed": true
+    },
+    {
+      "name": "multi_document_draft_has_two_hash_bound_sources",
+      "passed": true
+    },
+    {
+      "name": "multi_document_sources_visible",
+      "passed": true
+    },
+    {
+      "name": "multi_document_evidence_from_both_sources_visible",
+      "passed": true
+    }
+  ],
+  "observed_pipeline": {
+    "source_review": {
+      "submission_count": 0,
+      "eligible_count": 0,
+      "rejected_count": 0,
+      "disagreement_count": 0,
+      "pending_count": 319,
+      "validation_passed": true
+    },
+    "case_approval": {
+      "roster_authority_state": "unconfigured",
+      "active_domain_case_owner_count": 0,
+      "recorded_approval_count": 0,
+      "unregistered_approval_count": 0,
+      "registered_approval_count": 0,
+      "storage": "hash_chained_content_addressed_signed_approval_ledger"
+    },
+    "registration": {
+      "ledger_valid": true,
+      "candidate_cases_registered": 0,
+      "total_cases_registered": 5,
+      "total_deals_registered": 3
+    },
+    "calibration": {
+      "reviewer_roster_authority_state": "unconfigured",
+      "evaluator_available": true,
+      "registered_case_count": 0,
+      "registered_deal_count": 0,
+      "required_case_count": 20,
+      "required_deal_count": 5,
+      "qualified_output_reviewer_count": 0,
+      "principal_output_reviewer_count": 0,
+      "evidence_state": "not_recorded",
+      "calibration_passed": false,
+      "errors": []
+    },
+    "release": {
+      "accuracy_release_ready": false,
+      "domain_approved_cases": 0,
+      "target_cases": 120,
+      "target_deals": 30,
+      "blocker_count": 18
+    },
+    "buzz_review_channel": {
+      "configured": true,
+      "channel_id": "c706e2d1-25aa-4897-b28d-e8ffae80ad20",
+      "signature_verification": "nip01_event_id_plus_bip340"
+    },
+    "governance": {
+      "configured": false,
+      "valid": true,
+      "receipt_count": 0,
+      "required_receipt_count": 12,
+      "signature_verification": "nip01_event_id_plus_bip340_material_bound",
+      "root_authority_id": null,
+      "roles": [
+        {
+          "role": "product_owner",
+          "actor_id": null,
+          "actor_pubkey": null
+        },
+        {
+          "role": "domain_owner",
+          "actor_id": null,
+          "actor_pubkey": null
+        },
+        {
+          "role": "strategy_owner",
+          "actor_id": null,
+          "actor_pubkey": null
+        },
+        {
+          "role": "security_owner",
+          "actor_id": null,
+          "actor_pubkey": null
+        }
+      ],
+      "scopes": [
+        {
+          "scope": "benchmark_contract",
+          "material_sha256": "4b65b196ce58ee1d4d39615e66c2486a845a15ae47f6d932c521250ab46e4210",
+          "verified_role_count": 0,
+          "required_role_count": 4,
+          "roles": [
+            {
+              "role": "product_owner",
+              "approved": false
+            },
+            {
+              "role": "domain_owner",
+              "approved": false
+            },
+            {
+              "role": "strategy_owner",
+              "approved": false
+            },
+            {
+              "role": "security_owner",
+              "approved": false
+            }
+          ]
+        },
+        {
+          "scope": "release_thresholds",
+          "material_sha256": "59ecc2f126e311e6ca3cb3f98957b2e6845ee9eeed2925df0554a6aca70e4954",
+          "verified_role_count": 0,
+          "required_role_count": 4,
+          "roles": [
+            {
+              "role": "product_owner",
+              "approved": false
+            },
+            {
+              "role": "domain_owner",
+              "approved": false
+            },
+            {
+              "role": "strategy_owner",
+              "approved": false
+            },
+            {
+              "role": "security_owner",
+              "approved": false
+            }
+          ]
+        },
+        {
+          "scope": "sealed_test_open",
+          "material_sha256": "8a0e9c6dfa1fec81f6c7bde8ecd959fffaac17f0aaf6a8a22dc0f63e90038272",
+          "verified_role_count": 0,
+          "required_role_count": 4,
+          "roles": [
+            {
+              "role": "product_owner",
+              "approved": false
+            },
+            {
+              "role": "domain_owner",
+              "approved": false
+            },
+            {
+              "role": "strategy_owner",
+              "approved": false
+            },
+            {
+              "role": "security_owner",
+              "approved": false
+            }
+          ]
+        }
+      ],
+      "authority_boundary": "The checked-in trust root is local configuration. Each promotion receipt must still be signed by its assigned role over the exact benchmark material hash."
+    },
+    "benchmark_decisions": {
+      "decision_count": 10,
+      "release_satisfied_count": 0,
+      "all_release_satisfied": false,
+      "decisions": [
+        {
+          "number": 1,
+          "key": "job_under_certification",
+          "title": "Job under certification",
+          "state": "awaiting_owner_approval",
+          "release_satisfied": false,
+          "evidence": "Produce an evidence-backed first pass underwriting brief from an authorized M&A folder and a stated investment screen so a private equity deal professional can decide whether to advance, pause, or stop review.",
+          "blocker": "Signed, material-bound product and domain owner approvals are missing."
+        },
+        {
+          "number": 2,
+          "key": "label_authority",
+          "title": "Label authority",
+          "state": "awaiting_qualified_reviewers",
+          "release_satisfied": false,
+          "evidence": "0 source reviewers, 0 source principals, 0 output reviewers, 0 output principals",
+          "blocker": "Signed authorities and qualified independent reviewers are missing."
+        },
+        {
+          "number": 3,
+          "key": "error_severity",
+          "title": "Error severity",
+          "state": "contract_only",
+          "release_satisfied": false,
+          "evidence": "0 of 5 cases have domain approval.",
+          "blocker": "Domain owners have not approved case severity and expected results."
+        },
+        {
+          "number": 4,
+          "key": "dataset_size_and_coverage",
+          "title": "Dataset size and coverage",
+          "state": "dataset_incomplete",
+          "release_satisfied": false,
+          "evidence": "5 of 120 cases across 3 of 30 deals.",
+          "blocker": "Registered case, deal, task family, or required slice coverage is incomplete."
+        },
+        {
+          "number": 5,
+          "key": "leakage_control",
+          "title": "Leakage control",
+          "state": "sealed_set_unavailable",
+          "release_satisfied": false,
+          "evidence": "0 sealed cases. Controller state: not_authorized. Preflight: blocked.",
+          "blocker": "The full sealed test preflight is blocked before external bytes are read."
+        },
+        {
+          "number": 6,
+          "key": "model_roles",
+          "title": "Model roles",
+          "state": "roles_incomplete",
+          "release_satisfied": false,
+          "evidence": "Judge calibration: not_recorded. Human labels remain authoritative.",
+          "blocker": "Independent human labels and judge calibration are incomplete."
+        },
+        {
+          "number": 7,
+          "key": "failure_localization",
+          "title": "Failure localization",
+          "state": "engineering_diagnostic_only",
+          "release_satisfied": false,
+          "evidence": "Five development cases have a recomputed oracle context diagnostic.",
+          "blocker": "Semantic localization lacks calibrated human labels."
+        },
+        {
+          "number": 8,
+          "key": "private_data_and_evaluation_records",
+          "title": "Private data and evaluation records",
+          "state": "private_pilot_not_recorded",
+          "release_satisfied": false,
+          "evidence": "Signed private pilot evidence: not_recorded.",
+          "blocker": "No authorized buyer signed private deal room record exists."
+        },
+        {
+          "number": 9,
+          "key": "required_comparisons",
+          "title": "Required comparisons",
+          "state": "engineering_comparison_only",
+          "release_satisfied": false,
+          "evidence": "The deterministic baseline and local Bonsai engineering comparison exist.",
+          "blocker": "No frozen, labeled release comparison exists."
+        },
+        {
+          "number": 10,
+          "key": "release_thresholds",
+          "title": "Release thresholds",
+          "state": "thresholds_unapproved",
+          "release_satisfied": false,
+          "evidence": "Signed threshold approvals: False. Accuracy release: False.",
+          "blocker": "Threshold approval, calibration, or the release contract is incomplete."
+        }
+      ],
+      "meaning": "Each decision reports current evidence and its next blocker. A contract or engineering diagnostic does not count as human or release evidence."
+    }
+  },
+  "observed_oracle_diagnostic": {
+    "verification_state": "validated_saved_engineering_diagnostic",
+    "passed": true,
+    "engineering_diagnostic_completed": true,
+    "eligible_case_count": 5,
+    "completed_case_count": 5,
+    "semantic_accuracy_state": "unverified",
+    "accuracy_release_passed": false,
+    "localization_counts": {
+      "deterministic_failure_persists_with_registered_oracle_context": 2,
+      "no_deterministic_baseline_failure": 2,
+      "oracle_context_regressed_deterministic_contract": 1
+    },
+    "errors": [],
+    "oracle_probe_pass_count": 2,
+    "cases": [
+      {
+        "case_id": "anaplan_vdr_timeline",
+        "eligible": true,
+        "localization": "no_deterministic_baseline_failure",
+        "baseline_probe_passed": true,
+        "oracle_probe_passed": true,
+        "oracle_response": "Anaplan opened its virtual data room on March 12, 2022 [01_anaplan_defm14a.htm#html:block:00484]. The materials contained detailed financial, operational and legal diligence documents as well as the first draft of the Merger Agreement. The intensive diligence period ended on March 20, 2022 [01_anaplan_defm14a.htm#html:block:00484].",
+        "missing_citations": [],
+        "missing_registered_numbers": [],
+        "absence_phrase_policy_passed": null,
+        "absence_audit": null,
+        "reason": null
+      },
+      {
+        "case_id": "anaplan_termination_fees",
+        "eligible": true,
+        "localization": "no_deterministic_baseline_failure",
+        "baseline_probe_passed": true,
+        "oracle_probe_passed": true,
+        "oracle_response": "Based on the provided source passage:\n\n*   **Company termination fee:** $293,122,500 [01_anaplan_defm14a.htm#html:block:00207]\n*   **Reverse termination fee:** $586,245,000 [01_anaplan_defm14a.htm#html:block:00207]",
+        "missing_citations": [],
+        "missing_registered_numbers": [],
+        "absence_phrase_policy_passed": null,
+        "absence_audit": null,
+        "reason": null
+      },
+      {
+        "case_id": "citrix_financing_mix",
+        "eligible": true,
+        "localization": "oracle_context_regressed_deterministic_contract",
+        "baseline_probe_passed": true,
+        "oracle_probe_passed": false,
+        "oracle_response": "Based on the supplied source passage:\n\n*   **Debt:** $15.0 billion\n*   **Preferred Equity:** $2.5 billion\n*   **Common Equity:** $2.275 billion (provided by Elliott)",
+        "missing_citations": [
+          "[02_citrix_financing_supplement.htm#html:block:00058]"
+        ],
+        "missing_registered_numbers": [],
+        "absence_phrase_policy_passed": null,
+        "absence_audit": null,
+        "reason": null
+      },
+      {
+        "case_id": "citrix_entry_leverage_absent",
+        "eligible": true,
+        "localization": "deterministic_failure_persists_with_registered_oracle_context",
+        "baseline_probe_passed": false,
+        "oracle_probe_passed": false,
+        "oracle_response": "not disclosed and cannot be calculated from the cited evidence alone",
+        "missing_citations": [
+          "[02_citrix_financing_supplement.htm#html:block:00058]"
+        ],
+        "missing_registered_numbers": [],
+        "absence_phrase_policy_passed": true,
+        "absence_audit": {
+          "passed": true,
+          "scope": "complete_registered_deal_folder",
+          "source_file_count": 2,
+          "parsed_node_count": 2401,
+          "registered_pattern_count": 3,
+          "direct_disclosure_hit_count": 0,
+          "semantic_accuracy_state": "unverified",
+          "domain_review_status": "not_reviewed"
+        },
+        "reason": null
+      },
+      {
+        "case_id": "cma_competition_conclusion",
+        "eligible": true,
+        "localization": "deterministic_failure_persists_with_registered_oracle_context",
+        "baseline_probe_passed": false,
+        "oracle_probe_passed": false,
+        "oracle_response": "The CMA concluded that the merger may result in a substantial lessening of competition in console gaming services but not in cloud gaming services. For console gaming, it found that Microsoft would not find it financially beneficial to make Activision's Call of Duty exclusive to Xbox after the Merger, and making it available on better terms than PlayStation would not materially harm Sony's ability to compete.\n\nRegarding cloud gaming, the CMA estimated Microsoft already has an estimated 60-70% market share in global cloud gaming services. It concluded that the merger would make Microsoft even stronger and substantially reduce competition in this market, as Activision’s titles will be important for the competitive offering of cloud gaming services.",
+        "missing_citations": [
+          "[microsoft_activision_cma_final_report.pdf#pdf:page:7]"
+        ],
+        "missing_registered_numbers": [
+          "70 percent"
+        ],
+        "absence_phrase_policy_passed": null,
+        "absence_audit": null,
+        "reason": null
+      }
+    ],
+    "meaning": "This localizes literal development-contract behavior. It does not prove semantic accuracy, retrieval fault, model fault, or human usefulness.",
+    "limitations": [
+      "The registered development labels have no domain approval.",
+      "The probe checks literal citation, number, and absence-policy tokens, not semantic accuracy or human usefulness.",
+      "Supplying the registered passage changes context only; it does not prove why the normal system failed.",
+      "The Citrix absence case scans all 2,401 admitted nodes in both registered files against three disclosed direct-disclosure patterns.",
+      "The patterns were written after inspecting the development corpus and do not prove the absence of unregistered synonyms."
+    ]
+  },
+  "source_review_packet_sha256": "61718a6743391e368b022a490de77b78a48f01371d4d31e5c577bd61c8e47fee",
+  "source_review_draft_count": 319,
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-source-review-v1.png",
+    "bytes": 350780,
+    "sha256": "9229877cc284aa4199ff1de9289d75cda3b51a30428ac53f469e70c0a5270d2d"
+  },
+  "limitations": [
+    "This verifies the rendered promotion gates, ten decision states, governance receipt matrix, and closed controls, not domain accuracy.",
+    "The empty reviewer roster is intentional; no human approval is inferred.",
+    "The oracle panel reports literal development-contract probes, not semantic accuracy."
+  ]
+}

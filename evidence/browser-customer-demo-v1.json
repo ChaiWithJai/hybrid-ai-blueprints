@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "verification_kind": "customer_demo_browser_surface.v1",
+  "semantic_state": "current_customer_demo_surface",
+  "recorded_at": "2026-08-18T16:44:29.690Z",
+  "asset_version": "hybrid-eval-lab-v1",
+  "room": "project_titan_lbo",
+  "canonical_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
+  "browser": {
+    "engine": "chromium",
+    "version": "151.0.7922.34",
+    "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+  },
+  "assertions": [
+    {
+      "name": "room_identity_is_clear",
+      "passed": true,
+      "observed": "Project Titan: $2.4B Sponsor-Backed LBO"
+    },
+    {
+      "name": "strategy_state_is_secondary",
+      "passed": true
+    },
+    {
+      "name": "primary_navigation_is_plain",
+      "passed": true,
+      "observed": [
+        "Overview",
+        "Sources",
+        "Activity",
+        "Evaluation"
+      ]
+    },
+    {
+      "name": "retired_programs_are_outside_primary_navigation",
+      "passed": true,
+      "observed": "Overview\nSources\nActivity\nEvaluation"
+    },
+    {
+      "name": "decision_status_has_priority",
+      "passed": true,
+      "observed": {
+        "visible": true,
+        "order": [
+          265.265625,
+          363.265625,
+          484.453125,
+          662.640625,
+          954.640625
+        ],
+        "title": "Not ready to advance",
+        "editor_hidden": true
+      }
+    },
+    {
+      "name": "decision_question_is_specific",
+      "passed": true
+    },
+    {
+      "name": "priority_sources_are_grouped",
+      "passed": true,
+      "observed": [
+        "Debt termsCredit agreementPreview",
+        "Financial modelCash flow and debt paydownPreview",
+        "Sponsor returnsIRR and MoIC sensitivityPreview",
+        "Deal overviewTransaction and capital structurePreview"
+      ]
+    },
+    {
+      "name": "citation_preview_preserves_current_view",
+      "passed": true,
+      "observed": {
+        "url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
+        "source": "02_LBO_Debt_Financing_Credit_Agreement.md",
+        "anchor": "node:node_para_3"
+      }
+    },
+    {
+      "name": "citation_context_reaches_persistent_composer",
+      "passed": true,
+      "observed": {
+        "panel_hidden": "true",
+        "context_visible": true,
+        "context_label": "Debt terms · Paragraph 3",
+        "input_focused": true
+      }
+    },
+    {
+      "name": "citation_preview_opens_exact_full_source",
+      "passed": true,
+      "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=02_LBO_Debt_Financing_Credit_Agreement.md&anchor=node%3Anode_para_3"
+    },
+    {
+      "name": "supported_source_formats_render_semantically",
+      "passed": true,
+      "observed": {
+        "csv_rows": 31,
+        "json_fields": 55
+      }
+    },
+    {
+      "name": "activity_keeps_canonical_room_url",
+      "passed": true,
+      "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/discussion"
+    },
+    {
+      "name": "activity_separates_background_events",
+      "passed": true
+    },
+    {
+      "name": "composer_is_available_in_all_primary_views",
+      "passed": true,
+      "observed": {
+        "Overview": true,
+        "Sources": true,
+        "Activity": true,
+        "Evaluation": true
+      }
+    },
+    {
+      "name": "secondary_views_are_in_room_details",
+      "passed": true
+    },
+    {
+      "name": "required_viewports_have_no_horizontal_overflow",
+      "passed": true,
+      "observed": [
+        {
+          "width": 390,
+          "scroll_width": 390,
+          "selected_view": "Overview"
+        },
+        {
+          "width": 768,
+          "scroll_width": 768,
+          "selected_view": "Overview"
+        },
+        {
+          "width": 1440,
+          "scroll_width": 1440,
+          "selected_view": "Overview"
+        }
+      ]
+    }
+  ],
+  "assertion_count": 16,
+  "viewports": [
+    {
+      "width": 390,
+      "scroll_width": 390,
+      "selected_view": "Overview"
+    },
+    {
+      "width": 768,
+      "scroll_width": 768,
+      "selected_view": "Overview"
+    },
+    {
+      "width": 1440,
+      "scroll_width": 1440,
+      "selected_view": "Overview"
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshots": [
+    {
+      "path": "evidence/browser-customer-demo-desktop-v1.png",
+      "bytes": 168993,
+      "sha256": "6d2833813af358a6f6485d3afa5a230105b7c1f1c2a979039a2dc9ff4b323e7d"
+    },
+    {
+      "path": "evidence/browser-customer-demo-mobile-v1.png",
+      "bytes": 106247,
+      "sha256": "8b2981ed4592a4aaf36c76e9cd037ff1680eefe8f48cd200adb1e6e90d185355"
+    }
+  ],
+  "passed": true,
+  "limitations": [
+    "The browser replay checks the current demo contract. It is not a human usability study.",
+    "The replay does not certify deal accuracy, commercial demand, production security, or browser support outside this Chromium build."
+  ]
+}

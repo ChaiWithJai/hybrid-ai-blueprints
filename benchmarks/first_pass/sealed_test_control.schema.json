@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-sealed-test-control.v1.json",
+  "title": "One-time sealed test opening control",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "benchmark_id",
+    "benchmark_version",
+    "state",
+    "public_manifest",
+    "calibration_result",
+    "frozen_system_verification",
+    "audit_receipt_path"
+  ],
+  "properties": {
+    "schema_version": {"enum": [1]},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "benchmark_version": {"type": "string", "minLength": 1},
+    "state": {"enum": ["not_authorized", "authorized_unopened"]},
+    "public_manifest": {"$ref": "#/$defs/fileBinding"},
+    "calibration_result": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/fileBinding"}
+      ]
+    },
+    "frozen_system_verification": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/fileBinding"}
+      ]
+    },
+    "audit_receipt_path": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "fileBinding": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

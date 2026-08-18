@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pricing proof — Prism Vault</title>
+    <link rel="stylesheet" href="/pricing-poc.css?v=1">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Prism <span>Vault</span></a>
+      <div class="title"><span>Commercial workshop</span><h1>Pricing proof</h1></div>
+      <div class="truth" id="truth-state">Checking buyer evidence</div>
+    </header>
+
+    <main>
+      <nav class="crumbs" aria-label="Benchmark navigation">
+        <a href="/">Workspace</a><span>›</span>
+        <a href="/benchmark/source-review">Source review</a><span>›</span>
+        <a href="/benchmark/case-authoring">Case authoring</a><span>›</span>
+        <a href="/benchmark/output-review">Output review</a><span>›</span>
+        <strong>Pricing proof</strong>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <span class="eyebrow">The decision</span>
+          <h2>Will a real buyer pay for an accepted first pass review?</h2>
+          <p>Run one paid proof of concept on two authorized, closed deal rooms. Use the first to learn. Use the second to measure transfer without case-specific changes.</p>
+        </div>
+        <div class="value-unit">
+          <span>Value unit</span>
+          <strong>One accepted first pass review</strong>
+          <small>for one deal room</small>
+        </div>
+      </section>
+
+      <section class="state-card" aria-labelledby="state-heading">
+        <div>
+          <span class="eyebrow">Current evidence</span>
+          <h2 id="state-heading">No buyer proof recorded</h2>
+          <p id="state-detail">Loading the exact evidence boundary.</p>
+        </div>
+        <div class="state-count"><strong id="gate-count">0/10</strong><span>gates passed</span></div>
+      </section>
+
+      <div class="layout">
+        <section class="gates" aria-labelledby="gates-heading">
+          <div class="section-head"><div><span class="eyebrow">Acceptance contract</span><h2 id="gates-heading">What must be true</h2></div><span class="sealed">Fail closed</span></div>
+          <ol id="gate-list"><li class="loading">Loading product-value gates…</li></ol>
+        </section>
+
+        <aside>
+          <section class="panel">
+            <span class="eyebrow">Experiment order</span>
+            <ol class="sequence">
+              <li><span>1</span><div><strong>Agree before building</strong><p>Buyer, access, effort, success criteria, value unit, and paid POC.</p></div></li>
+              <li><span>2</span><div><strong>Learn on deal one</strong><p>Allow setup and correction. Record every change.</p></div></li>
+              <li><span>3</span><div><strong>Transfer on deal two</strong><p>No case-specific changes. Measure quality and review time.</p></div></li>
+              <li><span>4</span><div><strong>Ask price after use</strong><p>Acceptable, expensive, and prohibitively expensive per accepted review.</p></div></li>
+              <li><span>5</span><div><strong>Record the decision</strong><p>Paid next step or the buyer's concrete reason for declining.</p></div></li>
+            </ol>
+          </section>
+
+          <section class="panel boundary">
+            <span class="eyebrow">Evidence boundary</span>
+            <h2>Public demos do not establish willingness to pay.</h2>
+            <p id="public-boundary"></p>
+            <code id="record-path">evidence/first-pass-pricing-poc.json</code>
+          </section>
+        </aside>
+      </div>
+
+      <section class="record-builder" aria-labelledby="builder-heading">
+        <div class="builder-intro">
+          <span class="eyebrow">Prepare real evidence</span>
+          <h2 id="builder-heading">Build the buyer's unsigned POC record</h2>
+          <p>This form stores pseudonymous IDs, source hashes, measures, and commercial answers. It never asks for source text or a private key. Downloading does not submit or prove anything. A separately configured commercial authority must approve the buyer key through Buzz before the buyer can attest the POC.</p>
+        </div>
+        <form id="pricing-record-form">
+          <fieldset><legend>1. Buyer and paid success contract</legend><div class="form-grid">
+            <label>POC ID<input id="poc-id" required placeholder="poc-customer-001"></label>
+            <label>Pseudonymous buyer ID<input id="buyer-id" required placeholder="buyer-001"></label>
+            <label>Workflow owner role<input id="workflow-owner-role" required placeholder="Private equity vice president"></label>
+            <label>Economic buyer role<input id="economic-buyer-role" required placeholder="Private equity partner"></label>
+            <label class="wide">Buyer Buzz public key<input id="buyer-pubkey" required maxlength="64" pattern="[a-fA-F0-9]{64}" placeholder="64 hexadecimal characters"></label>
+            <label>Paid POC amount, USD<input id="paid-amount" type="number" min="0" step="0.01"></label>
+            <label>Deployment<select id="deployment" required><option value="">Choose deployment</option><option value="customer_controlled_local">Customer-controlled local</option><option value="customer_approved_hybrid">Customer-approved hybrid</option></select></label>
+            <label>Included review allowance<input id="review-allowance" type="number" min="1" step="1" required></label>
+          </div><div class="checks">
+            <label><input id="budget-authority" type="checkbox">Budget authority confirmed</label>
+            <label><input id="buyer-effort" type="checkbox">Buyer effort committed</label>
+            <label><input id="authorized-access" type="checkbox">Authorized source access</label>
+            <label><input id="success-approved" type="checkbox">Success criteria approved</label>
+            <label><input id="poc-paid" type="checkbox">POC is paid</label>
+            <label><input id="collaboration-included" type="checkbox">Collaboration included</label>
+            <label><input id="policy-included" type="checkbox">Policy controls included</label>
+            <label><input id="support-included" type="checkbox">Deployment support included</label>
+          </div></fieldset>
+
+          <fieldset><legend>2. Two closed private deal rooms</legend><div class="deal-grid">
+            <section class="deal-form" data-deal="setup"><span class="deal-role">Setup and correction</span>
+              <label>Deal ID<input data-field="deal-id" required></label><label>Source snapshot SHA-256<input data-field="source-hash" maxlength="64" required></label>
+              <div class="form-grid compact"><label>Historical minutes<input data-field="historical-minutes" type="number" min="0.01" step="0.01" required></label><label>Prism minutes<input data-field="prism-minutes" type="number" min="0" step="0.01" required></label><label>Critical corrections<input data-field="critical-corrections" type="number" min="0" step="1" required></label></div>
+              <div class="checks"><label><input data-field="closed" type="checkbox">Closed historical deal</label><label><input data-field="private" type="checkbox">Private folder</label><label><input data-field="useful" type="checkbox">Useful starting point</label><label><input data-field="accepted" type="checkbox">Accepted review</label></div>
+            </section>
+            <section class="deal-form" data-deal="transfer"><span class="deal-role">Transfer without case-specific change</span>
+              <label>Deal ID<input data-field="deal-id" required></label><label>Source snapshot SHA-256<input data-field="source-hash" maxlength="64" required></label>
+              <div class="form-grid compact"><label>Historical minutes<input data-field="historical-minutes" type="number" min="0.01" step="0.01" required></label><label>Prism minutes<input data-field="prism-minutes" type="number" min="0" step="0.01" required></label><label>Critical corrections<input data-field="critical-corrections" type="number" min="0" step="1" required></label></div>
+              <div class="checks"><label><input data-field="closed" type="checkbox">Closed historical deal</label><label><input data-field="private" type="checkbox">Private folder</label><label><input data-field="useful" type="checkbox">Useful starting point</label><label><input data-field="accepted" type="checkbox">Accepted review</label></div>
+            </section>
+          </div></fieldset>
+
+          <fieldset><legend>3. Ask price after use and record the decision</legend><div class="form-grid">
+            <label>Acceptable price<input id="acceptable-price" type="number" min="0.01" step="0.01"></label>
+            <label>Expensive price<input id="expensive-price" type="number" min="0.01" step="0.01"></label>
+            <label>Prohibitively expensive price<input id="prohibitive-price" type="number" min="0.01" step="0.01"></label>
+            <label>Next step<select id="next-step" required><option value="">Choose decision</option><option value="agreed_paid_next_step">Agreed paid next step</option><option value="declined">Declined</option></select></label>
+            <label>Paid next-step amount<input id="next-step-amount" type="number" min="0.01" step="0.01"></label>
+            <label class="wide">Concrete decline reason<textarea id="declined-reason" rows="3"></textarea></label>
+          </div><div class="checks"><label><input id="asked-after-use" type="checkbox">Price questions were asked after use</label></div></fieldset>
+
+          <div class="builder-action"><div><strong>Download only</strong><p>First render and publish the authority approval. Then publish and restore both exact events with <code>scripts/publish_pricing_poc.py</code>.</p></div><button type="submit">Download unsigned POC record</button></div>
+          <p id="builder-status" class="builder-status" role="status"></p>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="/pricing-poc.mjs?v=1"></script>
+  </body>
+</html>

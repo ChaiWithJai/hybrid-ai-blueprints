@@ -1,0 +1,58 @@
+{
+  "verification_kind": "replayable_folder_preview_browser_check",
+  "recorded_at": "2026-08-15T21:43:08.718Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "folder_fixture": "deal_rooms/sample_ma_acquisition",
+  "preview": {
+    "preview_state": "ready",
+    "preview_sha256": "be6f0a81ca0b631df9373c9c3c138815608dea0a6f532b1b834ae4babc310085",
+    "room_id": "local_0b30e0507fb9",
+    "document_count": 4,
+    "warning_count": 0,
+    "buzz_write_performed": false,
+    "room_registered": false,
+    "source_inventory_sha256": "82064d8ef8f2f0907dc15c85cbacfb86970edfcf19c1753d120ea72fe2a7affd"
+  },
+  "room_ids_before_sha256": "bca04d18b2ea759f18068b3a21156a6b4c5cf2ceee30eacb8d643b7240eb4428",
+  "room_ids_after_sha256": "bca04d18b2ea759f18068b3a21156a6b4c5cf2ceee30eacb8d643b7240eb4428",
+  "assertions": [
+    {
+      "name": "preview_is_first_action",
+      "passed": true
+    },
+    {
+      "name": "preview_api_is_read_only",
+      "passed": true
+    },
+    {
+      "name": "content_hash_is_bound",
+      "passed": true
+    },
+    {
+      "name": "supported_inventory_visible",
+      "passed": true
+    },
+    {
+      "name": "no_publish_boundary_visible",
+      "passed": true
+    },
+    {
+      "name": "creation_requires_second_action",
+      "passed": true
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-folder-preview-v1.png",
+    "bytes": 62732,
+    "sha256": "98df49ba797732f4d984b8dd1ba7b7a5171b4ca2022f22738884f61ec04780c1"
+  },
+  "limitations": [
+    "This uses a repository engineering fixture, not a customer deal room.",
+    "It verifies preview and non-publication behavior. It does not measure model quality.",
+    "The browser check intentionally stops before creating a Buzz room."
+  ]
+}

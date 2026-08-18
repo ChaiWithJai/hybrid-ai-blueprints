@@ -1,0 +1,63 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 3,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786793614.968069,
+  "dataset_sha256": "1a3c14b48aef39767438c1038022c71c3cb04a18497b78364b74e88dd9935ff5",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 0,
+  "pass_rate": 0.0,
+  "mean_accuracy": 1.0,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 26803.83,
+  "cases": [
+    {
+      "case_id": "aeroflux_accretion",
+      "passed": false,
+      "accuracy": 1.0,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:eps",
+        "concept:accretion",
+        "concept:synergy",
+        "numeric:pro_forma_eps",
+        "numeric:accretion_percent",
+        "numeric:cost_synergy"
+      ],
+      "missing_terms": [],
+      "forbidden_hits": [
+        "CFIUS",
+        "Antitrust"
+      ],
+      "cited_sources": [
+        "01_Stock_Purchase_Agreement.md",
+        "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_eda394a1b5bd",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 26803.83,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "Source Filenames: ['01_Stock_Purchase_Agreement.md', '02_Consolidated_MultiCurrency_Financials_EUR_USD.csv']\nDeal/Project Identifier: PROJECT AEROFLUX\nBuyer Standalone EPS: $2.79\nPro-Forma EPS: $3.31\nEPS Accretion: +18.8%\nCost Synergies (Adjusted EBITDA): $42.5M USD\nRevenue Synergies: $17.3M USD\n\nRegulatory & Covenant Status:\nEuropean Commission Antitrust: PASS (No divestiture > \u20ac25M annual revenue required)\nCFIUS Clearance: PENDING (Joint voluntary notice filed; no breach reported)\nFrench FDI Authorization: PENDING (Written authorization required under Art. L. 151-3)\n\nMaterial Adverse Effect (MAE) Policy Compliance:\nCurrency Volatility Exclusion: PASS (FX changes excluded per Section 3.01)\nIndustry-Wide Supply Chain Disruptions: PASS (Excluded per Section 3.01)\nGeneral Economic Conditions: PASS (Excluded per Section 3.01)\n\nLeverage Check:\nPro-Forma Net Debt to Adjusted EBITDA Ratio: 1.93x\nLevage Threshold: PASS (\u2264 1.93x safe leverage per evidence)",
+      "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used\nSOURCE_FILES = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\nDEAL_PROJECT_ID = \"PROJECT AEROFLUX\"\n\n# Direct numeric literals from evidence\nBUYER_DILUTED_SHARES_M = 120.0\nBUYER_NET_INCOME_USD_M = 334.9\nPROFORMA_DILUTED_SHARES_M = 126.8\nPROFORMA_NET_INCOME_USD_M = 420.3\nCOST_SYNERGIES_USD_M = 42.5\nREVENUE_SYNERGIES_USD_M = 17.3\n\n# Calculate buyer standalone EPS\nBUYER_STANDALONE_EPS = BUYER_NET_INCOME_USD_M / BUYER_DILUTED_SHARES_M\n\n# Calculate pro-forma EPS\nPROFORMA_EPS = PROFORMA_NET_INCOME_USD_M / PROFORMA_DILUTED_SHARES_M\n\n# Calculate accretion percentage\nACCRETION_PCT = (PROFORMA_EPS / BUYER_STANDALONE_EPS - 1) * 100.0\n\n# Print results\nprint(f\"Source Filenames: {SOURCE_FILES}\")\nprint(f\"Deal/Project Identifier: {DEAL_PROJECT_ID}\")\nprint(f\"Buyer Standalone EPS: ${BUYER_STANDALONE_EPS:.2f}\")\nprint(f\"Pro-Forma EPS: ${PROFORMA_EPS:.2f}\")\nprint(f\"EPS Accretion: +{ACCRETION_PCT:.1f}%\")\nprint(f\"Cost Synergies (Adjusted EBITDA): ${COST_SYNERGIES_USD_M:.1f}M USD\")\nprint(f\"Revenue Synergies: ${REVENUE_SYNERGIES_USD_M:.1f}M USD\")\n\n# Regulatory/Covenant checks from evidence\nprint(\"\\nRegulatory & Covenant Status:\")\nprint(\"European Commission Antitrust: PASS (No divestiture > \u20ac25M annual revenue required)\")\nprint(\"CFIUS Clearance: PENDING (Joint voluntary notice filed; no breach reported)\")\nprint(\"French FDI Authorization: PENDING (Written authorization required under Art. L. 151-3)\")\n\n# MAE Policy Check\nprint(\"\\nMaterial Adverse Effect (MAE) Policy Compliance:\")\nprint(\"Currency Volatility Exclusion: PASS (FX changes excluded per Section 3.01)\")\nprint(\"Industry-Wide Supply Chain Disruptions: PASS (Excluded per Section 3.01)\")\nprint(\"General Economic Conditions: PASS (Excluded per Section 3.01)\")\n\n# Leverage Check\nPROFORMA_NET_DEBT_USD_M = 1594.4\nPROFORMA_ADJUSTED_EBITDA_USD_M = 826.2\nLEVERAGE_RATIO = PROFORMA_NET_DEBT_USD_M / PROFORMA_ADJUSTED_EBITDA_USD_M\n\nprint(f\"\\nLeverage Check:\")\nprint(f\"Pro-Forma Net Debt to Adjusted EBITDA Ratio: {LEVERAGE_RATIO:.2f}x\")\nprint(\"Levage Threshold: PASS (\u2264 1.93x safe leverage per evidence)\")"
+    }
+  ]
+}

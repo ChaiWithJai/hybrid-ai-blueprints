@@ -1,0 +1,44 @@
+{
+  "document_id": "REG-DISCL-2026-004",
+  "entity_name": "Apex Industrial Holdings LLC",
+  "target_entity": "NovaTech Dynamics Inc.",
+  "filing_date": "2026-01-15",
+  "airgap_classification": "TOP_SECRET_COMMERCIAL_NDA",
+  "antitrust_review": {
+    "jurisdiction": "United States FTC / DOJ",
+    "hsr_filing_required": true,
+    "transaction_value_usd": 140000000,
+    "statutory_threshold_usd": 119500000,
+    "filing_status": "FILED_WAITING_PERIOD_ACTIVE",
+    "early_termination_requested": true,
+    "substantive_overlap_risk": "LOW"
+  },
+  "foreign_investment_cfius": {
+    "cfius_mandatory_declaration": false,
+    "critical_technology_export_classification": "EAR99",
+    "foreign_ownership_percentage": 0.0
+  },
+  "sanctions_and_export_controls": {
+    "ofac_sdn_list_screened": true,
+    "adverse_findings": 0,
+    "fcpa_anti_corruption_audit": "COMPLIANT_NO_EXPOSURE",
+    "last_audit_date": "2025-11-30"
+  },
+  "environmental_and_labor": {
+    "phase_1_environmental_esa": "NO_RECOGNIZED_ENVIRONMENTAL_CONDITIONS",
+    "collective_bargaining_agreements": 0,
+    "unfunded_pension_liabilities_usd": 0
+  },
+  "ip_and_material_litigation": {
+    "quantum_sensor_infringement_claim_usd": 12500000,
+    "section_4_02_lender_notice_delivered": true,
+    "notice_delivery_date": "2025-12-22",
+    "estimated_settlement_reserve_usd": 3200000
+  },
+  "pro_forma_covenant_summary": {
+    "required_lender_waiver_obtained": false,
+    "pro_forma_leverage_ratio": 3.42,
+    "covenant_limit": 3.25,
+    "equity_cure_amount_required_usd": 15000000
+  }
+}

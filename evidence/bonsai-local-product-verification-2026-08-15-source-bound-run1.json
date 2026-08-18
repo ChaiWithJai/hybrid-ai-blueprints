@@ -1,0 +1,1504 @@
+{
+  "verification_kind": "evidence_based_product_check",
+  "runtime": "local",
+  "engineering_source_manifest": {
+    "kind": "engineering_verifier_source_manifest_v1",
+    "sha256": "2fb94dcbab7b3e095e51f66372c048433ec1bf43e941e7eef19b8152263f7fe1",
+    "file_count": 153
+  },
+  "component_tests": {
+    "passed": false,
+    "tests_run": 231,
+    "tests_skipped": 0,
+    "required_reality_tests_present": true,
+    "missing_required_reality_tests": {}
+  },
+  "unsupported_claim_scan": {
+    "passed": true,
+    "violations": []
+  },
+  "frontend_contract": {
+    "passed": true,
+    "violations": [],
+    "javascript_syntax": "passed"
+  },
+  "cold_restart_evidence": {
+    "passed": false,
+    "record": "evidence/bonsai-cold-restart.json",
+    "verification_artifact": "evidence/bonsai-local-product-verification-cold-restart.json",
+    "before_pid": 64322,
+    "after_pid": 27605,
+    "errors": [
+      "post-restart engineering evidence: engineering evidence has no source manifest"
+    ],
+    "limitations": [
+      "This proves one current-dataset cold restart and repeat run on the recorded workstation, not clean-machine portability.",
+      "LM Studio's models API advertises the model maximum of 262,144 tokens while the observed llama-server command uses --fit-ctx 16384. This run does not prove a 262,144-token workload.",
+      "No VRAM, power, energy, egress, or hardened-isolation claim was measured.",
+      "The four benchmark cases are synthetic engineering regressions without deal-domain approval."
+    ]
+  },
+  "current_local_engineering_evidence": {
+    "passed": false,
+    "record": "evidence/bonsai-local-product-verification-current.json",
+    "dataset_sha256": "99b1df7a9fd4561a4e514fc7edb1c57a11e4ab4675a86bf047ec61cb29cbb94f",
+    "passed_cases": 4,
+    "total_cases": 4,
+    "model": "27b@q1_0",
+    "errors": [
+      "engineering evidence has no source manifest"
+    ],
+    "limitations": [
+      "This is a four-case synthetic engineering regression, not a deal-domain accuracy release.",
+      "Restart reproduction is validated separately against the canonical cold-restart record."
+    ]
+  },
+  "first_pass_product_evidence": {
+    "passed": true,
+    "record": "evidence/bonsai-first-pass-titan-v7.json",
+    "trace_id": "trc_c16aa77253ce",
+    "draft_event_id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+    "human_review_state": "pending",
+    "accuracy_release_passed": false,
+    "errors": [],
+    "limitations": [
+      "This record proves a trace-linked Buzz product artifact, not domain accuracy.",
+      "Interactive browser behavior is not replayed by this recorder.",
+      "The source set is synthetic and its expected conclusions lack domain-owner approval."
+    ]
+  },
+  "operator_review_restart_evidence": {
+    "passed": true,
+    "record": "evidence/operator-review-restart-anaplan-v1.json",
+    "room": "local_a6f2e0313e17",
+    "trace_id": "trc_e730c75ee888",
+    "review_event_id": "1a9e3b46cdbaac5fdde36467581adb5d80c2f8a432baffc001d5a12cd86fbf9e",
+    "canvas_event_id": "4755e5b75fbbd12cd215435496293ba99e1e1a0c6c6877bd9fc4b04b8da85c6b",
+    "review_predates_server_process": true,
+    "benchmark_domain_review": false,
+    "accuracy_release_passed": false,
+    "errors": [],
+    "limitations": [
+      "The action is a local operator durability smoke review, not domain review.",
+      "The review does not assess the accuracy or usefulness of the fallback.",
+      "The source is a public SEC filing, not a private virtual data room."
+    ]
+  },
+  "first_pass_development_evidence": {
+    "passed": true,
+    "record": "evidence/bonsai-first-pass-public-development-v1.json",
+    "deal_count": 3,
+    "registered_question_count": 5,
+    "acceptance_states": {
+      "anaplan_2022": "evidence_safe_fallback",
+      "citrix_2022": "evidence_safe_fallback",
+      "microsoft_activision_2023": "evidence_safe_fallback"
+    },
+    "accuracy_release_passed": false,
+    "errors": [],
+    "limitations": [
+      "These are three inspected public dossiers, not private virtual data rooms.",
+      "The run tests full first-pass delivery but does not score semantic accuracy.",
+      "The registered questions and model failure history were previously inspected.",
+      "No domain owner reviewed the generated briefs."
+    ]
+  },
+  "browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-first-pass-v7.json",
+    "trace_id": "trc_c16aa77253ce",
+    "draft_event_id": "5f66ef5717fc76af3304768f47800302b7e041449b8805803a4a3f2e47bb1b8b",
+    "assertion_count": 15,
+    "browser": {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    },
+    "screenshot": {
+      "path": "evidence/browser-first-pass-v7.png",
+      "bytes": 252644,
+      "sha256": "1e9bf7941a0de59511ee3921d7128bf19cf7832fc09245ffd118ceab5fc1d884"
+    },
+    "errors": [],
+    "limitations": [
+      "This replays the local Titan surface on one Chrome build, not cross-browser compatibility.",
+      "It verifies rendering and navigation, not deal-domain accuracy or accessibility conformance."
+    ]
+  },
+  "real_deal_browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-real-deal-zendesk-v1.json",
+    "room": "local_c25b83f3e1e2",
+    "answer_event_id": "168d8eee8eed77fd8599f9fd77d25ca217c742e4998a835f148150d3596fa297",
+    "source_sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d",
+    "assertion_count": 21,
+    "accuracy_release_passed": false,
+    "screenshot": {
+      "path": "evidence/browser-real-deal-zendesk-v1.png",
+      "bytes": 230428,
+      "sha256": "9920767ff1cdb4265d532c846b541fa62a0e62358c5c9911d0689f0b251ba25d"
+    },
+    "errors": [],
+    "limitations": [
+      "This is one public SEC filing and one named extraction task, not a domain accuracy release.",
+      "It verifies one Chromium build, not cross-browser or accessibility conformance.",
+      "The four-part answer passed a structural publication guard. It has not received domain review and is not an accuracy release."
+    ]
+  },
+  "xlsx_workbook_chat_evidence": {
+    "passed": true,
+    "record": "evidence/bonsai-xlsx-workbook-chat-v2.json",
+    "trace_id": "trc_e17854df2941",
+    "answer_event_id": "e2e4dd53c46fa59e19c0c5c004ab1330ce5bf2a8d0eec837747db1506c93069c",
+    "rejection_event_id": "7d03467ffc1f3f453d2a4d5778e523ed93daff21d90cc3e96ba8037ffe0d5fb9",
+    "source_sha256": "5e6ce879cc694bbfcd7d9030446fca6c09492c53cef50e5e158d6672b240eab3",
+    "accuracy_release_passed": false,
+    "errors": [],
+    "limitations": [
+      "This is one workbook and two live prompts, not the versioned domain benchmark.",
+      "The accepted answer has not been approved by a deal-domain reviewer.",
+      "Prism used stored cached formula values and did not recalculate the workbook.",
+      "The source is a temporary local folder registration, not a repository-owned corpus artifact.",
+      "Generic direct Buzz ACP response behavior did not pass and is not part of the required v0 surface.",
+      "Artifact identity, hardware, runtime version, energy, VRAM, network egress, and clean physical machine reproduction were not measured in this run."
+    ]
+  },
+  "xlsx_display_fidelity_benchmark": {
+    "benchmark_id": "prism_xlsx_display_fidelity_v1",
+    "measurement_state": "spec_derived_parser_regression_not_excel_parity",
+    "dataset_sha256": "450672a5d35a148dca25f969ccec87b0e8d82a0df85278af13e1636e10601107",
+    "total_cases": 9,
+    "passed_cases": 9,
+    "pass_rate": 1.0,
+    "passed": true,
+    "cases": [
+      {
+        "case_id": "fixed_decimal",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "12.35",
+        "observed_display": "12.35"
+      },
+      {
+        "case_id": "grouped_decimal",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "1,234,567.80",
+        "observed_display": "1,234,567.80"
+      },
+      {
+        "case_id": "currency",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "$1,234.50",
+        "observed_display": "$1,234.50"
+      },
+      {
+        "case_id": "cached_percent_formula",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "9997.2%",
+        "observed_display": "9997.2%"
+      },
+      {
+        "case_id": "percentage_literal",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "25.7%",
+        "observed_display": "25.7%"
+      },
+      {
+        "case_id": "multiple_suffix",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "6.39x",
+        "observed_display": "6.39x"
+      },
+      {
+        "case_id": "unsupported_date",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "45292",
+        "observed_display": "45292"
+      },
+      {
+        "case_id": "unsupported_scientific",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "1250000",
+        "observed_display": "1250000"
+      },
+      {
+        "case_id": "uncached_formula",
+        "passed": true,
+        "checks": {
+          "cell_present": true,
+          "raw_value": true,
+          "display_value": true,
+          "number_format": true,
+          "formatting_state": true,
+          "formula": true,
+          "calculation_state": true
+        },
+        "expected_display": "[formula not calculated] =B2*2",
+        "observed_display": "[formula not calculated] =B2*2"
+      }
+    ],
+    "limitations": [
+      "This benchmark checks Prism's declared bounded formatting subset, not full Excel display parity.",
+      "It does not execute or recalculate formulas.",
+      "Expected displays are preregistered test data, not output from Excel or LibreOffice.",
+      "Dates, scientific notation, multi-section formats, bracketed formats, locale rules, and conditional formats remain unsupported."
+    ]
+  },
+  "local_deployment_evidence": {
+    "passed": true,
+    "record": "evidence/local-deployment-current.json",
+    "measurement_state": "current_host_artifacts_and_process_measured",
+    "model": "27b@q1_0",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "artifact_count": 2,
+    "runtime_version": "2.28.2",
+    "effective_config": {
+      "bind_host": "127.0.0.1",
+      "bind_port": "58583",
+      "fitted_context_length": "16384",
+      "parallel_slots": "4",
+      "key_cache_type": "f16",
+      "value_cache_type": "f16",
+      "flash_attention": "on",
+      "load_mode": "mmap+mlock"
+    },
+    "hardware": {
+      "machine_model": "Mac17,8",
+      "chip_type": "Apple M5 Pro",
+      "physical_memory": "48 GB"
+    },
+    "catalog_size_matches_artifact": false,
+    "errors": [],
+    "limitations": [
+      "This identifies the artifacts and active backend on one host at one time; it is not clean-machine reproduction.",
+      "The LM Studio catalog byte count differs from the filesystem byte count and is recorded rather than normalized away.",
+      "The process command is reduced to an allowlist; API keys and unknown arguments are not stored.",
+      "Artifact identity and runtime configuration do not prove model quality, power use, VRAM use, or network isolation."
+    ]
+  },
+  "live_inference_concurrency_evidence": {
+    "passed": true,
+    "record": "evidence/live-inference-concurrency-v1.json",
+    "trace_id": "trc_1d249fee777f",
+    "request_duration_ms": 3816.708,
+    "probe_count": 29,
+    "max_status_latency_ms": 145.178,
+    "errors": [],
+    "limitations": [
+      "This proves status responsiveness during one real local inference request, not a load or soak test.",
+      "The accepted answer passed a structural publication guard and remains unverified for domain accuracy.",
+      "Signed-event booleans come from the independently signature-checking Buzz bridge; raw-event checks are covered by separate evidence.",
+      "The 2,000 ms status threshold is a prototype responsiveness guard, not a production service-level objective."
+    ]
+  },
+  "operator_preflight_evidence": {
+    "passed": true,
+    "record": "evidence/operator-preflight-current.json",
+    "phase": "live",
+    "required_check_count": 11,
+    "model": "Bonsai 27B",
+    "deployment_metadata_complete": false,
+    "errors": [],
+    "limitations": [
+      "This checks the current host only. It does not prove a clean physical machine setup.",
+      "A loaded model proves availability, not artifact identity, quality, or performance.",
+      "LM Studio API context metadata does not prove the backend's effective fitted context or a workload at that length.",
+      "Loopback endpoints do not prove zero egress or an air gap.",
+      "Optional deployment metadata is required separately before benchmark claims."
+    ]
+  },
+  "accessibility_browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-accessibility-zendesk-v1.json",
+    "room": "local_c25b83f3e1e2",
+    "answer_event_id": "168d8eee8eed77fd8599f9fd77d25ca217c742e4998a835f148150d3596fa297",
+    "assertion_count": 18,
+    "semantic_state": "accessibility_smoke_pass_not_conformance",
+    "browser": {
+      "engine": "chromium",
+      "version": "151.0.7922.34",
+      "executable": "/Users/jaibhagat/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    },
+    "screenshot": {
+      "path": "evidence/browser-accessibility-zendesk-v1.png",
+      "bytes": 95302,
+      "sha256": "08a1f2e157d20c4d0b4db3f66d9b4f4d2b3cb33561f43d1f380d0d25fd3b1d8d"
+    },
+    "errors": [],
+    "limitations": [
+      "This is an automated keyboard and semantic smoke check, not WCAG conformance or assistive-technology review.",
+      "It covers one Chromium build and two viewport sizes, not cross-browser behavior.",
+      "It does not assess the deal-domain accuracy of the displayed answer."
+    ]
+  },
+  "cross_browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-cross-engine-zendesk-v1.json",
+    "room": "local_c25b83f3e1e2",
+    "answer_event_id": "168d8eee8eed77fd8599f9fd77d25ca217c742e4998a835f148150d3596fa297",
+    "engine_count": 2,
+    "engines": [
+      {
+        "engine": "firefox",
+        "version": "153.0",
+        "assertion_count": 8,
+        "screenshot": {
+          "path": "evidence/browser-cross-engine-zendesk-firefox-v1.png",
+          "bytes": 120803,
+          "sha256": "b5cb00edfeb0cb714e802501a4b6faac575a345057c0026dd8c545eef1aae33c"
+        }
+      },
+      {
+        "engine": "webkit",
+        "version": "26.5",
+        "assertion_count": 8,
+        "screenshot": {
+          "path": "evidence/browser-cross-engine-zendesk-webkit-v1.png",
+          "bytes": 119056,
+          "sha256": "e5c92654f5d994664c573ec9ee95998e9725e6580d0f88d58a9fb520b4059d64"
+        }
+      }
+    ],
+    "assertion_count": 16,
+    "semantic_state": "firefox_and_webkit_pass_not_safari_or_accuracy",
+    "errors": [],
+    "limitations": [
+      "The check covers Playwright Firefox and WebKit builds. It does not test Safari, Chrome, Edge, or installed user extensions.",
+      "The check covers one signed answer path and is not WCAG conformance or assistive technology review.",
+      "The check does not assess deal-domain accuracy."
+    ]
+  },
+  "source_review_browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-source-review-v1.json",
+    "assertion_count": 9,
+    "accuracy_release_passed": false,
+    "screenshot": {
+      "path": "evidence/browser-source-review-v1.png",
+      "bytes": 365518,
+      "sha256": "4c5de1b19c66cc49e1b3f6d8c8b219672d0a7338cb246b8fb01d375b93393bea"
+    },
+    "errors": [],
+    "limitations": [
+      "This verifies the rendered promotion gates and closed controls, not domain accuracy.",
+      "The empty reviewer roster is intentional; no human approval is inferred."
+    ]
+  },
+  "case_authoring_browser_surface_evidence": {
+    "passed": true,
+    "record": "evidence/browser-case-authoring-v1.json",
+    "assertion_count": 7,
+    "accuracy_release_passed": false,
+    "screenshot": {
+      "path": "evidence/browser-case-authoring-v1.png",
+      "bytes": 200831,
+      "sha256": "ecb7b1bd952419eff5a86cb72aa926262406b7d2d55238dc5bf675132c28c300"
+    },
+    "errors": [],
+    "limitations": [
+      "This verifies the rendered empty gate and unsigned export boundary, not domain accuracy.",
+      "No source reviews or case approvals have been created by this browser check."
+    ]
+  },
+  "first_pass_benchmark_contract": {
+    "verification_kind": "first_pass_benchmark_contract",
+    "structural_passed": true,
+    "release_ready": false,
+    "files": {
+      "manifest": {
+        "path": "benchmarks/first_pass/benchmark_manifest.v2.json",
+        "sha256": "8f63035bf747b4baa8c1c2ec8f5f176384246f3789a873d25856c77e85708802"
+      },
+      "registry": {
+        "path": "benchmarks/first_pass/development_registry.v2.json",
+        "sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7"
+      },
+      "case_schema": {
+        "path": "benchmarks/first_pass/case.schema.json",
+        "sha256": "aace892c448732bab65d9107fa32fe9a334c6c9c265e81b34c6c9b95fc681b32"
+      },
+      "rubric": {
+        "path": "benchmarks/first_pass/rubric.v1.json",
+        "sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5"
+      },
+      "source_manifest": {
+        "path": "benchmarks/public_deal_corpus_manifest.json",
+        "sha256": "f564d4b123fc364bbf53608b7cf54d94b414f8994c88379eadf6d132f9429440"
+      },
+      "source_evidence": {
+        "path": "evidence/public-deal-corpus-verification-v2.json",
+        "sha256": "89d87ca9e44ce2f49b64add6b3bb7c273db43417c191d273a83908ee90774284"
+      },
+      "candidate_sources": {
+        "path": "benchmarks/first_pass/candidate_deal_sources.v1.json",
+        "sha256": "d8db6195ebee48a0d47af20976cdc4acf56a68f55db69df1cc469ca2196b9bc4"
+      },
+      "candidate_question_drafts": {
+        "path": "benchmarks/first_pass/candidate_question_drafts.v1.json",
+        "sha256": "7d5c053ab13a31665252046ddd3e06905a2ddfdf7419eed5126f2a97030aec76"
+      },
+      "source_reviewer_roster": {
+        "path": "benchmarks/first_pass/source_reviewer_roster.v1.json",
+        "sha256": "3b888908d256d5534a670d40e085b396545735cf18b7adeaf0a535980660f753"
+      },
+      "source_reviewer_roster_schema": {
+        "path": "benchmarks/first_pass/source_reviewer_roster.schema.json",
+        "sha256": "b8a4fca24ec5edbea4f1bbe7b6f0bc0257c239f456e56392cdb62ac42925ef3b"
+      },
+      "output_reviewer_roster": {
+        "path": "benchmarks/first_pass/output_reviewer_roster.v1.json",
+        "sha256": "3b888908d256d5534a670d40e085b396545735cf18b7adeaf0a535980660f753"
+      },
+      "output_reviewer_roster_schema": {
+        "path": "benchmarks/first_pass/output_reviewer_roster.schema.json",
+        "sha256": "d6c2d800c668e43ce492a56cb8bf660c0bc2430ac7e68c66fc1afb5e831492a8"
+      },
+      "candidate_approval_ledger": {
+        "path": "benchmarks/first_pass/candidate_case_approval_records.v1.json",
+        "sha256": "78c6fe68e5536ab39d5132228a6081316c85cd4ab49656cd1851b3c31ab2a292"
+      },
+      "candidate_registration_ledger": {
+        "path": "benchmarks/first_pass/candidate_case_registrations.v1.json",
+        "sha256": "604b8b98a4bb1a85d076736bb5bacf255ce81297ccf959d9497686486d4eda6c"
+      }
+    },
+    "inventory": {
+      "registered_cases": 5,
+      "registered_deals": 3,
+      "development_cases": 5,
+      "calibration_cases": 0,
+      "sealed_test_cases": 0,
+      "domain_approved_cases": 0,
+      "candidate_cases_registered": 0,
+      "candidate_approvals_recorded": 0,
+      "candidate_approvals_unregistered": 0,
+      "candidate_deals_not_acquired": 0,
+      "candidate_deals_acquired_not_registered": 29,
+      "candidate_question_drafts_not_registered": 116,
+      "candidate_deals_with_question_drafts": 29,
+      "sourcing_pipeline_deals": 32,
+      "target_cases": 120,
+      "target_deals": 30,
+      "task_family_counts": {
+        "contract_terms_covenants_and_approvals": 1,
+        "financing_and_capital_structure": 1,
+        "market_and_regulatory_findings": 1,
+        "risks_conflicts_and_missing_information": 1,
+        "transaction_identity_structure_chronology": 1
+      },
+      "slice_counts": {
+        "answer_absence": 1,
+        "tables_or_calculations": 0,
+        "multiple_documents": 0,
+        "conflicting_or_confusable_evidence": 1
+      },
+      "slice_fractions": {
+        "answer_absence": 0.2,
+        "tables_or_calculations": 0.0,
+        "multiple_documents": 0.0,
+        "conflicting_or_confusable_evidence": 0.2
+      }
+    },
+    "structural_errors": [],
+    "release_failures": [
+      "registered cases 5 of 120",
+      "registered deals 3 of 30",
+      "development cases 5 of 60",
+      "calibration cases 0 of 20",
+      "sealed_test cases 0 of 40",
+      "transaction_identity_structure_chronology cases 1 of 10",
+      "purchase_price_and_valuation cases 0 of 20",
+      "financing_and_capital_structure cases 1 of 20",
+      "financial_quality_and_earnings_adjustments cases 0 of 15",
+      "contract_terms_covenants_and_approvals cases 1 of 15",
+      "market_and_regulatory_findings cases 1 of 15",
+      "risks_conflicts_and_missing_information cases 1 of 15",
+      "cross_document_synthesis_and_recommendation cases 0 of 10",
+      "tables_or_calculations fraction 0.0000 below 0.2500",
+      "multiple_documents fraction 0.0000 below 0.4000",
+      "domain approved cases 0 of 5",
+      "product_owner approval is missing",
+      "domain_owner approval is missing",
+      "strategy_owner approval is missing",
+      "security_owner approval is missing",
+      "release thresholds are not approved"
+    ]
+  },
+  "first_pass_development_evaluation": {
+    "verification_kind": "first_pass_development_evaluation",
+    "contract_structural_passed": true,
+    "contract_release_ready": false,
+    "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+    "responses_path": "evidence/bonsai-public-deal-battletest-responses.json",
+    "responses_sha256": "552b337b503e1146948650f1516c6729e9c3a29108e8aa772ad095bb876e06e2",
+    "case_count": 5,
+    "deterministic_failure_count": 1,
+    "semantic_unverified_count": 5,
+    "unauthorized_source_writes": [],
+    "source_state_unchanged": true,
+    "artifact_integrity_passed": true,
+    "signed_delivery_evidence": {
+      "passed": true,
+      "record": "/Users/jaibhagat/Documents/antigravity/eager-lovelace/evidence/public-deal-buzz-event-verification.json",
+      "verified_case_count": 5,
+      "cases": {
+        "anaplan_termination_fees": true,
+        "anaplan_vdr_timeline": true,
+        "citrix_entry_leverage_absent": true,
+        "citrix_financing_mix": true,
+        "cma_competition_conclusion": true
+      },
+      "errors": [],
+      "limitations": [
+        "This proves signed product delivery and exact saved-response linkage, not semantic accuracy or usefulness.",
+        "The relay was live when this artifact was recorded; offline verification uses the embedded raw events.",
+        "The registered development cases still require qualified blinded human review."
+      ]
+    },
+    "label_counts": {
+      "fail": 2,
+      "not_applicable": 5,
+      "pass": 13,
+      "unverified": 20
+    },
+    "accuracy_release_passed": false,
+    "release_blockers": [
+      "Every case lacks approved semantic and usefulness labels.",
+      "registered cases 5 of 120",
+      "registered deals 3 of 30",
+      "development cases 5 of 60",
+      "calibration cases 0 of 20",
+      "sealed_test cases 0 of 40",
+      "transaction_identity_structure_chronology cases 1 of 10",
+      "purchase_price_and_valuation cases 0 of 20",
+      "financing_and_capital_structure cases 1 of 20",
+      "financial_quality_and_earnings_adjustments cases 0 of 15",
+      "contract_terms_covenants_and_approvals cases 1 of 15",
+      "market_and_regulatory_findings cases 1 of 15",
+      "risks_conflicts_and_missing_information cases 1 of 15",
+      "cross_document_synthesis_and_recommendation cases 0 of 10",
+      "tables_or_calculations fraction 0.0000 below 0.2500",
+      "multiple_documents fraction 0.0000 below 0.4000",
+      "domain approved cases 0 of 5",
+      "product_owner approval is missing",
+      "domain_owner approval is missing",
+      "strategy_owner approval is missing",
+      "security_owner approval is missing",
+      "release thresholds are not approved"
+    ],
+    "cases": [
+      {
+        "case_id": "anaplan_vdr_timeline",
+        "case_version": "2.0.0",
+        "answer_model": {
+          "provider": "local_bonsai",
+          "served_id": "27b@q1_0"
+        },
+        "response_sha256": "a101fd6daf109ca28c54ce66f56d39522b67152fa5b16b040f56c7073150056e",
+        "evaluations": [
+          {
+            "dimension": "source_integrity",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+            "evaluator": "deterministic_citation_token_v1"
+          },
+          {
+            "dimension": "numerical_correctness",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All registered numeric tokens are present.",
+            "evaluator": "deterministic_numeric_token_v1"
+          },
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "not_applicable",
+            "score": null,
+            "severity": "critical",
+            "critique": "The case does not require an answer absence decision.",
+            "evaluator": "deterministic_absence_guard_v1"
+          },
+          {
+            "dimension": "workflow_reliability",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+            "evaluator": "deterministic_signed_delivery_guard_v2"
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          }
+        ],
+        "deterministic_hard_failure": false,
+        "semantic_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "release_decision": "unverified"
+      },
+      {
+        "case_id": "anaplan_termination_fees",
+        "case_version": "2.0.0",
+        "answer_model": {
+          "provider": "local_bonsai",
+          "served_id": "27b@q1_0"
+        },
+        "response_sha256": "41c0c43367f4baa448ecf10cf13c59f78a93fac03ff01e60ad90e2415985f0fe",
+        "evaluations": [
+          {
+            "dimension": "source_integrity",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+            "evaluator": "deterministic_citation_token_v1"
+          },
+          {
+            "dimension": "numerical_correctness",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All registered numeric tokens are present.",
+            "evaluator": "deterministic_numeric_token_v1"
+          },
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "not_applicable",
+            "score": null,
+            "severity": "critical",
+            "critique": "The case does not require an answer absence decision.",
+            "evaluator": "deterministic_absence_guard_v1"
+          },
+          {
+            "dimension": "workflow_reliability",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+            "evaluator": "deterministic_signed_delivery_guard_v2"
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          }
+        ],
+        "deterministic_hard_failure": false,
+        "semantic_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "release_decision": "unverified"
+      },
+      {
+        "case_id": "citrix_financing_mix",
+        "case_version": "2.0.0",
+        "answer_model": {
+          "provider": "local_bonsai",
+          "served_id": "27b@q1_0"
+        },
+        "response_sha256": "944d1eaf67ab80dd1d89f262e6948f68297bafaeeb3c66a4ef1f408e651de9ae",
+        "evaluations": [
+          {
+            "dimension": "source_integrity",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+            "evaluator": "deterministic_citation_token_v1"
+          },
+          {
+            "dimension": "numerical_correctness",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All registered numeric tokens are present.",
+            "evaluator": "deterministic_numeric_token_v1"
+          },
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "not_applicable",
+            "score": null,
+            "severity": "critical",
+            "critique": "The case does not require an answer absence decision.",
+            "evaluator": "deterministic_absence_guard_v1"
+          },
+          {
+            "dimension": "workflow_reliability",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+            "evaluator": "deterministic_signed_delivery_guard_v2"
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          }
+        ],
+        "deterministic_hard_failure": false,
+        "semantic_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "release_decision": "unverified"
+      },
+      {
+        "case_id": "citrix_entry_leverage_absent",
+        "case_version": "2.0.0",
+        "answer_model": {
+          "provider": "local_bonsai",
+          "served_id": "27b@q1_0"
+        },
+        "response_sha256": "21e34491154c6dee0aa00401bc524f4d30e0776bc66f5172df274cdde1d2447d",
+        "evaluations": [
+          {
+            "dimension": "source_integrity",
+            "label": "fail",
+            "score": 0.0,
+            "severity": "critical",
+            "critique": "Missing citations: ['[02_citrix_financing_supplement.htm#html:block:00058]']",
+            "evaluator": "deterministic_citation_token_v1"
+          },
+          {
+            "dimension": "numerical_correctness",
+            "label": "not_applicable",
+            "score": null,
+            "severity": "critical",
+            "critique": "No registered numeric fact for deterministic matching.",
+            "evaluator": "deterministic_numeric_token_v1"
+          },
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "fail",
+            "score": 0.0,
+            "severity": "critical",
+            "critique": "Required absence language is missing or a forbidden claim appears: []",
+            "evaluator": "deterministic_absence_guard_v1"
+          },
+          {
+            "dimension": "workflow_reliability",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+            "evaluator": "deterministic_signed_delivery_guard_v2"
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          }
+        ],
+        "deterministic_hard_failure": true,
+        "semantic_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "release_decision": "unverified"
+      },
+      {
+        "case_id": "cma_competition_conclusion",
+        "case_version": "2.0.0",
+        "answer_model": {
+          "provider": "local_bonsai",
+          "served_id": "27b@q1_0"
+        },
+        "response_sha256": "b9362cd3d42cac8b104ad828f8139e88f37f192a0270000a68a98a724f26b995",
+        "evaluations": [
+          {
+            "dimension": "source_integrity",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All required citation tokens are present and their registered anchors have verified source evidence.",
+            "evaluator": "deterministic_citation_token_v1"
+          },
+          {
+            "dimension": "numerical_correctness",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "All registered numeric tokens are present.",
+            "evaluator": "deterministic_numeric_token_v1"
+          },
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "not_applicable",
+            "score": null,
+            "severity": "critical",
+            "critique": "The case does not require an answer absence decision.",
+            "evaluator": "deterministic_absence_guard_v1"
+          },
+          {
+            "dimension": "workflow_reliability",
+            "label": "pass",
+            "score": 1.0,
+            "severity": "critical",
+            "critique": "The owner question and agent answer match independently verified raw Buzz events.",
+            "evaluator": "deterministic_signed_delivery_guard_v2"
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "unverified",
+            "score": null,
+            "severity": "critical",
+            "critique": "No approved human label exists for this semantic dimension.",
+            "evaluator": "human_label_required_v1"
+          }
+        ],
+        "deterministic_hard_failure": false,
+        "semantic_state": "unverified",
+        "domain_review_status": "not_reviewed",
+        "release_decision": "unverified"
+      }
+    ]
+  },
+  "human_review_packet": {
+    "passed": true,
+    "record": "evidence/first-pass-human-review-packet-v2.json",
+    "packet_sha256": "34a114d8f25056536fa9a8f5e250bbeb63f13e1c70fc8dab3696e54e01704b42",
+    "case_count": 5,
+    "blinded_to_model": true,
+    "review_submissions_received": 0,
+    "active_output_reviewer_count": 0,
+    "active_output_principal_count": 0,
+    "reviewer_roster_ready": false,
+    "errors": []
+  },
+  "candidate_source_review_boundary": {
+    "passed": true,
+    "packet_record": "evidence/candidate-source-review-packet-v1.json",
+    "validation_record": "evidence/candidate-source-review-validation-v1.json",
+    "packet_sha256": "3a38a3a6696e55c0826ad4bb0efea831fc5a081ed32513535b89755038a5166c",
+    "candidate_deal_count": 29,
+    "draft_count": 116,
+    "review_submissions_received": 0,
+    "eligible_for_case_authoring_count": 0,
+    "benchmark_cases_registered": 0,
+    "promotion_ready": false,
+    "errors": []
+  },
+  "benchmark": {
+    "benchmark_name": "Prism Vault deal-room reliability baseline",
+    "benchmark_version": 3,
+    "runtime": "local",
+    "cloud_context_included": false,
+    "started_at": 1786806375.1261299,
+    "dataset_sha256": "99b1df7a9fd4561a4e514fc7edb1c57a11e4ab4675a86bf047ec61cb29cbb94f",
+    "runtime_evidence": {
+      "provider_id": "local_bonsai",
+      "kind": "local",
+      "configured": true,
+      "model": "27b@q1_0",
+      "endpoint": "http://127.0.0.1:1234",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "protocol": "lmstudio_native_chat"
+    },
+    "total_cases": 4,
+    "passed_cases": 2,
+    "pass_rate": 0.5,
+    "mean_accuracy": 0.8472,
+    "mean_grounding": 0.75,
+    "mean_latency_ms": 31469.78,
+    "cases": [
+      {
+        "case_id": "horizon_ebitda_stress",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:stress_analysis",
+          "concept:leverage",
+          "concept:coverage",
+          "concept:breach_status",
+          "numeric:ten_percent_leverage",
+          "numeric:twenty_percent_leverage",
+          "numeric:twenty_percent_coverage"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Senior_Credit_Agreement.md",
+          "02_Consolidated_Financial_Ledger_2025_2026.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_3b60f4abff56",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 31271.07,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source filenames used: 01_Senior_Credit_Agreement.md, 02_Consolidated_Financial_Ledger_2025_2026.csv\nDeal identifier: NovaTech\nPeriod: Q2-2026\n\nStress: 10.0% EBITDA drop\n  Stressed EBITDA: $22.41M\n  Leverage: 3.7706 (Cap: 3.5, Status: FAIL)\n  Coverage: 3.5016 (Floor: 4.0, Status: FAIL)\n\nStress: 20.0% EBITDA drop\n  Stressed EBITDA: $19.92M\n  Leverage: 4.2420 (Cap: 3.5, Status: FAIL)\n  Coverage: 3.1125 (Floor: 4.0, Status: FAIL)",
+        "observed_generated_code": "import math, json, re\n\ndata = {\n    \"adjusted_ebitda_usd_m\": 24.9,\n    \"cash_interest_expense_usd_m\": 6.4,\n    \"coverage_floor\": 4.0,\n    \"deal_identifier\": \"NovaTech\",\n    \"leverage_cap\": 3.5,\n    \"net_debt_usd_m\": 84.5,\n    \"period\": \"Q2-2026\",\n    \"source_filenames\": [\"01_Senior_Credit_Agreement.md\", \"02_Consolidated_Financial_Ledger_2025_2026.csv\"]\n}\n\nprint(f\"Source filenames used: {', '.join(data['source_filenames'])}\")\nprint(f\"Deal identifier: {data['deal_identifier']}\")\nprint(f\"Period: {data['period']}\")\n\nebitda = data[\"adjusted_ebitda_usd_m\"]\ninterest = data[\"cash_interest_expense_usd_m\"]\nnet_debt = data[\"net_debt_usd_m\"]\ncoverage_floor = data[\"coverage_floor\"]\nleverage_cap = data[\"leverage_cap\"]\n\nscenarios = [0.1, 0.2]\n\nfor drop in scenarios:\n    stressed_ebitda = ebitda * (1 - drop)\n    leverage = net_debt / stressed_ebitda\n    coverage = stressed_ebitda / interest\n    \n    lev_status = \"PASS\" if leverage <= leverage_cap else \"FAIL\"\n    cov_status = \"PASS\" if coverage >= coverage_floor else \"FAIL\"\n    \n    print(f\"\\nStress: {drop*100}% EBITDA drop\")\n    print(f\"  Stressed EBITDA: ${stressed_ebitda:.2f}M\")\n    print(f\"  Leverage: {leverage:.4f} (Cap: {leverage_cap}, Status: {lev_status})\")\n    print(f\"  Coverage: {coverage:.4f} (Floor: {coverage_floor}, Status: {cov_status})\")",
+        "generation_attempts": 1,
+        "rejected_scope_violations": []
+      },
+      {
+        "case_id": "titan_lbo_sweep",
+        "passed": false,
+        "accuracy": 0.5556,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:ecf",
+          "concept:term_loan",
+          "concept:policy_mismatch",
+          "numeric:reported_ecf",
+          "numeric:ending_tlb"
+        ],
+        "missing_terms": [
+          "concept:project",
+          "pattern:project_identifier",
+          "pattern:year1_contract_sweep",
+          "pattern:year2_contract_sweep"
+        ],
+        "forbidden_hits": [],
+        "cited_sources": [],
+        "missing_sources": [
+          "01_Confidential_Information_Memorandum.md",
+          "02_LBO_Debt_Financing_Credit_Agreement.md",
+          "03_Three_Statement_Financial_Model_2024_2028.csv"
+        ],
+        "grounding": 0.0,
+        "trace_id": "trc_f1369def36a4",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 48218.87,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "[\n  {\n    \"period\": \"2026E_LBO_Y1\",\n    \"reported_ecf_sweep_usd_m\": 29.8,\n    \"reported_ending_tlb_usd_m\": 861.2,\n    \"implied_sweep_percent\": 49.92,\n    \"contract_sweep_percent\": 25.0,\n    \"policy_match_status\": \"MODEL_POLICY_MISMATCH\"\n  },\n  {\n    \"period\": \"2027E_LBO_Y2\",\n    \"reported_ecf_sweep_usd_m\": 52.5,\n    \"reported_ending_tlb_usd_m\": 799.7,\n    \"implied_sweep_percent\": 49.95,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MODEL_POLICY_MISMATCH\"\n  },\n  {\n    \"period\": \"2028E_LBO_Y3\",\n    \"reported_ecf_sweep_usd_m\": 80.9,\n    \"reported_ending_tlb_usd_m\": 709.8,\n    \"implied_sweep_percent\": 49.97,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MODEL_POLICY_MISMATCH\"\n  },\n  {\n    \"period\": \"2029E_LBO_Y4\",\n    \"reported_ecf_sweep_usd_m\": 110.5,\n    \"reported_ending_tlb_usd_m\": 590.3,\n    \"implied_sweep_percent\": 50.0,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MODEL_POLICY_MISMATCH\"\n  },\n  {\n    \"period\": \"2030E_LBO_Y5\",\n    \"reported_ecf_sweep_usd_m\": 142.5,\n    \"reported_ending_tlb_usd_m\": 438.8,\n    \"implied_sweep_percent\": 50.0,\n    \"contract_sweep_percent\": 0.0,\n    \"policy_match_status\": \"MODEL_POLICY_MISMATCH\"\n  }\n]",
+        "observed_generated_code": "import math, json, re\n\n# Source filenames used\nsource_filenames = [\"01_Confidential_Information_Memorandum.md\", \"02_LBO_Debt_Financing_Credit_Agreement.md\", \"03_Three_Statement_Financial_Model_2024_2028.csv\"]\ndeal_identifier = \"PROJECT TITAN\"\n\n# Direct numeric literals from evidence\nfirst_lien_net_leverage = [3.25, 2.38, 1.66, 1.07, 0.56]\nfree_cash_flow_pre_debt_service_usd_m = [68.7, 114.1, 170.9, 230.0, 294.0]\nhigh_tier_sweep_percent = 50.0\nhigh_tier_threshold = 4.0\nlow_tier_sweep_percent = 0.0\nmandatory_amortization_usd_m = [9.0, 9.0, 9.0, 9.0, 9.0]\nmid_tier_sweep_percent = 25.0\nmid_tier_threshold = 3.25\nperiods = [\"2026E_LBO_Y1\", \"2027E_LBO_Y2\", \"2028E_LBO_Y3\", \"2029E_LBO_Y4\", \"2030E_LBO_Y5\"]\nreported_ecf_sweep_usd_m = [29.8, 52.5, 80.9, 110.5, 142.5]\nreported_ending_tlb_usd_m = [861.2, 799.7, 709.8, 590.3, 438.8]\n\n# Policy tiers: >4.0 -> 50%, 3.25-4.0 -> 25%, <3.25 -> 0%\ndef get_contract_sweep_percent(leverage):\n    if leverage > high_tier_threshold:\n        return high_tier_sweep_percent\n    elif leverage >= mid_tier_threshold:\n        return mid_tier_sweep_percent\n    else:\n        return low_tier_sweep_percent\n\nresults = []\nfor i in range(len(periods)):\n    period = periods[i]\n    reported_sweep = reported_ecf_sweep_usd_m[i]\n    reported_ending_tlb = reported_ending_tlb_usd_m[i]\n    fcf_pre = free_cash_flow_pre_debt_service_usd_m[i]\n    amort = mandatory_amortization_usd_m[i]\n    leverage = first_lien_net_leverage[i]\n\n    # Implied ECF sweep percent\n    denominator = fcf_pre - amort\n    if denominator > 0:\n        implied_sweep_percent = (reported_sweep / denominator) * 100.0\n    else:\n        implied_sweep_percent = 0.0\n\n    contract_sweep_percent = get_contract_sweep_percent(leverage)\n\n    # Policy match status\n    if abs(implied_sweep_percent - contract_sweep_percent) < 0.5:\n        policy_match_status = \"PASS\"\n    else:\n        policy_match_status = \"MODEL_POLICY_MISMATCH\"\n\n    results.append({\n        \"period\": period,\n        \"reported_ecf_sweep_usd_m\": reported_sweep,\n        \"reported_ending_tlb_usd_m\": reported_ending_tlb,\n        \"implied_sweep_percent\": round(implied_sweep_percent, 2),\n        \"contract_sweep_percent\": contract_sweep_percent,\n        \"policy_match_status\": policy_match_status\n    })\n\nprint(json.dumps(results, indent=2))",
+        "generation_attempts": 1,
+        "rejected_scope_violations": []
+      },
+      {
+        "case_id": "aeroflux_accretion",
+        "passed": false,
+        "accuracy": 0.8333,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:eps",
+          "concept:accretion",
+          "concept:synergy",
+          "numeric:pro_forma_eps",
+          "numeric:accretion_percent",
+          "numeric:cost_synergy",
+          "numeric:revenue_synergy",
+          "pattern:cost_synergy_labeled",
+          "pattern:revenue_synergy_labeled"
+        ],
+        "missing_terms": [
+          "pattern:buyer_eps_labeled",
+          "pattern:pro_forma_eps_labeled"
+        ],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Stock_Purchase_Agreement.md",
+          "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_239b35aa8ce8",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 30626.73,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source filenames: ['01_Stock_Purchase_Agreement.md', '02_Consolidated_MultiCurrency_Financials_EUR_USD.csv']\nDeal identifier: PROJECT AEROFLUX\nBuyer standalone EPS ($/share): 2.7908\nPro forma EPS ($/share): 3.3147\nEPS accretion percent: 18.77%\nCost synergies: $42.5M USD\nRevenue synergies: $17.3M USD",
+        "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used for this calculation\nsource_filenames = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\n\n# Deal identifier found in evidence\ndeal_identifier = \"PROJECT AEROFLUX\"\n\n# Direct numeric literals copied from typed inputs (values are in millions of USD)\nbuyer_diluted_shares_m = 120.0\nbuyer_net_income_usd_m = 334.9\ncost_synergies_usd_m = 42.5\nrevenue_synergies_usd_m = 17.3\nproforma_diluted_shares_m = 126.8\nproforma_net_income_usd_m = 420.3\n\n# Calculate buyer standalone EPS (dollars per share, not millions)\nbuyer_standalone_eps_usd_per_share = buyer_net_income_usd_m / buyer_diluted_shares_m\n\n# Calculate pro-forma EPS (dollars per share, not millions)\nproforma_eps_usd_per_share = proforma_net_income_usd_m / proforma_diluted_shares_m\n\n# Calculate EPS accretion percent\neps_accretion_percent = (proforma_eps_usd_per_share / buyer_standalone_eps_usd_per_share - 1) * 100\n\n# Print results\nprint(f\"Source filenames: {source_filenames}\")\nprint(f\"Deal identifier: {deal_identifier}\")\nprint(f\"Buyer standalone EPS ($/share): {buyer_standalone_eps_usd_per_share:.4f}\")\nprint(f\"Pro forma EPS ($/share): {proforma_eps_usd_per_share:.4f}\")\nprint(f\"EPS accretion percent: {eps_accretion_percent:.2f}%\")\nprint(f\"Cost synergies: ${cost_synergies_usd_m}M USD\")\nprint(f\"Revenue synergies: ${revenue_synergies_usd_m}M USD\")",
+        "generation_attempts": 1,
+        "rejected_scope_violations": []
+      },
+      {
+        "case_id": "biovanguard_qoe",
+        "passed": true,
+        "accuracy": 1.0,
+        "sandbox_success": true,
+        "matched_terms": [
+          "concept:project",
+          "concept:ebitda",
+          "concept:valuation_multiple",
+          "numeric:clean_ebitda",
+          "numeric:enterprise_value",
+          "numeric:entry_multiple"
+        ],
+        "missing_terms": [],
+        "forbidden_hits": [],
+        "cited_sources": [
+          "01_Transition_Services_Agreement_TSA.md",
+          "02_Standalone_Adjusted_EBITDA_Bridge.csv"
+        ],
+        "missing_sources": [],
+        "grounding": 1.0,
+        "trace_id": "trc_cd8e9df119bc",
+        "execution_mode": "ai_generated_sandboxed_code",
+        "provider_id": "local_bonsai",
+        "model_name": "27b@q1_0",
+        "latency_ms": 15762.43,
+        "error": null,
+        "evaluation_mode": "structured_tolerance",
+        "observed_output": "Source filenames: 01_Transition_Services_Agreement_TSA.md, 02_Standalone_Adjusted_EBITDA_Bridge.csv\nDeal identifier: PROJECT BIOVANGUARD\nPurchase price (USD M): 620.0\nClean EBITDA (USD M): 70.2\nEntry valuation multiple: 8.83x",
+        "observed_generated_code": "import math\nimport json\nimport re\n\ndeal_id = \"PROJECT BIOVANGUARD\"\ncarveout_ebitda = 59.4\nparent_alloc = 22.0\npurchase_price = 620.0\nnewco_costs = 9.2\nstranded_sc = 2.0\n\nclean_ebitda = carveout_ebitda + parent_alloc - newco_costs - stranded_sc\nentry_multiple = purchase_price / clean_ebitda\n\nprint(f\"Source filenames: 01_Transition_Services_Agreement_TSA.md, 02_Standalone_Adjusted_EBITDA_Bridge.csv\")\nprint(f\"Deal identifier: {deal_id}\")\nprint(f\"Purchase price (USD M): {purchase_price}\")\nprint(f\"Clean EBITDA (USD M): {clean_ebitda}\")\nprint(f\"Entry valuation multiple: {entry_multiple:.2f}x\")",
+        "generation_attempts": 1,
+        "rejected_scope_violations": []
+      }
+    ]
+  },
+  "provider_status": [
+    {
+      "provider_id": "local_bonsai",
+      "kind": "local",
+      "configured": true,
+      "model": "27b@q1_0",
+      "endpoint": "http://127.0.0.1:1234",
+      "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+      "runtime_name": "LM Studio llama.cpp",
+      "runtime_version": "2.28.2",
+      "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+      "protocol": "lmstudio_native_chat"
+    },
+    {
+      "provider_id": "cloud_ai",
+      "kind": "cloud",
+      "configured": false,
+      "model": null,
+      "endpoint": null,
+      "artifact_sha256": null,
+      "runtime_name": null,
+      "runtime_version": null,
+      "hardware": null,
+      "protocol": "openai_chat_completions"
+    }
+  ],
+  "external_gates": {
+    "rendered_browser_qa": "replayable Chromium, Firefox, WebKit, and automated accessibility smoke artifacts verified; Safari, Chrome, Edge, assistive-technology review, WCAG conformance, and clean physical-machine reproduction remain unverified",
+    "certified_air_gap": "not implemented",
+    "hardened_multi_tenant_isolation": "not implemented",
+    "measured_bonsai_hardware_performance": "per-case latency measured; VRAM and energy telemetry not implemented",
+    "local_model_deployment_identity": "weights, vision projection, llama.cpp version, effective fitted context, and sanitized hardware identity measured on the current host"
+  },
+  "milestones": {
+    "M0_truthful_baseline": {
+      "passed": false,
+      "evidence": [
+        "component_tests",
+        "unsupported_claim_scan",
+        "frontend_contract"
+      ]
+    },
+    "M1_private_folder_baseline": {
+      "passed": false,
+      "evidence": [
+        "private_folder_http",
+        "source_mutation",
+        "benchmark_negative_control",
+        "benchmark",
+        "preregistered XLSX raw/display/formula-state benchmark",
+        "wrong expected XLSX display negative control"
+      ]
+    },
+    "M2a_live_bonsai_benchmark": {
+      "passed": false,
+      "evidence": [
+        "configured local endpoint",
+        "native reasoning-off protocol",
+        "per-case provider/model IDs",
+        "local benchmark"
+      ]
+    },
+    "M2_reproducible_bonsai_runtime": {
+      "passed": false,
+      "evidence": [
+        "M2a live benchmark",
+        "hash-bound distinct-process cold-restart run"
+      ]
+    },
+    "M6a_replayable_browser_surface": {
+      "passed": true,
+      "evidence": [
+        "frontend static contract",
+        "trace-bound Playwright Core replay",
+        "canonical citation navigation and exact-anchor preview",
+        "screenshot hash and zero browser/HTTP errors"
+      ]
+    },
+    "M6b_real_public_deal_surface": {
+      "passed": true,
+      "evidence": [
+        "one parser-verified SEC DEFM14A source",
+        "source-bounded Bonsai 27B answer in a signed Buzz event",
+        "canonical discussion URL and exact-anchor citation navigation",
+        "four requested deal-term parts passed structural publication guards; accuracy release remains false"
+      ]
+    },
+    "M6e_live_xlsx_chat_surface": {
+      "passed": true,
+      "accuracy_release_passed": false,
+      "evidence": [
+        "one source-hash-bound operator-selected workbook",
+        "raw value and bounded percent display format preserved",
+        "first-attempt Bonsai answer passed the structural guard",
+        "signed Buzz event and exact sheet citation verified in Chromium",
+        "temporary source, formula recalculation, domain review, and benchmark registration remain open"
+      ]
+    },
+    "M6f_same_host_operator_preflight": {
+      "passed": true,
+      "clean_machine_reproduced": false,
+      "evidence": [
+        "required Python, Docker, Compose, Buzz tools, relay, and key permission checks",
+        "LM Studio catalog presence distinguished from an exact loaded Bonsai instance",
+        "native reasoning-off capability observed",
+        "benchmark deployment metadata remains a separate optional startup gate",
+        "same-host check only; clean physical machine reproduction remains open"
+      ]
+    },
+    "M6g_measured_local_deployment": {
+      "passed": true,
+      "clean_machine_reproduced": false,
+      "evidence": [
+        "SHA-256 and byte size verified against the current weights and vision projection files",
+        "exact loaded model identifier and Q1_0 quantization recorded",
+        "sanitized llama.cpp 2.28.2 process configuration records a 16,384-token fitted context",
+        "the active Bonsai process bind host is 127.0.0.1 and its port matches the measured record",
+        "machine model, chip, and memory recorded without a hardware serial number",
+        "LM Studio catalog-size discrepancy preserved instead of normalized away",
+        "quality, energy, VRAM, zero egress, and clean physical-machine reproduction remain open"
+      ]
+    },
+    "M6h_live_inference_responsiveness": {
+      "passed": true,
+      "evidence": [
+        "real Bonsai request completed through the live signed Buzz product path",
+        "status probes completed while inference was still in flight",
+        "question and answer events restored with verified signatures",
+        "trace binds provider, model, events, and accepted publication state",
+        "prototype responsiveness threshold is not a production SLO or load test"
+      ]
+    },
+    "M6c_accessibility_smoke": {
+      "passed": true,
+      "evidence": [
+        "semantic tab and panel state",
+        "keyboard tab and exact-citation navigation",
+        "visible focus and 24-pixel target checks",
+        "dialog focus restoration and reduced-motion behavior",
+        "desktop and mobile-width Chromium replay",
+        "automated smoke only; WCAG conformance remains unverified"
+      ]
+    },
+    "M6d_cross_browser_surface": {
+      "passed": true,
+      "evidence": [
+        "the same signed Zendesk answer in Firefox and WebKit",
+        "four human part labels and four citation controls",
+        "keyboard tab and exact-citation navigation",
+        "source focus and mobile-width checks",
+        "versioned screenshots and zero browser or HTTP errors",
+        "Safari, Chrome, and Edge remain unverified"
+      ]
+    },
+    "M6_evangelism_release": {
+      "passed": false,
+      "evidence": [
+        "M6a replayable browser surface",
+        "clean physical-machine operator reproduction remains open",
+        "Safari, Chrome, Edge, assistive-technology, and WCAG conformance review remain open"
+      ]
+    },
+    "M4a_first_pass_product_path": {
+      "passed": true,
+      "evidence": [
+        "Buzz-restored draft event",
+        "matching persisted evaluation trace",
+        "content-hashed source folder",
+        "human review and accuracy release remain open"
+      ]
+    },
+    "M4a_operator_review_durability": {
+      "passed": true,
+      "evidence": [
+        "local operator review in a signed Buzz message",
+        "signed reviewed canvas",
+        "matching persisted trace metadata",
+        "review event predates the restoring Prism process",
+        "domain review and accuracy release remain false"
+      ]
+    },
+    "M4b_public_development_breadth": {
+      "passed": true,
+      "evidence": [
+        "three isolated public deal folders",
+        "three trace-linked Buzz artifacts",
+        "zero source-folder writes",
+        "all Bonsai attempts rejected; fallbacks do not count as model passes"
+      ]
+    },
+    "M4c_accuracy_release_contract": {
+      "passed": false,
+      "structural_passed": true,
+      "evidence": [
+        "schema valid development registry",
+        "source snapshot and citation hash binding",
+        "deal split isolation",
+        "missing inventory and approvals reported as release failures"
+      ]
+    },
+    "M4d_development_accuracy": {
+      "passed": false,
+      "evidence": [
+        "five hash-bound saved responses",
+        "five independently verified owner-question and agent-answer Buzz event pairs",
+        "deterministic citation, number, absence, and source-write checks",
+        "semantic and usefulness dimensions remain unverified",
+        "no aggregate score can promote an unverified case"
+      ]
+    },
+    "M4e_blinded_human_review": {
+      "passed": false,
+      "packet_ready": true,
+      "reviewer_roster_ready": false,
+      "evidence": [
+        "model identity stripped from review packet",
+        "packet, rubric, registry, and responses are hash bound",
+        "domain-owner roster blocks self-asserted reviewer qualification",
+        "two distinct rostered output reviewers and a rostered principal are required",
+        "zero rostered reviewers or review submissions have been received"
+      ]
+    },
+    "M4f_candidate_source_case_review": {
+      "passed": true,
+      "promotion_ready": false,
+      "evidence": [
+        "116 model-blind, hash-bound source review drafts across 29 SEC deals",
+        "retrieval ranks and model identity omitted from the reviewer packet",
+        "domain-owner roster blocks self-asserted reviewer qualification",
+        "two distinct rostered reviewers or rostered principal adjudication required",
+        "zero rostered reviewers, submissions, eligible drafts, or registered cases claimed",
+        "hash-bound Chromium replay of all four promotion gates"
+      ]
+    },
+    "M4g_case_authoring_boundary": {
+      "passed": true,
+      "promotion_ready": false,
+      "evidence": [
+        "source review controls which drafts enter case authoring",
+        "reviewed questions, claims, citations, and source hashes are locked",
+        "the browser exports an unsigned owner record",
+        "approval recording and case registration remain separate commits"
+      ]
+    }
+  },
+  "selected_runtime_verified": false,
+  "target_architecture_complete": false
+}

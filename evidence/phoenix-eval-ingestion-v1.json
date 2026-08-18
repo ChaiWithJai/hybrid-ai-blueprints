@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "verification_kind": "phoenix_eval_ingestion_browser_v1",
+  "recorded_at": "2026-08-18T04:13:34Z",
+  "passed": true,
+  "phoenix_url": "http://127.0.0.1:6006/",
+  "project": "prism-error-discovery-smoke-v2",
+  "source_sha256": {
+    "scripts/export_eval_review_to_phoenix.py": "ab265d70edcc43bd40ae2f0ab327f8206b421e1b5fb02effd6f61fbd6a12eb6a",
+    "core/error_discovery.py": "d2834858dcef1abdb5661c43e351324e619c0b337f49201bf165fa213a1e8aac"
+  },
+  "observed": {
+    "trace_count": 1,
+    "span_count": 6,
+    "root_chain_spans": 1,
+    "evaluator_spans": 5,
+    "openinference_span_kind": "EVALUATOR",
+    "synthetic_fixture": true,
+    "feedback_source": "synthetic_fixture",
+    "content_included": false,
+    "content_hash_present": true
+  },
+  "receipt": "evidence/phoenix-eval-export-v1.json",
+  "limitations": [
+    "The project contains synthetic verification data, not human review.",
+    "Collector ingestion proves transport and attribute preservation. It does not prove label quality, reviewer identity, or deal accuracy."
+  ]
+}

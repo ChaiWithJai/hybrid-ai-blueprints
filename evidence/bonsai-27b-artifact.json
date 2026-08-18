@@ -1,0 +1,35 @@
+{
+  "measurement_state": "artifact_present_not_invoked",
+  "collected_at": "2026-08-14",
+  "artifact_path": "/Users/jaibhagat/.lmstudio/models/lmstudio-community/27B/Bonsai-27B-Q1_0.gguf",
+  "artifact_name": "Bonsai-27B-Q1_0.gguf",
+  "size_bytes": 3803452480,
+  "format": "gguf",
+  "gguf_version": 3,
+  "sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+  "source_revision": "f10afb355f104535e3e3e98cf7ab7795c72bd292",
+  "sidecar_digest": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+  "sidecar_digest_matches": true,
+  "backend": {
+    "manifest_path": "/Users/jaibhagat/.lmstudio/extensions/backends/llama.cpp-mac-arm64-apple-metal-advsimd-2.28.2/backend-manifest.json",
+    "name": "llama.cpp-mac-arm64-apple-metal-advsimd",
+    "engine": "llama.cpp",
+    "version": "2.28.2",
+    "upstream_release": "b10252",
+    "upstream_commit": "fe2adf0e7",
+    "platform": "mac",
+    "cpu_architecture": "ARM64",
+    "gpu_framework": "Metal"
+  },
+  "companion_artifacts": [
+    "Bonsai-27B-dspark-Q4_1.gguf",
+    "Bonsai-27B-mmproj-BF16.gguf",
+    "Bonsai-27B-mmproj-Q8_0.gguf"
+  ],
+  "limitations": [
+    "Filesystem presence does not prove the model can be loaded.",
+    "No provider request or model response was made.",
+    "LM Studio/Bionic was not invoked because the operator reported it crashes.",
+    "No latency, memory, energy, quality, or isolation claim was measured."
+  ]
+}

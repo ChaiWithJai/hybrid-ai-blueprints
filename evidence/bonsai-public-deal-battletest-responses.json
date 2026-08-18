@@ -1,0 +1,1067 @@
+{
+  "benchmark": "benchmarks/public_deal_battletest.json",
+  "benchmark_version": 1,
+  "corpus_state_after": {
+    "anaplan/01_anaplan_defm14a.htm": {
+      "bytes": 1590493,
+      "mtime_ns": 1786761862849215873,
+      "sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+    },
+    "citrix/01_citrix_defm14a.htm": {
+      "bytes": 1834175,
+      "mtime_ns": 1786761863116946608,
+      "sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+    },
+    "citrix/02_citrix_financing_supplement.htm": {
+      "bytes": 82805,
+      "mtime_ns": 1786761863304965566,
+      "sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+    },
+    "microsoft_activision_cma_final_report.pdf": {
+      "bytes": 2880833,
+      "mtime_ns": 1786761864545051264,
+      "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+    }
+  },
+  "corpus_state_before": {
+    "anaplan/01_anaplan_defm14a.htm": {
+      "bytes": 1590493,
+      "mtime_ns": 1786761862849215873,
+      "sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+    },
+    "citrix/01_citrix_defm14a.htm": {
+      "bytes": 1834175,
+      "mtime_ns": 1786761863116946608,
+      "sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2"
+    },
+    "citrix/02_citrix_financing_supplement.htm": {
+      "bytes": 82805,
+      "mtime_ns": 1786761863304965566,
+      "sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+    },
+    "microsoft_activision_cma_final_report.pdf": {
+      "bytes": 2880833,
+      "mtime_ns": 1786761864545051264,
+      "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+    }
+  },
+  "responses": {
+    "anaplan_termination_fees": {
+      "answer_event_id": "e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+      "answer_state": "accepted",
+      "canonical_path": "/rooms/local_a6f2e0313e17/discussion?event=e2656553c544079cb90f27305654f743557f5ff659bc3f60571d85ab89650bc1",
+      "error": null,
+      "http_status": 201,
+      "latency_ms": 17075.30583301559,
+      "model": "27b@q1_0",
+      "provider": "local_bonsai",
+      "question_event_id": "b25b8b5e7ff8b290eb34a70591f3543f970ae779c9038ce4dd4670a0d7b8b04f",
+      "raw_metadata": {
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "previous_response_id_used": null,
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "time_to_first_token_seconds": 13.65151,
+        "tokens_per_second": 34.67225504286084
+      },
+      "response": "- **Termination fee:** Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances. [01_anaplan_defm14a.htm#html:block:00207]",
+      "retrieved_passages": [
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00207]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "fee",
+            "parent",
+            "reverse",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [
+            "termination_fee"
+          ],
+          "retrieval_query": "company termination fee parent reverse termination fee funding",
+          "score": 16.6,
+          "source_anchor": "html:block:00207",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances (in each case as described in the section of this Proxy Statement captioned \u201c The Merger Agreement\u2014Termination Fees \u201d)."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:table:0158]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "fee.",
+            "reverse",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 16.0,
+          "source_anchor": "html:table:0158",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "| | \u2022 | | Reverse Termination Fee. The Anaplan Board considered the fact that a reverse termination fee of $586,245,000 in cash is payable by Parent to Anaplan in the event that Parent does not proceed to consummate the Merger in certain circumstances following satisfaction or waiver of the conditions set forth in the Merger Agreement and that such payment obligation is supported by a guaranty provided by Sponsor with respect to Parent\u2019s obligation to pay the reverse termination fee, indemnify and reimburse the Company for specified costs and expenses incurred in cooperating with any debt financing sought by Parent and pay certain other amounts under the Merger Agreement (as described in the below section captioned \u201c The Merger\u2014Financing of the Merger \u201d). | | --- | --- | --- | --- |"
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00968]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "fee.",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.4,
+          "source_anchor": "html:block:00968",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents If the Merger Agreement is terminated in specified circumstances, the terminating party may be required to pay a termination fee. Parent would be entitled to receive a termination fee equal to $293,122,500 from Anaplan (the \u201c Company Termination Fee \u201d) under the following circumstances:"
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:01624]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.4,
+          "source_anchor": "html:block:01624",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents (c) Notwithstanding anything to the contrary in this Agreement, each of the parties hereto expressly acknowledges and agrees on behalf of itself and its respective affiliates that each of the Company Termination Fee and the Parent Termination Fee is not a penalty, but rather each is liquidated damages in a reasonable amount that will compensate Parent and Merger Sub or the Company, respectively, in the circumstances in which the Company Termination Fee or the Parent Termination Fee, respectively, is payable for the efforts, expenses and resources expended and opportunity forgone while negotiating this Agreement and in reliance on this Agreement and on the expectation of the consummation of the Transactions, which amount would otherwise be impossible to calculate with precision. Each of the parties hereto expressly acknowledges and hereby agrees that the provisions of this Section 8.3 are an integral part of the Transactions, and that, without such provisions, neither Parent, Merger Sub nor the Company would have entered into this Agreement."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:01628]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.4,
+          "source_anchor": "html:block:01628",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents required to pay the Company Termination Fee on more than one occasion. No Parent Related Party shall be entitled to, and Parent shall not and shall cause any Parent Related Party not to, bring or maintain any Action for money damages against any Company Related Party (other than the Company solely for payment of the Company Termination Fee and if applicable, Enforcement Costs) arising out of or in connection with this Agreement, any contract or agreement executed in connection herewith or any of the transactions contemplated hereby or thereby (or the abandonment or termination thereof) or any matters forming the basis for such termination, and Parent shall use its reasonable best efforts to cause any Action pending in connection with this Agreement, any contract or agreement executed in connection herewith or any of the transactions contemplated hereby or thereby, to the extent maintained by Parent or any Parent Related Party against the Company or any Company Related Party to be dismissed with prejudice promptly following the payment of the Company Termination Fee, if due, or the final and non-appealable determination that no such payment is due. For the avoidance of doubt, each of the parties hereto expressly acknowledges and agrees that none of the foregoing nor anything else contained in this Agreement is intended to limit Parent and Merger Sub\u2019s right to seek monetary damages from the Company in the event of the Company\u2019s willful and material breach of this Agreement in circumstances in which the Company Termination Fee is not payable; provided , that for the avoidance of doubt, in no event shall the Company\u2019s aggregate liability under this Agreement exceed the Company Termination Fee, plus Enforcement Costs (if any)."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:01633]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.4,
+          "source_anchor": "html:block:01633",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents (f) If (i) the Company fails to pay in a timely manner the Company Termination Fee due pursuant to Section 8.3(a), and, in order to obtain such payment, Parent makes a claim that results in a judgment for the Company Termination Fee (or a portion thereof) set forth in Section 8.3(a), the Company shall pay to Parent its reasonable costs and expenses (including reasonable attorneys\u2019 fees and expenses) in connection with such suit, together with interest on the Company Termination Fee at the prime rate of Citibank, N.A. in effect from time to time from the date such payment was required to be made hereunder or (ii) Parent fails to pay in a timely manner the Parent Termination Fee due pursuant to Section 8.3(b), and, in order to obtain such payment, the Company makes a claim that results in a judgment for the Parent Termination Fee (or a portion thereof) set forth in Section 8.3(b), Parent shall pay to the Company its reasonable costs and expenses (including reasonable attorneys\u2019 fees and expenses) in connection with such suit, together with interest on the Parent Termination Fee at the prime rate of Citibank, N.A. in effect from time to time from the date such payment was required to be made hereunder (as applicable, the \u201c Enforcement Costs \u201d)."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00972]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.2,
+          "source_anchor": "html:block:00972",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents Each of the parties has expressly acknowledged and agreed on behalf of itself and its respective affiliates that each of the Company Termination Fee and the Parent Termination Fee is not a penalty, but rather each is liquidated damages in a reasonable amount that will compensate Parent and Merger Sub or the Company, respectively, in the circumstances in which the Company Termination Fee or the Parent Termination Fee, respectively, is payable for the efforts, expenses and resources expended and opportunity forgone while negotiating the Merger Agreement and in reliance on the Merger Agreement and on the expectation of the consummation of the transactions contemplated thereby, which amount would otherwise be impossible to calculate with precision."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:01611]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "company",
+            "fee",
+            "termination"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "State the company termination fee and the reverse termination fee.",
+          "score": 14.0,
+          "source_anchor": "html:block:01611",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents 8.2 Effect of Termination . In the event of the termination of this Agreement pursuant to Section 8.1, this Agreement shall forthwith become void, and there shall be no liability on the part of Parent, Merger Sub, the Company or their respective officers, directors, stockholders, or affiliates; provided , that, (a) Section 6.1(b) (Confidentiality), Section 6.13 (Public Announcements), Section 6.14 (Fees and Expenses), Section 6.19(d) (Financing Cooperation), Section 8.3 (Termination Fees), Article 9 (General Provisions) and this Section 8.2 shall remain in full force and effect and survive any termination of this Agreement, (b) such termination shall not relieve any party from its obligation to pay the Company Termination Fee, Parent Termination Fee and/or Enforcement Costs and any amounts payable pursuant to Section 6.19(d) if and to the extent required pursuant to Section 8.3, and (c) subject to Section 8.3(d) and Section 8.3(e), such termination shall not relieve any party from liability for any willful and material breach of its representations or warranties or covenants hereunder. A termination of this Agreement shall not cause a termination of the Confidentiality Agreement or any other agreement between the parties (except as set forth in any such agreement)."
+        }
+      ],
+      "room_id": "local_a6f2e0313e17",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "dedf6898195a10765509c3d1ead56aa46665e484d9dc2123752fd59b88018ea5",
+        "public_source": true,
+        "public_source_count": 1,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+      "source_snapshot_sha256": "fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8",
+      "trace_id": "trc_c2ecc9b6abda",
+      "unauthorized_file_writes": [],
+      "usage": {
+        "completion_tokens": 111,
+        "prompt_tokens": 2155,
+        "total_tokens": 2266
+      }
+    },
+    "anaplan_vdr_timeline": {
+      "answer_event_id": "2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+      "answer_state": "accepted",
+      "canonical_path": "/rooms/local_a6f2e0313e17/discussion?event=2ef00d45539b8ced0af8724f18bd81ff243a3d72f9f121b4aec7ecb9f5b137c0",
+      "error": null,
+      "http_status": 201,
+      "latency_ms": 15844.508041976951,
+      "model": "27b@q1_0",
+      "provider": "local_bonsai",
+      "question_event_id": "10ac876f7f125043cddb0e718ae24f36c469d35666ce4e048166d5909625a33c",
+      "raw_metadata": {
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "previous_response_id_used": null,
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "time_to_first_token_seconds": 13.143646,
+        "tokens_per_second": 35.24672117376281
+      },
+      "response": "- **answer**: Anaplan opened its virtual data room on March 12, 2022; it contained financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors; the intensive diligence period ended on March 20, 2022. [01_anaplan_defm14a.htm#html:block:00484]",
+      "retrieved_passages": [
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00484]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "data",
+            "diligence",
+            "material",
+            "open",
+            "room",
+            "virtual"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 18.0,
+          "source_anchor": "html:block:00484",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents Also on March 12, 2022, Anaplan opened a comprehensive virtual data room to begin sharing detailed financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors. From March 12, 2022 through March 20, 2022, additional diligence materials"
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00434]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "data",
+            "room"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.8,
+          "source_anchor": "html:block:00434",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents On February 18, 2022, Anaplan provided limited data room access to Thoma Bravo, Private Equity Firm B and Private Equity Firm E."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00441]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "data",
+            "room"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.8,
+          "source_anchor": "html:block:00441",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents On February 23, 2022, Anaplan provided limited data room access to Private Equity Firm A and Private Equity Firm C."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00458]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "data",
+            "room"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.8,
+          "source_anchor": "html:block:00458",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents On March 3, 2022, Anaplan provided limited data room access to Strategic Firm D."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00482]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "diligence",
+            "end",
+            "material",
+            "open"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.4,
+          "source_anchor": "html:block:00482",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents Also on March 11, 2022, representatives of Goldman Sachs and Qatalyst Partners reached out to each of Private Equity Firm A, Private Equity Firm C, and Private Equity Firm E. Representatives of Goldman Sachs and Qatalyst Partners informed Private Equity Firm E that its bid of $51.00 per share was not competitive with other bidders in Anaplan\u2019s strategic review process. Representatives of Goldman Sachs and Qatalyst Partners relayed to Private Equity Firm A and Private Equity Firm C that Anaplan would allow each of Private Equity Firm A and Private Equity Firm C to team up with another potential private equity acquirer consistent with their request to do so in their bid letters (but instructed each such party not to independently seek such a potential partner just yet while Anaplan organized additional diligence materials to open up to Private Equity Firm A and Private Equity Firm C during the week of March 21, 2022)."
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00908]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "end",
+            "material",
+            "period"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.4,
+          "source_anchor": "html:block:00908",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents The Board of Directors may not make a Change in Recommendation in response to an Intervening Event unless (i) Anaplan shall have provided prior written notice to Parent at least five (5) business days in advance of its intention to take such action, and prior to effecting such Change in Recommendation, Anaplan shall, and shall cause its representatives to, during such five (5) business day period, negotiate with Parent in good faith (to the extent that Parent desires to negotiate) to make such adjustments to the terms and conditions of the Merger Agreement so that the Change in Recommendation is no longer necessary (and in the event of any material change to the circumstances related to the Intervening Event, Anaplan shall, in each case, deliver to Parent an additional notice consistent with that described in this clause and a renewed negotiation period under this clause shall commence (except that the five (5) business day period shall instead be equal to two (2) business days; provided that if such additional notice is delivered during the initial five (5) business day negotiation period, the initial negotiation period shall not be reduced by such notice)) and (ii) following such notice period (including any subsequent notice period), the Board of Directors shall have concluded in good faith, after consultation with its outside legal advisor and taking into account Parent\u2019s proposed adjustments (if any) to the terms and conditions of the Merger Agreement, that the failure to effect a Change in Recommendation due to an Intervening Event would be inconsistent with its fiduciary duties under applicable law; and provided, that the Board of Directors shall not be permitted to effect a Change in Recommendation with respect to or in connection with any Acqu"
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:00904]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "anaplan",
+            "end",
+            "material",
+            "period"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.2,
+          "source_anchor": "html:block:00904",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents The Board of Directors may not make a Change in Recommendation or terminate the Merger Agreement in the case of a Superior Proposal unless (i) Anaplan shall have provided prior written notice to Parent at least five (5) business days in advance of its intention to take such action (a \u201c Notice of Designated Superior Proposal \u201d), and prior to effecting such Change in Recommendation or termination of the Merger Agreement, Anaplan shall, and shall cause its representatives to, during such five (5) business day period, negotiate with Parent in good faith (to the extent that Parent desires to negotiate) to make such adjustments to the terms and conditions of the Merger Agreement so that the Change in Recommendation is no longer necessary and such Superior Proposal no longer constitutes a Superior Proposal (and in the event of any material change to any of the terms (including any change to the form, amount and timing of payment of consideration) of such Superior Proposal Anaplan shall, in each case, deliver to Parent an additional notice consistent with that described in this clause and a renewed negotiation period under this clause shall commence (except that the five (5) business day period shall instead be equal to two (2) business days; provided that if such additional notice is delivered during the initial five (5) business day negotiation period, the initial negotiation period shall not be reduced by such notice)) and (ii) following such notice period (including any subsequent notice period), the Board of Directors shall have concluded in good faith, after consultation with its outside legal advisor and financial advisors and taking into account Parent\u2019s proposed adjustments (if any) to the terms and conditions of the Merger Agreement, that the failure"
+        },
+        {
+          "citation": "[01_anaplan_defm14a.htm#html:block:01699]",
+          "filename": "01_anaplan_defm14a.htm",
+          "matched_terms": [
+            "data",
+            "room"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+          "score": 8.0,
+          "source_anchor": "html:block:01699",
+          "source_role": "primary_source",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+          "text": "Table of Contents (e) The phrase \u201cmade available to Parent\u201d when used herein, shall mean that the subject documents (i) were uploaded to the electronic data room maintained by the Company or were otherwise provided to Parent (which for the avoidance of doubt shall include any portion of the electronic data room in which subject documents are uploaded solely to outside counsel or specified Representatives of Parent pursuant to any \u201cclean team\u201d or similar arrangements, as applicable), in each case, by 11:00 PM PT one day prior to the execution of this Agreement or (ii) included in the forms, reports and other documents (including any exhibits referred to therein) filed or furnished by the Company with the SEC since January 1, 2020."
+        }
+      ],
+      "room_id": "local_a6f2e0313e17",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "dedf6898195a10765509c3d1ead56aa46665e484d9dc2123752fd59b88018ea5",
+        "public_source": true,
+        "public_source_count": 1,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "e52453a407f6d931e171a2d0854031839f809467fb524bff85ec78769499bdbe",
+      "source_snapshot_sha256": "fd721f87d1ed75cc44eea20789ac4ed354b37708172c78d16e45d140f96f50f8",
+      "trace_id": "trc_aa090c1195f0",
+      "unauthorized_file_writes": [],
+      "usage": {
+        "completion_tokens": 90,
+        "prompt_tokens": 1773,
+        "total_tokens": 1863
+      }
+    },
+    "citrix_entry_leverage_absent": {
+      "answer_event_id": "c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+      "answer_state": "accepted",
+      "canonical_path": "/rooms/local_3e826d45a754/discussion?event=c30ac34883bff652d0a37a2f364b3934baef9db5ad4a9f2665fbb5e73bf7e033",
+      "error": null,
+      "http_status": 201,
+      "latency_ms": 15860.471375053748,
+      "model": "27b@q1_0",
+      "provider": "local_bonsai",
+      "question_event_id": "da67a98975d6e6c44a04df6118240d284e7b974f758b51e48b31de3bdbfc7b09",
+      "raw_metadata": {
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "previous_response_id_used": null,
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "time_to_first_token_seconds": 13.92262,
+        "tokens_per_second": 35.55515633976508
+      },
+      "response": "- **Entry debt-to-EBITDA disclosure:** The exact entry debt-to-EBITDA leverage multiple is not disclosed and cannot be calculated from the cited passage alone. [02_citrix_financing_supplement.htm#html:block:00058]",
+      "retrieved_passages": [
+        {
+          "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+          "filename": "02_citrix_financing_supplement.htm",
+          "matched_terms": [
+            "commitment",
+            "common",
+            "debt",
+            "equity",
+            "financing",
+            "preferred"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [
+            "entry_leverage_absence"
+          ],
+          "retrieval_query": "debt commitment preferred equity common equity financing aggregate amount",
+          "score": 14.0,
+          "source_anchor": "html:block:00058",
+          "source_role": "supplemental_filing",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+          "text": "closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00586]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "ebitda",
+            "multiple",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 10.2,
+          "source_anchor": "html:block:00586",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents The CY2022E EBITDA Multiple for Citrix was 13.0x based on the Analyst Projections, and the fully diluted enterprise value of Citrix was calculated using the unaffected five-day volume weighted average closing price as of December 7, 2021 (the last trading day before market speculation regarding a potential transaction)."
+        },
+        {
+          "citation": "[02_citrix_financing_supplement.htm#html:block:00071]",
+          "filename": "02_citrix_financing_supplement.htm",
+          "matched_terms": [
+            "citrix",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 5.6,
+          "source_anchor": "html:block:00071",
+          "source_role": "supplemental_filing",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+          "text": "This report has been prepared in respect of the proposed transaction involving Citrix and affiliates of Vista Equity Partners and Elliott Investment Management, L.P., and may be deemed to be soliciting material relating to such transaction. In connection with the transaction, Citrix filed the Definitive Proxy Statement relating to the Citrix Special Meeting with the SEC on March 16, 2022. Additionally, Citrix may file other relevant materials in connection with the transaction with the SEC. Investors and securityholders of Citrix are urged to read carefully and in their entirety the Definitive Proxy Statement and any other relevant materials filed or that will be filed with the SEC when they become available because they contain or will contain important information about the proposed transaction and related matters. Investors and securityholders may obtain a copy of the Definitive Proxy Statement, as well as other filings containing information about the transaction that are filed by Citrix with the SEC, free of charge on EDGAR at www.sec.gov or on the investor relations page of Citrix\u2019s website at www.investors.citrix.com."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00588]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "multiple",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 9.0,
+          "source_anchor": "html:block:00588",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents The CY2022E LFCF Multiple for Citrix was 12.4x based on the Analyst Projections, and the fully diluted equity value of Citrix was calculated using the unaffected five-day volume weighted average closing price as of December 7, 2021 (the last trading day before market speculation regarding a potential transaction)."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00600]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "ebitda",
+            "multiple",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 7.6,
+          "source_anchor": "html:block:00600",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents Based on the analysis of the NTM EBITDA Multiple for each of the selected transactions Qatalyst Partners selected a representative range of 10.0x to 18.0x (which was chosen based on Qatalyst Partners\u2019 professional judgment) and applied that range to Citrix\u2019s adjusted EBITDA for the twelve-month period ending on September 30, 2022, of $1,031 million based on the Analyst Projections. Based on the number of fully diluted shares of Citrix common stock (calculated utilizing the treasury stock method), which takes into account restricted stock units, performance-based restricted stock units and in-the-money stock options as of January 26, 2022, all of which amounts were provided by Citrix\u2019s management, this analysis implied a range of per share values for Citrix common stock of approximately $56.65 to $119.47."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00412]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "entry",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 6.8,
+          "source_anchor": "html:block:00412",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents The Citrix Board and senior management periodically review Citrix\u2019s long-term strategy and objectives in light of market and industry conditions. These reviews have included, among other things, consideration of organic growth initiatives, acquisitions, divestitures, and potential business combination transactions, in each case with a view towards enhancing shareholder value. In addition, from time to time, Citrix has received unsolicited inquiries from third parties that have expressed a desire to discuss whether there would be mutual interest in a potential strategic transaction with the Company. In March 2019, Citrix received an unsolicited inquiry from a strategic buyer (referred to as \u201cStrategic Buyer A\u201d) with respect to the potential acquisition of the Company. Following such contact and high-level discussions, Citrix entered into a confidentiality agreement with Strategic Buyer A to facilitate further discussions between the parties, which included customary non-disclosure and standstill provisions. The confidentiality agreement permitted Strategic Buyer A to make confidential acquisition proposals to the Citrix Board at any time, and also provided for the termination of the standstill provision upon Citrix\u2019s entry into a definitive agreement with a third party providing for a sale of Citrix. Following entry into the confidentiality agreement, Citrix engaged in preliminary discussions with Strategic Buyer A regarding a potential transaction involving proposed consideration to Citrix stockholders consisting of a mix of cash and shares of common stock of Strategic Buyer A. In May 2019, Strategic Buyer A decided to pause discussions with Citrix in light of market volatility and other recent events specifically impacting Strategic Buyer A and unrela"
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00603]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "multiple",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 6.8,
+          "source_anchor": "html:block:00603",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents No company or transaction utilized in the selected transactions analysis is identical to Citrix or the Merger. In evaluating the selected transactions, Qatalyst Partners made judgments and assumptions with regard to general business, market and financial conditions, and other matters, many of which are beyond Citrix\u2019s control, such as the impact of competition on Citrix\u2019s business or the industry generally, industry growth and the absence of any material adverse change in Citrix\u2019s financial condition and prospects or the industry or in the financial markets in general, which could affect the public trading value of the companies and the aggregate value of the transactions to which they are being compared. Individual multiples or mathematical analysis, such as determining the arithmetic mean, median, or the high or low, is not in itself a meaningful method of using selected company data. Because of the unique circumstances of each of these transactions and the Merger, Qatalyst Partners cautions against placing undue reliance on this information."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00440]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "entry",
+            "transaction"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+          "score": 6.4,
+          "source_anchor": "html:block:00440",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents Following the Citrix Board meeting and over the next several days, at the direction of the Citrix Board, representatives of Qatalyst Partners contacted the 12 additional parties identified by the Citrix Board. All three of the strategic buyers declined to engage citing a lack of interest or strategic fit. In addition, three of the nine financial sponsors declined to engage, with two of such financial sponsors citing the difficulties presented in executing a transaction of this size. Vista and the five other financial sponsors (referred to as \u201cFinancial Sponsor A,\u201d \u201cFinancial Sponsor B,\u201d \u201cFinancial Sponsor C,\u201d \u201cFinancial Sponsor D\u201d and \u201cFinancial Sponsor E\u201d) indicated that they would like to enter into a confidentiality agreement with Citrix to facilitate discussions regarding a potential transaction. Thereafter, Citrix entered into confidentiality agreements with each of Financial Sponsor A, Financial Sponsor B, Financial Sponsor C, Financial Sponsor D and Financial Sponsor E. These confidentiality agreements included customary non-disclosure provisions and a standstill provision that prohibited the financial sponsor, for an agreed-upon period from the date of the agreement, from offering to acquire or acquiring Citrix, and from taking certain other actions, including soliciting proxies, without the prior consent of Citrix. Each of these confidentiality agreements provided the financial sponsor with the ability to make confidential acquisition proposals to the Citrix Board at any time following Citrix\u2019s entry into a definitive agreement with a third party providing for a sale of Citrix. In addition, each of these confidentiality agreements required the financial sponsor to obtain the Company\u2019s consent prior to contacting any financing sources or teamin"
+        }
+      ],
+      "room_id": "local_3e826d45a754",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "32a1ecaf5cf4e14209537f4b8cda7c769f6692e1e14f62f864ef13254c518ba9",
+        "public_source": true,
+        "public_source_count": 2,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+      "source_snapshot_sha256": "bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf",
+      "trace_id": "trc_167e056175d6",
+      "unauthorized_file_writes": [],
+      "usage": {
+        "completion_tokens": 57,
+        "prompt_tokens": 2173,
+        "total_tokens": 2230
+      }
+    },
+    "citrix_financing_mix": {
+      "answer_event_id": "d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+      "answer_state": "accepted",
+      "canonical_path": "/rooms/local_3e826d45a754/discussion?event=d1d329337e074e4a5368f0792b2d0c6a590d781bb10cf9e2fd28df2c8aca3b4d",
+      "error": null,
+      "http_status": 201,
+      "latency_ms": 21643.757082987577,
+      "model": "27b@q1_0",
+      "provider": "local_bonsai",
+      "question_event_id": "e9732e6a65b60831ea77ccacbac4ae8cb719fc61495e48f6a827e9f397cad5d5",
+      "raw_metadata": {
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "previous_response_id_used": null,
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "time_to_first_token_seconds": 18.354795,
+        "tokens_per_second": 35.08843144735308
+      },
+      "response": "- **Debt**: $15.0 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Preferred Equity**: $2.5 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Common Equity**: $2.275 billion provided by Elliott [02_citrix_financing_supplement.htm#html:block:00058]",
+      "retrieved_passages": [
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00504]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "debt",
+            "elliott",
+            "equity",
+            "financing",
+            "preferred",
+            "vista"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 22.6,
+          "source_anchor": "html:block:00504",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents On December 5, 2021, Vista and Elliott submitted a written, non-binding indication of interest proposing to acquire all of the outstanding shares of Citrix for cash at a per share price of $110.00, subject to the completion of due diligence and the negotiation of a definitive agreement (the \u201cDecember 5 th Proposal\u201d). The December 5 th Proposal assumed the cash-out of Citrix\u2019s outstanding vested equity awards and conversion of Citrix\u2019s unvested equity awards into cash awards, which would remain subject to their current vesting schedules and other terms. The December 5 th Proposal provided that Vista and Elliott would finance the acquisition with a combination of equity financing and preferred equity and debt financing from third-party lenders, with the equity necessary to complete the acquisition being funded by investment funds and vehicles managed by Vista and Elliott and other select co-investors. With respect to the debt financing, the December 5 th Proposal referenced the highly confident letters that were previously obtained by Elliott and provided with the September 9 th Proposal and included a request for permission to engage with certain additional debt and preferred equity financing sources. Consistent with the prior proposals from Elliott, the December 5 th Proposal further indicated that, upon signing definitive agreements, the consummation of the transaction would not be subject to a financing contingency. The December 5 th Proposal included an expected timeline of three to four weeks to complete due diligence, obtain financing commitments, and negotiate definitive documentation. Neither Financial Sponsor F nor Financial Sponsor G was"
+        },
+        {
+          "citation": "[02_citrix_financing_supplement.htm#html:block:00058]",
+          "filename": "02_citrix_financing_supplement.htm",
+          "matched_terms": [
+            "common",
+            "debt",
+            "elliott",
+            "equity",
+            "financing",
+            "preferred",
+            "vista"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 18.4,
+          "source_anchor": "html:block:00058",
+          "source_role": "supplemental_filing",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+          "text": "closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00536]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "citrix",
+            "common",
+            "debt",
+            "elliott",
+            "equity",
+            "financing",
+            "preferred",
+            "vista"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 18.8,
+          "source_anchor": "html:block:00536",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents On January 28, 2022, following the finalization of their financing plan for the transaction, representatives of Vista and Elliott contacted Qatalyst Partners to continue the price negotiations. During this conversation, the representatives of Vista and Elliott proposed a new purchase price of $103.51 per share contingent upon: (1) no further dividend payments by Citrix; (2) no accelerated vesting of outstanding equity awards as a result of the closing of the Merger; (3) no further grants of equity awards prior to closing of the Merger; and (4) Citrix\u2019s repatriation of cash prior to closing as may be requested by Vista and Elliott. The representatives of Vista and Elliott indicated that the lower purchase price reflected Vista and Elliott\u2019s best and final offer and was the result of the cost and terms of the final financing package, elevated geopolitical uncertainty in Russia especially with respect to its potential impact on Wrike, and other confirmatory diligence findings discovered since the December 5 th Proposal. The representatives of Vista and Elliott noted that the debt commitment had been increased to $15.0 billion and included more expensive terms than anticipated, the preferred equity of $2.5 billion was at the low end of the expected range and included more expensive terms than anticipated, and the common equity of $2.275 billion would be provided by Elliott. Mr. Cohn similarly contacted Mr. Calderoni to confirm the best and final purchase price and related considerations."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:table:0101]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "debt",
+            "elliott",
+            "equity",
+            "financing",
+            "preferred",
+            "vista"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 17.6,
+          "source_anchor": "html:table:0101",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "| | \u2022 | | the likelihood that the Merger would be consummated, in light of the experience, reputation and financial capabilities of Vista and Elliott and the debt and preferred equity financing sources. | | --- | --- | --- | --- |"
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:00884]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "debt",
+            "disclose",
+            "equity",
+            "financing",
+            "preferred",
+            "state"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 16.4,
+          "source_anchor": "html:block:00884",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents However, TIBCO, Parent and/or Merger Subsidiary (and/or their applicable affiliates) may amend any Financing Commitment Letter to add lenders, purchasers, investors, lead arrangers, bookrunners, syndication agents or other debt financing sources (or, with respect to the preferred equity commitment letter, the preferred equity financing sources) who had not executed such Financing Commitment Letter as of the date of the Merger Agreement and, in connection therewith, amend the additional lender, purchasers, investors, lead arrangers, bookrunners or syndication agents provisions with respect to the appointment of such additional lenders, purchasers, investors, lead arrangers, bookrunners, syndication agents or other debt financing sources (or, with respect to the preferred equity commitment letter, the preferred equity financing sources), in each case, which do not have an adverse effect on financing (with the creditworthiness of any such additional lenders, purchasers, investors, lead arrangers, bookrunners, syndication agents or other debt financing sources (or, with respect to the preferred equity commitment letter, the preferred equity financing sources) not being taken into account in determining whether such amendments result in an adverse effect on financing); and TIBCO, Parent or Merger Subsidiary will disclose to the Company promptly its intention to so amend, restate, replace, supplement, modify,"
+        },
+        {
+          "citation": "[02_citrix_financing_supplement.htm#html:block:00075]",
+          "filename": "02_citrix_financing_supplement.htm",
+          "matched_terms": [
+            "debt",
+            "elliott",
+            "equity",
+            "financing",
+            "state",
+            "vista"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 16.2,
+          "source_anchor": "html:block:00075",
+          "source_role": "supplemental_filing",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+          "text": "Certain statements contained in this report may constitute forward-looking statements within the meaning of Section 27A of the Securities Act of 1933 and Section 21E of the Exchange Act. All statements, other than statements of historical fact, are statements that could be deemed forward-looking statements, including statements containing the words \u201cpredicts,\u201d \u201cplans,\u201d \u201cexpects,\u201d \u201canticipates,\u201d \u201cbelieves,\u201d \u201cgoal,\u201d \u201ctarget,\u201d \u201cestimate,\u201d \u201cpotential,\u201d \u201cmay,\u201d \u201cmight,\u201d \u201ccould,\u201d \u201csee,\u201d \u201cseek,\u201d \u201cforecast,\u201d and similar words. Forward-looking statements are based on the Company\u2019s current plans and expectations and involve risks and uncertainties which are, in many instances, beyond the Company\u2019s control, and which could cause actual results to differ materially from those included in or contemplated or implied by the forward-looking statements. Such risks and uncertainties include, among others: (i) the occurrence of any event, change or other circumstance that could give rise to the termination of the Merger Agreement; (ii) the failure to obtain the required stockholder approval of the Merger Agreement; (iii) the failure to obtain certain required regulatory approvals to the completion of the proposed Merger or the failure to satisfy any of the other conditions to the completion of the proposed Merger; (iv) any difficulties of Vista or Elliott in financing the Merger as a result of uncertainty or adverse developments in the debt or equity capital markets or otherwise; (v) the effect of the announcement of the proposed Merger on the ability of the Company to retain and hire key personnel and maintain relationships with its key business partners and customers, and others with whom it does business, or on its operating results and businesses generally; (vi) the response of competi"
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:01583]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "debt",
+            "equity",
+            "financing",
+            "preferred",
+            "state"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 15.8,
+          "source_anchor": "html:block:01583",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents modification, withdrawal, termination, repudiation, rescission or waiver. For purposes of this Agreement, as applicable, (i) references to \u201cFinancing\u201d shall include the financing contemplated by the Financing Commitment Letters as permitted to be amended, restated, modified, supplemented or replaced by this Section 6.17(a), (ii) references to \u201cDebt Financing \u201d shall include the debt financing contemplated by the Debt Commitment Letter (and references to \u201cPreferred Equity Financing\u201d shall include the preferred equity financing contemplated by the Preferred Equity Commitment Letter) as permitted to be amended, restated, modified, supplemented or replaced by this Section 6.17 (a) and any Alternative Financing permitted by Section 6.17(b) and (iii) references to \u201cDebt Commitment Letter\u201d and \u201cPreferred Equity Commitment Letter\u201d (as applicable) shall include such documents as permitted to be amended, restated, modified, supplemented or replaced by this Section 6.17(a) or any commitment letters for Alternative Financing permitted by Section 6.17(b)."
+        },
+        {
+          "citation": "[01_citrix_defm14a.htm#html:block:01763]",
+          "filename": "01_citrix_defm14a.htm",
+          "matched_terms": [
+            "debt",
+            "equity",
+            "financing",
+            "preferred",
+            "state"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and",
+          "score": 15.6,
+          "source_anchor": "html:block:01763",
+          "source_role": "primary_source",
+          "source_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+          "text": "Table of Contents Section 9.15 Financing Provisions . Notwithstanding anything in this Agreement to the contrary, the Company, on behalf of itself, the Subsidiaries of the Company, and each of their respective controlled Affiliates, and Parent and Merger Sub, on behalf of themselves, their respective Subsidiaries and each of their respective controlled Affiliates hereby: (a) agree that any legal actions or proceedings involving the Debt Financing Sources and/or Preferred Equity Financing Sources, together with their respective Affiliates and their and their respective Affiliates\u2019 former, current and future officers, directors, employees, agents and representatives and their respective successors and assigns (collectively, including the Debt Financing Sources and Preferred Equity Financing Sources, the \u201c Financing Source Related Parties \u201d ) arising out of or relating to, this Agreement, the Debt Financing, the Preferred Equity Financing or any of the agreements entered into in connection with the Debt Financing (including the Debt Commitment Letter), the Preferred Equity Financing (including the Preferred Equity Commitment Letter) or any of the transactions contemplated hereby or thereby, shall be governed by the laws of the State of New York (without giving effect to any conflicts of law principles that would result in the application of any other law) and shall be subject to the exclusive jurisdiction of any federal or state court in the Borough of Manhattan, New York, New York, and any appellate court thereof and the Company irrevocably submits itself and its property with respect to any such action or proceeding to the exclusive jurisdiction of such court, and agrees not to bring or support any such action or proceeding against any Financing Source Related Party in a"
+        }
+      ],
+      "room_id": "local_3e826d45a754",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "32a1ecaf5cf4e14209537f4b8cda7c769f6692e1e14f62f864ef13254c518ba9",
+        "public_source": true,
+        "public_source_count": 2,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "26fa81d4f99573f63711e1c2cafb13e82a5b8d7aa43e32c8ceedd5ad7c3fe200",
+      "source_snapshot_sha256": "bce8fecd57872e3b5d105759bb73e407ab3ea64c0bba0ba9c35c91c72f9394bf",
+      "trace_id": "trc_c75907caeb31",
+      "unauthorized_file_writes": [],
+      "usage": {
+        "completion_tokens": 102,
+        "prompt_tokens": 2594,
+        "total_tokens": 2696
+      }
+    },
+    "cma_competition_conclusion": {
+      "answer_event_id": "747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+      "answer_state": "accepted",
+      "canonical_path": "/rooms/local_fcc02710f5ab/discussion?event=747bb65a2d817550b7a0a7088deaf7e866d38ed614e2072149e5b784452fa641",
+      "error": null,
+      "http_status": 201,
+      "latency_ms": 28219.711583922617,
+      "model": "27b@q1_0",
+      "provider": "local_bonsai",
+      "question_event_id": "7890ac5dbfa6c1712c93219800277e1965428c231793d3b0b796c555c3343658",
+      "raw_metadata": {
+        "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+        "hardware": "Mac17,8; Apple M5 Pro; 48 GB",
+        "previous_response_id_used": null,
+        "prompt_suffix_applied": true,
+        "protocol": "lmstudio_native_chat",
+        "reasoning_output_tokens": 0,
+        "request_id": null,
+        "runtime_name": "LM Studio llama.cpp",
+        "runtime_version": "2.28.2",
+        "time_to_first_token_seconds": 26.068437999999997,
+        "tokens_per_second": 34.220395907902976
+      },
+      "response": "- **answer**: The CMA found that the Merger would result in an SLC in cloud gaming services but not in console gaming services; it estimated Microsoft's cloud gaming market share at 60-70%. [microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+      "retrieved_passages": [
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:221]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "estimate",
+            "gaming",
+            "market",
+            "microsoft",
+            "share"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 26.4,
+          "source_anchor": "pdf:page:221",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 221 substantial number of users now indicates that it may continue to attract a large number of users as cloud gaming grows. 8.92 One third party [\uf025]\u2019s internal document contained a third party analyst report from March 2022 which showed 2021 shares of supply for cloud gaming services in terms of revenue. 815 It showed that PS Now had a share of more than [\uf025]% in 2021, with xCloud, NVIDIA GFN and Luna significantly smaller. 8.93 The same report contains estimates for the future of the cloud gaming market as a whole. It estimated that revenue would increase by almost 300% from 2021 to 2026, increasing from less than c. 0.4 billion to c. 1.05 billion USD. 816 Within this, xCloud\u2019s revenue was expected to increase from under 50 million to c. 450 million USD in the same period, estimating it to be the largest cloud gaming service by revenue in 2026. 8.94 Whilst we place less weight on independent reports than on the data that we gathered from third parties, we note that the report does corroborate our own findings regarding the growth of xCloud. 8.95 Our shares of supply may not be a good proxy for the future state of the cloud gaming market, given the caveats in the methodology and the nascent nature of cloud gaming. However, we consider that these shares provide a useful indication of the current strength of different cloud gaming providers. Microsoft\u2019s strengths in cloud gaming 8.96 This section considers whether Microsoft holds pre-Merger advantages over current and potential cloud gaming rivals as a result of its wider multi-product ecosystem. The section is structured as follows: (a) First, we consider the extent to which individual assets could give Microsoft an advantage in cloud gaming services. We focus our assessment on the following products and services: ("
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:375]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "cma",
+            "conclude",
+            "console",
+            "gaming",
+            "market",
+            "microsoft"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 25.6,
+          "source_anchor": "pdf:page:375",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 375 of the console market and one we would expect, in the absence of the Merger, to be part of the cloud gaming market. 11.131 In addition, although the remedy is in theory scoped to include versions of the Eligible Games for non-Windows PC OSs, in practice, we consider that Microsoft would have limited incentives to produce such versions, and lower incentives than Activision has in the pre-Merger conditions of competition. This could be expected to lead to distortions in the cloud gaming market and a reinforcement of Microsoft\u2019s advantages in OSs. 11.132 In addition to these fundamental limitations in scope, we have found that the Microsoft Cloud Remedy gives rise to several significant risks to its effective design and implementation, such that we do not have a high degree of confidence as to the success of the remedy \u2013 ie that it will achieve its intended effect \u2013 regardless of its limitations in scope. Specification of such a complex remedy in an early-stage, growing, and dynamic market brings inherent risks that future market developments cannot be effectively captured. These specification risks in turn give rise to risks of circumvention by the Parties and of market distortions. Furthermore, a complex remedy involving third parties such as the Monitoring Trustee and those involved in dispute resolution, and operating for a long duration, presents risks to the ability of those third parties and the CMA to effectively monitor and enforce its provisions. Conclusions on remedy effectiveness 11.133 Based on the evidence provided to us and assessed above, we have concluded that only a prohibition remedy would be effective in remedying the SLC and adverse effects that we have found. 11.134 We have reached the following conclusions about two other remedy options: (a)"
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "cma",
+            "console",
+            "estimate",
+            "gaming",
+            "market",
+            "microsoft",
+            "share"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 25.0,
+          "source_anchor": "pdf:page:7",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 7 Summary What we have found 1. The Competition and Markets Authority (CMA) has found that the anticipated acquisition (the Merger) of Activision Blizzard, Inc. (Activision) by Microsoft Corporation (Microsoft) (together, the Parties) may not be expected to result in a substantial lessening of competition (SLC) in console gaming services in the UK. However, the CMA has found that the Merger may be expected to result in an SLC in cloud gaming services in the UK. 2. In relation to console gaming services, we found that Xbox (Microsoft) and PlayStation (Sony) compete closely with each other, and that Activision\u2019s Call of Duty (CoD) is important to the competitive offering of each. The evidence suggests, however, that Microsoft would not find it financially beneficial to make CoD exclusive to Xbox after the Merger. We also found that making CoD available on Xbox on better terms than on PlayStation would not materially harm PlayStation\u2019s ability to compete. On this basis, we found that the Merger would not substantially reduce competition in console gaming services in the UK. 3. In relation to cloud gaming services, we found that Microsoft already has a strong position. It owns a popular gaming platform (Xbox and a large portfolio of games), the leading PC operating system (Windows), and a global cloud computing infrastructure (Azure and Xbox Cloud Gaming), giving it important advantages in running a cloud gaming service. With an estimated 60-70% market share in global cloud gaming services, it is already much stronger than its rivals. 4. We found that the Merger would make Microsoft even stronger and substantially reduce competition in this market. We found that Activision\u2019s titles\u2014including CoD, World of Warcraft, and Overwatch\u2014will be important for the competitive of"
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:72]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "console",
+            "gaming",
+            "market",
+            "microsoft"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 25.0,
+          "source_anchor": "pdf:page:72",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 72 further note that a memo from September 2022 describing priorities for Fiscal Year 2023 noted in FY22 [\uf025], 157 suggesting xCloud [\uf025], and is not merely a console feature. 5.85 Furthermore, in contrast to Microsoft\u2019s submission that cloud is just an additional feature, a note from one of its senior employees ([\uf025]) in 2020 (with comments from [\uf025]) discusses their view of cloud gaming and how streaming is not a feature, but rather something that fundamentally changes the way and type of games played. 158 5.86 In any case, even if some customers continue to use cloud gaming to try a game before downloading it, this would suggest that it is complementary to offline console play, and not a substitute. 5.87 Whilst Microsoft submitted that [\uf025] xCloud usage is currently on console, and a [\uf025] of customers try a game before downloading it, in our view this may be influenced by Microsoft tying its own cloud gaming offering to Game Pass Ultimate and using its existing consumer base to grow its cloud gaming service, and therefore not representative of the cloud gaming market more generally. 5.88 We also expect this to change in the future. First, we have received no evidence from Microsoft that it thinks the majority of future cloud gaming will be on console. In contrast, a number of documents discussing Microsoft\u2019s expectations for cloud gaming in the future suggest it will become increasingly important relative to playing natively on console. One document from 2019 in particular discusses strategy and sequencing of expanding cloud streaming noting that Microsoft first plans to \u2018[\uf025]\u2019. 159 In an email exchange with [\uf025], [\uf025]. 160 Ultimately a view that xCloud usage will remain primarily attached to the latest Microsoft console is inconsistent with evidence on Microsoft\u2019s (and "
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:217]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "estimate",
+            "gaming",
+            "market",
+            "share"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 24.6,
+          "source_anchor": "pdf:page:217",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 217 (c) Shadow. Shadow is a cloud computing service\u2014a service where the user can access a powerful Windows PC remotely for uses including but not limited to gaming\u2014rather than a specific cloud gaming service. 804 We understand it to be a very small competitor and has not featured in any of the shares of supply submitted to us\u2014see Appendix C: Shares of supply. (d) Meta. Meta has a small presence in gaming of which cloud gaming [\uf025]. [\uf025], and in our view is therefore materially different to cloud gaming services offering the latest high-performance games. 805 (e) Nintendo. Nintendo also offers a very limited cloud gaming service that is only available on the Nintendo Switch device. Nintendo explained that [\uf025]. 806 (f) Antstream Arcade. Antstream Arcade is a cloud gaming service that offers access to a library of retro games, such as Pac-Man. 807 Given it focuses on much older, niche content, we do not consider it as a competitor in the market for cloud gaming services offering the latest high- performance games. Antstream Arcade [\uf025], supporting this interpretation. (g) Others. There are also some lesser-known providers such as Utomik, Playkey and Netboom. 808 These providers are likely to be much smaller and are therefore not considered in detail. 809 8.82 In the course of the investigation, we contacted Shadow, Utomik, Playkey, Netboom, and Blacknut, with a view to obtaining MAU data to calculate shares of supply, but were unable to obtain this information. We do not expect that data for these providers would make a significant difference to our calculated shares of supply, as they have not been mentioned by any other market participants as significant suppliers, so we expect them to be small. They are also not included in any shares of supply estimates from the Part"
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:349]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "cma",
+            "gaming",
+            "market",
+            "microsoft"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 24.6,
+          "source_anchor": "pdf:page:349",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 349 Ubitus under which the distribution of Activision content on multiple cloud gaming services was provided for, should the Merger proceed. Microsoft told us that these errors meant that the SLC finding was unsustainable. 1416 Our consideration of, and conclusions on, Microsoft\u2019s arguments in relation to the counterfactual and Microsoft\u2019s post-Merger agreements are covered in Chapter 8. 1417 We also consider these agreements further in Chapter 9 and when we consider RCBs later in this chapter. 11.51 Microsoft told us that, in its view, the cloud gaming market is de minimis and will remain so and therefore any SLC will be limited. On this basis, Microsoft submitted that the Microsoft Cloud Remedy is proportionate to the size of the SLC while also preserving and enhancing RCBs. 1418 We set out more detail on the Parties\u2019 views on, and our assessment of, RCBs and proportionality from paragraph 11.135 below. 11.52 Microsoft submitted that accepting the Microsoft Cloud Remedy would signal the CMA\u2019s ability to design and implement remedies that recognise the specific features of the digital economy and afford it the ability to foster emerging market segments like cloud gaming. It submitted that the UK Government had been clear that the new merger control rules overseen by the CMA\u2019s Digital Markets Unit (DMU) must avoid disproportionate burdens on businesses, and that rejecting the Microsoft Cloud Remedy would call the practicability of the new regime into question, harm consumers and have a negative impact on innovation and investment in the UK. 1419 11.53 Microsoft submitted that the ten-year timeframe is driven by the standard period for remedies that the European Commission has adopted. 1420 It submitted that it is not aware of any streaming agreements in the market "
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:409]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "cma",
+            "conclude",
+            "gaming",
+            "market",
+            "microsoft"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 24.6,
+          "source_anchor": "pdf:page:409",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 409 would be tantamount to lowering the evidentiary bar required to block a transaction because it is in a digital market. Microsoft submitted that the UK Government has recently concluded that lowering the evidentiary bar in phase 2 is not appropriate \u2013 even for digital mergers involving companies with \u2018Strategic Market Status\u2019 \u2013 due to the potential impacts on innovation and investment. Microsoft submitted that refusing to consider behavioural remedies in new digital markets simply because such markets are \u2018dynamic\u2019 or \u2018evolving\u2019 has the same effect, making it harder to obtain merger clearances in digital mergers. Microsoft submitted that the UK Government has been clear that the new merger control rules overseen by the CMA\u2019s DMU must avoid disproportionate burdens on businesses, and that the CMA can only hope to achieve this aim if it is prepared to impose behavioural remedies in dynamic and evolving digital markets. 1591 11.274 Microsoft also told us that prohibition would be disproportionate to the size of the Cloud Gaming SLC identified. It submitted that the cloud gaming market is de minimis and will remain so. On this basis, it considers prohibition to be a disproportionate remedy and considers that a divestment remedy will deliver minimal benefits. 1592 It told us that the \u2018supposed adverse effects\u2019 were therefore \u2018vastly overstated in the Remedies Working Paper\u2019, and that these adverse effects were \u2018not only remote and of limited magnitude' but even those were uncertain. 1593 11.275 In its response to our Remedies Working Paper, Microsoft told us that the CMA had \u2018substantially understated the costs of prohibition\u2019, and that other than the RCBs, prohibition would have \u2018huge collateral effects on the way in which Microsoft is able to carry on its business "
+        },
+        {
+          "citation": "[microsoft_activision_cma_final_report.pdf#pdf:page:209]",
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "matched_terms": [
+            "cloud",
+            "console",
+            "gaming",
+            "market",
+            "microsoft"
+          ],
+          "parser_disclosure": null,
+          "requested_parts": [],
+          "retrieval_query": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+          "score": 24.4,
+          "source_anchor": "pdf:page:209",
+          "source_role": "primary_source",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+          "text": "Page 209 8.60 With respect to the Parties\u2019 argument that the increasing computational power of mobile devices will limit the growth of cloud gaming, we note that, whilst the computational power of mobile devices has increased and may continue to increase, cloud infrastructure and hardware will continue to be more powerful with more memory, and therefore offer higher performance gaming. In the same way that there will continue to be demand for consoles and gaming PCs which are able to offer higher performance gaming than smaller, handheld devices, there is likely to continue to be demand for cloud gaming which can also offer higher performance from hardware housed in data centres. Playing via cloud also offers additional benefits such as using less battery life as less processing is happening locally. Competitive Landscape in cloud gaming services Features of the cloud gaming market Network effects in cloud gaming 8.61 This section considers the extent of network effects in cloud gaming services. Significant network effects can be a barrier to entry or expansion in a market. In addition, the larger the network effects are in cloud gaming, the more likely it is that the market could \u2018tip\u2019, ie, reach a position where only one or a few providers are able to compete. 764 In a market with significant network effects, the effect of any foreclosure strategy can therefore be increased. As part of our assessment of network effects we also look at evidence on multi-homing, as this may mitigate the strength of network effects to some extent. Parties\u2019 views 8.62 Microsoft submitted that cloud gaming reduces network effects. It stated that, as cloud gaming is effectively device agnostic and does not require the consumer to invest in hardware, gamers can easily switch and multi-home a"
+        }
+      ],
+      "room_id": "local_fcc02710f5ab",
+      "source_classification": "public_filing_corpus",
+      "source_provenance": {
+        "accuracy_release_evidence": false,
+        "binding_sha256": "c32f92853d910f4a3b59505fc2310806c70599b0d841e5dc89aa1cfa5389aefc",
+        "buyer_evidence": false,
+        "classification": "public_filing_corpus",
+        "customer_data_verified": false,
+        "manifest_bound": true,
+        "operator_selected": false,
+        "public_snapshot_sha256": "a56dfd42b98fa36eedd7c4532fa4dd74ba8f87fbca99189576f1ec03c0a840e8",
+        "public_source": true,
+        "public_source_count": 1,
+        "synthetic_fixture": false,
+        "version": "room_source_provenance_v1"
+      },
+      "source_provenance_sha256": "c32f92853d910f4a3b59505fc2310806c70599b0d841e5dc89aa1cfa5389aefc",
+      "source_snapshot_sha256": "e9739c4ceff2f19e67d621b1d40f239e9742f0ad19c7611cf20974fde184724c",
+      "trace_id": "trc_b50e529415eb",
+      "unauthorized_file_writes": [],
+      "usage": {
+        "completion_tokens": 62,
+        "prompt_tokens": 3705,
+        "total_tokens": 3767
+      }
+    }
+  },
+  "run_finished_at_unix": 1786862968.330373,
+  "run_started_at_unix": 1786862837.128715,
+  "runtime": {
+    "endpoint": "http://127.0.0.1:1234",
+    "source_scope_read_only": true,
+    "surface": "Prism web API to bounded retrieval to LM Studio to Buzz signed event"
+  },
+  "schema": "prism.public_deal_battletest.responses.v1",
+  "unauthorized_file_writes": []
+}

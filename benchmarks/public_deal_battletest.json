@@ -1,0 +1,78 @@
+{
+  "name": "Prism Vault public deal dossier battletest",
+  "version": 1,
+  "preregistered_at": "2026-08-14T22:50:00-04:00",
+  "thresholds": {
+    "corpus_hash_match": 1.0,
+    "source_fact_match": 1.0,
+    "critical_numeric_accuracy": 1.0,
+    "citation_grounding": 1.0,
+    "answer_absence_accuracy": 1.0,
+    "unauthorized_file_writes": 0
+  },
+  "citation_format": "[filename#source_anchor]",
+  "cases": [
+    {
+      "id": "anaplan_vdr_timeline",
+      "room": "anaplan",
+      "prompt": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end? Cite the filing and exact source anchor.",
+      "answer_policy": "answer",
+      "expected_answer_terms": ["March 12, 2022", "financial", "operational", "legal", "March 20, 2022"],
+      "required_citations": [
+        {"filename": "01_anaplan_defm14a.htm", "anchor": "html:block:00484"}
+      ],
+      "source_evidence_terms": ["comprehensive virtual data room", "financial, operational and legal", "March 12, 2022 through March 20, 2022"],
+      "critical": true
+    },
+    {
+      "id": "anaplan_termination_fees",
+      "room": "anaplan",
+      "prompt": "State the company termination fee and the reverse termination fee. Cite the filing and exact source anchors.",
+      "answer_policy": "answer",
+      "expected_answer_terms": ["$293,122,500", "$586,245,000"],
+      "required_citations": [
+        {"filename": "01_anaplan_defm14a.htm", "anchor": "html:block:00207"}
+      ],
+      "source_evidence_terms": ["$293,122,500", "$586,245,000"],
+      "critical": true
+    },
+    {
+      "id": "citrix_financing_mix",
+      "room": "citrix",
+      "prompt": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately, and cite the exact source anchor.",
+      "answer_policy": "answer",
+      "expected_answer_terms": ["$15.0 billion", "$2.5 billion", "$2.275 billion", "Elliott"],
+      "required_citations": [
+        {"filename": "02_citrix_financing_supplement.htm", "anchor": "html:block:00058"}
+      ],
+      "source_evidence_terms": ["debt commitment had been increased to $15.0 billion", "preferred equity of $2.5 billion", "common equity of $2.275 billion"],
+      "critical": true
+    },
+    {
+      "id": "citrix_entry_leverage_absent",
+      "room": "citrix",
+      "prompt": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction? Cite the source used.",
+      "answer_policy": "refuse_absent",
+      "expected_answer_terms": ["not disclosed"],
+      "acceptable_absence_terms": ["not disclosed", "cannot determine", "insufficient evidence", "not provided"],
+      "forbidden_answer_patterns": ["exact entry leverage was", "entry leverage was [0-9]"],
+      "required_citations": [
+        {"filename": "02_citrix_financing_supplement.htm", "anchor": "html:block:00058"}
+      ],
+      "source_evidence_terms": ["debt commitment had been increased to $15.0 billion"],
+      "critical": true
+    },
+    {
+      "id": "cma_competition_conclusion",
+      "room": "microsoft_activision",
+      "prompt": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft? Cite the PDF page.",
+      "answer_policy": "answer",
+      "expected_answer_terms": ["not", "substantial lessening of competition", "console gaming", "cloud gaming", "60-70%"],
+      "required_citations": [
+        {"filename": "microsoft_activision_cma_final_report.pdf", "anchor": "pdf:page:7"}
+      ],
+      "source_evidence_terms": ["may not be expected to result in a substantial lessening of competition", "SLC in cloud gaming services", "60-70%"],
+      "critical": true
+    }
+  ]
+}

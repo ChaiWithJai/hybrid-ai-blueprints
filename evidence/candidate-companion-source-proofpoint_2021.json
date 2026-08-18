@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "proofpoint_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 852,
+    "estimated_tokens": 56654,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 195
+  },
+  "source": {
+    "accession": "0001564590-21-023343",
+    "bytes": 2955310,
+    "filing_date": "2021-05-04",
+    "form": "10-Q",
+    "path": ".runtime/candidate-deal-sources/proofpoint_2021/02_financial_10q.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1212458/000156459021023343/pfpt-10q_20210331.htm",
+    "report_date": "2021-03-31",
+    "sha256": "1d04a243e1b3d32a1ea287844d8d12cb251f3cf8a2bc8f2fc93556b724262df8"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

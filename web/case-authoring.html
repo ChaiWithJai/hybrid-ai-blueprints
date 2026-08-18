@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Case authoring — Prism Vault</title>
+    <link rel="stylesheet" href="/source-review.css?v=2">
+    <link rel="stylesheet" href="/case-authoring.css?v=1">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">Prism <span>Vault</span></a>
+      <div class="title-block"><span class="eyebrow">Benchmark workshop</span><h1>Case authoring</h1></div>
+      <div class="truth"><span class="truth-dot"></span><span id="truth-label">Loading authoring gate</span></div>
+    </header>
+
+    <main class="review-shell authoring-shell">
+      <aside class="queue-panel" aria-label="Candidate authoring queue">
+        <div class="queue-head">
+          <div><span class="eyebrow">Source reviewed drafts</span><h2 id="queue-count">Checking eligibility</h2></div>
+          <label class="search"><span class="sr-only">Filter drafts</span><input id="queue-search" type="search" placeholder="Company or task"></label>
+        </div>
+        <div class="queue-list" id="queue-list" aria-live="polite"></div>
+      </aside>
+
+      <section class="source-workbench authoring-workbench">
+        <nav class="breadcrumb"><a href="/">Workspace</a><span>›</span><a href="/benchmark/source-review">Source review</a><span>›</span><strong>Case authoring</strong><span>›</span><a href="/benchmark/output-review">Output review</a><span>›</span><a href="/benchmark/pricing-poc">Pricing proof</a></nav>
+        <section class="gate-summary" aria-labelledby="gate-title">
+          <span class="eyebrow">Current gate</span>
+          <h2 id="gate-title">Waiting for independent source review</h2>
+          <p id="gate-detail">Two matching signed reviews, or a valid principal adjudication, must authorize a draft.</p>
+        </section>
+        <div id="authoring-content" hidden>
+          <div class="question-heading">
+            <div><span class="eyebrow" id="material-task"></span><h2 id="material-company"></h2></div>
+            <span class="state-pill">Eligible for authoring</span>
+          </div>
+          <section class="question-card">
+            <span class="eyebrow">Locked reviewed question</span>
+            <p id="material-question"></p>
+            <div class="material-meta"><span id="material-policy"></span><span id="material-review-chain"></span></div>
+          </section>
+          <section class="evidence-section">
+            <div class="section-heading"><div><span class="eyebrow">Locked source contract</span><h3>Claims and citations from review</h3></div><p>Case authoring cannot change the agreed question, claims, source hashes, or citations.</p></div>
+            <div class="locked-material" id="locked-material"></div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="decision-panel" aria-label="Unsigned domain owner approval">
+        <form id="case-authoring-form">
+          <div class="decision-head"><span class="eyebrow">Domain owner step</span><h2>Prepare case approval</h2><p>The browser prepares an unsigned record. Buzz signing and approval recording happen separately.</p></div>
+          <label>Domain case owner<select id="domain-owner-id" required><option value="">Choose a rostered owner</option></select></label>
+          <p class="qualification" id="owner-qualification"></p>
+          <label>Case ID<input id="case-id" type="text" required placeholder="deal_task_v1"></label>
+          <label>Version<input id="case-version" type="text" value="1.0.0" required></label>
+          <label>Repository split<select id="case-split" required><option value="development">Development</option><option value="calibration">Calibration</option></select></label>
+          <label>Severity<select id="case-severity" required><option value="critical">Critical</option><option value="major">Major</option><option value="minor">Minor</option></select></label>
+          <label>Investment screen<textarea id="investment-screen" rows="3" placeholder="State the decision screen this case supports."></textarea></label>
+          <label>Near duplicate family<input id="near-duplicate-family" type="text" placeholder="Optional family ID"></label>
+          <label>Requested components, one per line<textarea id="requested-components" rows="4" required></textarea></label>
+          <label>Calculations, JSON array<textarea id="case-calculations" rows="8" aria-describedby="calculation-help">[]</textarea><small id="calculation-help">Each calculation needs an ID, an arithmetic formula, expected value, unit, tolerance, claim IDs, and named inputs whose values appear in those reviewed claims. Prism recomputes the formula before registration.</small></label>
+          <label>Acceptable absence terms, one per line<textarea id="absence-terms" rows="3"></textarea></label>
+          <label>Forbidden claims, one per line<textarea id="forbidden-claims" rows="3"></textarea></label>
+          <fieldset><legend>Evaluation slices</legend><div class="slice-options">
+            <label><input type="checkbox" value="single_document"><span>Single document</span></label>
+            <label><input type="checkbox" value="tables_or_calculations"><span>Tables or calculations</span></label>
+            <label><input type="checkbox" value="confusable_evidence"><span>Confusable evidence</span></label>
+          </div></fieldset>
+          <div class="guard-note" id="authoring-guard">Export is closed until a draft clears source review and a domain case owner is rostered.</div>
+          <button class="submit-button" id="export-case-approval" type="submit" disabled>Download unsigned approval</button>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </aside>
+    </main>
+    <script type="module" src="/case-authoring.mjs?v=2"></script>
+  </body>
+</html>

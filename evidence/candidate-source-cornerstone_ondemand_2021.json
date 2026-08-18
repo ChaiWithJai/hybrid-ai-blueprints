@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "cornerstone_ondemand_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2400,
+    "estimated_tokens": 198399,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 442
+  },
+  "source": {
+    "accession": "0001140361-21-030923",
+    "bytes": 2618261,
+    "cik": "0001401680",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1401680/000114036121030923/0001140361-21-030923-index.htm",
+    "path": ".runtime/candidate-deal-sources/cornerstone_ondemand_2021/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1401680/000114036121030923/ny20000316x2_defm14a.htm",
+    "sha256": "8688b66f8426743e58a27f5abb606b456b7f2288def03dd36e90e31c7c51140e"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

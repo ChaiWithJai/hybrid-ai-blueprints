@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "cloudera_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2255,
+    "estimated_tokens": 178774,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 369
+  },
+  "source": {
+    "accession": "0001193125-21-218669",
+    "bytes": 1549615,
+    "cik": "0001535379",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1535379/000119312521218669/0001193125-21-218669-index.htm",
+    "path": ".runtime/candidate-deal-sources/cloudera_2021/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1535379/000119312521218669/d132998ddefm14a.htm",
+    "sha256": "535e44e4a2f75772bd075aca1b20f8da9790fa8c8c823d520a9e2445023bff12"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

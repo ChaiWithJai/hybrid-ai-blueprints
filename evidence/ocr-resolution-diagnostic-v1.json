@@ -1,0 +1,92 @@
+{
+  "benchmark_used_for_selection": true,
+  "document_specific_vocabulary": [],
+  "engine": "apple_vision_vnrecognizetextrequest",
+  "human_approved_ocr_release_gate_passed": false,
+  "independent_test": false,
+  "input_derivative_bytes": 202029,
+  "input_derivative_render_dpi": 200,
+  "input_derivative_sha256": "f4eb217b42882eac8f6cce7bd31d723a3fe5e1bb724bc6b6e259ef2b5182a867",
+  "language_correction": true,
+  "limitations": [
+    "The implementation team ran this diagnostic after the cover page failed.",
+    "The same public page was used to select and verify the product setting.",
+    "The diagnostic does not measure natural scans, reading order, tables, or layout."
+  ],
+  "physical_page": 1,
+  "recognition_level": "accurate",
+  "recorded_at": "2026-08-16T03:07:50.086339-04:00",
+  "schema_version": 1,
+  "selected_product_ocr_render_dpi": 300,
+  "settings": [
+    {
+      "contains_cmay_token": false,
+      "contains_exact_cma_token": true,
+      "engine_mean_confidence": 1,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 150,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "raster_bytes": 296122,
+      "raster_sha256": "a34585e32e23d46b79db2ef6fd0bcc0d984d623d3c75bcedb44cae6b9bf66fed"
+    },
+    {
+      "contains_cmay_token": true,
+      "contains_exact_cma_token": false,
+      "engine_mean_confidence": 0.9285714285714286,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 200,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMAY\nCompetition & Markets Authority",
+      "raster_bytes": 468367,
+      "raster_sha256": "f8f1d50dc56fd4fae5d4dd3e53f9870537e702cf12cccc43d71ccbc95ead31fd"
+    },
+    {
+      "contains_cmay_token": false,
+      "contains_exact_cma_token": true,
+      "engine_mean_confidence": 1,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 250,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "raster_bytes": 644598,
+      "raster_sha256": "fc52f491344246c319c3d498c82d05a6c586da7716b7f364a7353fddfe04b3f6"
+    },
+    {
+      "contains_cmay_token": false,
+      "contains_exact_cma_token": true,
+      "engine_mean_confidence": 1,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 300,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "raster_bytes": 830964,
+      "raster_sha256": "83cff97e7da5b5af69c3a8cc0073633d6ed0ba2afe1be3c2af9ffb6a54ed2970"
+    },
+    {
+      "contains_cmay_token": false,
+      "contains_exact_cma_token": true,
+      "engine_mean_confidence": 1,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 400,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "raster_bytes": 1236365,
+      "raster_sha256": "d76c61d1df2f81e91b7ee62a0b173e319515f6621fa3ffd0901f3f70c50330b5"
+    },
+    {
+      "contains_cmay_token": false,
+      "contains_exact_cma_token": true,
+      "engine_mean_confidence": 1,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 600,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "raster_bytes": 2019340,
+      "raster_sha256": "75c986c6a0f2ad1d8112cb17aefda08bd5de66492d4e8af33ac4c7d2d84ea39f"
+    }
+  ],
+  "source": {
+    "bytes": 2880833,
+    "canonical_url": "https://assets.publishing.service.gov.uk/media/644939aa529eda000c3b0525/Microsoft_Activision_Final_Report_.pdf",
+    "document_id": "microsoft_activision_cma_final_report_2023_04_26",
+    "local_path": ".runtime/public-deal-rooms/microsoft_activision/microsoft_activision_cma_final_report.pdf",
+    "publisher": "UK Competition and Markets Authority",
+    "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+  },
+  "verification_kind": "ocr_resolution_sweep_development_diagnostic"
+}

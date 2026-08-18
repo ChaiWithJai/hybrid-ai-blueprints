@@ -1,0 +1,326 @@
+{
+  "blinded_to_model": true,
+  "cases": [
+    {
+      "answer_policy": "answer",
+      "calculations": [],
+      "case_id": "anaplan_vdr_timeline",
+      "case_version": "2.0.0",
+      "deal_id": "anaplan_2022",
+      "dimensions_to_review": [
+        "calibrated_uncertainty",
+        "component_completeness",
+        "evidence_support",
+        "human_usefulness",
+        "primary_decision_intent"
+      ],
+      "forbidden_claims": [],
+      "question": "When did Anaplan open its virtual data room, what categories of material did it contain, and when did the intensive diligence period end?",
+      "requested_components": [
+        "virtual_data_room_open_date",
+        "material_categories",
+        "intensive_diligence_end_date"
+      ],
+      "required_citations": [
+        {
+          "anchor": "html:block:00484",
+          "evidence_excerpt_sha256": null,
+          "filename": "01_anaplan_defm14a.htm",
+          "id": "cite_vdr_timeline",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+        }
+      ],
+      "required_claims": [
+        {
+          "citation_ids": [
+            "cite_vdr_timeline"
+          ],
+          "id": "claim_vdr_open",
+          "severity": "critical",
+          "text": "The virtual data room opened on March 12, 2022."
+        },
+        {
+          "citation_ids": [
+            "cite_vdr_timeline"
+          ],
+          "id": "claim_vdr_materials",
+          "severity": "major",
+          "text": "It contained financial, operational, and legal materials."
+        },
+        {
+          "citation_ids": [
+            "cite_vdr_timeline"
+          ],
+          "id": "claim_diligence_end",
+          "severity": "critical",
+          "text": "The intensive diligence period ended on March 20, 2022."
+        }
+      ],
+      "response": "- **answer**: Anaplan opened its virtual data room on March 12, 2022; it contained financial, operational and legal diligence materials and the first draft of the Merger Agreement with Thoma Bravo and its advisors; the intensive diligence period ended on March 20, 2022. [01_anaplan_defm14a.htm#html:block:00484]",
+      "response_sha256": "c84cd86c8eb5497b925b5b8fd05e99449fc958b186ddd58e0e17fc5b837b021e",
+      "severity": "critical",
+      "split": "development",
+      "task_family": "transaction_identity_structure_chronology"
+    },
+    {
+      "answer_policy": "answer",
+      "calculations": [],
+      "case_id": "anaplan_termination_fees",
+      "case_version": "2.0.0",
+      "deal_id": "anaplan_2022",
+      "dimensions_to_review": [
+        "calibrated_uncertainty",
+        "component_completeness",
+        "evidence_support",
+        "human_usefulness",
+        "primary_decision_intent"
+      ],
+      "forbidden_claims": [],
+      "question": "State the company termination fee and the reverse termination fee.",
+      "requested_components": [
+        "company_termination_fee",
+        "reverse_termination_fee"
+      ],
+      "required_citations": [
+        {
+          "anchor": "html:block:00207",
+          "evidence_excerpt_sha256": null,
+          "filename": "01_anaplan_defm14a.htm",
+          "id": "cite_termination_fees",
+          "source_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f"
+        }
+      ],
+      "required_claims": [
+        {
+          "citation_ids": [
+            "cite_termination_fees"
+          ],
+          "id": "claim_company_fee",
+          "severity": "critical",
+          "text": "The company termination fee is $293,122,500."
+        },
+        {
+          "citation_ids": [
+            "cite_termination_fees"
+          ],
+          "id": "claim_reverse_fee",
+          "severity": "critical",
+          "text": "The reverse termination fee is $586,245,000."
+        }
+      ],
+      "response": "- **Termination fee:** Upon termination of the Merger Agreement under specified circumstances, (i) Anaplan will be required to pay Parent a termination fee of $293,122,500 and (ii) Parent will be required to pay to Anaplan a reverse termination fee of $586,245,000 if the Merger Agreement is terminated under different specified circumstances. [01_anaplan_defm14a.htm#html:block:00207]",
+      "response_sha256": "dc9fd573543f8adb5eb89db6ce5f5fbef6da11724bcf4bf13a1c142ff883f5bd",
+      "severity": "critical",
+      "split": "development",
+      "task_family": "contract_terms_covenants_and_approvals"
+    },
+    {
+      "answer_policy": "answer",
+      "calculations": [],
+      "case_id": "citrix_financing_mix",
+      "case_version": "2.0.0",
+      "deal_id": "citrix_2022",
+      "dimensions_to_review": [
+        "calibrated_uncertainty",
+        "component_completeness",
+        "evidence_support",
+        "human_usefulness",
+        "primary_decision_intent"
+      ],
+      "forbidden_claims": [],
+      "question": "What financing mix did Vista and Elliott disclose for the Citrix deal? State debt, preferred equity, and common equity separately.",
+      "requested_components": [
+        "debt_commitment",
+        "preferred_equity",
+        "common_equity",
+        "common_equity_provider"
+      ],
+      "required_citations": [
+        {
+          "anchor": "html:block:00058",
+          "evidence_excerpt_sha256": null,
+          "filename": "02_citrix_financing_supplement.htm",
+          "id": "cite_financing_mix",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+        }
+      ],
+      "required_claims": [
+        {
+          "citation_ids": [
+            "cite_financing_mix"
+          ],
+          "id": "claim_debt",
+          "severity": "critical",
+          "text": "The debt commitment was $15.0 billion."
+        },
+        {
+          "citation_ids": [
+            "cite_financing_mix"
+          ],
+          "id": "claim_preferred",
+          "severity": "critical",
+          "text": "Preferred equity was $2.5 billion."
+        },
+        {
+          "citation_ids": [
+            "cite_financing_mix"
+          ],
+          "id": "claim_common",
+          "severity": "critical",
+          "text": "Common equity was $2.275 billion and would be provided by Elliott."
+        }
+      ],
+      "response": "- **Debt**: $15.0 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Preferred Equity**: $2.5 billion [02_citrix_financing_supplement.htm#html:block:00058]\n- **Common Equity**: $2.275 billion provided by Elliott [02_citrix_financing_supplement.htm#html:block:00058]",
+      "response_sha256": "0658b6237971eaabe3512bc3bf6a0fe4dd624c768194582dc61b8294d9f0834d",
+      "severity": "critical",
+      "split": "development",
+      "task_family": "financing_and_capital_structure"
+    },
+    {
+      "answer_policy": "refuse_absent",
+      "calculations": [],
+      "case_id": "citrix_entry_leverage_absent",
+      "case_version": "2.0.0",
+      "deal_id": "citrix_2022",
+      "dimensions_to_review": [
+        "calibrated_uncertainty",
+        "component_completeness",
+        "evidence_support",
+        "human_usefulness",
+        "primary_decision_intent"
+      ],
+      "forbidden_claims": [
+        "The exact entry debt to EBITDA leverage multiple was 13.0x.",
+        "The selected transactions valuation multiple was the entry debt multiple."
+      ],
+      "question": "What was the exact entry debt to EBITDA leverage multiple for the Citrix transaction?",
+      "requested_components": [
+        "entry_debt_to_ebitda_or_absence"
+      ],
+      "required_citations": [
+        {
+          "anchor": "html:block:00058",
+          "evidence_excerpt_sha256": null,
+          "filename": "02_citrix_financing_supplement.htm",
+          "id": "cite_financing_evidence",
+          "source_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f"
+        }
+      ],
+      "required_claims": [
+        {
+          "citation_ids": [
+            "cite_financing_evidence"
+          ],
+          "id": "claim_entry_leverage_absent",
+          "severity": "critical",
+          "text": "The exact entry debt to EBITDA leverage multiple is not disclosed and cannot be calculated from the cited evidence alone."
+        }
+      ],
+      "response": "- **Entry debt-to-EBITDA disclosure:** The exact entry debt-to-EBITDA leverage multiple is not disclosed and cannot be calculated from the cited passage alone. [02_citrix_financing_supplement.htm#html:block:00058]",
+      "response_sha256": "8e066d6b30b4f68fe181dfa6c39b40a568cd1a34b56e26b06945926ed2f25d42",
+      "severity": "critical",
+      "split": "development",
+      "task_family": "risks_conflicts_and_missing_information"
+    },
+    {
+      "answer_policy": "answer",
+      "calculations": [],
+      "case_id": "cma_competition_conclusion",
+      "case_version": "2.0.0",
+      "deal_id": "microsoft_activision_2023",
+      "dimensions_to_review": [
+        "calibrated_uncertainty",
+        "component_completeness",
+        "evidence_support",
+        "human_usefulness",
+        "primary_decision_intent"
+      ],
+      "forbidden_claims": [],
+      "question": "What did the CMA conclude for console gaming and cloud gaming, and what cloud gaming market share did it estimate for Microsoft?",
+      "requested_components": [
+        "console_gaming_conclusion",
+        "cloud_gaming_conclusion",
+        "microsoft_cloud_gaming_market_share"
+      ],
+      "required_citations": [
+        {
+          "anchor": "pdf:page:7",
+          "evidence_excerpt_sha256": null,
+          "filename": "microsoft_activision_cma_final_report.pdf",
+          "id": "cite_cma_conclusions",
+          "source_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+        }
+      ],
+      "required_claims": [
+        {
+          "citation_ids": [
+            "cite_cma_conclusions"
+          ],
+          "id": "claim_console",
+          "severity": "critical",
+          "text": "The CMA did not find a substantial lessening of competition in console gaming."
+        },
+        {
+          "citation_ids": [
+            "cite_cma_conclusions"
+          ],
+          "id": "claim_cloud",
+          "severity": "critical",
+          "text": "The CMA found a substantial lessening of competition in cloud gaming services."
+        },
+        {
+          "citation_ids": [
+            "cite_cma_conclusions"
+          ],
+          "id": "claim_market_share",
+          "severity": "critical",
+          "text": "The CMA estimated Microsoft's cloud gaming market share at 60 to 70 percent."
+        }
+      ],
+      "response": "- **answer**: The CMA found that the Merger would result in an SLC in cloud gaming services but not in console gaming services; it estimated Microsoft's cloud gaming market share at 60-70%. [microsoft_activision_cma_final_report.pdf#pdf:page:7]",
+      "response_sha256": "34b589ab077db493dc28a418e91c64ad06103d9b15be249885d5811d257a5fd5",
+      "severity": "critical",
+      "split": "development",
+      "task_family": "market_and_regulatory_findings"
+    }
+  ],
+  "instructions": [
+    "Review each response without access to provider or model identity.",
+    "Label every listed dimension pass or fail and explain every failure.",
+    "Record usefulness, decision, review time, and correction counts.",
+    "Do not use this development packet as sealed test evidence."
+  ],
+  "model_identity_included": false,
+  "packet_kind": "blinded_first_pass_development_review",
+  "packet_version": "1.0.0",
+  "registry_sha256": "262e39eab0ff4e2b98f4f112935bd58001dd97f81a7d455f653e1a312f16f7d7",
+  "responses_sha256": "9a6ceab24ba079ff3c1dfe4782135cbd5514786907180b28c4b3dc80b21c2d25",
+  "rubric_dimensions": [
+    {
+      "description": "The brief completes the requested first pass job and supports its advance, pause, or stop recommendation.",
+      "id": "primary_decision_intent",
+      "method": "human_calibrated_semantic_judge"
+    },
+    {
+      "description": "Every material factual claim is supported by the cited passage and the cited passage supports the stated relation.",
+      "id": "evidence_support",
+      "method": "deterministic_then_human_calibrated_semantic_judge"
+    },
+    {
+      "description": "The brief includes every explicitly requested party, value, conclusion, and result shape.",
+      "id": "component_completeness",
+      "method": "checklist_then_human_calibrated_semantic_judge"
+    },
+    {
+      "description": "The brief states when evidence is missing or conflicting and does not invent a plausible value.",
+      "id": "calibrated_uncertainty",
+      "method": "checklist_then_human_calibrated_semantic_judge"
+    },
+    {
+      "description": "A deal professional can use the brief as the starting point for first review.",
+      "id": "human_usefulness",
+      "method": "blinded_domain_review"
+    }
+  ],
+  "rubric_sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5"
+}

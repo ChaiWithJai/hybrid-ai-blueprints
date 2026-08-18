@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/first-pass-judge-calibration.v1.json",
+  "title": "Prism Vault semantic judge calibration input",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "calibration_id",
+    "split",
+    "recorded_at",
+    "rubric_sha256",
+    "human_review_receipt",
+    "judge",
+    "labels",
+    "pairwise_trials"
+  ],
+  "properties": {
+    "schema_version": {"enum": [1]},
+    "calibration_id": {"type": "string", "minLength": 1},
+    "split": {"enum": ["calibration"]},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "rubric_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "human_review_receipt": {
+      "type": "object",
+      "required": ["path", "sha256", "resolved_labels_sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "resolved_labels_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "judge": {
+      "type": "object",
+      "required": [
+        "provider",
+        "served_id",
+        "artifact_sha256",
+        "quantization",
+        "prompt_sha256",
+        "sampling"
+      ],
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "served_id": {"type": "string", "minLength": 1},
+        "artifact_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "quantization": {"type": ["string", "null"]},
+        "prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "sampling": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["case_id", "dimension", "judge_label", "critique"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "dimension": {"type": "string", "minLength": 1},
+          "judge_label": {"enum": ["pass", "fail", "unparseable"]},
+          "critique": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "pairwise_trials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "trial_id",
+          "case_id",
+          "canonical_first_sha256",
+          "canonical_second_sha256",
+          "forward_choice",
+          "reversed_choice"
+        ],
+        "properties": {
+          "trial_id": {"type": "string", "minLength": 1},
+          "case_id": {"type": "string", "minLength": 1},
+          "canonical_first_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "canonical_second_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "forward_choice": {"enum": ["first", "second", "tie", "unparseable"]},
+          "reversed_choice": {"enum": ["first", "second", "tie", "unparseable"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

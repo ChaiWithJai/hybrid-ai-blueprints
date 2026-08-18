@@ -1,0 +1,60 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 2,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786793356.224402,
+  "dataset_sha256": "f9d286b9b2876d6d3fb81833c2ba61d2e3d0e50908a1e1f5b24b75d39e2119b4",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 1,
+  "pass_rate": 1.0,
+  "mean_accuracy": 1.0,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 38009.66,
+  "cases": [
+    {
+      "case_id": "titan_lbo_sweep",
+      "passed": true,
+      "accuracy": 1.0,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:ecf",
+        "concept:term_loan",
+        "concept:policy_mismatch",
+        "numeric:reported_ecf",
+        "numeric:ending_tlb"
+      ],
+      "missing_terms": [],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Confidential_Information_Memorandum.md",
+        "02_LBO_Debt_Financing_Credit_Agreement.md",
+        "03_Three_Statement_Financial_Model_2024_2028.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_2fab5777cc18",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 38009.66,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "DEAL: PROJECT TITAN: $2,400,000,000 SPONSOR-BACKED LBO OF CLOUDSCALE NETWORKS INC.\nSOURCES USED: 01_Confidential_Information_Memorandum.md, 02_LBO_Debt_Financing_Credit_Agreement.md, 03_Three_Statement_Financial_Model_2024_2028.csv\n------------------------------------------------------------\nPeriod: 2026E_LBO_Y1\n  Reported ECF Sweep: $29.8M\n  Ending First Lien TLB: $861.2M\n  Implied Sweep Percent: 49.92%\n  Contract Policy Sweep: 25.0%\n  Status: MODEL_POLICY_MISMATCH\n\nPeriod: 2027E_LBO_Y2\n  Reported ECF Sweep: $52.5M\n  Ending First Lien TLB: $799.7M\n  Implied Sweep Percent: 49.95%\n  Contract Policy Sweep: 0.0%\n  Status: MODEL_POLICY_MISMATCH\n\nPeriod: 2028E_LBO_Y3\n  Reported ECF Sweep: $80.9M\n  Ending First Lien TLB: $709.8M\n  Implied Sweep Percent: 49.97%\n  Contract Policy Sweep: 0.0%\n  Status: MODEL_POLICY_MISMATCH\n\nPeriod: 2029E_LBO_Y4\n  Reported ECF Sweep: $110.5M\n  Ending First Lien TLB: $590.3M\n  Implied Sweep Percent: 50.0%\n  Contract Policy Sweep: 0.0%\n  Status: MODEL_POLICY_MISMATCH\n\nPeriod: 2030E_LBO_Y5\n  Reported ECF Sweep: $142.5M\n  Ending First Lien TLB: $438.8M\n  Implied Sweep Percent: 50.0%\n  Contract Policy Sweep: 0.0%\n  Status: MODEL_POLICY_MISMATCH\n\nDEAL ROOM EVIDENCE SUMMARY:\nEnterprise Value: $2,400.0M USD\nSponsor Equity Check: $960.0M USD (40.0%)\nFunded Debt Financing: $1,440.0M USD (60.0%)\nGross Leverage: 7.20x / Net Leverage: 6.00x",
+      "observed_generated_code": "import math, json, re\n\n# Source filenames used\nsource_filenames = [\"01_Confidential_Information_Memorandum.md\", \"02_LBO_Debt_Financing_Credit_Agreement.md\", \"03_Three_Statement_Financial_Model_2024_2028.csv\"]\ndeal_id = \"PROJECT TITAN: $2,400,000,000 SPONSOR-BACKED LBO OF CLOUDSCALE NETWORKS INC.\"\n\n# Direct numeric literals from evidence\nfirst_lien_net_leverage = [3.25, 2.38, 1.66, 1.07, 0.56]\nfree_cash_flow_pre_debt_service_usd_m = [68.7, 114.1, 170.9, 230.0, 294.0]\nhigh_tier_threshold = 4.0\nmandatory_amortization_usd_m = [9.0, 9.0, 9.0, 9.0, 9.0]\nmid_tier_threshold = 3.25\nperiods = [\"2026E_LBO_Y1\", \"2027E_LBO_Y2\", \"2028E_LBO_Y3\", \"2029E_LBO_Y4\", \"2030E_LBO_Y5\"]\nreported_ecf_sweep_usd_m = [29.8, 52.5, 80.9, 110.5, 142.5]\nreported_ending_tlb_usd_m = [861.2, 799.7, 709.8, 590.3, 438.8]\n\n# Policy thresholds from credit agreement\ntier_1_threshold = 4.0\ntier_2_threshold = 3.25\n\nprint(f\"DEAL: {deal_id}\")\nprint(f\"SOURCES USED: {', '.join(source_filenames)}\")\nprint(\"-\" * 60)\n\nresults = []\nfor i, period in enumerate(periods):\n    fl_net = first_lien_net_leverage[i]\n    fcf_pre = free_cash_flow_pre_debt_service_usd_m[i]\n    amort = mandatory_amortization_usd_m[i]\n    reported_sweep = reported_ecf_sweep_usd_m[i]\n    \n    # Calculate available ECF for sweep (FCF - mandatory amort)\n    available_ecf = fcf_pre - amort\n    \n    # Implied sweep percent from source schedule\n    implied_sweep_percent = (reported_sweep / available_ecf * 100) if available_ecf > 0 else 0.0\n    \n    # Determine contract sweep percent based on leverage tier policy\n    if fl_net > tier_1_threshold:\n        contract_sweep_percent = 50.0\n    elif fl_net >= tier_2_threshold:\n        contract_sweep_percent = 25.0\n    else:\n        contract_sweep_percent = 0.0\n    \n    # Compare implied vs contract policy\n    if abs(implied_sweep_percent - contract_sweep_percent) < 1.0:\n        status = \"PASS\"\n    else:\n        status = \"MODEL_POLICY_MISMATCH\"\n    \n    results.append({\n        \"period\": period,\n        \"reported_ecf_sweep_usd_m\": reported_sweep,\n        \"reported_ending_tlb_usd_m\": reported_ending_tlb_usd_m[i],\n        \"implied_sweep_percent\": round(implied_sweep_percent, 2),\n        \"contract_sweep_percent\": contract_sweep_percent,\n        \"policy_match_status\": status\n    })\n\n# Print results\nfor r in results:\n    print(f\"Period: {r['period']}\")\n    print(f\"  Reported ECF Sweep: ${r['reported_ecf_sweep_usd_m']:.1f}M\")\n    print(f\"  Ending First Lien TLB: ${r['reported_ending_tlb_usd_m']:.1f}M\")\n    print(f\"  Implied Sweep Percent: {r['implied_sweep_percent']}%\")\n    print(f\"  Contract Policy Sweep: {r['contract_sweep_percent']}%\")\n    print(f\"  Status: {r['policy_match_status']}\")\n    print()\n\n# Final summary\nprint(\"DEAL ROOM EVIDENCE SUMMARY:\")\nprint(f\"Enterprise Value: $2,400.0M USD\")\nprint(f\"Sponsor Equity Check: $960.0M USD (40.0%)\")\nprint(f\"Funded Debt Financing: $1,440.0M USD (60.0%)\")\nprint(f\"Gross Leverage: 7.20x / Net Leverage: 6.00x\")"
+    }
+  ]
+}

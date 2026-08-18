@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "verification_kind": "cross_browser_real_deal_surface",
+  "semantic_state": "firefox_and_webkit_pass_not_safari_or_accuracy",
+  "recorded_at": "2026-08-16T08:45:15.585Z",
+  "room": "local_c25b83f3e1e2",
+  "answer_event_id": "5937ad6674535f36285e2b51ef16948a91aff1d16b8104f53076a3d690ce24c6",
+  "expected_anchor": "html:block:00122",
+  "engines": [
+    {
+      "engine": "firefox",
+      "version": "153.0",
+      "passed": true,
+      "assertions": [
+        {
+          "name": "signed_answer_visible",
+          "passed": true
+        },
+        {
+          "name": "four_human_part_labels_visible",
+          "passed": true
+        },
+        {
+          "name": "four_citation_controls_visible",
+          "passed": true
+        },
+        {
+          "name": "semantic_tab_contract_visible",
+          "passed": true
+        },
+        {
+          "name": "keyboard_tab_navigation_works",
+          "passed": true
+        },
+        {
+          "name": "keyboard_citation_navigation_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/local_c25b83f3e1e2/files?source=01_defm14a.htm&anchor=html%3Ablock%3A00122"
+        },
+        {
+          "name": "citation_focus_moves_to_source",
+          "passed": true
+        },
+        {
+          "name": "mobile_width_has_no_page_overflow",
+          "passed": true,
+          "observed": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390
+          }
+        }
+      ],
+      "assertion_count": 8,
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "screenshot": {
+        "path": "evidence/browser-cross-engine-zendesk-firefox-v1.png",
+        "bytes": 118985,
+        "sha256": "373e33dc4e8b7f64c3e6958a38f245e909ecc30def5af65840208581565e2466"
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "passed": true,
+      "assertions": [
+        {
+          "name": "signed_answer_visible",
+          "passed": true
+        },
+        {
+          "name": "four_human_part_labels_visible",
+          "passed": true
+        },
+        {
+          "name": "four_citation_controls_visible",
+          "passed": true
+        },
+        {
+          "name": "semantic_tab_contract_visible",
+          "passed": true
+        },
+        {
+          "name": "keyboard_tab_navigation_works",
+          "passed": true
+        },
+        {
+          "name": "keyboard_citation_navigation_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/local_c25b83f3e1e2/files?source=01_defm14a.htm&anchor=html%3Ablock%3A00122"
+        },
+        {
+          "name": "citation_focus_moves_to_source",
+          "passed": true
+        },
+        {
+          "name": "mobile_width_has_no_page_overflow",
+          "passed": true,
+          "observed": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390
+          }
+        }
+      ],
+      "assertion_count": 8,
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "screenshot": {
+        "path": "evidence/browser-cross-engine-zendesk-webkit-v1.png",
+        "bytes": 119396,
+        "sha256": "3412800d0fd8d63b8acb13819092b58a7755a0c0656f561603b75c5509fd7e32"
+      }
+    }
+  ],
+  "engine_count": 2,
+  "assertion_count": 16,
+  "passed": true,
+  "limitations": [
+    "The check covers Playwright Firefox and WebKit builds. It does not test Safari, Chrome, Edge, or installed user extensions.",
+    "The check covers one signed answer path and is not WCAG conformance or assistive technology review.",
+    "The check does not assess deal-domain accuracy."
+  ]
+}

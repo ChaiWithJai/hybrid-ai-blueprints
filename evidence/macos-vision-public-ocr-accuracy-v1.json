@@ -1,0 +1,253 @@
+{
+  "benchmark_path": "benchmarks/ocr_accuracy_public.v1.json",
+  "benchmark_sha256": "9c7bf3bb6607d60b9a467d178618ce406a26cf9907c72c82e51a6029e8741016",
+  "engineering_measurement_passed": true,
+  "evaluation": {
+    "aggregate": {
+      "character_edit_distance": 2,
+      "character_error_rate": 0.00037757221068529355,
+      "critical_phrase_count": 21,
+      "critical_phrase_recall": 1.0,
+      "critical_phrases_found": 21,
+      "expected_character_count": 5297,
+      "expected_word_count": 875,
+      "word_edit_distance": 1,
+      "word_error_rate": 0.001142857142857143
+    },
+    "case_count": 3,
+    "cases": [
+      {
+        "case_id": "cma_cover_page_1",
+        "character_edit_distance": 0,
+        "character_error_rate": 0.0,
+        "critical_phrase_checks": [
+          {
+            "found": true,
+            "phrase": "microsoft"
+          },
+          {
+            "found": true,
+            "phrase": "activision blizzard inc"
+          },
+          {
+            "found": true,
+            "phrase": "final report"
+          },
+          {
+            "found": true,
+            "phrase": "26 april 2023"
+          },
+          {
+            "found": true,
+            "phrase": "cma"
+          },
+          {
+            "found": true,
+            "phrase": "competition markets authority"
+          }
+        ],
+        "critical_phrase_recall": 1.0,
+        "expected_character_count": 124,
+        "expected_word_count": 17,
+        "observed_word_count": 17,
+        "passed": true,
+        "physical_page": 1,
+        "word_edit_distance": 0,
+        "word_error_rate": 0.0
+      },
+      {
+        "case_id": "cma_summary_page_7",
+        "character_edit_distance": 0,
+        "character_error_rate": 0.0,
+        "critical_phrase_checks": [
+          {
+            "found": true,
+            "phrase": "competition and markets authority"
+          },
+          {
+            "found": true,
+            "phrase": "substantial lessening of competition"
+          },
+          {
+            "found": true,
+            "phrase": "console gaming services"
+          },
+          {
+            "found": true,
+            "phrase": "cloud gaming services"
+          },
+          {
+            "found": true,
+            "phrase": "60 70 market share"
+          },
+          {
+            "found": true,
+            "phrase": "call of duty"
+          },
+          {
+            "found": true,
+            "phrase": "azure and xbox cloud gaming"
+          }
+        ],
+        "critical_phrase_recall": 1.0,
+        "expected_character_count": 2392,
+        "expected_word_count": 395,
+        "observed_word_count": 395,
+        "passed": true,
+        "physical_page": 7,
+        "word_edit_distance": 0,
+        "word_error_rate": 0.0
+      },
+      {
+        "case_id": "cma_summary_page_8",
+        "character_edit_distance": 2,
+        "character_error_rate": 0.000719165767709457,
+        "critical_phrase_checks": [
+          {
+            "found": true,
+            "phrase": "ten year period"
+          },
+          {
+            "found": true,
+            "phrase": "microsoft cloud remedy"
+          },
+          {
+            "found": true,
+            "phrase": "non windows pc operating system"
+          },
+          {
+            "found": true,
+            "phrase": "prohibit the merger"
+          },
+          {
+            "found": true,
+            "phrase": "nintendo"
+          },
+          {
+            "found": true,
+            "phrase": "relevant customer benefits"
+          },
+          {
+            "found": true,
+            "phrase": "google s android"
+          },
+          {
+            "found": true,
+            "phrase": "apple s ios"
+          }
+        ],
+        "critical_phrase_recall": 1.0,
+        "expected_character_count": 2781,
+        "expected_word_count": 463,
+        "observed_word_count": 462,
+        "passed": true,
+        "physical_page": 8,
+        "word_edit_distance": 1,
+        "word_error_rate": 0.0021598272138228943
+      }
+    ],
+    "errors": [],
+    "human_approved_ocr_release_gate_passed": false,
+    "measurement_scope": "three clean 200 DPI raster derivatives of fixed public M&A pages",
+    "passed": true,
+    "thresholds": {
+      "every_case_must_pass": true,
+      "maximum_character_error_rate": 0.04,
+      "maximum_word_error_rate": 0.08,
+      "minimum_critical_phrase_recall": 1.0
+    }
+  },
+  "human_approved_ocr_release_gate_passed": false,
+  "limitations": [
+    "The reference text comes from the born digital text layer of the same fixed public PDF pages.",
+    "The image only inputs are clean 200 DPI raster derivatives, not naturally scanned customer documents.",
+    "The three pages contain prose and a cover page. They do not measure tables, handwriting, stamps, damaged scans, or multi column reading order in general.",
+    "The implementation team selected these pages and phrases. No independent domain reviewer approved the labels.",
+    "A passing run is an engineering OCR measurement and does not satisfy the human approved OCR release gate."
+  ],
+  "measured_at": "2026-08-16T03:08:46.886482-04:00",
+  "observations": [
+    {
+      "case_id": "cma_cover_page_1",
+      "document_specific_vocabulary": [],
+      "embedded_text_empty": true,
+      "engine": "apple_vision_vnrecognizetextrequest",
+      "engine_confidence_is_accuracy": false,
+      "engine_mean_confidence": 1,
+      "input_derivative_bytes": 202029,
+      "input_derivative_render_dpi": 200,
+      "input_derivative_sha256": "2728d630b2740f9112f20ec6da21429a68b8ddad4c201333ddefb04997a203af",
+      "language_correction": true,
+      "ocr_line_count": 7,
+      "ocr_render_dpi": 300,
+      "ocr_text": "Anticipated acquisition by\nMicrosoft of Activision\nBlizzard, Inc.\nFinal report\n26 April 2023\nCMA\nCompetition & Markets Authority",
+      "physical_page": 1,
+      "recognition_level": "accurate"
+    },
+    {
+      "case_id": "cma_summary_page_7",
+      "document_specific_vocabulary": [],
+      "embedded_text_empty": true,
+      "engine": "apple_vision_vnrecognizetextrequest",
+      "engine_confidence_is_accuracy": false,
+      "engine_mean_confidence": 1,
+      "input_derivative_bytes": 731065,
+      "input_derivative_render_dpi": 200,
+      "input_derivative_sha256": "00d8d2e545b42f83b9977cdd6a60f87f6d0025b3b47786a241363b2c575cdc8d",
+      "language_correction": true,
+      "ocr_line_count": 43,
+      "ocr_render_dpi": 300,
+      "ocr_text": "Summary\nWhat we have found\n1.\nThe Competition and Markets Authority (CMA) has found that the anticipated\nacquisition (the Merger) of Activision Blizzard, Inc. (Activision) by Microsoft\nCorporation (Microsoft) (together, the Parties) may not be expected to result\nin a substantial lessening of competition (SLC) in console gaming services in\nthe UK. However, the CMA has found that the Merger may be expected to\nresult in an SLC in cloud gaming services in the UK.\n2.\nIn relation to console gaming services, we found that Xbox (Microsoft) and\nPlayStation (Sony) compete closely with each other, and that Activision's Call\nof Duty (CoD) is important to the competitive offering of each. The evidence\nsuggests, however, that Microsoft would not find it financially beneficial to\nmake CoD exclusive to Xbox after the Merger. We also found that making\nCoD available on Xbox on better terms than on PlayStation would not\nmaterially harm PlayStation's ability to compete. On this basis, we found that\nthe Merger would not substantially reduce competition in console gaming\nservices in the UK.\n3.\nIn relation to cloud gaming services, we found that Microsoft already has a\nstrong position. It owns a popular gaming platform (Xbox and a large portfolio\nof games), the leading PC operating system (Windows), and a global cloud\ncomputing infrastructure (Azure and Xbox Cloud Gaming), giving it important\nadvantages in running a cloud gaming service. With an estimated 60-70%\nmarket share in global cloud gaming services, it is already much stronger than\nits rivals.\n4.\nWe found that the Merger would make Microsoft even stronger and\nsubstantially reduce competition in this market. We found that Activision's\ntitles-including CoD, World of Warcraft, and Overwatch-will be important for\nthe competitive offering of cloud gaming services as the market continues to\ngrow and develop. We found that, after the Merger, Microsoft would find it\ncommercially beneficial to make Activision's titles exclusive to its own cloud\ngaming service. Given its already strong position, even a moderate increment\nto Microsoft's strength may be expected to substantially reduce competition in\nthis developing market, to the detriment of current and future cloud gaming\nusers.\n5.\nMicrosoft offered a behavioural remedy to address our concerns in cloud\ngaming services (the Microsoft Cloud Remedy). The Microsoft Cloud\nRemedy did not aim to restore competition to the level that would have\n4",
+      "physical_page": 7,
+      "recognition_level": "accurate"
+    },
+    {
+      "case_id": "cma_summary_page_8",
+      "document_specific_vocabulary": [],
+      "embedded_text_empty": true,
+      "engine": "apple_vision_vnrecognizetextrequest",
+      "engine_confidence_is_accuracy": false,
+      "engine_mean_confidence": 1,
+      "input_derivative_bytes": 815774,
+      "input_derivative_render_dpi": 200,
+      "input_derivative_sha256": "5b86f3be0cee5a3f7896b77cc368a8c480fbf4e631ddf65a2d1b5de676d1d1e2",
+      "language_correction": true,
+      "ocr_line_count": 42,
+      "ocr_render_dpi": 300,
+      "ocr_text": "prevailed absent the Merger, but rather to impose obligations on Microsoft to\nsupport cloud gaming service providers using certain business models (such\nas by allowing them to stream certain games purchased by users through\ncertain storefronts) for a ten-year period.\n6.\nWe found that the Microsoft Cloud Remedy had several shortcomings\nconnected with the growing and fast-moving nature of cloud gaming services.\nIn particular, the scope of the remedy was limited to cloud gaming providers\nwith specific business models. As a result, Microsoft would not have to supply\nActivision's full range of games to providers that, absent the Merger, may have\nentered into a different type of commercial relationship with Activision (eg,\nthrough exclusive content, joint marketing arrangements, or a multi-game\nsubscription service like Game Pass) or to cloud gaming providers that may\ndecide to operate using a non-Windows PC operating system (eg Linux). It\nalso did not provide for competition through differentiation in content. The\ncomplexity of the remedy, in the context of a dynamic market that is evolving,\nalso meant that it had a high risk of circumvention, and that it would have been\ndifficult to monitor effectively. In light of these shortcomings, we could not be\nsufficiently confident that the Microsoft Cloud Remedy would have addressed\nour concerns, and we found that the only effective remedy to the SLC is to\nprohibit the Merger.\n7.\nAt a late stage in our process\u2014over a year after the Merger was announced\nand after competition authorities in the EU, the UK, and the US expressed\nconcerns about the Merger-Microsoft told us that it had entered into\nagreements with Nintendo and three cloud gaming service providers to allow\ncertain Activision content to be made available on their platforms after the\nMerger. Microsoft told us that these agreements, along with Microsoft's plan to\nenter the mobile gaming market and its intention to place Activision's content\non Game Pass (Microsoft's multi-game subscription service), were relevant\ncustomer benefits (RCBs) that would make prohibition disproportionate.\nWe found that most of these did not qualify as RCBs. We found that the\nMerger itself would not increase-rather, it would decrease-the incentive that\nActivision would have had absent the merger to enter into these agreements.\nWe also found that the impact of these agreements was highly uncertain, and\nwe could not be confident that they would lead to material benefits for\ncustomers. As for Microsoft's plans to enter the mobile gaming market, we\nfound that these plans were far from certain, especially in current\ncircumstances where the largest mobile OS-Google's Android and Apple's\niOS\u2014either currently prohibit rival mobile gaming app stores or impose strict\nlimits on their ability to monetise content.\n5",
+      "physical_page": 8,
+      "recognition_level": "accurate"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "bytes": 2880833,
+    "canonical_url": "https://assets.publishing.service.gov.uk/media/644939aa529eda000c3b0525/Microsoft_Activision_Final_Report_.pdf",
+    "document_id": "microsoft_activision_cma_final_report_2023_04_26",
+    "local_path": ".runtime/public-deal-rooms/microsoft_activision/microsoft_activision_cma_final_report.pdf",
+    "publisher": "UK Competition and Markets Authority",
+    "sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8"
+  },
+  "toolchain": {
+    "available": true,
+    "commands": {
+      "pdftoppm": true,
+      "swiftc": true
+    },
+    "engine": "apple_vision_vnrecognizetextrequest",
+    "limitations": [
+      "OCR text is ordered by recognized bounding boxes; reading order can be wrong.",
+      "OCR does not reconstruct tables, merged cells, columns, or document layout.",
+      "Recognition confidence is engine output, not a measured accuracy score.",
+      "This adapter is available only on the measured macOS prototype toolchain."
+    ],
+    "local_only": true,
+    "pdftoppm_version": "pdftoppm version 26.08.0",
+    "pdftotext_version": "pdftotext version 26.08.0",
+    "platform": "Darwin",
+    "render_dpi": 300,
+    "sips_version": "sips-316",
+    "source_present": true
+  },
+  "verification_kind": "public_ma_clean_raster_ocr_accuracy_measurement"
+}

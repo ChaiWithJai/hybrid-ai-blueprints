@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prismml.ai/schemas/output-reviewer-roster.v1.json",
+  "title": "Prism blinded output reviewer roster",
+  "type": "object",
+  "required": ["version", "status", "authority", "reviewers"],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["domain_owner_managed"]},
+    "authority": {
+      "type": "object",
+      "required": ["state", "authority_id", "display_name", "buzz_pubkey", "channel_id"],
+      "properties": {
+        "state": {"enum": ["unconfigured", "signed_buzz_authority"]},
+        "authority_id": {"type": ["string", "null"]},
+        "display_name": {"type": ["string", "null"]},
+        "buzz_pubkey": {"type": ["string", "null"]},
+        "channel_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reviewer_id", "display_name", "role", "qualification", "buzz_pubkey", "approved_by", "approved_at", "active", "approval_event"],
+        "properties": {
+          "reviewer_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,79}$"},
+          "display_name": {"type": "string", "minLength": 1, "maxLength": 160, "pattern": ".*\\S.*"},
+          "role": {"enum": ["qualified_deal_output_reviewer", "principal_output_reviewer"]},
+          "qualification": {"type": "string", "minLength": 1, "maxLength": 1000, "pattern": ".*\\S.*"},
+          "buzz_pubkey": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "approved_by": {"type": "string", "minLength": 1, "maxLength": 160, "pattern": ".*\\S.*"},
+          "approved_at": {"type": "string", "format": "date-time"},
+          "active": {"type": "boolean"},
+          "approval_event": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

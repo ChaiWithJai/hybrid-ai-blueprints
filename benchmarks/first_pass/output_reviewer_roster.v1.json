@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "status": "domain_owner_managed",
+  "authority": {
+    "state": "unconfigured",
+    "authority_id": null,
+    "display_name": null,
+    "buzz_pubkey": null,
+    "channel_id": null
+  },
+  "reviewers": []
+}

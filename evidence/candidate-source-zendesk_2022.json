@@ -1,0 +1,26 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "zendesk_2022",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Source acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, evidence review, split assignment, and domain approval."
+  ],
+  "parser": {
+    "anchor_count": 2178,
+    "estimated_tokens": 189335,
+    "file_type": "html",
+    "passed": true,
+    "table_count": 447
+  },
+  "source": {
+    "accession": "0001140361-22-028748",
+    "bytes": 2429570,
+    "cik": "0001463172",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/1463172/000114036122028748/0001140361-22-028748-index.htm",
+    "path": ".runtime/candidate-deal-sources/zendesk_2022/01_defm14a.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1463172/000114036122028748/ny20004637x3_defm14a.htm",
+    "sha256": "ce571066059ca056ae1b3227c046fec42af714f21c10362a56920814d390fb2d"
+  },
+  "verification_kind": "candidate_source_acquisition"
+}

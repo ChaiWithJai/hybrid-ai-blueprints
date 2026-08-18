@@ -1,0 +1,29 @@
+{
+  "benchmark_case_registered": false,
+  "candidate_id": "cornerstone_ondemand_2021",
+  "domain_review_status": "not_reviewed",
+  "limitations": [
+    "Acquisition and parser admission do not create a benchmark case or expected answer.",
+    "The filing still needs question design, source review, split assignment, and domain approval.",
+    "Parser table detection does not prove that a table supports any benchmark claim."
+  ],
+  "parser": {
+    "anchor_count": 831,
+    "estimated_tokens": 62270,
+    "file_type": "html",
+    "passed": true,
+    "product_file_limit_bytes": 10485760,
+    "table_count": 66
+  },
+  "source": {
+    "accession": "0001401680-21-000031",
+    "bytes": 1986515,
+    "filing_date": "2021-08-06",
+    "form": "10-Q",
+    "path": ".runtime/candidate-deal-sources/cornerstone_ondemand_2021/02_financial_10q.htm",
+    "primary_url": "https://www.sec.gov/Archives/edgar/data/1401680/000140168021000031/csod-20210630.htm",
+    "report_date": "2021-06-30",
+    "sha256": "2e404149a92a30dcd1df24d66961b41f4f6bf42b6fcdc85b44aeed2821f03ed0"
+  },
+  "verification_kind": "candidate_companion_source_acquisition"
+}

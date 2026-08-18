@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "measurement_state": "clean_directory_reproduced",
+  "recorded_at": "2026-08-16T11:54:14.961789+00:00",
+  "source_manifest_sha256": "92490cfa4620df5637a13c0b3d02242feb8ab972259a1afe69c7e67d11b6b8ed",
+  "copied_file_count": 432,
+  "provider_environment_removed": true,
+  "temporary_root_distinct_from_source": true,
+  "temporary_copy_removed_after_run": true,
+  "command": "python scripts/verify_product.py --runtime baseline --output clean-baseline-report.json",
+  "exit_code": 0,
+  "component_tests": {
+    "passed": true,
+    "tests_run": 480,
+    "tests_skipped": 0,
+    "required_reality_tests_present": true,
+    "missing_required_reality_tests": {}
+  },
+  "unsupported_claim_scan": {
+    "passed": true,
+    "violations": []
+  },
+  "frontend_contract": {
+    "passed": true,
+    "violations": [],
+    "javascript_syntax": "passed"
+  },
+  "benchmark": {
+    "dataset_sha256": "95a31ad2e745a2ac44117388b3a346b36f238984dac597d8795c8be97301e93a",
+    "total_cases": 4,
+    "passed_cases": 4,
+    "pass_rate": 1.0
+  },
+  "selected_runtime_verified": true,
+  "stderr_tail": "/2026 07:53:43] \"GET /api/workspace?room=project_titan_lbo HTTP/1.1\" 503 -\n127.0.0.1 - - [16/Aug/2026 07:53:43] \"GET /api/status HTTP/1.1\" 200 -\n...........127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/deal-room/preview HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/deal-room/open HTTP/1.1\" 400 -\n..127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/workspace/first-pass HTTP/1.1\" 409 -\n127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/workspace/first-pass HTTP/1.1\" 409 -\n.127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/workspace/first-pass HTTP/1.1\" 409 -\n.127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/deal-room/preview HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/deal-room/open HTTP/1.1\" 409 -\n..127.0.0.1 - - [16/Aug/2026 07:53:43] \"POST /api/workspace/messages HTTP/1.1\" 201 -\n.......127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/status HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/status HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/agent/run HTTP/1.1\" 400 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/deal-room?room=missing HTTP/1.1\" 404 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/agent/run HTTP/1.1\" 400 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/benchmark HTTP/1.1\" 409 -\n.127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/preview HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/open HTTP/1.1\" 409 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/open HTTP/1.1\" 201 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/deal-room?room=local_7df5968474ef HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/agent/run HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/audit HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/evals HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/open HTTP/1.1\" 404 -\n..127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/status HTTP/1.1\" 503 -\n.......127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/models HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/research/model-catalog HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/preview HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:47] \"POST /api/deal-room/open HTTP/1.1\" 201 -\n....127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/benchmark/oracle-diagnostic HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/workspace/digest?room=project_titan_lbo HTTP/1.1\" 409 -\n...127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/benchmark/output-review HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:47] \"GET /api/benchmark/output-review HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:48] \"GET /api/benchmark/output-review?case=anaplan_vdr_timeline HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:48] \"GET /api/benchmark/output-review?case=missing-case HTTP/1.1\" 404 -\n...127.0.0.1 - - [16/Aug/2026 07:53:48] \"GET /api/benchmark/pricing-poc HTTP/1.1\" 200 -\n.........127.0.0.1 - - [16/Aug/2026 07:53:49] \"POST /api/workspace/messages HTTP/1.1\" 201 -\n.127.0.0.1 - - [16/Aug/2026 07:53:49] \"POST /api/workspace/first-pass HTTP/1.1\" 201 -\n127.0.0.1 - - [16/Aug/2026 07:53:49] \"POST /api/workspace/first-pass HTTP/1.1\" 201 -\n.......127.0.0.1 - - [16/Aug/2026 07:53:50] \"GET /api/status HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:50] \"GET /api/status HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:50] \"GET /api/status HTTP/1.1\" 200 -\n.127.0.0.1 - - [16/Aug/2026 07:53:51] \"GET /api/status HTTP/1.1\" 200 -\n127.0.0.1 - - [16/Aug/2026 07:53:51] \"GET /api/status HTTP/1.1\" 200 -\n...........127.0.0.1 - - [16/Aug/2026 07:53:51] \"GET /rooms/project_titan_lbo/first-pass HTTP/1.1\" 200 -\n..127.0.0.1 - - [16/Aug/2026 07:53:51] \"GET /api/workspace/messages?room=project_titan_lbo HTTP/1.1\" 200 -\n.............................................................................\n----------------------------------------------------------------------\nRan 480 tests in 65.987s\n\nOK\n",
+  "limitations": [
+    "This proves relocation to a clean directory on the same machine, not a clean physical machine.",
+    "The copied evidence records are inputs to reality guards; this run does not recreate live Bonsai evidence.",
+    "Python and Node availability come from the host environment and are not provisioned by this script."
+  ]
+}

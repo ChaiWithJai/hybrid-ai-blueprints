@@ -1,0 +1,90 @@
+{
+  "verification_kind": "replayable_pricing_poc_browser_check",
+  "recorded_at": "2026-08-16T11:41:11.306Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "assertions": [
+    {
+      "name": "honest_empty_state",
+      "passed": true
+    },
+    {
+      "name": "buyer_authority_blocker_visible",
+      "passed": true
+    },
+    {
+      "name": "zero_of_ten_gates",
+      "passed": true
+    },
+    {
+      "name": "value_unit_visible",
+      "passed": true
+    },
+    {
+      "name": "paid_poc_gate_visible",
+      "passed": true
+    },
+    {
+      "name": "two_private_deals_gate_visible",
+      "passed": true
+    },
+    {
+      "name": "transfer_gate_visible",
+      "passed": true
+    },
+    {
+      "name": "post_use_price_gate_visible",
+      "passed": true
+    },
+    {
+      "name": "buyer_attestation_gate_visible",
+      "passed": true
+    },
+    {
+      "name": "buyer_relay_restoration_visible",
+      "passed": true
+    },
+    {
+      "name": "public_demo_boundary_visible",
+      "passed": true
+    },
+    {
+      "name": "unsigned_builder_visible",
+      "passed": true
+    },
+    {
+      "name": "buyer_private_key_not_requested",
+      "passed": true
+    },
+    {
+      "name": "unsigned_builder_starts_blank",
+      "passed": true
+    },
+    {
+      "name": "api_preserves_unmeasured_state",
+      "passed": true
+    }
+  ],
+  "observed_state": {
+    "evidence_state": "not_recorded",
+    "pricing_poc_passed": false,
+    "relay_restored": false,
+    "buyer_authority_configured": false,
+    "buyer_authority_verified": false,
+    "deal_count": 0,
+    "requirement_count": 10,
+    "record_expected_at": "evidence/first-pass-pricing-poc.json"
+  },
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-pricing-poc-v1.png",
+    "bytes": 500941,
+    "sha256": "be8aabe97c47b63332bfe89bf8079c4b6dd0eae3d55c6864bb3e1ef76aa1d992"
+  },
+  "limitations": [
+    "This verifies the pricing contract and honest empty state. It does not create buyer evidence.",
+    "Synthetic evaluator tests do not establish willingness to pay or revenue."
+  ]
+}

@@ -1,0 +1,344 @@
+#!/usr/bin/env python3
+"""
+prismctl - The Prism Vault Command Line Interface
+Run local deal-room workflows, inspect trace records, and execute benchmarks.
+"""
+
+import sys
+import os
+import argparse
+import json
+from pathlib import Path
+
+from core.deal_room_analyzer import DealRoomAnalyzer
+from core.coding_agent import DealRoomWorkflowAgent
+from core.hybrid_router import HybridAIRouter
+from server import DEAL_ROOM_CATALOG, BONSAI_MODELS
+from core.ai_provider import ProviderRegistry
+from core.benchmark import run_benchmark
+from core.coding_benchmark import run_coding_benchmark
+from core.artifact_inspection import inspect_model_artifact
+from core.buzz_bridge import BuzzBridge
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+
+def load_json_file(path, label):
+    if not path:
+        raise SystemExit(f"{label} is required")
+    try:
+        value = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"{label} could not be read: {exc}") from exc
+    if not isinstance(value, dict):
+        raise SystemExit(f"{label} must contain a JSON object")
+    return value
+
+
+def cmd_status(args):
+    providers = ProviderRegistry()
+
+    print("=" * 75)
+    print("  PRISM VAULT: INSTALLED CAPABILITIES")
+    print("=" * 75)
+    print("\n[RUNTIMES]")
+    for status in providers.statuses():
+        state = "CONFIGURED" if status.configured else "NOT CONFIGURED"
+        print(f"  • {status.provider_id:<14}: {state} ({status.model or 'no model'})")
+    print("  • baseline      : READY (deterministic reviewed templates; no LLM)")
+    print("\n[BOUNDARIES]")
+    print("  • Web bind      : loopback by default; not a certified air-gap")
+    print("  • Sandbox       : AST allowlist + subprocess resource limits; not VM isolation")
+    print("  • Bonsai math   : architecture projection only; no bundled weights or megakernel")
+
+    print("\n[AVAILABLE DEAL ROOMS]")
+    for rid, rdata in DEAL_ROOM_CATALOG.items():
+        print(f"  • [{rdata['type']:<22}] {rdata['name']} ({rdata['path']})")
+
+    print("\n[APPLICATION WORKFLOW TIERS]")
+    print("  ├── Folder ingestion         : READY for Markdown/text, CSV, and JSON")
+    print("  ├── Reviewed workflows       : PROTOTYPE (deterministic baseline)")
+    print("  ├── Bonsai local AI          : READY only when local provider is configured")
+    print("  └── Web workspace            : PROTOTYPE (run 'prismctl serve')")
+    print("=" * 75)
+
+
+def cmd_rooms(args):
+    print("\n=== CONFIGURED MERGERS & INQUISITIONS DEAL ROOMS ===")
+    for rid, r in DEAL_ROOM_CATALOG.items():
+        print(f"\n📁 {r['name']}")
+        print(f"   ID          : {r['id']}")
+        print(f"   Type        : {r['type']}")
+        print(f"   Target      : {r['target']}")
+        print(f"   Path        : {r['path']}")
+        print(f"   Description : {r['description']}")
+
+
+def cmd_models(args):
+    print("\n=== PRISMML BONSAI RESEARCH / TARGET CATALOG ===")
+    print("Catalog entries are not runtime discovery. Unmeasured performance fields are omitted.")
+    providers = ProviderRegistry()
+    print("\nConfigured provider paths:")
+    for status in providers.statuses():
+        print(f"   {status.provider_id}: {'CONFIGURED' if status.configured else 'NOT CONFIGURED'}; model={status.model or 'none'}")
+    for mid, m in BONSAI_MODELS.items():
+        flag = "⭐ FLAGSHIP" if m.get("is_flagship") else ""
+        print(f"\n🌲 {m['name']} {flag}")
+        print(f"   Role / Tier   : {m['tier_role']}")
+        print(f"   Runtime Status: {m['status']}")
+        print(f"   Measurements  : omitted; see docs/BENCHMARK_CARD.md for saved pilot evidence")
+
+
+def cmd_audit(args):
+    folder = args.deal_room
+    if folder in DEAL_ROOM_CATALOG:
+        folder = DEAL_ROOM_CATALOG[folder]["path"]
+    elif not os.path.exists(folder) and f"deal_rooms/{folder}" in [r["path"] for r in DEAL_ROOM_CATALOG.values()]:
+        folder = f"deal_rooms/{folder}"
+
+    if not os.path.isdir(folder):
+        raise SystemExit(f"Deal room is not a readable directory: {folder}")
+    print(f"\n[*] Launching local deterministic deal-room audit on: {folder} ...")
+    analyzer = DealRoomAnalyzer(folder)
+    report = analyzer.run_full_audit()
+
+    print(f"\n[+] Audit Completed: {report.report_id}")
+    print(f"    Deal Name      : {report.deal_name}")
+    print(f"    Documents      : {report.total_documents_analyzed} files ({report.total_tokens_ingested} tokens)")
+    print(f"    Peak VRAM      : {f'{report.operational_vram_gb} GB' if report.operational_vram_gb is not None else 'Not measured (no model invoked)'}")
+    print(f"    Arize Trace ID : {report.arize_trace_id}")
+
+    print("\n[!] COVENANT AUDIT FINDINGS:")
+    for idx, f in enumerate(report.covenant_findings, 1):
+        status_icon = {
+            "BREACH": "❌",
+            "ACTION_REQUIRED": "⚠️",
+            "REVIEW_REQUIRED": "⚠️",
+            "SOURCE_REPORTED_COMPLIANT": "ℹ️",
+            "COMPLIANT": "✅",
+        }.get(f.status, "•")
+        print(f"  {idx}. {status_icon} [{f.status}] {f.covenant_name} ({f.section_ref})")
+        print(f"     Threshold : {f.threshold}")
+        print(f"     Actual    : {f.actual_value}")
+        print(f"     Detail    : {f.detail}")
+        if f.remediation:
+            print(f"     Remedy    : {f.remediation}")
+        print()
+
+    print("[*] ARIZE-STYLE EVALUATION SCORES:")
+    for k, v in report.evaluation_summary.items():
+        print(f"  • {k:<25}: {v}")
+
+
+def cmd_agent(args):
+    runtime = "cloud" if args.cloud else args.runtime
+    if args.allow_cloud_data and runtime != "cloud":
+        raise SystemExit("--allow-cloud-data requires --runtime cloud (or --cloud)")
+    room_reference = args.deal_room
+    cloud_room_id = args.cloud_room_id or (
+        room_reference if room_reference in DEAL_ROOM_CATALOG else None
+    )
+    folder = room_reference
+    if room_reference in DEAL_ROOM_CATALOG:
+        folder = DEAL_ROOM_CATALOG[room_reference]["path"]
+
+    prompt = args.prompt or "Run LBO debt amortization schedule and calculate annual ECF sweep prepayments."
+    if not os.path.isdir(folder):
+        raise SystemExit(f"Deal room is not a readable directory: {folder}")
+    print(f"\n[*] Running deal-room workflow on [{folder}] ...", flush=True)
+    print(f"    Prompt: '{prompt}'", flush=True)
+    providers = ProviderRegistry()
+    if runtime == "local" and not providers.local.configured:
+        raise SystemExit("Local runtime requested, but PRISM_LOCAL_AI_URL is not configured")
+    if runtime == "cloud" and not providers.cloud.configured:
+        raise SystemExit("Cloud runtime requested, but PRISM_CLOUD_AI_URL/PRISM_CLOUD_AI_MODEL are not configured")
+    cloud_consent = None
+    cloud_event_resolver = None
+    if runtime == "cloud":
+        if not cloud_room_id:
+            raise SystemExit(
+                "Cloud runtime with a folder path requires --cloud-room-id so approvals bind "
+                "to a stable room identity"
+            )
+        cloud_consent = load_json_file(args.cloud_consent, "--cloud-consent")
+        bridge = BuzzBridge(PROJECT_ROOT)
+        cloud_event_resolver = lambda event_ids, channel_id: bridge.events_by_ids(
+            event_ids, channel_id=channel_id,
+        )
+    agent = DealRoomWorkflowAgent(
+        folder,
+        providers=providers,
+        cloud_consent_event_resolver=cloud_event_resolver,
+    )
+    result = agent.execute_task(
+        prompt,
+        force_cloud_override=runtime == "cloud",
+        local_only_policy=runtime != "cloud",
+        force_baseline=runtime == "baseline",
+        allow_cloud_context=args.allow_cloud_data,
+        cloud_consent_bundle=cloud_consent,
+        cloud_room_id=cloud_room_id,
+    )
+
+    print(f"\n[+] Workflow finished in {result.latency_ms:.1f} ms")
+    print(f"    Execution    : {result.execution_mode}")
+    print(f"    Provider     : {result.provider_id or 'none (baseline)'}")
+    print(f"    Target Tier : {result.routing_info.target_tier} (Local-only policy: {result.routing_info.is_local_only_policy})")
+    print(f"    Trace ID    : {result.trace_id}")
+    if args.trace_output:
+        count = agent.tracer.export_jsonl(args.trace_output)
+        print(f"    Trace Export: {args.trace_output} ({count} record)")
+
+    print("\n--- GENERATED/SELECTED PYTHON SCRIPT ---")
+    print(result.generated_code.strip() if result.generated_code else "None")
+    print("\n--- SANDBOX STDOUT ---")
+    print(result.code_execution_stdout or "None")
+    print("\n--- FINAL ANSWER ---")
+    print(result.final_answer)
+
+
+def cmd_serve(args):
+    port = args.port or 8080
+    print(f"\n[*] Starting Prism Vault local prototype on http://127.0.0.1:{port} ...")
+    from server import run_server
+    run_server(port=port)
+
+
+def cmd_benchmark(args):
+    if args.allow_cloud_data and args.runtime != "cloud":
+        raise SystemExit("--allow-cloud-data is valid only with --runtime cloud")
+    cloud_consents = None
+    cloud_event_resolver = None
+    if args.runtime == "cloud":
+        cloud_consents = load_json_file(args.cloud_consents, "--cloud-consents")
+        bridge = BuzzBridge(PROJECT_ROOT)
+        cloud_event_resolver = lambda event_ids, channel_id: bridge.events_by_ids(
+            event_ids, channel_id=channel_id,
+        )
+    report = run_benchmark(args.dataset, DEAL_ROOM_CATALOG, runtime=args.runtime,
+                           allow_cloud_context=args.allow_cloud_data,
+                           case_ids=args.case,
+                           cloud_consent_bundles=cloud_consents,
+                           cloud_consent_event_resolver=cloud_event_resolver)
+    rendered = json.dumps(report.to_dict(), indent=2)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as handle:
+            handle.write(rendered + "\n")
+        print(f"Benchmark report written to {args.output}")
+    print(rendered)
+    return 0 if report.pass_rate == 1.0 else 1
+
+
+def cmd_coding_benchmark(args):
+    report = run_coding_benchmark(
+        args.dataset, runtime=args.runtime, case_ids=args.case,
+    )
+    rendered = json.dumps(report.to_dict(), indent=2)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as handle:
+            handle.write(rendered + "\n")
+        print(f"Coding benchmark report written to {args.output}")
+    print(rendered)
+    return 0 if report.pass_rate == 1.0 else 1
+
+
+def cmd_inspect_artifact(args):
+    report = inspect_model_artifact(args.path, backend_manifest=args.backend_manifest)
+    rendered = json.dumps(report, indent=2)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as handle:
+            handle.write(rendered + "\n")
+        print(f"Artifact evidence written to {args.output}")
+    print(rendered)
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Prism Vault local deal-room analysis prototype")
+    subparsers = parser.add_subparsers(dest="command", help="Available subcommands")
+
+    # status
+    p_status = subparsers.add_parser("status", help="Inspect system rails and model architecture status")
+    p_status.set_defaults(func=cmd_status)
+
+    # rooms
+    p_rooms = subparsers.add_parser("rooms", help="List all Mergers & Inquisitions deal rooms")
+    p_rooms.set_defaults(func=cmd_rooms)
+
+    # models
+    p_models = subparsers.add_parser("models", help="List PrismML Bonsai model family catalog")
+    p_models.set_defaults(func=cmd_models)
+
+    # audit
+    p_audit = subparsers.add_parser("audit", help="Run automated Deal Room audit")
+    p_audit.add_argument("--deal-room", default="project_titan_lbo", help="Deal room ID or path")
+    p_audit.set_defaults(func=cmd_audit)
+
+    # agent
+    p_agent = subparsers.add_parser("agent", help="Execute a deal-room coding workflow")
+    p_agent.add_argument("prompt", nargs="?", default="Run Project Titan LBO debt paydown schedule", help="Task prompt")
+    p_agent.add_argument("--deal-room", default="project_titan_lbo", help="Deal room ID or path")
+    p_agent.add_argument("--runtime", choices=["auto", "baseline", "local", "cloud"], default="auto",
+                         help="Select an execution path; local/cloud fail if not configured")
+    p_agent.add_argument("--cloud", action="store_true",
+                         help="Compatibility alias for --runtime cloud (explicit provider request)")
+    p_agent.add_argument("--allow-cloud-data", action="store_true",
+                         help="Explicitly include parsed deal-room contents in the cloud request")
+    p_agent.add_argument(
+        "--cloud-consent",
+        help="JSON bundle containing the raw signed consent events already published to Buzz",
+    )
+    p_agent.add_argument(
+        "--cloud-room-id",
+        help="Stable room identity required when --deal-room is a folder path",
+    )
+    p_agent.add_argument("--trace-output", help="Write Arize-style trace records as JSONL")
+    p_agent.set_defaults(func=cmd_agent)
+
+    # serve
+    p_serve = subparsers.add_parser("serve", help="Launch Buzz-Style Collaborative Web UI")
+    p_serve.add_argument("--port", type=int, default=8080, help="Port to listen on (default: 8080)")
+    p_serve.set_defaults(func=cmd_serve)
+
+    p_benchmark = subparsers.add_parser("benchmark", help="Run reproducible deal-room reliability cases")
+    p_benchmark.add_argument("--dataset", default="benchmarks/deal_room_reliability.json")
+    p_benchmark.add_argument("--runtime", choices=["baseline", "local", "cloud"], default="baseline")
+    p_benchmark.add_argument("--output", help="Optional JSON report path")
+    p_benchmark.add_argument("--case", action="append",
+                             help="Run only this case ID; repeat for multiple cases")
+    p_benchmark.add_argument("--allow-cloud-data", action="store_true",
+                             help="Include benchmark deal-room contents in cloud requests")
+    p_benchmark.add_argument(
+        "--cloud-consents",
+        help="JSON object mapping every selected case ID to its published Buzz consent bundle",
+    )
+    p_benchmark.set_defaults(func=cmd_benchmark)
+
+    p_coding = subparsers.add_parser(
+        "coding-benchmark", help="Run the constrained coding-agent reliability cases"
+    )
+    p_coding.add_argument("--dataset", default="benchmarks/coding_agent_reliability.json")
+    p_coding.add_argument("--runtime", choices=["local", "cloud"], default="local")
+    p_coding.add_argument("--output", help="Optional JSON report path")
+    p_coding.add_argument("--case", action="append",
+                          help="Run only this case ID; repeat for multiple cases")
+    p_coding.set_defaults(func=cmd_coding_benchmark)
+
+    p_artifact = subparsers.add_parser(
+        "inspect-artifact", help="Record filesystem evidence for model weights without loading them"
+    )
+    p_artifact.add_argument("--path", required=True, help="Path to a model artifact")
+    p_artifact.add_argument("--backend-manifest", help="Optional serving backend manifest JSON")
+    p_artifact.add_argument("--output", help="Optional JSON evidence path")
+    p_artifact.set_defaults(func=cmd_inspect_artifact)
+
+    args = parser.parse_args()
+    if not args.command:
+        cmd_status(args)
+    else:
+        return args.func(args) or 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

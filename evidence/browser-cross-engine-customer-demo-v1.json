@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "verification_kind": "cross_browser_real_deal_surface",
+  "semantic_state": "firefox_and_webkit_pass_not_safari_or_accuracy",
+  "recorded_at": "2026-08-17T22:28:39.891Z",
+  "room": "project_titan_lbo",
+  "engines": [
+    {
+      "engine": "firefox",
+      "version": "153.0",
+      "passed": true,
+      "assertions": [
+        {
+          "name": "deal_brief_visible",
+          "passed": true
+        },
+        {
+          "name": "customer_navigation_visible",
+          "passed": true
+        },
+        {
+          "name": "source_citation_controls_visible",
+          "passed": true
+        },
+        {
+          "name": "semantic_tab_contract_visible",
+          "passed": true
+        },
+        {
+          "name": "keyboard_tab_navigation_works",
+          "passed": true
+        },
+        {
+          "name": "keyboard_citation_preview_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass"
+        },
+        {
+          "name": "citation_preview_focus_is_contained",
+          "passed": true
+        },
+        {
+          "name": "citation_full_source_navigation_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=02_LBO_Debt_Financing_Credit_Agreement.md&anchor=node%3Anode_para_3"
+        },
+        {
+          "name": "mobile_width_has_no_page_overflow",
+          "passed": true,
+          "observed": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390
+          }
+        }
+      ],
+      "assertion_count": 9,
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "screenshot": {
+        "path": "evidence/browser-cross-engine-customer-demo-firefox-v1.png",
+        "bytes": 121474,
+        "sha256": "7be3e94050994c2b350ae573d51c28398f8b2d76e022c967b181046c25aca74b"
+      }
+    },
+    {
+      "engine": "webkit",
+      "version": "26.5",
+      "passed": true,
+      "assertions": [
+        {
+          "name": "deal_brief_visible",
+          "passed": true
+        },
+        {
+          "name": "customer_navigation_visible",
+          "passed": true
+        },
+        {
+          "name": "source_citation_controls_visible",
+          "passed": true
+        },
+        {
+          "name": "semantic_tab_contract_visible",
+          "passed": true
+        },
+        {
+          "name": "keyboard_tab_navigation_works",
+          "passed": true
+        },
+        {
+          "name": "keyboard_citation_preview_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass"
+        },
+        {
+          "name": "citation_preview_focus_is_contained",
+          "passed": true
+        },
+        {
+          "name": "citation_full_source_navigation_is_exact",
+          "passed": true,
+          "observed": "http://127.0.0.1:8787/rooms/project_titan_lbo/files?source=02_LBO_Debt_Financing_Credit_Agreement.md&anchor=node%3Anode_para_3"
+        },
+        {
+          "name": "mobile_width_has_no_page_overflow",
+          "passed": true,
+          "observed": {
+            "viewport": 390,
+            "document": 390,
+            "body": 390
+          }
+        }
+      ],
+      "assertion_count": 9,
+      "console_errors": [],
+      "failed_requests": [],
+      "http_errors": [],
+      "screenshot": {
+        "path": "evidence/browser-cross-engine-customer-demo-webkit-v1.png",
+        "bytes": 165395,
+        "sha256": "58d67eb11caa1865889e60d725f47f859f62e6e4013fc8813da86a1c4b37ca1c"
+      }
+    }
+  ],
+  "engine_count": 2,
+  "assertion_count": 18,
+  "passed": true,
+  "limitations": [
+    "The check covers Playwright Firefox and WebKit builds. It does not test Safari, Chrome, Edge, or installed user extensions.",
+    "The check covers the current Project Titan demo and is not WCAG conformance or assistive technology review.",
+    "The check does not assess deal accuracy or commercial demand."
+  ]
+}

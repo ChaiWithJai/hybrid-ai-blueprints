@@ -1,0 +1,48 @@
+{
+  "schema": "prism.public_deal_battletest.responses.v1",
+  "benchmark": "benchmarks/public_deal_battletest.json",
+  "benchmark_version": 1,
+  "run_started_at": "2026-08-14T22:49:22-04:00",
+  "run_stopped_at": "2026-08-14T22:55:00-04:00",
+  "run_status": "failed_fast_on_first_critical_case",
+  "runtime": {
+    "surface": "Prism web API to Buzz signed event to buzz-acp to LM Studio",
+    "provider": "OpenAi compatible local endpoint",
+    "returned_model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234/v1",
+    "source_scope": ".runtime/public-deal-corpus",
+    "source_scope_read_only": true,
+    "buzz_relay": "ws://127.0.0.1:3030",
+    "max_agent_rounds": 12
+  },
+  "responses": {
+    "anaplan_vdr_timeline": {
+      "response": "",
+      "provider": "OpenAi",
+      "model": "27b@q1_0",
+      "latency_ms": 338000,
+      "status": "no_signed_reply_before_operator_timeout",
+      "buzz_channel_id": "dc0661c2-705e-47f8-b47b-8899c730175f",
+      "buzz_question_event_id": "6d0d13a7198ce40becd9864dbc176f0c183442fbed7e5a29ab4cca707831e989",
+      "signed_reply_event_id": null,
+      "observed_llm_calls": [
+        {"duration_ms": 111552, "input_tokens": 6773, "output_tokens": 184},
+        {"duration_ms": 8577, "input_tokens": 7024, "output_tokens": 194},
+        {"duration_ms": 17813, "input_tokens": 7079, "output_tokens": 293},
+        {"duration_ms": 6887, "input_tokens": 7340, "output_tokens": 145},
+        {"duration_ms": 9206, "input_tokens": 7795, "output_tokens": 174}
+      ],
+      "observed_handoff_history_tokens": 58368,
+      "observed_summary_duration_ms": 90971,
+      "unauthorized_file_writes": [],
+      "failure": "The agent searched and summarized repeatedly but did not post an answer."
+    }
+  },
+  "not_run_after_fail_fast": [
+    "anaplan_termination_fees",
+    "citrix_financing_mix",
+    "citrix_entry_leverage_absent",
+    "cma_competition_conclusion"
+  ],
+  "fail_fast_reason": "A critical case cannot pass without a signed answer, so later quality cases cannot make the release gate pass."
+}

@@ -1,0 +1,319 @@
+{
+  "verification_kind": "synthetic_output_review_completion_browser_fixture",
+  "recorded_at": "2026-08-16T08:59:42.027Z",
+  "passed": true,
+  "base_url": "http://127.0.0.1:8787",
+  "synthetic_reviewer_fixture": true,
+  "human_review_performed": false,
+  "review_gate_complete": false,
+  "accuracy_release_passed": false,
+  "packet": {
+    "packet_sha256": "70ff504594fa99a05a453c325782792ece7a11c73e3635304b5da4f2e166a683",
+    "rubric_sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5",
+    "case_count": 5,
+    "blinded_to_model": true,
+    "model_identity_included": false
+  },
+  "fixture_reviewers": [
+    {
+      "reviewer_id": "fixture.output.one",
+      "display_name": "Fixture Output Reviewer One",
+      "qualification": "Synthetic browser completion fixture.",
+      "buzz_pubkey": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "reviewer_id": "fixture.output.two",
+      "display_name": "Fixture Output Reviewer Two",
+      "qualification": "Synthetic browser completion fixture.",
+      "buzz_pubkey": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
+  "fixture_unsigned_record": {
+    "review_id": "output-review-fixture.output.one-20260816085942014",
+    "reviewer_id": "fixture.output.one",
+    "reviewer_role": "qualified_deal_output_reviewer",
+    "qualification": "Synthetic browser completion fixture.",
+    "blinded_to_model": true,
+    "packet_sha256": "70ff504594fa99a05a453c325782792ece7a11c73e3635304b5da4f2e166a683",
+    "rubric_sha256": "ea4156fde7a30d9273ab1be0d61362aafa72756bf580a45a0a195f7530e660b5",
+    "reviewer_pubkey": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "buzz_event_id": "0000000000000000000000000000000000000000000000000000000000000000",
+    "reviewed_at": "2026-08-16T08:59:42.014Z",
+    "cases": [
+      {
+        "case_id": "anaplan_vdr_timeline",
+        "case_version": "2.0.0",
+        "response_sha256": "c84cd86c8eb5497b925b5b8fd05e99449fc958b186ddd58e0e17fc5b837b021e",
+        "dimensions": [
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          }
+        ],
+        "useful_starting_point": true,
+        "decision": "advance",
+        "review_time_seconds": 60,
+        "critical_corrections": 0,
+        "major_corrections": 0,
+        "critique": ""
+      },
+      {
+        "case_id": "anaplan_termination_fees",
+        "case_version": "2.0.0",
+        "response_sha256": "dc9fd573543f8adb5eb89db6ce5f5fbef6da11724bcf4bf13a1c142ff883f5bd",
+        "dimensions": [
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          }
+        ],
+        "useful_starting_point": true,
+        "decision": "advance",
+        "review_time_seconds": 60,
+        "critical_corrections": 0,
+        "major_corrections": 0,
+        "critique": ""
+      },
+      {
+        "case_id": "citrix_financing_mix",
+        "case_version": "2.0.0",
+        "response_sha256": "0658b6237971eaabe3512bc3bf6a0fe4dd624c768194582dc61b8294d9f0834d",
+        "dimensions": [
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          }
+        ],
+        "useful_starting_point": true,
+        "decision": "advance",
+        "review_time_seconds": 60,
+        "critical_corrections": 0,
+        "major_corrections": 0,
+        "critique": ""
+      },
+      {
+        "case_id": "citrix_entry_leverage_absent",
+        "case_version": "2.0.0",
+        "response_sha256": "8e066d6b30b4f68fe181dfa6c39b40a568cd1a34b56e26b06945926ed2f25d42",
+        "dimensions": [
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          }
+        ],
+        "useful_starting_point": true,
+        "decision": "advance",
+        "review_time_seconds": 60,
+        "critical_corrections": 0,
+        "major_corrections": 0,
+        "critique": ""
+      },
+      {
+        "case_id": "cma_competition_conclusion",
+        "case_version": "2.0.0",
+        "response_sha256": "34b589ab077db493dc28a418e91c64ad06103d9b15be249885d5811d257a5fd5",
+        "dimensions": [
+          {
+            "dimension": "calibrated_uncertainty",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "component_completeness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "evidence_support",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "human_usefulness",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          },
+          {
+            "dimension": "primary_decision_intent",
+            "label": "pass",
+            "severity": "critical",
+            "critique": ""
+          }
+        ],
+        "useful_starting_point": true,
+        "decision": "advance",
+        "review_time_seconds": 60,
+        "critical_corrections": 0,
+        "major_corrections": 0,
+        "critique": ""
+      }
+    ]
+  },
+  "fixture_unsigned_record_sha256": "67fe537a1e59363718e5e5272b1a458672593decd78269e0b92e8b09297c6f47",
+  "assertions": [
+    {
+      "name": "fixture_roster_visible",
+      "passed": true
+    },
+    {
+      "name": "fixture_reviewer_selected",
+      "passed": true
+    },
+    {
+      "name": "five_cases_completed",
+      "passed": true
+    },
+    {
+      "name": "all_dimension_labels_explicit",
+      "passed": true
+    },
+    {
+      "name": "unsigned_export_enabled_after_completion",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_downloaded",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_case_count",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_packet_bound",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_not_attested",
+      "passed": true
+    },
+    {
+      "name": "unsigned_record_has_no_model_identity",
+      "passed": true
+    },
+    {
+      "name": "fixture_cannot_promote_review_gate",
+      "passed": true
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "screenshot": {
+    "path": "evidence/browser-output-review-completion-fixture-v1.png",
+    "bytes": 231437,
+    "sha256": "7da3c6f6e424c0429ae608b861e749d2971b622ed1b407540db2be9854c64fbf"
+  },
+  "limitations": [
+    "The reviewer names and keys are synthetic browser fixtures. They are not on the approved roster and do not count as human review.",
+    "The replay proves form completion and unsigned download behavior. It does not prove Buzz signing, reviewer identity, calibration, or accuracy."
+  ]
+}

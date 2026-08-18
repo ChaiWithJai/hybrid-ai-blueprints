@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "bundle_id": "prism_deal_room_semantic_judges",
+  "version": "1.0.0",
+  "status": "candidate_unvalidated",
+  "candidate_model": "bonsai_27b",
+  "positive_class": "pass",
+  "input_contract": {
+    "required": ["task", "evidence_packet", "answer"],
+    "forbidden": ["answer_model", "route_mode", "provider_id", "candidate_name"],
+    "maximum_evidence_characters": 120000,
+    "maximum_answer_characters": 30000
+  },
+  "output_contract": {
+    "type": "object",
+    "additional_properties": false,
+    "required": ["label", "rationale", "evidence"],
+    "properties": {
+      "label": {"enum": ["pass", "fail"]},
+      "rationale": {"type": "string", "max_length": 600},
+      "evidence": {"type": "array", "items": {"type": "string"}, "max_items": 5}
+    }
+  },
+  "system_prompt": "You are evaluating one narrow criterion for a deal-room answer. Use only the supplied task, evidence packet, and answer. Do not infer missing facts. Do not reward style, length, confidence, or general plausibility. Return valid JSON only with exactly three keys: label, rationale, and evidence. label must be pass or fail. rationale must explain the first decisive reason in at most 600 characters. evidence must contain up to five exact source anchors or short identifying excerpts from the supplied packet. If the criterion cannot be proved from the supplied material, return fail.",
+  "judges": [
+    {
+      "id": "material_claim_support",
+      "version": "1.0.0",
+      "criterion": "Pass only when every material claim in the answer is supported by the cited passage and the passage supports the exact relation stated. Fail on one unsupported material claim, wrong relation, wrong entity, wrong time period, or citation that merely mentions the topic.",
+      "decision_use": "candidate_release_gate",
+      "critical_false_pass": "The judge says pass even though a human finds one unsupported material claim."
+    },
+    {
+      "id": "decision_task_completion",
+      "version": "1.0.0",
+      "criterion": "Pass only when the answer completes every component explicitly required by the named deal task and states how the evidence affects advance, pause, or stop. Fail when any requested component or decision effect is missing, even if the included facts are correct.",
+      "decision_use": "candidate_release_gate",
+      "critical_false_pass": "The judge says pass even though a required task component is absent."
+    },
+    {
+      "id": "material_omission",
+      "version": "1.0.0",
+      "criterion": "Pass only when the answer includes every material fact present in the evidence packet that the task requires. Fail when omission of one supplied fact could change the deal decision, required next action, price, financing, timing, ownership, or regulatory conclusion.",
+      "decision_use": "candidate_release_gate",
+      "critical_false_pass": "The judge says pass even though the evidence packet contains a decision-changing required fact that the answer omits."
+    },
+    {
+      "id": "calibrated_uncertainty",
+      "version": "1.0.0",
+      "criterion": "Pass only when the answer clearly names missing, conflicting, or insufficient evidence and does not present an unsupported inference as fact. Fail when certainty exceeds the evidence, an unknown is hidden, or a conflict is resolved without support.",
+      "decision_use": "candidate_release_gate",
+      "critical_false_pass": "The judge says pass even though the answer states an unsupported inference as fact or hides a decision-relevant unknown."
+    }
+  ],
+  "trust_contract": {
+    "trusted_for_release": false,
+    "required_before_trust": [
+      "criterion-specific human labels",
+      "disjoint train, development, and held-out test splits",
+      "target true positive and true negative rates",
+      "zero critical false passes on held-out test",
+      "recorded parse failure rate",
+      "bias-corrected pass estimate with bootstrap interval"
+    ]
+  }
+}

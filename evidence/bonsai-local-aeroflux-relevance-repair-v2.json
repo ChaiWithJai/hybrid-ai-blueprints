@@ -1,0 +1,60 @@
+{
+  "benchmark_name": "Prism Vault deal-room reliability baseline",
+  "benchmark_version": 3,
+  "runtime": "local",
+  "cloud_context_included": false,
+  "started_at": 1786793834.911505,
+  "dataset_sha256": "8d1bc4b1ad27f5f58788cc3e50a2af92fb938b99d264c750aaebb3bc189934c7",
+  "runtime_evidence": {
+    "provider_id": "local_bonsai",
+    "kind": "local",
+    "configured": true,
+    "model": "27b@q1_0",
+    "endpoint": "http://127.0.0.1:1234",
+    "artifact_sha256": "17ef842e47450caeb8eaa3ebfbbab5d2f2278b62b79be107985fb69a2f819aa0",
+    "runtime_name": "LM Studio llama.cpp",
+    "runtime_version": "2.28.2",
+    "hardware": "MacBook Pro M5 Pro 48GB",
+    "protocol": "lmstudio_native_chat"
+  },
+  "total_cases": 1,
+  "passed_cases": 1,
+  "pass_rate": 1.0,
+  "mean_accuracy": 1.0,
+  "mean_grounding": 1.0,
+  "mean_latency_ms": 21722.28,
+  "cases": [
+    {
+      "case_id": "aeroflux_accretion",
+      "passed": true,
+      "accuracy": 1.0,
+      "sandbox_success": true,
+      "matched_terms": [
+        "concept:project",
+        "concept:eps",
+        "concept:accretion",
+        "concept:synergy",
+        "numeric:pro_forma_eps",
+        "numeric:accretion_percent",
+        "numeric:cost_synergy"
+      ],
+      "missing_terms": [],
+      "forbidden_hits": [],
+      "cited_sources": [
+        "01_Stock_Purchase_Agreement.md",
+        "02_Consolidated_MultiCurrency_Financials_EUR_USD.csv"
+      ],
+      "missing_sources": [],
+      "grounding": 1.0,
+      "trace_id": "trc_c040dcc31847",
+      "execution_mode": "ai_generated_sandboxed_code",
+      "provider_id": "local_bonsai",
+      "model_name": "27b@q1_0",
+      "latency_ms": 21722.28,
+      "error": null,
+      "evaluation_mode": "structured_tolerance",
+      "observed_output": "Source Filenames: ['01_Stock_Purchase_Agreement.md', '02_Consolidated_MultiCurrency_Financials_EUR_USD.csv']\nDeal Identifier: AeroFlux Transaction\nBuyer Standalone EPS: $2.79M\nPro-Forma EPS: $3.31M\nEPS Accretion Percent: 18.77%\nAdjusted EBITDA Synergies: $42.50M\nPolicy Conclusion: Pass (EPS accretion 18.77% meets minimum 1.0% threshold)",
+      "observed_generated_code": "import math\nimport json\nimport re\n\n# Source filenames used for this calculation\nSOURCE_FILES = [\"01_Stock_Purchase_Agreement.md\", \"02_Consolidated_MultiCurrency_Financials_EUR_USD.csv\"]\n\n# Deal identifier found in evidence\nDEAL_ID = \"AeroFlux Transaction\"\n\n# Direct numeric literals from parser-extracted typed inputs\nBUYER_DILUTED_SHARES_M = 120.0\nBUYER_NET_INCOME_USD_M = 334.9\nPROFORMA_DILUTED_SHARES_M = 126.8\nPROFORMA_NET_INCOME_USD_M = 420.3\n\n# Calculation: Buyer standalone EPS\nbuyer_standalone_eps = BUYER_NET_INCOME_USD_M / BUYER_DILUTED_SHARES_M\n\n# Calculation: Pro-forma EPS\npro_forma_eps = PROFORMA_NET_INCOME_USD_M / PROFORMA_DILUTED_SHARES_M\n\n# Calculation: EPS accretion percent\neps_accretion_percent = (pro_forma_eps / buyer_standalone_eps - 1) * 100\n\n# Synergies from Adjusted_EBITDA row (direct literal from evidence)\nadjusted_ebitda_synergies_usd_m = 42.5\n\nprint(f\"Source Filenames: {SOURCE_FILES}\")\nprint(f\"Deal Identifier: {DEAL_ID}\")\nprint(f\"Buyer Standalone EPS: ${buyer_standalone_eps:.2f}M\")\nprint(f\"Pro-Forma EPS: ${pro_forma_eps:.2f}M\")\nprint(f\"EPS Accretion Percent: {eps_accretion_percent:.2f}%\")\nprint(f\"Adjusted EBITDA Synergies: ${adjusted_ebitda_synergies_usd_m:.2f}M\")\n\n# Policy threshold check for accretion (standard minimum 1.0% accretion)\nthreshold = 1.0\nif eps_accretion_percent >= threshold:\n    print(f\"Policy Conclusion: Pass (EPS accretion {eps_accretion_percent:.2f}% meets minimum {threshold}% threshold)\")\nelse:\n    print(f\"Policy Conclusion: Fail (EPS accretion {eps_accretion_percent:.2f}% below minimum {threshold}% threshold)\")"
+    }
+  ]
+}

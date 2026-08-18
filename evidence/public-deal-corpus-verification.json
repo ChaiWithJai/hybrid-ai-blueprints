@@ -1,0 +1,193 @@
+{
+  "acceptance": {
+    "ingestion_gate_passed": true,
+    "model_quality_gate_passed": false,
+    "release_gate_passed": false
+  },
+  "benchmark_preregistered_at": "2026-08-14T22:50:00-04:00",
+  "benchmark_sha256": "bfd26f0d59a3962e319fd7ff6a2560331d9911c03fdcc74aa834dcc4c2da2037",
+  "corpus": {
+    "documents": [
+      {
+        "anchor_count": 2285,
+        "declared_page_count": null,
+        "estimated_tokens": 175486,
+        "exists": true,
+        "expected_bytes": 1590493,
+        "expected_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+        "extracted_page_count": null,
+        "file_type": "html",
+        "id": "anaplan_defm14a_2022_05_02",
+        "observed_bytes": 1590493,
+        "observed_sha256": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+        "parser_admitted": true,
+        "passed": true,
+        "path": ".runtime/public-deal-corpus/anaplan/01_anaplan_defm14a.htm",
+        "source_sha256_from_parser": "ff790aca032a8ac32e7744d8c37d8f2ecce7ca5d0ed2731b20739dcc34a7204f",
+        "table_count": 451
+      },
+      {
+        "anchor_count": 2566,
+        "declared_page_count": null,
+        "estimated_tokens": 225783,
+        "exists": true,
+        "expected_bytes": 1834175,
+        "expected_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+        "extracted_page_count": null,
+        "file_type": "html",
+        "id": "citrix_defm14a_2022_03_16",
+        "observed_bytes": 1834175,
+        "observed_sha256": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+        "parser_admitted": true,
+        "passed": true,
+        "path": ".runtime/public-deal-corpus/citrix/01_citrix_defm14a.htm",
+        "source_sha256_from_parser": "7ca0b9b9fd928f0327a34cc0ad7da6cfa1c2c1210a657fc68788a5c158552fc2",
+        "table_count": 404
+      },
+      {
+        "anchor_count": 94,
+        "declared_page_count": null,
+        "estimated_tokens": 6537,
+        "exists": true,
+        "expected_bytes": 82805,
+        "expected_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+        "extracted_page_count": null,
+        "file_type": "html",
+        "id": "citrix_defa14a_2022_04_13",
+        "observed_bytes": 82805,
+        "observed_sha256": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+        "parser_admitted": true,
+        "passed": true,
+        "path": ".runtime/public-deal-corpus/citrix/02_citrix_financing_supplement.htm",
+        "source_sha256_from_parser": "53b950e344c92606feeffd697e790de0812754e942e6984ce3dcd8657dae3d2f",
+        "table_count": 16
+      },
+      {
+        "anchor_count": 418,
+        "declared_page_count": 418,
+        "estimated_tokens": 280898,
+        "exists": true,
+        "expected_bytes": 2880833,
+        "expected_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+        "extracted_page_count": 418,
+        "file_type": "pdf",
+        "id": "microsoft_activision_cma_final_report_2023_04_26",
+        "observed_bytes": 2880833,
+        "observed_sha256": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+        "parser_admitted": true,
+        "passed": true,
+        "path": ".runtime/public-deal-corpus/microsoft_activision_cma_final_report.pdf",
+        "source_sha256_from_parser": "ce4df5babe558bc2a8c1b6e8425bb48b040e36b2778f6ff56f9fc3f772ec16e8",
+        "table_count": 0
+      }
+    ],
+    "passed": true
+  },
+  "manifest_sha256": "33318ea8ae066d8a01f1b57a140187c61ef436576755e10d44720adcadac59ea",
+  "model_responses": {
+    "artifact": null,
+    "cases": [],
+    "measured": false,
+    "passed": null
+  },
+  "negative_control": {
+    "description": "A wrong numerical answer with a nonexistent citation must fail.",
+    "evaluator_result": {
+      "answer_absence_passed": true,
+      "forbidden_hits": [],
+      "missing_answer_terms": [
+        "$293,122,500",
+        "$586,245,000"
+      ],
+      "missing_citations": [
+        "[01_anaplan_defm14a.htm#html:block:00207]"
+      ],
+      "passed": false
+    },
+    "passed": true
+  },
+  "pdf_visual_review": {
+    "note": "Corrected after audit. No human visual review receipt was recorded. Use the v2 corpus evidence for automated render checks.",
+    "passed": null,
+    "receipt": null,
+    "reviewer": null,
+    "state": "superseded_unsubstantiated_claim"
+  },
+  "recorded_at_unix": 1786762111.165525,
+  "runtime": {
+    "platform": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "poppler": "pdftotext version 26.08.0",
+    "python": "3.14.6"
+  },
+  "schema": "prism.public_deal_battletest.evidence.v1",
+  "source_facts": {
+    "cases": [
+      {
+        "case_id": "anaplan_vdr_timeline",
+        "citation_checks": [
+          {
+            "anchor": "html:block:00484",
+            "anchor_found": true,
+            "filename": "01_anaplan_defm14a.htm",
+            "missing_source_evidence_terms": [],
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "anaplan_termination_fees",
+        "citation_checks": [
+          {
+            "anchor": "html:block:00207",
+            "anchor_found": true,
+            "filename": "01_anaplan_defm14a.htm",
+            "missing_source_evidence_terms": [],
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "citrix_financing_mix",
+        "citation_checks": [
+          {
+            "anchor": "html:block:00058",
+            "anchor_found": true,
+            "filename": "02_citrix_financing_supplement.htm",
+            "missing_source_evidence_terms": [],
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "citrix_entry_leverage_absent",
+        "citation_checks": [
+          {
+            "anchor": "html:block:00058",
+            "anchor_found": true,
+            "filename": "02_citrix_financing_supplement.htm",
+            "missing_source_evidence_terms": [],
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case_id": "cma_competition_conclusion",
+        "citation_checks": [
+          {
+            "anchor": "pdf:page:7",
+            "anchor_found": true,
+            "filename": "microsoft_activision_cma_final_report.pdf",
+            "missing_source_evidence_terms": [],
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true
+  }
+}
