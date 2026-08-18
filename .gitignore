@@ -1,0 +1,17 @@
+.runtime/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.pytest_cache/
+.ruff_cache/
+tmp/
+*.log
+
+# Local credentials and machine settings
+.env
+.env.*
+!.env.example
+
+# Generated catalog output. CATALOG.yaml is the source.
+catalog/generated/
