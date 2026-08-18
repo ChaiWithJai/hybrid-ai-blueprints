@@ -1,0 +1,14 @@
+{
+  "study_id": "ale-economic-value-20260818",
+  "created": "2026-08-18",
+  "source": "Agents' Last Exam published task catalog",
+  "source_project": "https://agents-last-exam.org/",
+  "workbook": "agents_last_exam_economic_value_matrix.xlsx",
+  "workbook_sha256": "d94795e2b0194ca76d92c97e79f0793c46dfcb686408bc18139be3d0e4cb2fed",
+  "published_tasks": 153,
+  "build_now_opportunities": 14,
+  "median_opportunity_score": 55.2,
+  "modeled_target_net_annual_value_usd": 4842129,
+  "average_assumed_bonsai_fit": 52.0,
+  "evidence_boundary": "The study ranks economic hypotheses. It does not measure model or blueprint performance."
+}

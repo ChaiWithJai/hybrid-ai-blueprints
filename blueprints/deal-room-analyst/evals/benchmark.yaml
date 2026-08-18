@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "id": "deal-room-analyst-v0.1",
+  "status": "development",
+  "task_contracts": [
+    "../../../use-cases/deal-room-underwriting/tasks/transaction-chronology.yaml",
+    "../../../use-cases/deal-room-underwriting/tasks/financing-analysis.yaml",
+    "../../../use-cases/deal-room-underwriting/tasks/regulatory-analysis.yaml"
+  ],
+  "routes": ["local", "cloud", "hybrid"],
+  "blind_review": true,
+  "critical_failure_policy": "Any critical false pass blocks release.",
+  "measures": [
+    "task_completion",
+    "material_factual_accuracy",
+    "citation_correctness",
+    "citation_completeness",
+    "retrieval_coverage",
+    "calculation_reproduction",
+    "missing_information_handling",
+    "critical_error_count",
+    "human_correction_time",
+    "human_correction_count",
+    "decision_usefulness",
+    "workflow_preference",
+    "route_policy_compliance"
+  ],
+  "release_state": "not_ready",
+  "release_blockers": [
+    "Qualified blind review is incomplete.",
+    "Cloud and hybrid outputs are incomplete.",
+    "The sealed test set is not ready.",
+    "Private customer workflow evidence is absent."
+  ]
+}

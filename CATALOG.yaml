@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "project": "hybrid-ai-blueprints",
+  "sponsor": "PrismML",
+  "steward": "PrismML",
+  "use_cases": [
+    {
+      "id": "deal-room-underwriting",
+      "title": "Deal room underwriting",
+      "path": "use-cases/deal-room-underwriting",
+      "status": "prototype",
+      "blueprints": ["deal-room-analyst"]
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "deal-room-analyst",
+      "title": "Deal room analyst",
+      "path": "blueprints/deal-room-analyst",
+      "manifest": "blueprints/deal-room-analyst/blueprint.yaml",
+      "use_case": "deal-room-underwriting",
+      "status": "prototype",
+      "routes": ["local", "cloud", "hybrid"]
+    }
+  ]
+}

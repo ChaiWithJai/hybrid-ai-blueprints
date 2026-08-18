@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "id": "transaction-chronology",
+  "title": "Transaction chronology",
+  "job": "Identify the parties, transaction structure, important dates, approvals, and changes in the transaction record.",
+  "development_case": "anaplan",
+  "required_output": [
+    "parties",
+    "transaction_structure",
+    "dated_events",
+    "required_approvals",
+    "conflicts_or_unknowns",
+    "source_citations"
+  ],
+  "critical_failures": [
+    "wrong party",
+    "wrong transaction structure",
+    "invented date",
+    "missing material approval",
+    "citation does not support the claim"
+  ]
+}

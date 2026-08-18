@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "id": "deal-room-underwriting",
+  "title": "Deal room underwriting",
+  "status": "prototype",
+  "sponsor": "PrismML",
+  "job": "Given an authorized M&A folder and an investment screen, prepare a source linked first pass underwriting brief that helps a deal professional decide whether to advance, pause, or stop review and states the next action.",
+  "primary_user": "Private equity associate or vice president",
+  "economic_buyer": "Partner, operating executive, or technology leader",
+  "value_unit": "One expert accepted first pass review for one deal room",
+  "task_contracts": [
+    "tasks/transaction-chronology.yaml",
+    "tasks/financing-analysis.yaml",
+    "tasks/regulatory-analysis.yaml"
+  ],
+  "blueprints": ["deal-room-analyst"],
+  "evidence_required": [
+    "review_time",
+    "correction_count_and_severity",
+    "evidence_quality",
+    "decision_usefulness",
+    "workflow_preference",
+    "willingness_to_pay"
+  ]
+}

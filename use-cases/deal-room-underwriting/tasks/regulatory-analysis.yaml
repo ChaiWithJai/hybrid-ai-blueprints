@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "id": "regulatory-analysis",
+  "title": "Regulatory analysis",
+  "job": "Identify the regulator's material findings, the affected market, the decision, and the implications that the public record supports.",
+  "development_case": "cma-microsoft-activision",
+  "required_output": [
+    "regulator",
+    "market_definition",
+    "material_findings",
+    "decision_or_remedy",
+    "supported_implications",
+    "source_citations"
+  ],
+  "critical_failures": [
+    "wrong regulatory decision",
+    "wrong market definition",
+    "unsupported legal conclusion",
+    "missed material finding",
+    "citation does not support the claim"
+  ]
+}

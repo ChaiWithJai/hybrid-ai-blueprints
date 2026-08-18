@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "id": "bonsai-27b",
+  "family": "Bonsai",
+  "role": ["local_answer_model", "candidate_evaluator"],
+  "default_runtime_profile": "runtime-profiles/lm-studio.yaml",
+  "weights_bundled": false,
+  "artifact_identity_required_for_release": true,
+  "evidence_boundary": "Development use through the deal room harness. No general model capability claim."
+}

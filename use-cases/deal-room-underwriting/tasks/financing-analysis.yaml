@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "id": "financing-analysis",
+  "title": "Financing analysis",
+  "job": "Identify the financing sources, debt tranches, amounts, conditions, and unresolved funding risks disclosed by the source documents.",
+  "development_case": "citrix",
+  "required_output": [
+    "financing_sources",
+    "debt_tranches",
+    "amounts_and_units",
+    "financing_conditions",
+    "funding_risks",
+    "source_citations"
+  ],
+  "critical_failures": [
+    "wrong debt amount",
+    "wrong financing party",
+    "unsupported claim that financing is committed",
+    "equity reported as debt",
+    "citation does not support the claim"
+  ]
+}

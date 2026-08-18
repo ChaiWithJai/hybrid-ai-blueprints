@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hybrid-ai-blueprints.dev/schemas/catalog.schema.json",
+  "title": "Hybrid AI Blueprints catalog",
+  "type": "object",
+  "required": ["schema_version", "project", "sponsor", "steward", "use_cases", "blueprints"],
+  "properties": {
+    "project": {"const": "hybrid-ai-blueprints"},
+    "use_cases": {"type": "array"},
+    "blueprints": {"type": "array"}
+  },
+  "additionalProperties": true
+}

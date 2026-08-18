@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "id": "lm-studio-loopback",
+  "runtime": "LM Studio compatible local server",
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model_id": "27b@q1_0",
+  "network_policy": "ipv4_or_ipv6_loopback_only",
+  "artifact_hash": "operator_supplied",
+  "runtime_version": "operator_supplied",
+  "hardware": "operator_supplied"
+}

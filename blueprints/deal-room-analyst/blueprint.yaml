@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "id": "deal-room-analyst",
+  "title": "Deal room analyst",
+  "version": "0.1.0",
+  "status": "prototype",
+  "sponsor": "PrismML",
+  "steward": "PrismML",
+  "use_case": "deal-room-underwriting",
+  "job_contract": "../../use-cases/deal-room-underwriting/use-case.yaml",
+  "model": {
+    "manifest": "../../models/bonsai-27b/model.yaml",
+    "default_route": "local",
+    "artifact_bundled": false
+  },
+  "harness": {
+    "source": "../../core",
+    "entrypoint": "../../server.py",
+    "prompt": "../../docs/BONSAI_DEAL_ROOM_PROMPT.md",
+    "components": [
+      "../../packages/agent-runtime",
+      "../../packages/buzz-workspace",
+      "../../packages/document-intelligence",
+      "../../packages/evaluation",
+      "../../packages/evidence",
+      "../../packages/hybrid-router"
+    ]
+  },
+  "interface": {
+    "source": "../../web",
+    "canonical_demo_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
+    "evaluation_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/evaluation"
+  },
+  "evaluation": {
+    "contract": "evals/benchmark.yaml",
+    "implementation": "../../benchmarks/first_pass",
+    "framework": "../../benchmarks/evaluation_framework.v1.json"
+  },
+  "demos": [
+    {
+      "id": "project-titan",
+      "manifest": "demos/project-titan/demo.yaml"
+    }
+  ],
+  "commands": {
+    "preflight": "blueprints/deal-room-analyst/scripts/preflight",
+    "run": "blueprints/deal-room-analyst/scripts/run",
+    "verify": "blueprints/deal-room-analyst/scripts/verify"
+  },
+  "release_claim": "Local engineering prototype. No accuracy or commercial release claim."
+}
