@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "release": "deal-room-analyst-v0.1.0",
+  "project": "hybrid-ai-blueprints",
+  "blueprint": "deal-room-analyst",
+  "release_type": "engineering_demo",
+  "verified_at": "2026-08-18T16:42:00-04:00",
+  "source_commit": "32048929028e4aaec867e6061da8d21bc3823b4e",
+  "result": "passed",
+  "claims": [
+    "catalog_integrity",
+    "documentation_link_integrity",
+    "automated_test_suite",
+    "same_host_preflight",
+    "local_browser_surface"
+  ],
+  "excluded_claims": [
+    "model_accuracy",
+    "economic_value",
+    "production_security",
+    "clean_machine_reproduction",
+    "domain_acceptance"
+  ]
+}

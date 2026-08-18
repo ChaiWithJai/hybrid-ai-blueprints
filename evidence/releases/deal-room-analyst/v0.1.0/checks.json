@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "checks": [
+    {
+      "name": "catalog_validation",
+      "status": "passed",
+      "detail": "One use case and one blueprint resolved."
+    },
+    {
+      "name": "documentation_links",
+      "status": "passed",
+      "detail": "Checked local links in 64 Markdown files."
+    },
+    {
+      "name": "python_test_suite",
+      "status": "passed",
+      "detail": "Ran 523 tests in 81.532 seconds."
+    },
+    {
+      "name": "host_preflight",
+      "status": "passed_with_warning",
+      "detail": "Required checks passed. Optional benchmark deployment metadata was absent."
+    },
+    {
+      "name": "live_preflight",
+      "status": "passed_with_warning",
+      "detail": "Bonsai 27B and Buzz were live. Optional benchmark deployment metadata was absent."
+    },
+    {
+      "name": "browser_surface",
+      "status": "passed",
+      "detail": "The Project Titan overview and evaluation queue rendered at the canonical URL with no browser warnings or errors."
+    }
+  ]
+}
