@@ -18,9 +18,10 @@ A blueprint pull request must include:
 - Negative tests for important guards
 - Reproducible run and verification commands
 - A list of known limits
-- No dependencies on `core/` or `server.py` — new blueprints are self-contained
-  under their own directory per
-  [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md)
+- An application inside the blueprint's own `app/` directory, with no
+  dependency on `core/` or `server.py`, per
+  [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md). The deal room analyst
+  predates this rule and is being migrated; do not copy its layout.
 
 Run the repository checks with:
 

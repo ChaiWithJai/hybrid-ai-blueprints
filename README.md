@@ -74,19 +74,37 @@ regression are described in the
 
 ## Repository contents
 
+Catalog areas:
+
 | Area | Purpose |
 | --- | --- |
+| `CATALOG.yaml` | The canonical machine readable list of use cases and blueprints |
 | `use-cases/` | Valuable jobs, users, tasks, and economic reasons |
 | `blueprints/` | Runnable agent systems with evaluations |
 | `models/` | Model cards and supported runtime profiles |
-| `packages/` | Shared platform components |
-| `examples/` | Small integration examples |
-| `research/` | Source material that motivates use case selection |
+| `packages/` | Shared components a blueprint may adopt |
+| `schemas/` | Manifest schemas |
+| `tooling/` | Catalog and documentation validators |
 | `docs/` | Tutorials, guides, concepts, reference, and decisions |
 | `evidence/` | Versioned test and release records |
+| `research/` | Source material that motivates use case selection |
+| `examples/` | Small integration examples |
 
-The machine readable [catalog](CATALOG.yaml) is the canonical list of use cases
-and blueprints.
+The deal room analyst predates the catalog, so its application still sits at
+the repository root instead of inside its blueprint directory:
+
+| Area | Purpose |
+| --- | --- |
+| `core/` | Deal room application modules |
+| `server.py`, `web/` | Deal room server and browser interface |
+| `deal_rooms/` | Deal room demo fixtures |
+| `benchmarks/`, `tests/`, `scripts/`, `tools/`, `prismctl/`, `infra/` | Deal room evaluations, tests, and operations |
+
+This layout is migration debt rather than a catalog convention. New blueprints
+keep their application inside their own directory, as
+`blueprints/careline-voice-checkin/` does.
+[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md) records the target
+structure and the steps that move the deal room into it.
 
 ## Why the project evaluates agents
 

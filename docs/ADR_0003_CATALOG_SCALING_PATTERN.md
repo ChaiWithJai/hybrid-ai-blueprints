@@ -47,11 +47,81 @@ a central file.
    family — become catalog facets, which is how the hybrid AI narrative is
    browsed at 100 use cases.
 
+## The root directory today does not match this decision
+
+Adding a second blueprint exposed a structural problem that predates it. The
+repository root is not a catalog root. It is the deal room application's own
+root, which grew a catalog around itself:
+
+| Root entry | What it actually is |
+| --- | --- |
+| `core/` (98 files) | Deal room application code (`deal_room_analyzer.py`, `doc_parser.py`, `first_pass.py`) |
+| `server.py`, `web/` | The deal room server and browser interface |
+| `deal_rooms/` | Deal room demo fixtures |
+| `benchmarks/`, `scripts/`, `tests/`, `tools/`, `prismctl/`, `infra/` | Predominantly deal room evaluation and operations |
+
+`blueprints/deal-room-analyst/app/` and `harness/` contain a `README.md` each
+and no code; they point up at the root. `blueprints/careline-voice-checkin/app/`
+contains the real application. So one blueprint **is** the repository and the
+other lives inside `blueprints/`. That asymmetry is migration debt, not a
+design. An earlier draft of this record described it as "two harness styles
+coexisting by design," which rationalized an accident and is withdrawn.
+
+## Target structure
+
+The root holds catalog concerns only. Every blueprint owns its application:
+
+```text
+CATALOG.yaml, use-cases/, blueprints/, models/, packages/,
+schemas/, tooling/, docs/, evidence/, research/, examples/
+```
+
+```text
+blueprints/<blueprint>/
+    blueprint.yaml, README.md, IMPLEMENTATION.md, CHANGELOG.md
+    app/         the application, with its own project file and environment
+    demos/       fixtures with a data classification
+    evals/       the evaluation contract
+    scripts/     preflight, run, verify
+```
+
+`careline-voice-checkin` already has this shape and is the reference.
+
+## Why the deal room has not moved yet, and what moving requires
+
+A blueprint directory name is kebab-case because the catalog validator requires
+it (`ID_PATTERN`), and a kebab-case directory is not an importable Python
+package. The deal room therefore cannot become
+`blueprints.deal-room-analyst.app.core` by relocation alone. Each blueprint
+application must instead be a standalone project with its own project file and
+environment — which is exactly how CareLine is built and why CareLine could be
+self-contained on day one.
+
+Measured blast radius for the move: 124 Python files import `core`, 38 more
+reference `server.py` or `scripts/`, 8 documents cite root application paths,
+and the deal room manifest resolves seven `../../` paths. The deal room also
+carries 526 tests. That work is a refactor of a working blueprint and belongs
+in its own change, not in a change that adds a different blueprint.
+
+Migration steps, in order:
+
+1. Give the deal room application a project file and environment under
+   `blueprints/deal-room-analyst/app/`, mirroring CareLine.
+2. Move `core/`, `server.py`, `web/`, `deal_rooms/`, and the deal room parts of
+   `benchmarks/`, `scripts/`, and `tests/` into that directory.
+3. Rewrite imports to the app's own package root and update the manifest's
+   `../../` paths.
+4. Move genuinely shared code to `packages/` rather than leaving it in `core/`.
+5. Update the repository contents table, the architecture diagrams, and the
+   deal room tutorial.
+
+Until step 5 lands, `README.md` states which root entries belong to the deal
+room application so that the layout is not presented as a catalog convention.
+
 ## Consequences
 
-- Two harness styles coexist during the monorepo phase (shared-runtime
-  blueprints like `deal-room-analyst`, self-contained ones like
-  `careline-voice-checkin`). This is accepted and documented per blueprint.
+- New blueprints must be self-contained; `deal-room-analyst` is a documented
+  exception with a migration plan, not a second supported pattern.
 - `CATALOG.yaml` is hand-maintained until the trigger; the validator keeps it
   honest in the meantime.
 - Shared packages that blueprints adopt must eventually be published as

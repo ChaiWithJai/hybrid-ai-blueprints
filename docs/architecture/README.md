@@ -1,11 +1,13 @@
-# Deal room blueprint architecture (shared-runtime harness)
+# Deal room blueprint architecture
 
-The diagrams describe the shared-runtime harness used by `deal-room-analyst`.
+The diagrams describe the deal room analyst only. Its application still lives
+at the repository root (`core/`, `server.py`, `web/`) because it predates the
+catalog; [ADR 0003](../ADR_0003_CATALOG_SCALING_PATTERN.md) records the target
+structure and the migration. Other blueprints keep their application inside
+their own directory and document it in their blueprint README.
+
 Solid lines show working paths. Dotted lines show optional or incomplete
-paths. Self-contained blueprints such as `careline-voice-checkin` do not use
-`core/`, `server.py`, or `packages/`; see
-[ADR 0003](../ADR_0003_CATALOG_SCALING_PATTERN.md) and that blueprint's own
-README for its architecture.
+paths.
 
 ## System context
 
@@ -139,13 +141,12 @@ flowchart TB
     Blueprint --> Benchmarks["benchmarks/<br/>task and grading contracts"]
     Blueprint --> Demo["deal_rooms/<br/>safe demonstration fixtures"]
     Blueprint --> Evidence["evidence/<br/>test and release records"]
-    Blueprint -.->|self-contained harness, ADR 0003| SelfApp["app/<br/>own model, harness, and interface"]
+    Blueprint --> App["blueprints/&lt;id&gt;/app/<br/>the blueprint's own application"]
+    App -.->|deal room only, pending migration| Root["core/, server.py, web/<br/>application still at the repository root"]
     Docs["docs/<br/>tutorials, guides, concepts, reference, and decisions"] --> Blueprint
 ```
 
-The [deal room manifest](../../blueprints/deal-room-analyst/blueprint.yaml) is
-the source of truth for the shared-runtime harness. The
-[CareLine manifest](../../blueprints/careline-voice-checkin/blueprint.yaml)
-documents the self-contained harness pattern
-([ADR 0003](../ADR_0003_CATALOG_SCALING_PATTERN.md)). The
+Each blueprint manifest is the source of truth for that blueprint:
+[deal room](../../blueprints/deal-room-analyst/blueprint.yaml) and
+[CareLine](../../blueprints/careline-voice-checkin/blueprint.yaml). The
 [catalog](../../CATALOG.yaml) is the source of truth for repository discovery.
