@@ -1,0 +1,8 @@
+#!/bin/sh
+# Run the CareLine server on http://127.0.0.1:8100
+# Requires: uv, an OpenAI-compatible fast LLM (default: Ollama qwen2.5:7b on
+# :11434) and optionally the Bonsai 27B llama-server on :8081 for strong turns.
+set -e
+cd "$(dirname "$0")/../app"
+uv sync
+exec uv run uvicorn careline.main:app --host 127.0.0.1 --port 8100

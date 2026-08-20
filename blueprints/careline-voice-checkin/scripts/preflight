@@ -1,0 +1,27 @@
+#!/bin/sh
+# Check the host before running the CareLine blueprint.
+fail=0
+check() {
+  if eval "$2" >/dev/null 2>&1; then
+    echo "[OK]   $1"
+  else
+    echo "[MISS] $1 — $3"
+    fail=1
+  fi
+}
+
+check "uv"        "command -v uv"        "install: https://docs.astral.sh/uv/"
+check "ffmpeg"    "command -v ffmpeg"    "install: brew install ffmpeg (needed for mic audio decode)"
+check "ollama"    "command -v ollama"    "install: https://ollama.com (fast LLM route)"
+check "fast LLM (qwen2.5:7b pulled)" "ollama list | grep -q qwen2.5:7b" "run: ollama pull qwen2.5:7b"
+check "fast LLM endpoint :11434" "curl -s -m 2 http://localhost:11434/v1/models" "run: ollama serve"
+
+if curl -s -m 2 http://localhost:8081/props 2>/dev/null | grep -q model_path; then
+  echo "[OK]   strong LLM endpoint :8081 (Bonsai 27B)"
+else
+  echo "[INFO] strong LLM endpoint :8081 absent — router falls back to the fast model."
+  echo "       To enable: https://github.com/PrismML-Eng/Bonsai-demo (BONSAI_PORT=8081)"
+fi
+
+[ "$fail" -eq 0 ] && echo "Preflight passed." || echo "Preflight found missing requirements."
+exit "$fail"

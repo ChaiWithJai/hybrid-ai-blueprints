@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "id": "synthetic-dorothy",
+  "title": "Synthetic Dorothy",
+  "blueprint": "careline-voice-checkin",
+  "data_classification": "synthetic",
+  "source": "../../app/scripts/demo_run.py",
+  "start_url": "http://127.0.0.1:8100/",
+  "accuracy_evidence": false,
+  "customer_evidence": false,
+  "notes": "Three scripted calls for a synthetic persona (no real PHI at any point): a healthy baseline call that seeds memory, a recall call where the agent must reference call-one facts unprompted, and a decline scenario that must fire exactly one escalation alert. The self-voice mode demo requires the operator's own recorded reference audio, which is personal biometric data and is never committed to this repository."
+}

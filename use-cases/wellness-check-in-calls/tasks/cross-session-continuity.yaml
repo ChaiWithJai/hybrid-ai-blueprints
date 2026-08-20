@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "id": "cross-session-continuity",
+  "title": "Cross-session continuity",
+  "job": "Extract durable personal facts from each call transcript, store them with dates, and reference them naturally and accurately in later calls.",
+  "development_case": "synthetic-dorothy",
+  "required_output": [
+    "dated_facts_per_call",
+    "one_sentence_call_summary",
+    "later_call_references_earlier_facts",
+    "no_invented_memories_on_first_call"
+  ],
+  "critical_failures": [
+    "invented memory or invented prior contact",
+    "fact attributed to the wrong call date",
+    "extraction returns empty and the memory write is silently dropped",
+    "facts from one person surfaced in another person's call"
+  ]
+}

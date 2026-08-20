@@ -1,0 +1,6 @@
+#!/bin/sh
+# Scripted three-call regression against a running server (see scripts/run).
+# Exits nonzero if memory, recall hygiene, or escalation checks fail.
+set -e
+cd "$(dirname "$0")/../app"
+exec uv run python scripts/demo_run.py

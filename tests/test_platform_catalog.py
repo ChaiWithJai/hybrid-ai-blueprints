@@ -21,8 +21,12 @@ class PlatformCatalogTests(unittest.TestCase):
     def test_catalog_and_local_references_are_valid(self):
         result = catalog_validator.validate()
         self.assertEqual(result["project"], "hybrid-ai-blueprints")
-        self.assertEqual(result["use_cases"], ["deal-room-underwriting"])
-        self.assertEqual(result["blueprints"], ["deal-room-analyst"])
+        self.assertEqual(
+            result["use_cases"], ["deal-room-underwriting", "wellness-check-in-calls"]
+        )
+        self.assertEqual(
+            result["blueprints"], ["careline-voice-checkin", "deal-room-analyst"]
+        )
 
     def test_local_documentation_links_resolve(self):
         self.assertEqual(link_validator.validate(), [])

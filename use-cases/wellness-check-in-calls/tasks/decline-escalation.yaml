@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "id": "decline-escalation",
+  "title": "Decline detection and escalation",
+  "job": "Score each caller utterance for decline signals with a deterministic transcript scorer and raise at most one alert per severity level per call to the configured care contact.",
+  "development_case": "synthetic-dorothy",
+  "required_output": [
+    "per_utterance_concern_score",
+    "alert_with_severity_and_reason",
+    "at_most_one_alert_per_severity_per_call",
+    "no_alert_on_healthy_calls"
+  ],
+  "critical_failures": [
+    "concerning call produces no alert",
+    "healthy call produces an alert",
+    "alert fired repeatedly for the same concern in one call",
+    "escalation decision made by model judgment instead of the deterministic scorer"
+  ]
+}

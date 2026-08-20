@@ -1,0 +1,16 @@
+# Orchestration only — models run NATIVE on macOS (Docker can't reach Metal).
+# Ollama serves the LLM on the host; the container reaches it via host.docker.internal.
+services:
+  careline:
+    build: .
+    ports:
+      - "8100:8100"
+    environment:
+      CARELINE_LLM_BASE_URL: http://host.docker.internal:11434/v1
+      CARELINE_LLM_MODEL: qwen2.5:7b
+      CARELINE_DB: /data/careline.db
+      # CARELINE_ALERT_WEBHOOK: https://api.telegram.org/bot<TOKEN>/sendMessage-style sink
+    volumes:
+      - careline-data:/data
+volumes:
+  careline-data:
