@@ -2,6 +2,8 @@
 
 Status: accepted for the current goal  
 Date: August 17, 2026  
+Related: [ADR 0003](ADR_0003_CATALOG_SCALING_PATTERN.md) governs how the
+catalog grows beyond this single-workflow scope.  
 
 ## Decision
 

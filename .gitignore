@@ -1,4 +1,5 @@
 .runtime/
+.venv/
 __pycache__/
 *.pyc
 .DS_Store
@@ -15,3 +16,6 @@ tmp/
 
 # Generated catalog output. CATALOG.yaml is the source.
 catalog/generated/
+
+# Voice-clone reference recordings are biometric data. See SECURITY.md.
+blueprints/*/app/voices/

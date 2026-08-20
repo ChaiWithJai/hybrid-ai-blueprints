@@ -1,8 +1,13 @@
-# Case study: CareLine — a fully-local voice agent built and profiled in one day
+# CareLine implementation record
 
 **Date:** 2026-08-19 · **Hardware:** MacBook Pro M4 Pro, 24 GB unified memory ·
 **Context:** prototype rig for the GB10 hackathon (2026-08-22, AGI House), and
-the first consumer-edge demo of the hybrid blueprint.
+the first self-contained consumer-edge blueprint in this catalog.
+
+Every latency claim below reproduces on the stated hardware with
+`scripts/preflight`, `scripts/run`, and `scripts/verify`; the engineering
+findings record what those numbers cost to obtain. This is a development
+record, not release evidence (see `evals/benchmark.yaml` for release state).
 
 ## What it is
 
