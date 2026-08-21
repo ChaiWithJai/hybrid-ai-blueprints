@@ -25,6 +25,12 @@ reviewed the required evidence.
 
 ## Future governance
 
+The catalog graduates from one repository to one repository per blueprint at
+roughly ten blueprints or the first sustained external contributor, whichever
+comes first. See [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md) for the
+rationale. At that point `CATALOG.yaml` becomes generated and this document is
+updated to describe per-repository stewardship.
+
 The current repository is sponsored and maintained by PrismML. It is not a
 foundation governed project. If outside maintainers begin to share ownership,
 the steward will publish a separate governance proposal before changing the

@@ -1,0 +1,24 @@
+[project]
+name = "careline"
+version = "0.1.0"
+description = "CareLine — B2B eldercare voice check-in agent (Mac prototype for GB10 hackathon)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "httpx>=0.27",
+    "mlx-audio>=0.5.0",
+    "misaki[en]>=0.9.4",
+    # Clone voice for "call yourself" mode. Kept declared here (not installed
+    # ad hoc) because scripts/run calls `uv sync`, which removes anything the
+    # manifest does not list.
+    "f5-tts-mlx>=0.2.6",
+    # Tracing. Declared (not installed ad hoc) because scripts/run calls
+    # `uv sync`, which removes anything the manifest does not list.
+    "opentelemetry-sdk>=1.30",
+    "opentelemetry-exporter-otlp-proto-http>=1.30",
+    "openinference-semantic-conventions>=0.1.14",
+]
+
+[tool.uv]
+package = false

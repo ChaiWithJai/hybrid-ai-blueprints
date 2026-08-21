@@ -30,7 +30,7 @@ thresholds are in
   tested.
 
 The filesystem inspection record is
-[`bonsai-27b-artifact.json`](../evidence/bonsai-27b-artifact.json). Presence alone
+[`bonsai-27b-artifact.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-27b-artifact.json). Presence alone
 is not treated as invocation evidence.
 
 The live status API verifies the current weights and projection hashes. It
@@ -61,7 +61,7 @@ generated scripts passed the prototype sandbox. Prism attaches the deal identifi
 the typed input bundle to the execution result. The output labels this section
 as framework provenance and keeps it separate from the model-generated sandbox
 output. Filename attribution coverage is not semantic grounding. The saved
-[`current local verification run`](../evidence/bonsai-local-product-verification-current.json)
+[`current local verification run`](../blueprints/deal-room-analyst/app/evidence/bonsai-local-product-verification-current.json)
 records the exact model, artifact hash, runtime, hardware, generated code, raw
 output, and any rejected generation attempt.
 
@@ -84,8 +84,8 @@ and distinct application and model processes started. The recorder then refreshe
 the live inference responsiveness check, and the browser check. The restart
 record stores the SHA-256 hash of each result. The post-restart report contains
 the current source manifest and passed 4/4. See the current
-[`restart record`](../evidence/bonsai-cold-restart.json) and
-[`restart verification run`](../evidence/bonsai-local-product-verification-cold-restart.json).
+[`restart record`](../blueprints/deal-room-analyst/app/evidence/bonsai-cold-restart.json) and
+[`restart verification run`](../blueprints/deal-room-analyst/app/evidence/bonsai-local-product-verification-cold-restart.json).
 The manual predecessor and the first automated run remain saved. The first
 automated run exposed and preserved a duplicate validator rule that rejected
 `$/share` even though the registered rubric accepts it.
@@ -117,17 +117,17 @@ even though the HTTP request succeeded, and the offline v3 verifier binds each
 raw Buzz marker, trace, model, and visible answer. The saved response and
 verification records are:
 
-- [`bonsai-public-deal-battletest-responses.json`](../evidence/bonsai-public-deal-battletest-responses.json)
-- [`public-deal-buzz-event-verification.json`](../evidence/public-deal-buzz-event-verification.json)
-- [`first-pass-development-evaluation-v2.json`](../evidence/first-pass-development-evaluation-v2.json)
-- [`public-deal-corpus-verification-v2.json`](../evidence/public-deal-corpus-verification-v2.json)
-- [`bonsai-public-deal-battletest-failed-agent-loop.json`](../evidence/bonsai-public-deal-battletest-failed-agent-loop.json)
+- [`bonsai-public-deal-battletest-responses.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-public-deal-battletest-responses.json)
+- [`public-deal-buzz-event-verification.json`](../blueprints/deal-room-analyst/app/evidence/public-deal-buzz-event-verification.json)
+- [`first-pass-development-evaluation-v2.json`](../blueprints/deal-room-analyst/app/evidence/first-pass-development-evaluation-v2.json)
+- [`public-deal-corpus-verification-v2.json`](../blueprints/deal-room-analyst/app/evidence/public-deal-corpus-verification-v2.json)
+- [`bonsai-public-deal-battletest-failed-agent-loop.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-public-deal-battletest-failed-agent-loop.json)
 
 The three v1 corpus verification files originally claimed that a human checked
 PDF renders, but no reviewer identity or receipt existed. The records now mark
 that field as a superseded, unsupported claim. The correction record preserves
 the prior and corrected hashes in
-[`public-pdf-visual-claim-remediation-v1.json`](../evidence/public-pdf-visual-claim-remediation-v1.json).
+[`public-pdf-visual-claim-remediation-v1.json`](../blueprints/deal-room-analyst/app/evidence/public-pdf-visual-claim-remediation-v1.json).
 The active v2 record contains only an automated render check and an unrecorded
 human review state.
 
@@ -155,10 +155,10 @@ file changed. The CMA fallback cites only the isolated CMA PDF.
 This proves three product failure paths, not three model passes. No generated
 brief received semantic scoring or domain review, and the artifact fixes
 `accuracy_release_passed` to false. See
-[`bonsai-first-pass-public-development-v1.json`](../evidence/bonsai-first-pass-public-development-v1.json).
+[`bonsai-first-pass-public-development-v1.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-first-pass-public-development-v1.json).
 
 The deterministic comparison path also passed the same four cases in the saved
-[`baseline product report`](../evidence/baseline-product-verification.json).
+[`baseline product report`](../blueprints/deal-room-analyst/app/evidence/baseline-product-verification.json).
 That result is a reviewed-formula regression oracle and is not attributed to an
 AI provider. No approved cloud comparison artifact exists.
 
@@ -175,8 +175,8 @@ languages.
 
 Reports:
 
-- [`bonsai-local-coding-benchmark.json`](../evidence/bonsai-local-coding-benchmark.json)
-- [`bonsai-local-coding-holdout.json`](../evidence/bonsai-local-coding-holdout.json)
+- [`bonsai-local-coding-benchmark.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-local-coding-benchmark.json)
+- [`bonsai-local-coding-holdout.json`](../blueprints/deal-room-analyst/app/evidence/bonsai-local-coding-holdout.json)
 
 Six cases in each set invoked Bonsai. The unsupported-language case was handled
 by a deterministic policy guard and is not credited to the model. Three cases
@@ -209,7 +209,7 @@ Compare the dataset hashes, provider/model identity, case count, and failures;
 do not compare only the aggregate pass rate.
 
 The current
-[`clean directory record`](../evidence/clean-directory-baseline.json) copied the
+[`clean directory record`](../blueprints/deal-room-analyst/app/evidence/clean-directory-baseline.json) copied the
 declared project files into a fresh temporary root and ran the complete component
 suite with zero skips plus the deterministic baseline workload. The record contains
 the exact file and test counts. It checks path

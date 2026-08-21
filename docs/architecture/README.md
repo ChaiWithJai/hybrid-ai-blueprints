@@ -1,7 +1,13 @@
 # Deal room blueprint architecture
 
-The diagrams describe the implementation shipped in this repository. Solid
-lines show working paths. Dotted lines show optional or incomplete paths.
+The diagrams describe the deal room analyst only. Its application still lives
+at the repository root (`core/`, `server.py`, `web/`) because it predates the
+catalog; [ADR 0003](../ADR_0003_CATALOG_SCALING_PATTERN.md) records the target
+structure and the migration. Other blueprints keep their application inside
+their own directory and document it in their blueprint README.
+
+Solid lines show working paths. Dotted lines show optional or incomplete
+paths.
 
 ## System context
 
@@ -85,9 +91,9 @@ flowchart TD
 ```
 
 The routing code lives in
-[`core/hybrid_router.py`](../../core/hybrid_router.py). The provider boundary
-lives in [`core/ai_provider.py`](../../core/ai_provider.py), and signed cloud
-consent lives in [`core/cloud_consent.py`](../../core/cloud_consent.py).
+[`core/hybrid_router.py`](../../blueprints/deal-room-analyst/app/core/hybrid_router.py). The provider boundary
+lives in [`core/ai_provider.py`](../../blueprints/deal-room-analyst/app/core/ai_provider.py), and signed cloud
+consent lives in [`core/cloud_consent.py`](../../blueprints/deal-room-analyst/app/core/cloud_consent.py).
 
 ## Evaluation and observability
 
@@ -118,9 +124,9 @@ flowchart LR
 ```
 
 The local trace schema and checks live in
-[`core/arize_evals.py`](../../core/arize_evals.py). The explicit Phoenix
+[`core/arize_evals.py`](../../blueprints/deal-room-analyst/app/core/arize_evals.py). The explicit Phoenix
 exporter lives in
-[`scripts/export_eval_review_to_phoenix.py`](../../scripts/export_eval_review_to_phoenix.py).
+[`scripts/export_eval_review_to_phoenix.py`](../../blueprints/deal-room-analyst/app/scripts/export_eval_review_to_phoenix.py).
 The [observability guide](../concepts/observability-and-evaluation.md) explains
 the OpenTelemetry and OpenInference terms.
 
@@ -135,9 +141,12 @@ flowchart TB
     Blueprint --> Benchmarks["benchmarks/<br/>task and grading contracts"]
     Blueprint --> Demo["deal_rooms/<br/>safe demonstration fixtures"]
     Blueprint --> Evidence["evidence/<br/>test and release records"]
+    Blueprint --> App["blueprints/&lt;id&gt;/app/<br/>the blueprint's own application"]
+    App -.->|deal room only, pending migration| Root["core/, server.py, web/<br/>application still at the repository root"]
     Docs["docs/<br/>tutorials, guides, concepts, reference, and decisions"] --> Blueprint
 ```
 
-The [blueprint manifest](../../blueprints/deal-room-analyst/blueprint.yaml) is
-the source of truth for the first package. The [catalog](../../CATALOG.yaml) is
-the source of truth for repository discovery.
+Each blueprint manifest is the source of truth for that blueprint:
+[deal room](../../blueprints/deal-room-analyst/blueprint.yaml) and
+[CareLine](../../blueprints/careline-voice-checkin/blueprint.yaml). The
+[catalog](../../CATALOG.yaml) is the source of truth for repository discovery.

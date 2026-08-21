@@ -6,6 +6,7 @@ Start with the page that matches your task.
 
 - [Run the deal room blueprint](tutorials/run-the-deal-room-blueprint.md)
 - [Tour the Project Titan demo](demo/README.md)
+- [Run the CareLine voice check-in blueprint](../blueprints/careline-voice-checkin/README.md)
 
 ## Understand the system
 
@@ -29,8 +30,15 @@ Start with the page that matches your task.
 ## Review decisions and current evidence
 
 - [Repository structure decision](decisions/0001-hybrid-ai-blueprints-repository.md)
-- [Current implementation record](../blueprints/deal-room-analyst/IMPLEMENTATION.md)
-- [Deal room v0.1 verification report](../evidence/releases/deal-room-analyst/v0.1.0/REPORT.md)
+- [Build vs buy decision](ADR_0001_BUILD_VS_BUY.md)
+- [Demo-first scope decision](ADR_0002_DEMO_FIRST_SCOPE.md)
+- [Catalog scaling pattern decision](ADR_0003_CATALOG_SCALING_PATTERN.md)
+- [Deal room implementation record](../blueprints/deal-room-analyst/IMPLEMENTATION.md)
+- [CareLine implementation record](../blueprints/careline-voice-checkin/IMPLEMENTATION.md)
+- [Deal room v0.1 verification report](../blueprints/deal-room-analyst/app/evidence/releases/deal-room-analyst/v0.1.0/REPORT.md)
+
+New decision records use the `docs/ADR_000X_TITLE.md` naming;
+`decisions/0001-*` is the legacy scheme.
 
 The older product and benchmark records remain at the top level of `docs/`.
 They preserve the design and evidence history. New reader documentation should

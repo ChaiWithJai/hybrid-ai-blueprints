@@ -90,8 +90,8 @@ feedback source, and the content hash. Phoenix also displayed
 `prism.eval.content.included` as false.
 
 The evidence is stored in
-[`phoenix-eval-export-v1.json`](../evidence/phoenix-eval-export-v1.json) and
-[`phoenix-eval-ingestion-v1.json`](../evidence/phoenix-eval-ingestion-v1.json).
+[`phoenix-eval-export-v1.json`](../blueprints/deal-room-analyst/app/evidence/phoenix-eval-export-v1.json) and
+[`phoenix-eval-ingestion-v1.json`](../blueprints/deal-room-analyst/app/evidence/phoenix-eval-ingestion-v1.json).
 The smoke project contains synthetic data and provides no human or accuracy
 evidence.
 

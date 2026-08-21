@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareLine — Care Team Console</title>
+<style>
+  :root {
+    --bg: #f6f4ef; --panel: #ffffff; --ink: #23302b; --muted: #6b7a74;
+    --accent: #2e6e5c; --accent-soft: #e3efe9; --danger: #b3452f; --danger-soft: #f9e8e3;
+    --border: #e0ddd4;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+  header { padding: 20px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 14px; }
+  header h1 { font-size: 20px; letter-spacing: -0.02em; }
+  header span { color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; padding: 24px 28px; max-width: 1200px; margin: 0 auto; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+  .panel h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; }
+  #log { height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 6px; }
+  .msg { max-width: 82%; padding: 10px 14px; border-radius: 12px; font-size: 15px; line-height: 1.45; }
+  .agent { background: var(--accent-soft); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .resident { background: #eef0f4; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .controls { display: flex; gap: 8px; margin-top: 14px; }
+  input[type=text] { flex: 1; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 15px; }
+  button { padding: 11px 16px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+  button.secondary { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
+  button.danger { background: var(--danger); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  #mic.listening { background: var(--danger); animation: pulse 1.2s infinite; }
+  @keyframes pulse { 50% { opacity: 0.6; } }
+  .alert-item { background: var(--danger-soft); border-left: 4px solid var(--danger); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 13.5px; }
+  .fact-item { font-size: 13.5px; padding: 7px 0; border-bottom: 1px dashed var(--border); color: var(--ink); }
+  .fact-item .day { color: var(--muted); font-size: 12px; margin-right: 8px; }
+  .empty { color: var(--muted); font-size: 13.5px; font-style: italic; }
+  .stack { display: flex; flex-direction: column; gap: 20px; }
+  #status { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>CareLine</h1>
+  <span>wellness check-in console</span>
+  <select id="mode" style="margin-left:auto;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--panel);color:var(--ink)">
+    <option value="care">Care demo — Dorothy (Kokoro voice)</option>
+    <option value="self">Call yourself — Jai (your cloned voice)</option>
+  </select>
+</header>
+<main>
+  <section class="panel">
+    <h2>Live check-in call</h2>
+    <div id="log"></div>
+    <div class="controls">
+      <button id="start">Start call</button>
+      <button id="mic" class="secondary" disabled>🎙 Speak</button>
+      <input type="text" id="text" placeholder="…or type the resident's reply" disabled>
+      <button id="send" disabled>Send</button>
+      <button id="end" class="danger" disabled>End call</button>
+    </div>
+    <div id="status">Voice loop: mic → MLX Whisper (/api/stt) → LLM router → Kokoro (/api/tts). On the GB10 both endpoints swap to NIMs; the browser code is identical.</div>
+  </section>
+  <div class="stack">
+    <section class="panel">
+      <h2>Escalation alerts <span style="text-transform:none">(OpenClaw gateway stand-in)</span></h2>
+      <div id="alerts"><div class="empty">No alerts.</div></div>
+    </section>
+    <section class="panel">
+      <h2>Remembered from earlier calls</h2>
+      <div id="facts"><div class="empty">No memories yet — run a first call.</div></div>
+    </section>
+  </div>
+</main>
+<script>
+const MODES = {
+  care: { resident_id: "dorothy-01", name: "Dorothy", mode: "care" },
+  self: { resident_id: "self-jai", name: "Jai", mode: "self" },
+};
+let RESIDENT = MODES.care;
+let callId = null;
+const $ = id => document.getElementById(id);
+
+$("mode").onchange = () => {
+  if (callId) { $("mode").value = RESIDENT.mode; return; }  // no switching mid-call
+  RESIDENT = MODES[$("mode").value];
+  refreshPanels();
+  prepareNextCall();
+};
+
+function add(role, text) {
+  const div = document.createElement("div");
+  div.className = "msg " + role;
+  div.textContent = text;
+  $("log").appendChild(div);
+  $("log").scrollTop = $("log").scrollHeight;
+}
+
+// Server TTS (mlx-audio on Metal; NIMs on the GB10 — same endpoint).
+// Replies are synthesized SENTENCE BY SENTENCE: all fetches fire immediately
+// (the server serializes synthesis in order), and sentence 1 starts playing
+// while later sentences are still generating. This is what makes the slow
+// clone voice (~5s/sentence) feel conversational instead of frozen.
+async function fetchWav(text) {
+  try {
+    const r = await fetch("/api/tts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, mode: RESIDENT.mode }),
+    });
+    if (!r.ok) throw new Error(`tts ${r.status}`);
+    return URL.createObjectURL(await r.blob());
+  } catch (e) {
+    console.error("tts fetch failed:", e);
+    return null;
+  }
+}
+
+// Browsers block audio that is not tied to a user gesture, and an awaited
+// fetch can lose that gesture context. The previous version did
+// `a.play().catch(() => resolve())`, which swallowed that rejection: the audio
+// arrived, was never played, and nothing was logged -- indistinguishable from
+// a dead server. Surface it and offer a one-tap recovery instead.
+let audioUnlocked = false;
+
+function playUrl(url) {
+  return new Promise(resolve => {
+    const a = new Audio(url);
+    a.onended = () => resolve();
+    a.onerror = () => { setStatus("audio decode failed"); resolve(); };
+    a.play().then(() => { audioUnlocked = true; }).catch(err => {
+      console.warn("autoplay blocked:", err && err.name, err && err.message);
+      offerTapToPlay(a, resolve);
+    });
+  });
+}
+
+function offerTapToPlay(audio, resolve) {
+  const bar = document.getElementById("status");
+  let btn = document.getElementById("tap-to-play");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.id = "tap-to-play";
+    btn.style.marginLeft = "8px";
+    bar.parentNode.insertBefore(btn, bar.nextSibling);
+  }
+  btn.textContent = "▶ Tap to hear (browser blocked autoplay)";
+  btn.onclick = () => {
+    audio.play().then(() => { audioUnlocked = true; btn.remove(); })
+                .catch(e => setStatus("playback failed: " + e.name));
+  };
+  audio.onended = () => { btn.remove(); resolve(); };
+}
+
+function setStatus(msg) {
+  const el = document.getElementById("status");
+  if (el) el.textContent = msg;
+  console.log("[careline]", msg);
+}
+
+function splitSentences(text) {
+  const parts = text.match(/[^.!?]+[.!?]+["'”]?|[^.!?]+$/g);
+  return (parts || [text]).map(s => s.trim()).filter(Boolean);
+}
+
+async function speak(text) {
+  // ONE request for the whole reply. The previous per-sentence pipeline assumed
+  // synthesis was faster than playback; it is not. Measured on this machine for
+  // a three-sentence reply:
+  //
+  //   per sentence : 13.74s wall for 4.7s of audio -> 3.7s/3.1s/2.3s of dead
+  //                  air after each sentence, because every call re-conditions
+  //                  on the whole reference clip (a fixed ~3.5s cost paid N times)
+  //   one call     :  5.53s wall for 4.93s of audio, no internal gaps
+  //
+  // Time-to-first-audio is the same either way (the first sentence alone already
+  // costs ~5s), so one call is strictly better: same start, no gaps, and the
+  // model keeps prosody across sentence boundaries instead of restarting it.
+  const url = await fetchWav(text);
+  if (url === null) {  // server TTS down — browser voice fallback
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.95;
+    speechSynthesis.speak(u);
+    return;
+  }
+  await playUrl(url);
+}
+
+async function refreshPanels() {
+  const [alerts, mem] = await Promise.all([
+    fetch("/api/alerts").then(r => r.json()),
+    fetch(`/api/residents/${RESIDENT.resident_id}/memory`).then(r => r.json()),
+  ]);
+  $("alerts").innerHTML = alerts.alerts.length
+    ? alerts.alerts.map(a => `<div class="alert-item"><b>${a.severity.toUpperCase()}</b> · ${a.reason}<br><span style="color:var(--muted);font-size:12px">${a.created_at.slice(0,16).replace("T"," ")}</span></div>`).join("")
+    : '<div class="empty">No alerts.</div>';
+  $("facts").innerHTML = mem.facts.length
+    ? mem.facts.map(f => `<div class="fact-item"><span class="day">${f.created_at.slice(0,10)}</span>${f.fact}</div>`).join("")
+    : '<div class="empty">No memories yet — run a first call.</div>';
+}
+
+function setInCall(on) {
+  $("start").disabled = on;
+  ["mic", "text", "send", "end"].forEach(id => $(id).disabled = !on);
+}
+
+// Pre-open the next call while the user is looking at the page, so
+// "Start call" is near-instant (greeting text + audio already generated).
+function prepareNextCall() {
+  fetch("/api/calls/prepare", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(RESIDENT) }).catch(() => {});
+}
+prepareNextCall();
+
+$("start").onclick = async () => {
+  $("start").disabled = true;
+  const r = await fetch("/api/calls", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(RESIDENT) });
+  const data = await r.json();
+  callId = data.call_id;
+  add("agent", data.greeting);
+  speak(data.greeting);
+  setInCall(true);
+};
+
+let turnInFlight = false;
+
+async function sendText(text) {
+  if (!text.trim() || !callId || turnInFlight) return;
+  turnInFlight = true;
+  ["mic", "send"].forEach(id => $(id).disabled = true);
+  add("resident", text);
+  $("text").value = "";
+  try {
+    const r = await fetch(`/api/calls/${callId}/turn`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({ text }) });
+    const data = await r.json();
+    add("agent", data.reply);
+    speak(data.reply);
+    if (data.alert) refreshPanels();
+  } finally {
+    turnInFlight = false;
+    if (callId) ["mic", "send"].forEach(id => $(id).disabled = false);
+  }
+}
+
+$("send").onclick = () => sendText($("text").value);
+$("text").addEventListener("keydown", e => { if (e.key === "Enter") sendText($("text").value); });
+
+$("end").onclick = async () => {
+  setInCall(false);
+  const r = await fetch(`/api/calls/${callId}/end`, { method: "POST" });
+  const data = await r.json();
+  add("agent", `📋 Call logged for care team: ${data.summary}`);
+  callId = null;
+  refreshPanels();
+  prepareNextCall();  // memory just changed; pre-open the next call fresh
+};
+
+// Voice capture: record with MediaRecorder, transcribe server-side via
+// /api/stt (MLX Whisper on Metal; ASR NIM on the GB10 — same endpoint).
+// Click to start, click again to stop and send.
+let recorder = null;
+$("mic").onclick = async () => {
+  if (turnInFlight) return;
+  if (recorder && recorder.state === "recording") {
+    recorder.stop();
+    return;
+  }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mime = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/mp4";
+    recorder = new MediaRecorder(stream, { mimeType: mime });
+    const chunks = [];
+    recorder.ondataavailable = e => chunks.push(e.data);
+    recorder.onstop = async () => {
+      $("mic").classList.remove("listening");
+      $("mic").textContent = "🎙 Speak";
+      stream.getTracks().forEach(t => t.stop());
+      const blob = new Blob(chunks, { type: mime });
+      const r = await fetch("/api/stt", { method: "POST", headers: { "Content-Type": mime }, body: blob });
+      if (r.ok) {
+        const { text } = await r.json();
+        if (text) sendText(text);
+      } else {
+        fallbackSR();  // server STT down — try the browser recognizer once
+      }
+    };
+    recorder.start();
+    $("mic").classList.add("listening");
+    $("mic").textContent = "⏹ Stop";
+  } catch (err) {
+    console.error("mic error:", err);
+    fallbackSR();
+  }
+};
+
+function fallbackSR() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return;
+  const rec = new SR();
+  rec.lang = "en-US";
+  rec.onresult = e => sendText(e.results[0][0].transcript);
+  rec.start();
+}
+
+refreshPanels();
+</script>
+</body>
+</html>

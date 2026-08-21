@@ -7,33 +7,33 @@ PrismML sponsors and stewards the project. The blueprint contracts remain
 model and provider neutral, so a team can compare local, cloud, and hybrid
 configurations without changing the task or the grading rules.
 
+## Blueprints in this catalog
+
+The catalog holds two blueprints. Each has its own README, preflight, run, and
+verify commands, and a safe synthetic demo.
+
+**[Deal room analyst](blueprints/deal-room-analyst/README.md)** reads an
+authorized M&A folder and prepares a source linked first pass underwriting
+brief that helps a deal professional decide whether to advance, pause, or stop
+review. It uses Bonsai 27B locally, document parsing and evidence retrieval,
+reproducible calculations, a shared Buzz workspace, and blind review with task
+specific evaluations. It runs on the shared runtime (`core/`, `server.py`,
+`packages/`).
+
 ![Project Titan deal room overview](docs/assets/screenshots/deal-room-overview.png)
 
-The first public demo uses a synthetic leveraged buyout folder. The screenshot
-shows a guarded result that was paused because the model draft did not meet the
-source rules.
+The screenshot shows the synthetic Project Titan demo pausing a guarded result
+because the model draft did not meet the source rules.
 
-## Start with the deal room analyst
-
-The first blueprint reads an authorized M&A folder and prepares a source linked
-first pass underwriting brief. The brief helps a deal professional decide
-whether to advance, pause, or stop review and states the next action.
-
-The blueprint includes:
-
-- Bonsai 27B as the local model
-- Local, cloud, and hybrid routes
-- Document parsing and evidence retrieval
-- Reproducible calculations
-- A shared Buzz workspace
-- Blind review and task specific evaluations
-
-[Open the deal room analyst blueprint](blueprints/deal-room-analyst/README.md).
+**[CareLine voice check-in](blueprints/careline-voice-checkin/README.md)** runs
+a local voice check-in call that remembers earlier calls, detects decline
+signals with a deterministic scorer, and escalates concerning calls to a human
+care contact. It routes routine turns to a fast 7B model and delicate turns to
+Ternary-Bonsai-27B, speaks with on-device speech models, and includes a
+consented self-voice mode. It is self-contained per
+[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
 
 ## Get started
-
-The verified setup uses macOS, Python 3, Docker, and LM Studio with Bonsai 27B
-loaded as `27b@q1_0`.
 
 Clone the repository:
 
@@ -42,43 +42,78 @@ git clone https://github.com/ChaiWithJai/hybrid-ai-blueprints.git
 cd hybrid-ai-blueprints
 ```
 
-First, check the host:
+Each blueprint ships its own host check and run commands.
+
+> **Read [GETTING_STARTED.md](GETTING_STARTED.md) first.** It records the
+> verified path from clone to two running blueprints, plus 25 footguns hit and
+> diagnosed on a real machine. Several of them fail in ways that look like
+> something else: a missing `espeak-ng` kills the server process rather than the
+> request, `uv sync` removes packages you installed by hand, silence gets
+> returned as HTTP 200, and `docker exec psql` cannot verify a password.
+
+**Deal room analyst** (verified setup: macOS, Python 3, Docker, and LM Studio
+with Bonsai 27B loaded as `27b@q1_0`):
 
 ```bash
 blueprints/deal-room-analyst/scripts/preflight
-```
-
-Then, start the local services:
-
-```bash
 blueprints/deal-room-analyst/scripts/run
 ```
 
-Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`.
-
-Project Titan is synthetic. It demonstrates the workflow, but it does not
-provide accuracy or customer evidence.
-
-The [getting started tutorial](docs/tutorials/run-the-deal-room-blueprint.md)
+Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`. Project Titan
+is synthetic. It demonstrates the workflow, but it does not provide accuracy or
+customer evidence. The
+[getting started tutorial](docs/tutorials/run-the-deal-room-blueprint.md)
 includes expected output, screenshots, verification, cleanup, and
 troubleshooting. The [demo tour](docs/demo/README.md) explains each product
 view.
 
+**CareLine voice check-in** (verified setup: macOS on Apple Silicon, `uv`,
+`ffmpeg`, Ollama):
+
+```bash
+blueprints/careline-voice-checkin/scripts/preflight
+blueprints/careline-voice-checkin/scripts/run
+```
+
+Open `http://127.0.0.1:8100/`. The synthetic Dorothy demo and the verify
+regression are described in the
+[blueprint README](blueprints/careline-voice-checkin/README.md).
+
 ## Repository contents
+
+Catalog areas:
 
 | Area | Purpose |
 | --- | --- |
+| `CATALOG.yaml` | The canonical machine readable list of use cases and blueprints |
+| `blueprints/deal-room-analyst/app/` | The deal room application, its tests, and its fixtures |
 | `use-cases/` | Valuable jobs, users, tasks, and economic reasons |
 | `blueprints/` | Runnable agent systems with evaluations |
 | `models/` | Model cards and supported runtime profiles |
-| `packages/` | Shared platform components |
-| `examples/` | Small integration examples |
-| `research/` | Source material that motivates use case selection |
+| `packages/` | Shared components a blueprint may adopt |
+| `schemas/` | Manifest schemas |
+| `tooling/` | Catalog and documentation validators |
+| `GETTING_STARTED.md` | Verified setup path and the footguns worth knowing first |
 | `docs/` | Tutorials, guides, concepts, reference, and decisions |
 | `evidence/` | Versioned test and release records |
+| `research/` | Source material that motivates use case selection |
+| `examples/` | Small integration examples |
 
-The machine readable [catalog](CATALOG.yaml) is the canonical list of use cases
-and blueprints.
+The deal room analyst predates the catalog, so its application still sits at
+the repository root instead of inside its blueprint directory:
+
+| Area | Purpose |
+| --- | --- |
+| `core/` | Deal room application modules |
+| `server.py`, `web/` | Deal room server and browser interface |
+| `deal_rooms/` | Deal room demo fixtures |
+| `benchmarks/`, `tests/`, `scripts/`, `tools/`, `prismctl/`, `infra/` | Deal room evaluations, tests, and operations |
+
+This layout is migration debt rather than a catalog convention. New blueprints
+keep their application inside their own directory, as
+`blueprints/careline-voice-checkin/` does.
+[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md) records the target
+structure and the steps that move the deal room into it.
 
 ## Why the project evaluates agents
 
@@ -109,10 +144,14 @@ Every blueprint pins:
 
 ## Architecture
 
-The working local path connects the browser workspace, Python server,
-authorized folder, Bonsai runtime, Buzz relay, and local evaluation store.
-Cloud dispatch is optional and requires a configured HTTPS provider and signed
-consent. Cloud and hybrid comparisons remain unmeasured.
+Architecture is per blueprint, in one of two styles recorded in
+[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md). The deal room analyst
+uses the shared runtime: the working local path connects the browser
+workspace, Python server, authorized folder, Bonsai runtime, Buzz relay, and
+local evaluation store. Cloud dispatch is optional and requires a configured
+HTTPS provider and signed consent. Cloud and hybrid comparisons remain
+unmeasured. CareLine is self-contained under its own directory and describes
+its architecture in its blueprint README.
 
 [Read the architecture guide](docs/architecture/README.md) for the system
 context, request sequence, routing policy, evaluation flow, and repository
@@ -134,18 +173,18 @@ default. Human feedback remains separate from automated evaluation.
 
 ## Current status
 
-The deal room analyst is a local engineering prototype. The product path and
-many structural checks work, but the repository does not contain enough domain
+Both blueprints are local engineering prototypes. The product paths and many
+structural checks work, but the repository does not contain enough domain
 review, private customer evidence, cloud comparisons, or pricing evidence for
-an accuracy or commercial release.
-
-[Read the current implementation record](blueprints/deal-room-analyst/IMPLEMENTATION.md)
-and the [release evidence policy](docs/reference/evidence-policy.md).
+an accuracy or commercial release. Each blueprint records its own status:
+[deal room analyst](blueprints/deal-room-analyst/IMPLEMENTATION.md) and
+[CareLine voice check-in](blueprints/careline-voice-checkin/IMPLEMENTATION.md).
+See also the [release evidence policy](docs/reference/evidence-policy.md).
 
 ## Documentation
 
 - [Browse all documentation](docs/README.md)
-- [Run the first blueprint](docs/tutorials/run-the-deal-room-blueprint.md)
+- [Run the deal room blueprint](docs/tutorials/run-the-deal-room-blueprint.md)
 - [Tour the demo](docs/demo/README.md)
 - [Understand the architecture](docs/architecture/README.md)
 - [Create a blueprint](docs/how-to/create-a-blueprint.md)

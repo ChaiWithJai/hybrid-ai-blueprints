@@ -113,7 +113,7 @@ browser replay restored the trace and signed events, hid the machine marker,
 rendered human labels, and opened the financing citation at the exact source
 block. This is a structural publication pass. It is not domain review or an
 accuracy result, and Zendesk is not a registered benchmark case. See
-[`evidence/browser-real-deal-zendesk-v1.json`](../../evidence/browser-real-deal-zendesk-v1.json)
+[`evidence/browser-real-deal-zendesk-v1.json`](app/evidence/browser-real-deal-zendesk-v1.json)
 and its hashed screenshot.
 
 The workspace shows the evidence scope for each accepted answer and restored
@@ -129,7 +129,7 @@ hash, and the complete two-file folder snapshot. A separate process restored
 the raw Nostr event, verified its signature, restored the persisted trace, and
 recomputed the current folder state in 12 checks. This is provenance and
 durability evidence, not deal accuracy or buyer evidence. See
-[`evidence/provenance-bound-publication-v1.json`](../../evidence/provenance-bound-publication-v1.json).
+[`evidence/provenance-bound-publication-v1.json`](app/evidence/provenance-bound-publication-v1.json).
 
 The Titan discussion surface also has a narrower debt-structure reality test.
 For the question asking for every disclosed debt tranche and amount, retrieval
@@ -139,7 +139,7 @@ the revolver's stated commitment and zero funded amount, while excluding equity
 rows. A 20-assertion Chromium replay retains the earlier rejected attempt beside
 the accepted signed answer, proves restart restoration, and opens the exact
 table citation. This remains a structural check awaiting domain review. See
-[`evidence/browser-titan-debt-chat-v1.json`](../../evidence/browser-titan-debt-chat-v1.json)
+[`evidence/browser-titan-debt-chat-v1.json`](app/evidence/browser-titan-debt-chat-v1.json)
 and its hashed screenshot.
 
 Measured pilot results and limitations are collected in the
@@ -175,7 +175,7 @@ an air gap, firewall enforcement, DLP, or production network isolation.
 The current version 3 local engineering run passed all four synthetic
 calculation cases with label, unit, source, relevance, legal-language, and
 policy-tier guards. The result is saved in
-[`evidence/bonsai-local-product-verification-current.json`](../../evidence/bonsai-local-product-verification-current.json).
+[`evidence/bonsai-local-product-verification-current.json`](app/evidence/bonsai-local-product-verification-current.json).
 It is not a domain-accuracy release. The current dataset has not yet been
 independently reviewed by deal-domain owners. It has been reproduced after a
 fresh Bionic process restart on the same workstation. This does not prove
@@ -192,7 +192,7 @@ The complete product definition, pricing assumptions, ten benchmark decisions,
 dataset plan, evaluator design, and release gates are in the
 [first pass underwriting benchmark](../../docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md).
 The versioned machine readable contracts are under
-[`benchmarks/first_pass`](../../benchmarks/first_pass).
+[`benchmarks/first_pass`](app/benchmarks/first_pass).
 
 The measured macOS prototype can read image-only PDF pages with Apple Vision
 OCR when a page has no usable embedded text. The Files view identifies OCR
@@ -314,7 +314,7 @@ This relocates an explicit project manifest into a temporary directory and
 runs the baseline verifier. It does not provision or prove a clean machine.
 
 The saved same-host dependency and live-service record is
-[`evidence/operator-preflight-current.json`](../../evidence/operator-preflight-current.json).
+[`evidence/operator-preflight-current.json`](app/evidence/operator-preflight-current.json).
 It keeps optional benchmark deployment metadata separate from required startup
 readiness, so a loaded model cannot silently become a benchmark claim.
 
@@ -533,7 +533,7 @@ qualified domain labels, so their semantic accuracy and usefulness remain
 unverified.
 
 The cases live in
-[`benchmarks/deal_room_reliability.json`](../../benchmarks/deal_room_reliability.json).
+[`benchmarks/deal_room_reliability.json`](app/benchmarks/deal_room_reliability.json).
 Run each runtime separately and save the artifact:
 
 ```bash

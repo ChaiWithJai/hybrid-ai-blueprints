@@ -1,0 +1,26 @@
+[project]
+name = "deal-room-analyst"
+version = "0.1.0"
+description = "Deal room analyst — hybrid document analysis over a Buzz-backed workspace"
+requires-python = ">=3.11"
+# The application deliberately runs on the standard library. Its local model
+# access is HTTP to an OpenAI-compatible endpoint (LM Studio serving Bonsai),
+# and Buzz is reached through the `buzz` CLI, so there is nothing to install to
+# run the server or the test suite:
+#
+#     python3 -m unittest discover -s tests
+#
+# This file exists because the blueprint must be a standalone project rather
+# than the repository root (see ADR 0003 and issue #2). A kebab-case blueprint
+# directory is not an importable Python package, so `core/` cannot become
+# `blueprints.deal-room-analyst.app.core`. Instead this directory IS the import
+# root: modules keep importing `core` and `scripts` unchanged, and every
+# `Path(__file__).resolve().parents[1]` in them keeps resolving here.
+dependencies = []
+
+[project.optional-dependencies]
+# Browser-surface verification only; not needed to run or test the app.
+browser = ["playwright-core==1.62.1"]
+
+[tool.uv]
+package = false

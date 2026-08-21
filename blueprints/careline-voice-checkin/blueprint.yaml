@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "id": "careline-voice-checkin",
+  "title": "CareLine voice check-in",
+  "version": "0.1.0",
+  "status": "prototype",
+  "sponsor": "PrismML",
+  "steward": "PrismML",
+  "use_case": "wellness-check-in-calls",
+  "job_contract": "../../use-cases/wellness-check-in-calls/use-case.yaml",
+  "model": {
+    "manifest": "../../models/bonsai-27b/model.yaml",
+    "default_route": "local",
+    "artifact_bundled": false,
+    "notes": "Two-model by-stakes router: a fast 7B-class model handles routine turns; Ternary-Bonsai-27B handles concern-flagged turns and end-of-call fact extraction. Both are OpenAI-compatible endpoints selected by environment variables, so local, cloud, and hybrid routes need no code changes."
+  },
+  "harness": {
+    "source": "app",
+    "entrypoint": "app/careline/main.py",
+    "components": [
+      "app/careline"
+    ]
+  },
+  "interface": {
+    "source": "app/web",
+    "canonical_demo_url": "http://127.0.0.1:8100/"
+  },
+  "evaluation": {
+    "contract": "evals/benchmark.yaml",
+    "implementation": "app/scripts/demo_run.py"
+  },
+  "demos": [
+    {
+      "id": "synthetic-dorothy",
+      "manifest": "demos/synthetic-dorothy/demo.yaml"
+    }
+  ],
+  "commands": {
+    "preflight": "blueprints/careline-voice-checkin/scripts/preflight",
+    "run": "blueprints/careline-voice-checkin/scripts/run",
+    "verify": "blueprints/careline-voice-checkin/scripts/verify"
+  },
+  "release_claim": "Local engineering prototype measured on Apple Silicon (M4 Pro, 24 GB). No accuracy, clinical, or commercial release claim."
+}

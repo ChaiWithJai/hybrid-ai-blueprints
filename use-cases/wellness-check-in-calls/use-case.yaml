@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "id": "wellness-check-in-calls",
+  "title": "Wellness check-in calls",
+  "status": "prototype",
+  "sponsor": "PrismML",
+  "job": "Run a recurring voice check-in call that remembers earlier calls, detects decline signals in the transcript, and escalates concerning calls to a human care contact with a one-sentence summary.",
+  "primary_user": "Care coordinator at a home health agency, senior living operator, or recovery program",
+  "economic_buyer": "Care operations leader or clinical program director",
+  "value_unit": "One completed check-in call with a correct escalate or no-escalate decision",
+  "task_contracts": [
+    "tasks/cross-session-continuity.yaml",
+    "tasks/decline-escalation.yaml"
+  ],
+  "blueprints": ["careline-voice-checkin"],
+  "evidence_required": [
+    "escalation_precision_and_recall",
+    "memory_fact_accuracy",
+    "call_completion_rate",
+    "care_team_review_time",
+    "resident_or_member_acceptance",
+    "willingness_to_pay"
+  ]
+}

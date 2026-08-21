@@ -18,13 +18,17 @@ A blueprint pull request must include:
 - Negative tests for important guards
 - Reproducible run and verification commands
 - A list of known limits
+- An application inside the blueprint's own `app/` directory, with no
+  dependency on `core/` or `server.py`, per
+  [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md). The deal room analyst
+  predates this rule and is being migrated; do not copy its layout.
 
 Run the repository checks with:
 
 ```bash
 python3 tooling/catalog/validate_catalog.py
 python3 tooling/documentation/validate_links.py
-python3 -m unittest discover -s tests
+cd blueprints/deal-room-analyst/app && python3 -m unittest discover -s tests
 ```
 
 ## Write documentation
@@ -39,8 +43,8 @@ The repository writing rules are based on the public
 collection.
 
 Follow the [documentation standard](docs/reference/documentation-standard.md).
-Capture public demo images from the running Project Titan fixture and update
-the screenshot manifest. Keep architecture diagrams in Mermaid and mark
+Capture public demo images from the blueprint's own running demo fixture and
+update that blueprint's screenshot manifest. Keep architecture diagrams in Mermaid and mark
 optional or incomplete paths with dotted lines.
 
 Run the documentation link and asset checks before you commit.

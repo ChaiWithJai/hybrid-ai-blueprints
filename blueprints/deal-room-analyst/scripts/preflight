@@ -2,6 +2,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+APP_DIR="$(cd "${SCRIPT_DIR}/../app" && pwd)"
 
-exec python3 "${REPO_ROOT}/scripts/preflight.py" --phase host "$@"
+# Run from the application root: modules import `core`/`scripts` relative to it.
+cd "${APP_DIR}"
+exec python3 scripts/preflight.py --phase host "$@"

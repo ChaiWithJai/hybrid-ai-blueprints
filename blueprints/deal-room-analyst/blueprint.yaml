@@ -14,8 +14,8 @@
     "artifact_bundled": false
   },
   "harness": {
-    "source": "../../core",
-    "entrypoint": "../../server.py",
+    "source": "app/core",
+    "entrypoint": "app/server.py",
     "prompt": "../../docs/BONSAI_DEAL_ROOM_PROMPT.md",
     "components": [
       "../../packages/agent-runtime",
@@ -27,14 +27,14 @@
     ]
   },
   "interface": {
-    "source": "../../web",
+    "source": "app/web",
     "canonical_demo_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
     "evaluation_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/evaluation"
   },
   "evaluation": {
     "contract": "evals/benchmark.yaml",
-    "implementation": "../../benchmarks/first_pass",
-    "framework": "../../benchmarks/evaluation_framework.v1.json"
+    "implementation": "app/benchmarks/first_pass",
+    "framework": "app/benchmarks/evaluation_framework.v1.json"
   },
   "demos": [
     {

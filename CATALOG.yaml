@@ -10,6 +10,13 @@
       "path": "use-cases/deal-room-underwriting",
       "status": "prototype",
       "blueprints": ["deal-room-analyst"]
+    },
+    {
+      "id": "wellness-check-in-calls",
+      "title": "Wellness check-in calls",
+      "path": "use-cases/wellness-check-in-calls",
+      "status": "prototype",
+      "blueprints": ["careline-voice-checkin"]
     }
   ],
   "blueprints": [
@@ -19,6 +26,15 @@
       "path": "blueprints/deal-room-analyst",
       "manifest": "blueprints/deal-room-analyst/blueprint.yaml",
       "use_case": "deal-room-underwriting",
+      "status": "prototype",
+      "routes": ["local", "cloud", "hybrid"]
+    },
+    {
+      "id": "careline-voice-checkin",
+      "title": "CareLine voice check-in",
+      "path": "blueprints/careline-voice-checkin",
+      "manifest": "blueprints/careline-voice-checkin/blueprint.yaml",
+      "use_case": "wellness-check-in-calls",
       "status": "prototype",
       "routes": ["local", "cloud", "hybrid"]
     }

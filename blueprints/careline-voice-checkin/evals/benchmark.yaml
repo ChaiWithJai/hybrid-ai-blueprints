@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "id": "careline-voice-checkin-v0.1",
+  "status": "development",
+  "task_contracts": [
+    "../../../use-cases/wellness-check-in-calls/tasks/cross-session-continuity.yaml",
+    "../../../use-cases/wellness-check-in-calls/tasks/decline-escalation.yaml"
+  ],
+  "routes": ["local", "cloud", "hybrid"],
+  "blind_review": false,
+  "critical_failure_policy": "Any missed escalation on a scripted decline call, or any silently dropped memory write, blocks release.",
+  "measures": [
+    "memory_facts_stored_per_call",
+    "cross_session_recall_occurred",
+    "first_call_free_of_invented_history",
+    "no_alert_on_healthy_calls",
+    "exactly_one_alert_on_decline_call",
+    "turn_latency_by_route",
+    "first_audio_latency",
+    "extraction_completeness"
+  ],
+  "thresholds": {
+    "scripted_regression_pass": "app/scripts/demo_run.py exits 0: memory facts stored > 0, zero alerts across both healthy calls, exactly one alert on the decline call, first-call greeting contains no invented-history phrasing.",
+    "latency_targets_local_m4pro_24gb": "routine turn < 2s, strong turn < 10s, first cloned audio < 10s after reply text"
+  },
+  "release_state": "not_ready",
+  "release_blockers": [
+    "Evaluation is a scripted regression, not a sealed test set.",
+    "Escalation precision and recall are unmeasured on realistic transcripts.",
+    "Cloud and hybrid route outputs are unverified.",
+    "No customer or care-team evidence."
+  ]
+}
