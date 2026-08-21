@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "blueprint": "careline-voice-checkin",
+  "captured_at": "2026-08-21T19:42:45.709Z",
+  "source_commit": "6cfacaf68215c0cc2f411ed42e32c041e88dbcb0",
+  "application_url": "http://127.0.0.1:8100/",
+  "fixture": "dorothy_synthetic_resident",
+  "fixture_class": "synthetic_demo",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "screenshots": [
+    {
+      "id": "careline_console",
+      "path": "careline-console.png",
+      "route": "/",
+      "state": "Care demo mid-call: memory-aware greeting, the resident's reply, the agent's follow-up, one escalation alert with its signals and score, and dated facts recalled from earlier calls.",
+      "width": 2880,
+      "height": 1800,
+      "sha256": "fe378e53e4f08aa28201ee73b33c57fe3969a41e59701da4658ea62b17b58bb1"
+    }
+  ],
+  "claim_boundary": "Dorothy is a synthetic resident and the transcript is generated. These images show the product path only. They are not accuracy, clinical, or customer evidence, and the escalation scoring they display is a deterministic keyword and threshold rule, not a clinical assessment."
+}

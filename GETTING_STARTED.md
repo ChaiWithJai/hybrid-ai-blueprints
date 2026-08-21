@@ -30,7 +30,7 @@ Then, always:
 
 ```bash
 blueprints/careline-voice-checkin/scripts/preflight   # voice blueprint
-python3 scripts/preflight.py --phase host             # deal room
+blueprints/deal-room-analyst/scripts/preflight        # deal room
 ```
 
 Preflight is the fastest way to find a missing prerequisite. Both fail loudly
@@ -123,6 +123,24 @@ install "worked". Declare dependencies in the manifest. This bit twice: once for
 Because of footgun 3, fine-tuning deps are installed in `~/careline-ft/.venv`,
 not the app venv, so the app's `uv sync` cannot strip them.
 
+**4b. The deal room preflight's one WARN is expected, and is about provenance.**
+`benchmark_deployment_metadata: optional_missing` means the run will not be able
+to say which hardware and runtime served it. Nothing is broken and the required
+checks still pass. Set them before any measurement you intend to compare against
+another machine:
+
+```bash
+export PRISM_LOCAL_AI_HARDWARE=apple-m5-pro-48gb
+export PRISM_LOCAL_AI_RUNTIME=llama.cpp
+export PRISM_LOCAL_AI_RUNTIME_VERSION=<version>
+export PRISM_LOCAL_AI_CONTEXT_TOKENS=16384
+```
+
+`core/ai_provider.py` copies these into the deployment evidence attached to each
+response. Unset, they record as null and a local-versus-cloud comparison has no
+hardware label to join on. Full list in the
+[hardware matrix](docs/reference/hardware-matrix.md#recording-which-hardware-served-a-response).
+
 ## Memory, on a machine with no swap
 
 **5. Check `sysctl vm.swapusage` before running anything large.**
@@ -180,13 +198,65 @@ password here can break the other repo's relay. Give each repo its own `name:`.
 
 ## Deal room
 
-**13. A registered fixture room has no workspace until its folder is opened.**
-`buzz.room_count: 0` in `/api/status` is the tell, and the page sits on
-"Opening workspace" forever. `ensure_room()` has exactly one caller —
-`/api/deal-room/open` — and it derives the id from the path:
-`local_<sha256(path)[:12]>`. So the canonical paths the fixture catalog
-advertises (`/rooms/project_titan_lbo`, also `DEFAULT_ROOM` in `server.py`)
-**can never be seeded**. Use the `local_<hash>` path the open call returns.
+**13. A fixture room is listed but has no workspace until a Buzz channel is
+bound to it, and `/rooms/<id>` returns 200 either way.**
+
+The four demo rooms in `DEAL_ROOM_CATALOG` appear in the room list immediately.
+That is only catalog metadata. Until a channel is bound, the browser sits on
+"Opening workspace" forever and the API says so plainly:
+
+```bash
+curl -s 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo'
+# {"error": "workspace_not_bound", "room": "project_titan_lbo"}
+```
+
+Three things make this hard to diagnose:
+
+*The page is not a check.* `GET /rooms/project_titan_lbo` returns the
+single-page shell and answers **200 whether or not anything is bound**. Curling
+the route proves the server is up and nothing else. Check
+`/api/workspace?room=<id>` instead.
+
+*Opening the folder produces a different room.* That path keys the room by the
+folder's absolute path, so the Titan fixture folder registers as
+`local_cedf07e82624`, not `project_titan_lbo`. You get a working room at a URL
+that no tutorial, screenshot manifest, or link mentions. Move the repository and
+the hash changes, which is why an older registration can linger under a second
+`local_` id after the application directory moves.
+
+*One channel cannot serve two rooms.* The server does try to bind the default
+room at startup:
+
+```python
+_demo_channel = PROJECT_ROOT / ".runtime" / "buzz" / "demo-channel-id"
+if _demo_channel.exists() and global_buzz.room(DEFAULT_ROOM) is None:
+    global_buzz.bind_existing_room(DEFAULT_ROOM, _demo_channel.read_text().strip())
+```
+
+but handing it a channel that already belongs to another room raises
+`BuzzUnavailable: Buzz room registry assigns one channel to multiple rooms`, and
+the `except BuzzUnavailable: pass` around that call swallows it. Startup stays
+silent and the room stays unbound. The invariant is correct — two rooms sharing
+one conversation would be worse — but reusing an existing channel is not the
+workaround it looks like.
+
+The fix is to give each fixture its own channel:
+
+```bash
+cd blueprints/deal-room-analyst/app
+python3 scripts/seed_fixture_room.py --all     # or: project_titan_lbo
+python3 scripts/seed_fixture_room.py --list    # show every fixture and its binding
+```
+
+That calls the same `BuzzBridge.ensure_room` the application uses, so the
+channel is created private, the agent identity is added as a `bot` member, and
+the initial canvas is written. It is idempotent. Verify with the workspace API:
+
+```bash
+curl -s 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo' \
+  | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["room_name"], d["total_documents"], "documents")'
+# Project Titan: $2.4B Sponsor-Backed LBO 4 documents
+```
 
 **14. Do not put a textual `@Bonsai` in a message.**
 buzz-cli parses `@handle` mentions from the body and resolves them against
@@ -265,8 +335,11 @@ memory. Absence of a check is not evidence of correctness.
 invalidates it.** Room ids are `local_<sha256(absolute folder path)[:12]>`. After
 the application moved, the existing room resolved to a folder that no longer
 existed and every `ask_bonsai` message returned 409
-`deal_room_source_unavailable: folder does not exist`. Re-run preview + open
-against the new path; the room gets a new id.
+`deal_room_source_unavailable: folder does not exist`. For a folder you opened
+yourself, re-run preview and open against the new path; the room gets a new id,
+and the stale one lingers in the registry. For a catalog fixture, use
+`app/scripts/seed_fixture_room.py` instead — it binds the fixture's own id, which
+does not move when the folder does. See footgun 13.
 
 **27. `.runtime/` must move with the application, or Buzz regenerates its
 secrets.** `scripts/buzz_up.py` derives its root from

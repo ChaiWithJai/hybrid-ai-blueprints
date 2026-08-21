@@ -122,6 +122,40 @@ curl -fsS http://127.0.0.1:8787/api/status | python3 -m json.tool
 Confirm that the response reports a configured local model and a live Buzz
 relay. The exact trace counts and room counts can differ from the screenshots.
 
+## Bind the demo room
+
+The demo rooms are listed from the catalog, but each one needs its own Buzz
+channel before its workspace opens. On a fresh clone none are bound, and the
+room page shows "Opening workspace" indefinitely. Bind them once:
+
+```bash
+cd blueprints/deal-room-analyst/app
+python3 scripts/seed_fixture_room.py --all
+```
+
+Expected output, with one line per room:
+
+```text
+project_aeroflux_crossborder_ma: bound to channel <uuid> with 4 documents
+project_biovanguard_carveout: bound to channel <uuid> with 4 documents
+project_titan_lbo: bound to channel <uuid> with 4 documents
+sample_ma_acquisition: bound to channel <uuid> with 4 documents
+```
+
+The command is idempotent, so running it again reports the existing bindings
+instead of creating more channels. Confirm the binding with the workspace API
+rather than the page, because the room route returns the single-page shell and
+answers 200 even when nothing is bound:
+
+```bash
+curl -fsS 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo' \
+  | python3 -m json.tool | head -8
+```
+
+Expect `room_name`, `total_documents: 4`, and an empty `parse_warnings` list. An
+`{"error": "workspace_not_bound"}` response means the seeding step did not run
+in this application directory.
+
 ## Review Project Titan
 
 Open the canonical demo URL:
@@ -130,8 +164,25 @@ Open the canonical demo URL:
 http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass
 ```
 
-First, read the decision state and decision question on the Overview tab. The
-saved example is paused because the model draft did not pass the source rules.
+A newly bound room has no review yet, so the Overview tab opens on "What
+should the team decide?" with a prefilled decision focus. The screenshots in
+this tutorial show the state *after* a review, not the state you land on.
+
+First, run the review. Leave the prefilled decision focus as it is and select
+**Review deal room**. The button disables while the model works. On the
+measured host, with Bonsai 27B served by LM Studio, this took about 80 seconds
+for Titan's four documents. When it finishes, the Overview tab shows a decision
+status, the reason, the decision question, and the priority files to read next.
+
+The expected result is **Not Ready To Advance**, with "The automated review did
+not meet the source rules." The guard pausing the draft is the demonstration,
+not a failure: the model's first pass did not satisfy the source rules, so the
+product refuses to present it as a finished brief. A run that advanced without
+review would be the surprising outcome.
+
+The decision question is generated, so its wording can differ between runs. On
+the measured run it read: "Should Project Titan advance despite the mismatch
+between debt paydown and the Section 2.02 cash sweep terms?"
 
 Second, select a priority file to open the exact cited passage.
 

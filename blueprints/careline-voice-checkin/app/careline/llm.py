@@ -1,8 +1,10 @@
-"""Ollama client via its OpenAI-compatible endpoint.
+"""Language-model client for any OpenAI-compatible endpoint.
 
-The blueprint's swap table allows "any OpenAI-compatible" LLM, so on the GB10
-this module points at the Nemotron NIM instead — only OLLAMA_BASE_URL and
-MODEL change, no code.
+Verified against LM Studio serving the Bonsai family on 127.0.0.1:1234. Moving
+to another host or accelerator changes CARELINE_LLM_BASE_URL and the per-tier
+model names below, not this module. That is what makes the language-model half
+of the blueprint hardware-portable while the speech half is not; see
+docs/reference/hardware-matrix.md.
 """
 
 import json

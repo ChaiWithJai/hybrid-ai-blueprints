@@ -2,6 +2,12 @@
   "schema_version": "1.0",
   "captured_at": "2026-08-18T16:57:00-04:00",
   "source_commit": "7048fdb28c77c03794de837872eb2790d45fdfe2",
+  "reverified": {
+    "at": "2026-08-21",
+    "commit": "fa928972e9e195aca2c72791492318ab56262cd8",
+    "method": "Seeded project_titan_lbo with scripts/seed_fixture_room.py, ran the first pass from the Overview tab, and compared the live render against these files. Images were not recaptured; the committed files still match what the application renders.",
+    "result": "Decision status, paused reason, decision question heading, priority file count, and tab set all match. The first pass reproduced the guarded Not Ready To Advance outcome in about 80 seconds."
+  },
   "application_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
   "fixture": "project_titan_lbo",
   "fixture_class": "synthetic_demo",

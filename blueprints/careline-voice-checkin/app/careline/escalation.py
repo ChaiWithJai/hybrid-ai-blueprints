@@ -1,9 +1,9 @@
 """Decline detection + escalation gateway.
 
 Baseline is deliberately keyword/threshold on the transcript (per plan —
-paralinguistic modeling is a stretch goal, not core). The alert sink is an
-OpenClaw stand-in: on the GB10 this POST goes to OpenClaw's messaging
-integration (Telegram bot); here it logs and optionally hits a webhook.
+paralinguistic modeling is a stretch goal, not core). The alert sink stands in for a
+messaging gateway: in deployment this POST reaches the care contact's channel;
+here it logs and optionally hits CARELINE_ALERT_WEBHOOK.
 """
 
 import os
