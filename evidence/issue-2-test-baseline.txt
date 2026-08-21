@@ -1,0 +1,17 @@
+# Test baseline for the issue #2 migration
+# invocation: python3 -m unittest discover -s tests   (per CONTRIBUTING.md)
+#
+# 526 tests. 6 are red BEFORE any migration work and are not caused by it.
+# Anything beyond this list during the migration is attributable to the move.
+#
+# ERROR: test_direct_disclosure_pattern_injection_fails
+# FAIL:  test_current_citrix_whole_corpus_audit_passes_narrow_contract
+# FAIL:  test_missing_registered_source_and_hash_drift_fail_closed
+# FAIL:  test_oracle_diagnostic_http_exposes_failures_without_accuracy_claim
+# FAIL:  test_provenance_bound_publication_recomputes_current_room_and_rejects_tampering
+# FAIL:  test_source_review_browser_evidence_is_pipeline_and_screenshot_bound
+#
+# A 7th, test_local_documentation_links_resolve, was red only because the
+# documentation link validator walked into blueprints/*/app/.venv/ and checked
+# third-party package READMEs. Fixed rather than baselined: installing a
+# blueprint's dependencies must not turn the repository's own suite red.

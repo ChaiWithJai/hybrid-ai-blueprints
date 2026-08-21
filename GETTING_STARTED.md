@@ -12,7 +12,7 @@ like something other than what they are.
 | Blueprint | Runs on | Port |
 |---|---|---|
 | `blueprints/careline-voice-checkin` | Bonsai 4b/8b/27b + mlx-audio (CSM-1B, Kokoro, Whisper) | 8100 |
-| `deal-room-analyst` (repo root — see [issue #2](../../issues/2)) | Bonsai 27b@q1_0 + Buzz relay | 8787 |
+| `deal-room-analyst` (repo root — see [issue #2](https://github.com/ChaiWithJai/hybrid-ai-blueprints/issues/2)) | Bonsai 27b@q1_0 + Buzz relay | 8787 |
 | Phoenix (Arize) — traces + evals for both | Docker | 6006 |
 
 ## Prerequisites

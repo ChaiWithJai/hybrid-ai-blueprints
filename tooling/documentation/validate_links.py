@@ -14,9 +14,20 @@ LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 TOP_LEVEL_FILES = [
     ROOT / "README.md",
     ROOT / "CONTRIBUTING.md",
+    ROOT / "GETTING_STARTED.md",
     ROOT / "GOVERNANCE.md",
     ROOT / "SECURITY.md",
 ]
+
+# Directories that contain markdown we do not author and must never gate the
+# suite. Without this, installing a blueprint's dependencies turns the repo red:
+# rglob walks into blueprints/*/app/.venv/ and validates third-party package
+# READMEs, e.g. mlx_audio's higgs_audio README links to paths in ITS OWN
+# upstream repository that do not exist here.
+VENDORED_PARTS = frozenset({
+    ".venv", "venv", "node_modules", "site-packages", "__pycache__",
+    ".git", ".mypy_cache", ".pytest_cache", "dist", "build",
+})
 DOCUMENTATION_ROOTS = [
     ROOT / "blueprints",
     ROOT / "use-cases",
@@ -28,11 +39,17 @@ DOCUMENTATION_ROOTS = [
 ]
 
 
+def is_vendored(path: Path) -> bool:
+    return any(part in VENDORED_PARTS for part in path.parts)
+
+
 def markdown_files() -> list[Path]:
     files = [path for path in TOP_LEVEL_FILES if path.exists()]
     for directory in DOCUMENTATION_ROOTS:
         if directory.exists():
-            files.extend(directory.rglob("*.md"))
+            files.extend(
+                path for path in directory.rglob("*.md") if not is_vendored(path)
+            )
     return sorted(set(files))
 
 
