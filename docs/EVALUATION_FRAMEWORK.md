@@ -117,7 +117,7 @@ score. The local APIs are:
 - `GET /api/workspace/evaluation/experiments?room={room_id}&left={id}&right={id}`
 
 The candidate judge prompts are versioned in
-[`deal_room_semantic_judges.v1.json`](../benchmarks/judges/deal_room_semantic_judges.v1.json).
+[`deal_room_semantic_judges.v1.json`](../blueprints/deal-room-analyst/app/benchmarks/judges/deal_room_semantic_judges.v1.json).
 The runner strips route and answer model identity from the prompt, requires one
 binary result, and rejects malformed output. Every result remains development
 only until the matching criterion passes held out validation.
@@ -135,7 +135,7 @@ accuracy release, a model winner, a judge trust claim, or a willingness to pay
 claim.
 
 The machine readable contract is
-[`evaluation_framework.v1.json`](../benchmarks/evaluation_framework.v1.json).
+[`evaluation_framework.v1.json`](../blueprints/deal-room-analyst/app/benchmarks/evaluation_framework.v1.json).
 
 ## Sources
 

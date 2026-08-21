@@ -45,4 +45,4 @@ does not have enough qualified blind review to issue an accuracy release.
 
 The detailed implementation remains in
 [`docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md`](../../../docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md)
-and [`benchmarks/first_pass/`](../../../benchmarks/first_pass/).
+and [`benchmarks/first_pass/`](../app/benchmarks/first_pass/).

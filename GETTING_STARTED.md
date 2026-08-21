@@ -12,7 +12,7 @@ like something other than what they are.
 | Blueprint | Runs on | Port |
 |---|---|---|
 | `blueprints/careline-voice-checkin` | Bonsai 4b/8b/27b + mlx-audio (CSM-1B, Kokoro, Whisper) | 8100 |
-| `deal-room-analyst` (repo root — see [issue #2](https://github.com/ChaiWithJai/hybrid-ai-blueprints/issues/2)) | Bonsai 27b@q1_0 + Buzz relay | 8787 |
+| `blueprints/deal-room-analyst` | Bonsai 27b@q1_0 + Buzz relay | 8787 |
 | Phoenix (Arize) — traces + evals for both | Docker | 6006 |
 
 ## Prerequisites
@@ -57,8 +57,15 @@ See [VOICE_CLONE_SETUP.md](blueprints/careline-voice-checkin/VOICE_CLONE_SETUP.m
 ## Deal room analyst
 
 ```bash
-docker start phoenix                                  # or `docker compose` per infra/
+docker start phoenix
 blueprints/deal-room-analyst/scripts/run --port 8787
+```
+
+The application lives in `blueprints/deal-room-analyst/app/`, which is also its
+Python import root. Run its suite from there:
+
+```bash
+cd blueprints/deal-room-analyst/app && python3 -m unittest discover -s tests
 ```
 
 A deal room is only usable after its folder is **opened**, which creates the Buzz
@@ -251,3 +258,27 @@ has not drifted, output is not silence) and decide by listening.
 The trace evaluator reported `VERIFIED — Guards passed` while the greeting was
 inventing prior contact on a first call, because no evaluator covered invented
 memory. Absence of a check is not evidence of correctness.
+
+## After the issue #2 migration
+
+**26. A seeded deal room is keyed by absolute path, so moving fixtures
+invalidates it.** Room ids are `local_<sha256(absolute folder path)[:12]>`. After
+the application moved, the existing room resolved to a folder that no longer
+existed and every `ask_bonsai` message returned 409
+`deal_room_source_unavailable: folder does not exist`. Re-run preview + open
+against the new path; the room gets a new id.
+
+**27. `.runtime/` must move with the application, or Buzz regenerates its
+secrets.** `scripts/buzz_up.py` derives its root from
+`Path(__file__).resolve().parents[1]`. Once it moved into `app/scripts/`, it
+looked for `app/.runtime/` — found nothing — and wrote a **fresh `.env` with a new
+random `POSTGRES_PASSWORD`**, while the postgres volume still held the old one.
+The relay then crash-looped on `password authentication failed`. `.runtime/` also
+holds the compiled Buzz binaries, so moving it avoids a ~10 minute rebuild.
+
+**28. The documentation link validator will walk anything you add under
+`blueprints/`.** It has now been caught twice: once on a blueprint's `.venv/`,
+once on `.runtime/`'s vendored Rust checkouts. Both were third-party markdown
+linking inside their own upstream repositories. If a new failure names a path you
+did not author, add its directory to `VENDORED_PARTS` in
+`tooling/documentation/validate_links.py` rather than chasing the link.

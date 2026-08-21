@@ -8,6 +8,12 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+# docs/ is a CATALOG resource and stays at the repository root, four levels
+# above this application after the issue #2 migration. The `root` argument
+# stays the application root: callers pass a temporary copy of it for tamper
+# tests, and those copies contain web/ fixtures, never the catalog docs.
+REPO_ROOT = Path(__file__).resolve().parents[4]
+
 
 EXPECTED_ASSERTIONS = {
     "room_identity_is_clear",
@@ -133,14 +139,14 @@ def validate_customer_demo_scope(root: Path) -> dict[str, Any]:
 
     errors: list[str] = []
     documents = {
-        "adr": _read(root / "docs" / "ADR_0002_DEMO_FIRST_SCOPE.md", errors),
-        "structure": _read(root / "docs" / "DEMO_INFORMATION_ARCHITECTURE.md", errors),
-        "content_graph": _read(root / "docs" / "DEAL_ROOM_CONTENT_GRAPH.md", errors),
-        "prd": _read(root / "docs" / "PRD.md", errors),
-        "rfc": _read(root / "docs" / "RFC_0042_VAULT_ARCHITECTURE.md", errors),
-        "surface": _read(root / "docs" / "SURFACE_V0.md", errors),
-        "gates": _read(root / "docs" / "VERIFICATION_GATES.md", errors),
-        "status": _read(root / "docs" / "IMPLEMENTATION_STATUS.md", errors),
+        "adr": _read(REPO_ROOT / "docs" / "ADR_0002_DEMO_FIRST_SCOPE.md", errors),
+        "structure": _read(REPO_ROOT / "docs" / "DEMO_INFORMATION_ARCHITECTURE.md", errors),
+        "content_graph": _read(REPO_ROOT / "docs" / "DEAL_ROOM_CONTENT_GRAPH.md", errors),
+        "prd": _read(REPO_ROOT / "docs" / "PRD.md", errors),
+        "rfc": _read(REPO_ROOT / "docs" / "RFC_0042_VAULT_ARCHITECTURE.md", errors),
+        "surface": _read(REPO_ROOT / "docs" / "SURFACE_V0.md", errors),
+        "gates": _read(REPO_ROOT / "docs" / "VERIFICATION_GATES.md", errors),
+        "status": _read(REPO_ROOT / "docs" / "IMPLEMENTATION_STATUS.md", errors),
     }
     html = _read(root / "web" / "index.html", errors)
     javascript = _read(root / "web" / "app.js", errors)

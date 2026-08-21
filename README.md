@@ -86,6 +86,7 @@ Catalog areas:
 | Area | Purpose |
 | --- | --- |
 | `CATALOG.yaml` | The canonical machine readable list of use cases and blueprints |
+| `blueprints/deal-room-analyst/app/` | The deal room application, its tests, and its fixtures |
 | `use-cases/` | Valuable jobs, users, tasks, and economic reasons |
 | `blueprints/` | Runnable agent systems with evaluations |
 | `models/` | Model cards and supported runtime profiles |

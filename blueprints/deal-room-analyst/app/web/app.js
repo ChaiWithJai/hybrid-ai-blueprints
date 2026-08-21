@@ -1219,7 +1219,16 @@ async function sendMessage(event) {
 }
 
 function maybePrefixBonsai(content) {
-  return document.getElementById("ask-bonsai").checked && !content.match(/@Bonsai\b/i) ? `@Bonsai ${content}` : content;
+  // Do NOT inject a literal "@Bonsai" into the message body. buzz-cli parses
+  // @handle mentions out of the content and resolves them against channel
+  // members -- and members are added by pubkey only (`channels add-member`
+  // takes --pubkey/--role, with no name or handle option), so "@Bonsai" can
+  // never resolve and the send fails with:
+  //   mention '@bonsai' does not match a current channel member
+  // The ask-bonsai checkbox already routes through the server, which passes
+  // `--mention <agent_pubkey>` -- the mechanism that actually works. The text
+  // prefix was redundant and broke every send.
+  return content;
 }
 
 function withComposerContext(content) {

@@ -28,7 +28,7 @@ Run the repository checks with:
 ```bash
 python3 tooling/catalog/validate_catalog.py
 python3 tooling/documentation/validate_links.py
-python3 -m unittest discover -s tests
+cd blueprints/deal-room-analyst/app && python3 -m unittest discover -s tests
 ```
 
 ## Write documentation

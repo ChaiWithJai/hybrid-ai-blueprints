@@ -4,7 +4,7 @@
   "title": "Project Titan",
   "blueprint": "deal-room-analyst",
   "data_classification": "synthetic",
-  "source": "../../../../deal_rooms/project_titan_lbo",
+  "source": "../../app/deal_rooms/project_titan_lbo",
   "room_id": "project_titan_lbo",
   "start_url": "http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass",
   "accuracy_evidence": false,
