@@ -58,15 +58,112 @@ regressions and exits nonzero on any failure:
 
 ## Routes
 
-| Route | Fast LLM | Strong LLM | Speech |
-|---|---|---|---|
-| local (default) | Ollama on-device | Bonsai-27B on-device | mlx-audio (Kokoro) + F5-TTS clone, on-device |
-| cloud | any OpenAI-compatible endpoint | any OpenAI-compatible endpoint | TTS/STT NIM endpoints |
-| hybrid | on-device | cloud endpoint (or the reverse) | on-device |
+| Route | Routine turns | Concerning turns | Post-call extraction | Speech |
+|---|---|---|---|---|
+| local (default) | Bonsai 4B on-device | Bonsai 8B on-device | Bonsai 27B ternary on-device | mlx-audio: Kokoro care voice, Whisper capture, CSM-1B clone |
+| cloud | any OpenAI-compatible endpoint | any OpenAI-compatible endpoint | any OpenAI-compatible endpoint | TTS/STT NIM endpoints |
+| hybrid | on-device | cloud endpoint (or the reverse) | either | on-device |
 
 Route selection is environment variables only (`CARELINE_LLM_BASE_URL`,
-`CARELINE_LLM_STRONG_BASE_URL`, `CARELINE_TTS_BACKEND`,
-`CARELINE_STT_BACKEND`); the agent logic and browser client never change.
+`CARELINE_LLM_STRONG_BASE_URL`, `CARELINE_LLM_EXTRACT_BASE_URL`,
+`CARELINE_TTS_BACKEND`, `CARELINE_STT_BACKEND`); the agent logic and browser
+client never change. The measured local configuration is LM Studio on
+`127.0.0.1:1234`. Which of these routes each accelerator supports is recorded in
+the [hardware matrix](../../docs/reference/hardware-matrix.md).
+
+## Traces and evaluation
+
+Tracing is off unless you ask for it, and it is never fatal: if the collector is
+missing or the exporter fails, the call continues untraced.
+
+```bash
+# a local Phoenix collector
+docker run -p 6006:6006 -p 4317:4317 arizephoenix/phoenix
+
+CARELINE_TRACE=1 scripts/run
+```
+
+Spans follow the OpenInference conventions, so Phoenix renders them without
+extra mapping. `careline.turn` wraps a conversational turn; `bonsai.*` spans
+wrap each model call and carry the attributes the evaluators read:
+`careline.tier`, `careline.route`, `careline.concern_score`,
+`careline.alert_fired`, `careline.alert_severity`, `careline.fell_back`,
+`careline.empty_reply`, and `llm.model_name`.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `CARELINE_TRACE` | unset | `1`, `true`, or `yes` turns tracing on using the Phoenix default endpoint |
+| `CARELINE_TRACE_ENDPOINT` | unset | OTLP HTTP collector. Setting it enables tracing on its own; `CARELINE_TRACE=1` selects `http://localhost:6006/v1/traces` |
+| `CARELINE_TRACE_PROJECT` | `careline-voice-checkin` | Phoenix project name |
+| `CARELINE_TRACE_SERVICE` | `careline` | service name on the resource |
+
+### Running the evaluators
+
+`app/scripts/evaluate_traces.py` reads the spans back out of Phoenix and grades
+them. With `--annotate` it writes each result back onto the span, so the verdict
+is visible next to the trace that produced it rather than in a separate report.
+
+```bash
+cd app
+.venv/bin/python scripts/evaluate_traces.py              # grade, write JSON
+.venv/bin/python scripts/evaluate_traces.py --annotate    # also annotate spans
+```
+
+Expected output, from a measured run over 94 spans:
+
+```text
+project 'careline-voice-checkin': 94 spans
+
+[PASS] escalation.concerning_call_alerts             1.00  Every call reaching the alert threshold raised an alert.
+[PASS] escalation.no_alert_on_healthy                1.00  No healthy call raised an alert.
+[PASS] escalation.debounced_per_severity             1.00  At most one alert per severity per call.
+[PASS] routing.deterministic_from_scorer             1.00  Tier selection matched the deterministic scorer on every turn.
+[PASS] memory.extraction_not_silently_dropped        1.00  All 2 extraction call(s) returned content.
+[PASS] runtime.local_tiers_served                    1.00  All 54 model call(s) served locally by tiers ['concerning', 'extraction', 'routine'] (['27b@q1_0', '4b', '8b']).
+
+release state: VERIFIED — Guards passed
+report -> /tmp/careline_trace_eval.json
+```
+
+That last line is the evidence that the runtime is what the routes table claims:
+54 model calls served across all three tiers by `4b`, `8b`, and `27b@q1_0`, with
+no fallback to anything else.
+
+Six evaluators run. Each one exists because a task contract in
+[`use-cases/wellness-check-in-calls/tasks/`](../../use-cases/wellness-check-in-calls/tasks)
+declares the corresponding failure as critical, so the suite grades the failures
+the use case named rather than whatever happened to be easy to measure:
+
+| Evaluator | Fails when |
+|---|---|
+| `escalation.concerning_call_alerts` | a call crossed the alert threshold and no alert fired |
+| `escalation.no_alert_on_healthy` | a call with no concern signal raised an alert |
+| `escalation.debounced_per_severity` | the same severity fired more than once in one call |
+| `routing.deterministic_from_scorer` | tier selection did not follow the deterministic scorer |
+| `memory.extraction_not_silently_dropped` | a post-call extraction returned nothing and the memory write vanished |
+| `runtime.local_tiers_served` | any tier fell back instead of being served locally |
+
+Missing evidence is reported as `unverified` rather than scored as a pass: with
+no `careline.turn` spans the suite returns `traces_present` at 0.0, and an
+absent extraction span is reported as not exercised rather than as success.
+
+### Adding your own
+
+An evaluator is a function of the span list returning `EvalMetric(name, score,
+threshold, passed, explanation, metadata)`. Add it to `evaluate()` in
+`scripts/evaluate_traces.py`. Two conventions are worth keeping: derive it from a
+declared critical failure so it grades something the use case cares about, and
+put `measurement_state: "unverified"` in the metadata when the evidence is
+absent, so a missing measurement never reads as a pass.
+
+The suite deliberately reimplements its own `EvalMetric` instead of importing the
+shared `packages/evaluation` contract, because this blueprint stays
+self-contained per [ADR 0003](../../docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
+
+> A green suite is not a working demo. All six evaluators passed on a run whose
+> spoken output was unusable, because no evaluator covered voice quality, and one
+> passed while the agent invented a memory it had never been told. Read the
+> traces, not only the verdicts.
 
 ## Known limits
 
@@ -74,16 +171,22 @@ Route selection is environment variables only (`CARELINE_LLM_BASE_URL`,
   precision/recall on realistic transcripts is unmeasured.
 - Decline scoring is keyword/threshold based by design (explainable,
   deterministic); paralinguistic signals are out of scope.
-- Cloned-voice synthesis is ~5 s per sentence (real-time factor ~1.2) on an
-  M4 Pro; the sentence pipeline hides part of this, not all of it.
+- Cloned-voice synthesis is the slowest step. Measured on an Apple M5 Pro,
+  F5 takes about 5 s for a short reply and CSM about 16 s. Replies are
+  synthesised in one call rather than per sentence: splitting them was measured
+  at 13.74 s against 5.53 s for the same text, because each fragment repaid the
+  fixed setup cost.
 - Clone quality is bounded by the reference recording. Speaker identity measures
   inside the speaker's own session-to-session band, so the remaining gap is
   prosody, not similarity.
-- A fine-tuned checkpoint ships for the cloned voice, selected by listening
-  test; delete `app/voices/f5_finetuned.safetensors` to fall back to zero-shot.
-  Automated speaker-similarity scoring rated every candidate a tie and did not
-  select it — it measures identity, not prosody. See
+- No voice data or checkpoint ships. `app/voices/` is gitignored because
+  reference recordings are biometric data, so a fresh clone starts zero-shot with
+  nothing recorded. The tooling to record a corpus, build a dataset, fine-tune,
+  and score candidates does ship. See
   [VOICE_CLONE_SETUP.md](VOICE_CLONE_SETUP.md#fine-tuning).
+- No cloned voice produced so far has been judged good enough to present as the
+  operator's own. Automated speaker-similarity scoring rated every candidate a
+  tie and selected nothing; it measures identity, which was never the gap.
 - `espeak-ng` must be installed system-wide or care-mode synthesis kills the
   server process (native `exit()`, uncatchable from Python).
 - Memory fact extraction appends without deduplication across calls.
