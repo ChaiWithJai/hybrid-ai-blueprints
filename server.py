@@ -1613,6 +1613,16 @@ class VaultHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         elif path == "/api/workspace/messages":
             room_id = str(payload.get("room", DEFAULT_ROOM))
             content = str(payload.get("content", "")).strip()
+            # Strip textual "@Bonsai" mentions. buzz-cli parses @handle mentions
+            # out of the message body and resolves them against channel members,
+            # but `channels add-member` accepts only --pubkey/--role -- members
+            # have no names -- so a textual mention can NEVER resolve and the
+            # send fails with "mention '@bonsai' does not match a current
+            # channel member". Addressing the agent is done properly below via
+            # ask_bonsai -> `--mention <agent_pubkey>`. Stripped here rather
+            # than only in the client so a cached app.js, another caller, or an
+            # operator typing "@bonsai" by hand cannot break sending.
+            content = re.sub(r"(?i)(?:^|\s)@bonsai\b[,:]?\s*", " ", content).strip()
             if not content:
                 self._send_json({"error": "message_required"}, status=400)
                 return
