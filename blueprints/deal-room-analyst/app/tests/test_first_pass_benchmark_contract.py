@@ -4,6 +4,14 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+# Catalog resources (docs/, tooling/) live at the repository root, which is four
+# levels above this application after the issue #2 migration. ROOT stays the
+# application root so app-relative paths are unaffected.
+
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
 BENCHMARK_DIR = ROOT / "benchmarks" / "first_pass"
 
 
@@ -68,7 +76,7 @@ class FirstPassBenchmarkContractTests(unittest.TestCase):
             schema = load_json(filename)
             self.assertEqual(schema["$schema"], "https://json-schema.org/draft/2020-12/schema")
             self.assertFalse(schema["additionalProperties"])
-        contract = ROOT / "docs" / "FIRST_PASS_UNDERWRITING_BENCHMARK.md"
+        contract = REPO_ROOT / "docs" / "FIRST_PASS_UNDERWRITING_BENCHMARK.md"
         self.assertTrue(contract.is_file())
         text = contract.read_text(encoding="utf-8")
         self.assertIn("## The ten benchmark decisions", text)

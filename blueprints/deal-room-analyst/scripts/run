@@ -2,6 +2,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+APP_DIR="$(cd "${SCRIPT_DIR}/../app" && pwd)"
 
-exec python3 "${REPO_ROOT}/scripts/run_v0.py" "$@"
+# The application root is the Python import root, so `import core` resolves and
+# every Path(__file__).resolve().parents[1] inside it points here.
+cd "${APP_DIR}"
+exec python3 scripts/run_v0.py "$@"

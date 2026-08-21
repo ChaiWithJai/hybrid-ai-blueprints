@@ -35,7 +35,7 @@ Start with the page that matches your task.
 - [Catalog scaling pattern decision](ADR_0003_CATALOG_SCALING_PATTERN.md)
 - [Deal room implementation record](../blueprints/deal-room-analyst/IMPLEMENTATION.md)
 - [CareLine implementation record](../blueprints/careline-voice-checkin/IMPLEMENTATION.md)
-- [Deal room v0.1 verification report](../evidence/releases/deal-room-analyst/v0.1.0/REPORT.md)
+- [Deal room v0.1 verification report](../blueprints/deal-room-analyst/app/evidence/releases/deal-room-analyst/v0.1.0/REPORT.md)
 
 New decision records use the `docs/ADR_000X_TITLE.md` naming;
 `decisions/0001-*` is the legacy scheme.

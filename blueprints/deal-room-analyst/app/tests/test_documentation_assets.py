@@ -6,7 +6,15 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCREENSHOT_ROOT = ROOT / "docs" / "assets" / "screenshots"
+
+
+# Catalog resources (docs/, tooling/) live at the repository root, which is four
+# levels above this application after the issue #2 migration. ROOT stays the
+# application root so app-relative paths are unaffected.
+
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
+SCREENSHOT_ROOT = REPO_ROOT / "docs" / "assets" / "screenshots"
 
 
 class DocumentationAssetTests(unittest.TestCase):
@@ -37,13 +45,13 @@ class DocumentationAssetTests(unittest.TestCase):
             self.assertGreaterEqual(height, 720)
 
     def test_getting_started_guide_uses_every_manifest_screenshot(self):
-        guide = (ROOT / "docs" / "demo" / "README.md").read_text()
+        guide = (REPO_ROOT / "docs" / "demo" / "README.md").read_text()
         manifest = json.loads((SCREENSHOT_ROOT / "manifest.json").read_text())
         for item in manifest["screenshots"]:
             self.assertIn(item["path"], guide)
 
     def test_architecture_guide_contains_the_documented_views(self):
-        guide = (ROOT / "docs" / "architecture" / "README.md").read_text()
+        guide = (REPO_ROOT / "docs" / "architecture" / "README.md").read_text()
         self.assertGreaterEqual(guide.count("```mermaid"), 5)
         for implementation_path in (
             "core/hybrid_router.py",

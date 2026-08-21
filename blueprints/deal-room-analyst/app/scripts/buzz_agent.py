@@ -13,6 +13,12 @@ from pathlib import Path
 from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# Catalog resources (docs/, tooling/) live at the repository root, which is four
+# levels above this application after the issue #2 migration. ROOT stays the
+# application root so app-relative paths are unaffected.
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
 
 from core.buzz_agent_scope import resolve_agent_scope  # noqa: E402
@@ -48,7 +54,7 @@ def build_acp_environment(
         "BUZZ_RELAY_URL": env.get("PRISM_BUZZ_RELAY_URL", "ws://127.0.0.1:3030"),
         "BUZZ_ACP_AGENT_COMMAND": str(BIN / "buzz-agent"),
         "BUZZ_ACP_MCP_COMMAND": str(BIN / "buzz-dev-mcp"),
-        "BUZZ_ACP_SYSTEM_PROMPT_FILE": str(ROOT / "docs" / "BONSAI_DEAL_ROOM_PROMPT.md"),
+        "BUZZ_ACP_SYSTEM_PROMPT_FILE": str(REPO_ROOT / "docs" / "BONSAI_DEAL_ROOM_PROMPT.md"),
         "BUZZ_ACP_SUBSCRIBE": "mentions",
         "BUZZ_ACP_CHANNELS": channel,
         "BUZZ_ACP_AGENT_OWNER": identities["PRISM_BUZZ_OWNER_PUBLIC_KEY"],

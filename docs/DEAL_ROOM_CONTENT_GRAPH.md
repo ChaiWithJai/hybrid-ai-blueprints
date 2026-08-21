@@ -61,7 +61,7 @@ flowchart TD
 ## Copy rules
 
 The canonical copy and the reason for every phrase are stored in
-[`web/content-graph.json`](../web/content-graph.json). The customer demo
+[`web/content-graph.json`](../blueprints/deal-room-analyst/app/web/content-graph.json). The customer demo
 validator checks the graph against the current HTML and JavaScript.
 
 The following rules apply to new copy:

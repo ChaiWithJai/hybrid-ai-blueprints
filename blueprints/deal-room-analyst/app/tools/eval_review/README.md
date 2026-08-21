@@ -58,7 +58,7 @@ performed. A fixture export must never share a project with human review.
 The exporter uses OpenTelemetry OTLP and OpenInference evaluator spans. The
 default export includes hashes and labels, but it excludes trace content and
 reviewer notes. See
-[`docs/OBSERVABILITY_STEWARDSHIP.md`](../../docs/OBSERVABILITY_STEWARDSHIP.md)
+[`docs/OBSERVABILITY_STEWARDSHIP.md`](../../../../../docs/OBSERVABILITY_STEWARDSHIP.md)
 for the data policy and standards boundary.
 
 The integrated room browser check covers rapid saves, reload persistence,

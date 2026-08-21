@@ -342,7 +342,7 @@ Exit criteria:
 The release benchmark is the first pass underwriting contract in
 [`FIRST_PASS_UNDERWRITING_BENCHMARK.md`](./FIRST_PASS_UNDERWRITING_BENCHMARK.md).
 Its machine readable manifest, rubric, schemas, and development inventory are
-under [`benchmarks/first_pass`](../benchmarks/first_pass). The five current
+under [`benchmarks/first_pass`](../blueprints/deal-room-analyst/app/benchmarks/first_pass). The five current
 public dossier cases remain development data because the team has inspected
 their failures.
 

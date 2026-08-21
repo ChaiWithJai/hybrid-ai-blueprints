@@ -126,3 +126,17 @@ room application so that the layout is not presented as a catalog convention.
   honest in the meantime.
 - Shared packages that blueprints adopt must eventually be published as
   versioned artifacts rather than imported by relative path.
+
+## Status update (2026-08-21)
+
+The deal room analyst now follows this pattern: its application, tests, and
+fixtures live in `blueprints/deal-room-analyst/app/`, with a project file of
+its own, and the repository root is a catalog root. See issue #2.
+
+The move was a coordinated relocation rather than an import rewrite. A
+kebab-case blueprint directory is not an importable package, so `core/` could
+not become `blueprints.deal-room-analyst.app.core`. Instead `app/` is the
+import root: all 124 `import core` sites and all 77
+`Path(__file__).resolve().parents[1]` computations kept working untouched.
+Only resources that cross into the catalog (`docs/`, `tooling/`) needed a
+second anchor, `REPO_ROOT = parents[4]`, in six files.

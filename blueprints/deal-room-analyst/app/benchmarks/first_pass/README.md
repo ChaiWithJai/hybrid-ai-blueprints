@@ -2,7 +2,7 @@
 
 This directory contains the versioned contracts for the first pass
 underwriting benchmark. The product and evaluation decisions are documented in
-[`docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md`](../../docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md).
+[`docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md`](../../../../../docs/FIRST_PASS_UNDERWRITING_BENCHMARK.md).
 
 The five registered cases are development cases. The team has inspected their
 outputs, so they are not sealed test evidence. None has domain approval.

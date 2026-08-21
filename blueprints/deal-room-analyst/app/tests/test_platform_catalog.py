@@ -4,13 +4,21 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VALIDATOR_PATH = ROOT / "tooling" / "catalog" / "validate_catalog.py"
+
+
+# Catalog resources (docs/, tooling/) live at the repository root, which is four
+# levels above this application after the issue #2 migration. ROOT stays the
+# application root so app-relative paths are unaffected.
+
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
+VALIDATOR_PATH = REPO_ROOT / "tooling" / "catalog" / "validate_catalog.py"
 SPEC = importlib.util.spec_from_file_location("catalog_validator", VALIDATOR_PATH)
 assert SPEC and SPEC.loader
 catalog_validator = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(catalog_validator)
 
-LINK_VALIDATOR_PATH = ROOT / "tooling" / "documentation" / "validate_links.py"
+LINK_VALIDATOR_PATH = REPO_ROOT / "tooling" / "documentation" / "validate_links.py"
 LINK_SPEC = importlib.util.spec_from_file_location("link_validator", LINK_VALIDATOR_PATH)
 assert LINK_SPEC and LINK_SPEC.loader
 link_validator = importlib.util.module_from_spec(LINK_SPEC)
@@ -32,13 +40,13 @@ class PlatformCatalogTests(unittest.TestCase):
         self.assertEqual(link_validator.validate(), [])
 
     def test_root_readme_names_the_project_and_steward(self):
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("# Hybrid AI Blueprints", readme)
         self.assertIn("PrismML sponsors and stewards the project", readme)
 
     def test_observability_document_states_the_governance_boundary(self):
         document = (
-            ROOT / "docs" / "concepts" / "observability-and-evaluation.md"
+            REPO_ROOT / "docs" / "concepts" / "observability-and-evaluation.md"
         ).read_text(encoding="utf-8")
         self.assertIn("Native Computing Foundation project", document)
         self.assertIn("do not establish Linux Foundation governance", document)

@@ -27,6 +27,10 @@ TOP_LEVEL_FILES = [
 VENDORED_PARTS = frozenset({
     ".venv", "venv", "node_modules", "site-packages", "__pycache__",
     ".git", ".mypy_cache", ".pytest_cache", "dist", "build",
+    # Runtime state: .runtime/ holds a vendored Buzz source checkout and its
+    # hermit-managed Rust toolchain, whose markdown links point inside their own
+    # upstream repositories.
+    ".runtime", ".hermit", "checkouts", "target", "registry",
 })
 DOCUMENTATION_ROOTS = [
     ROOT / "blueprints",

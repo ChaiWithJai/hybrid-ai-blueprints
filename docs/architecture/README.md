@@ -91,9 +91,9 @@ flowchart TD
 ```
 
 The routing code lives in
-[`core/hybrid_router.py`](../../core/hybrid_router.py). The provider boundary
-lives in [`core/ai_provider.py`](../../core/ai_provider.py), and signed cloud
-consent lives in [`core/cloud_consent.py`](../../core/cloud_consent.py).
+[`core/hybrid_router.py`](../../blueprints/deal-room-analyst/app/core/hybrid_router.py). The provider boundary
+lives in [`core/ai_provider.py`](../../blueprints/deal-room-analyst/app/core/ai_provider.py), and signed cloud
+consent lives in [`core/cloud_consent.py`](../../blueprints/deal-room-analyst/app/core/cloud_consent.py).
 
 ## Evaluation and observability
 
@@ -124,9 +124,9 @@ flowchart LR
 ```
 
 The local trace schema and checks live in
-[`core/arize_evals.py`](../../core/arize_evals.py). The explicit Phoenix
+[`core/arize_evals.py`](../../blueprints/deal-room-analyst/app/core/arize_evals.py). The explicit Phoenix
 exporter lives in
-[`scripts/export_eval_review_to_phoenix.py`](../../scripts/export_eval_review_to_phoenix.py).
+[`scripts/export_eval_review_to_phoenix.py`](../../blueprints/deal-room-analyst/app/scripts/export_eval_review_to_phoenix.py).
 The [observability guide](../concepts/observability-and-evaluation.md) explains
 the OpenTelemetry and OpenInference terms.
 

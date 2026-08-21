@@ -93,8 +93,8 @@ field mapping. It provides no human or accuracy evidence.
 | Release | Fail | Domain review and a cloud or hybrid comparison are absent |
 
 The machine readable result is
-[`workspace-eval-v1.json`](../evidence/workspace-eval-v1.json). The dataset is
-[`workspace_eval_v1.json`](../benchmarks/workspace_eval_v1.json).
+[`workspace-eval-v1.json`](../blueprints/deal-room-analyst/app/evidence/workspace-eval-v1.json). The dataset is
+[`workspace_eval_v1.json`](../blueprints/deal-room-analyst/app/benchmarks/workspace_eval_v1.json).
 
 ## Evaluation audit
 
