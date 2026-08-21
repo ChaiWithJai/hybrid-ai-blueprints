@@ -135,6 +135,28 @@ async def resident_memory(resident_id: str):
     }
 
 
+@app.get("/api/config")
+async def config():
+    """Client configuration.
+
+    The self-voice identity is an operator setting, not a constant. A fresh
+    clone has no reference recording, so the label stays generic until someone
+    sets CARELINE_SELF_NAME -- otherwise every install would show whichever
+    name happened to be committed.
+    """
+    name = os.environ.get("CARELINE_SELF_NAME", "").strip()
+    return {
+        "self": {
+            "name": name or "You",
+            "resident_id": "self-" + (name.lower().replace(" ", "-") or "operator"),
+            "label": (
+                f"Call yourself — {name} (your cloned voice)" if name
+                else "Call yourself — your cloned voice"
+            ),
+        }
+    }
+
+
 @app.get("/api/alerts")
 async def alerts():
     return {"alerts": memory.list_alerts()}

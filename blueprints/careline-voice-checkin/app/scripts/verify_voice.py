@@ -131,8 +131,10 @@ def c_no_leading_gap():
         sr, dur, vals = wav_info(post_tts(t, "self"))
         worst = max(worst, lead_silence(vals, sr))
     assert worst <= MAX_LEAD_SILENCE_S, (
-        f"{worst * 1000:.0f}ms leading silence per chunk; the UI concatenates "
-        f"per-sentence chunks so this is added to every punctuation pause"
+        f"{worst * 1000:.0f}ms leading silence before speech starts "
+        f"(limit {MAX_LEAD_SILENCE_S * 1000:.0f}ms). Replies are now synthesised in "
+        f"one call, so this is paid once per reply rather than once per sentence, "
+        f"but it is still dead air at the start of every spoken turn"
     )
     return f"worst leading silence {worst * 1000:.0f}ms (limit {MAX_LEAD_SILENCE_S * 1000:.0f}ms)"
 

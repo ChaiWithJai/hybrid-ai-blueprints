@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")/../app"
 
 # Conversation regression: memory, recall hygiene, escalation debounce.
-uv run python scripts/demo_run.py
+uv run python scripts/demo_run.py --fresh
 
 # Voice-path regression. Kept separate because the failures are different in
 # kind: a broken voice path returns HTTP 200 with silence, or kills the server

@@ -2,11 +2,30 @@
 
 CareLine runs a voice check-in call that remembers earlier calls and escalates
 decline signals to a human care contact. Everything runs locally on Apple
-Silicon: two LLMs, speech recognition, speech synthesis, voice cloning, and
-memory. No audio or text leaves the machine on the local route.
+Silicon: three model tiers, speech recognition, speech synthesis, voice cloning,
+and memory. No audio or text leaves the machine on the local route.
 
 The job and its guards are defined in the
 [wellness check-in calls use case](../../use-cases/wellness-check-in-calls/README.md).
+
+![The CareLine console during a call: transcript on the left, escalation alerts
+with their signals and scores top right, and dated facts recalled from earlier
+calls below](../../docs/assets/screenshots/careline/careline-console.png)
+
+The console during a call with Dorothy, a synthetic resident. Three things are
+visible at once, and they are the three claims this blueprint makes:
+
+- **The transcript**, where the greeting draws on earlier calls rather than
+  opening cold.
+- **One escalation alert**, naming the exact signals that fired and the score
+  they produced. A deterministic scorer decides this, not the model, which is
+  why the reason is legible.
+- **Dated facts** carried between calls, extracted after the caller hangs up.
+
+Regenerate this image with
+[`app/scripts/capture_screenshots.mjs`](app/scripts/capture_screenshots.mjs)
+after any change to the console. It drives the real browser client against a
+running server, so it cannot show a state the product cannot reach.
 
 ## What a call looks like
 
@@ -65,8 +84,25 @@ regressions and exits nonzero on any failure:
 - the synthetic Dorothy demo — a healthy call that seeds memory, a recall call,
   and a decline call that must alert exactly once;
 - the voice path (`app/scripts/verify_voice.py`) — that the clone returns real
-  audio rather than silence with HTTP 200, carries no per-chunk leading silence,
-  meets a latency budget, and that care-mode synthesis leaves the server alive.
+  audio rather than silence with HTTP 200, starts without dead air, meets a
+  latency budget, and that care-mode synthesis leaves the server alive.
+
+To populate the console you are looking at, run the conversation demo directly
+against the resident the browser shows:
+
+```bash
+cd app
+uv run python scripts/demo_run.py            # resident dorothy-01, what the UI displays
+uv run python scripts/demo_run.py --fresh    # a run-scoped resident, what verify uses
+```
+
+The two modes exist because one check depends on the resident having no history.
+The first-call greeting check asks whether the agent invented a shared past, and
+that question only has an answer when there is none. Run against `dorothy-01`
+twice and a greeting referencing real stored facts is correct behaviour, so the
+check reports itself as not applicable instead of failing — a regression that
+only passes the first time a machine ever runs it is not a regression.
+`scripts/verify` therefore passes `--fresh`.
 
 ## Routes
 
@@ -191,6 +227,14 @@ self-contained per [ADR 0003](../../docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
 - Clone quality is bounded by the reference recording. Speaker identity measures
   inside the speaker's own session-to-session band, so the remaining gap is
   prosody, not similarity.
+- `scripts/verify` currently exits nonzero on one voice check:
+  `clone/no-leading-gap` measures about 200 ms of silence before speech starts,
+  against a 100 ms limit. The threshold is left as it is rather than widened to
+  make the suite green. The conversation regression passes in full.
+- The voice regression mixes backend-agnostic output checks with two F5-specific
+  preconditions (`f5_tts_mlx` importable, reference at exactly 24 kHz), even
+  though CSM-1B is the default clone backend. The output checks do exercise
+  whichever backend is configured.
 - No voice data or checkpoint ships. `app/voices/` is gitignored because
   reference recordings are biometric data, so a fresh clone starts zero-shot with
   nothing recorded. The tooling to record a corpus, build a dataset, fine-tune,

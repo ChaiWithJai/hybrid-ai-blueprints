@@ -37,6 +37,7 @@
   .stack { display: flex; flex-direction: column; gap: 20px; }
   #status { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
 </style>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23234f3f%27/%3E%3Cpath d=%27M9 12h14M9 17h14M9 22h8%27 stroke=%27%23f4f1ea%27 stroke-width=%272.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
 </head>
 <body>
 <header>
@@ -44,7 +45,7 @@
   <span>wellness check-in console</span>
   <select id="mode" style="margin-left:auto;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:var(--panel);color:var(--ink)">
     <option value="care">Care demo — Dorothy (Kokoro voice)</option>
-    <option value="self">Call yourself — Jai (your cloned voice)</option>
+    <option value="self">Call yourself — your cloned voice</option>
   </select>
 </header>
 <main>
@@ -58,11 +59,11 @@
       <button id="send" disabled>Send</button>
       <button id="end" class="danger" disabled>End call</button>
     </div>
-    <div id="status">Voice loop: mic → MLX Whisper (/api/stt) → LLM router → Kokoro (/api/tts). On the GB10 both endpoints swap to NIMs; the browser code is identical.</div>
+    <div id="status">Voice loop: mic → Whisper (/api/stt) → Bonsai tier router → Kokoro (/api/tts). Both speech endpoints swap to NVIDIA NIMs by environment variable; this browser code is identical either way.</div>
   </section>
   <div class="stack">
     <section class="panel">
-      <h2>Escalation alerts <span style="text-transform:none">(OpenClaw gateway stand-in)</span></h2>
+      <h2>Escalation alerts</h2>
       <div id="alerts"><div class="empty">No alerts.</div></div>
     </section>
     <section class="panel">
@@ -74,8 +75,18 @@
 <script>
 const MODES = {
   care: { resident_id: "dorothy-01", name: "Dorothy", mode: "care" },
-  self: { resident_id: "self-jai", name: "Jai", mode: "self" },
+  // Filled in from /api/config: the self-voice identity is an operator setting,
+  // so it must not be a constant in a file everyone clones.
+  self: { resident_id: "self-operator", name: "You", mode: "self" },
 };
+
+fetch("/api/config").then(r => r.json()).then(cfg => {
+  if (!cfg || !cfg.self) return;
+  MODES.self.resident_id = cfg.self.resident_id;
+  MODES.self.name = cfg.self.name;
+  const opt = document.querySelector('#mode option[value="self"]');
+  if (opt) opt.textContent = cfg.self.label;
+}).catch(() => {});   // a missing config leaves the generic label in place
 let RESIDENT = MODES.care;
 let callId = null;
 const $ = id => document.getElementById(id);

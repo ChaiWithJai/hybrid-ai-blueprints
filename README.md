@@ -9,31 +9,117 @@ configurations without changing the task or the grading rules.
 
 ## Blueprints in this catalog
 
-The catalog holds two blueprints. Each has its own README, preflight, run, and
-verify commands, and a safe synthetic demo.
+Two blueprints. Each one is a job, a model, a harness, an interface, and its own
+evaluations. Each has its own preflight, run, and verify commands and a safe
+synthetic demo, so you can run either without touching the other.
 
-**[Deal room analyst](blueprints/deal-room-analyst/README.md)** reads an
-authorized M&A folder and prepares a source linked first pass underwriting
-brief that helps a deal professional decide whether to advance, pause, or stop
-review. It uses Bonsai 27B locally, document parsing and evidence retrieval,
-reproducible calculations, a shared Buzz workspace, and blind review with task
-specific evaluations. Its application is stdlib-only Python, which is why it
-runs unchanged on any machine that can reach an OpenAI-compatible model
-endpoint.
+### Deal room analyst
 
-![Project Titan deal room overview](docs/assets/screenshots/deal-room-overview.png)
+Reads an authorized M&A folder and prepares a source-linked first-pass
+underwriting brief that helps a deal professional decide whether to advance,
+pause, or stop review. Bonsai 27B locally, document parsing and evidence
+retrieval, reproducible calculations, a shared Buzz workspace, and blind review
+with task-specific evaluations.
 
-The screenshot shows the synthetic Project Titan demo pausing a guarded result
-because the model draft did not meet the source rules.
+[![The Project Titan deal room, showing a first pass paused because the model
+draft did not satisfy the source rules](docs/assets/screenshots/deal-room-overview.png)](docs/tutorials/run-the-deal-room-blueprint.md)
 
-**[CareLine voice check-in](blueprints/careline-voice-checkin/README.md)** runs
-a local voice check-in call that remembers earlier calls, detects decline
+The synthetic Project Titan demo, paused. "Not Ready To Advance" is the guard
+working: the model's draft did not meet the source rules, so the product refuses
+to present it as a finished brief rather than advancing quietly.
+
+```bash
+blueprints/deal-room-analyst/scripts/preflight
+blueprints/deal-room-analyst/scripts/run
+
+# once, in another terminal: give each demo room its own Buzz channel
+cd blueprints/deal-room-analyst/app && python3 scripts/seed_fixture_room.py --all
+```
+
+Then open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass` and select
+**Review deal room**. Without the seeding step the page waits on "Opening
+workspace", because a catalog room is listed before it has a workspace.
+
+Verified setup: macOS, Python 3, Docker, and LM Studio with Bonsai 27B loaded as
+`27b@q1_0`. Its application is stdlib-only Python, so it runs unchanged anywhere
+that can reach an OpenAI-compatible model endpoint.
+
+**Read next:** [blueprint README](blueprints/deal-room-analyst/README.md) ·
+[tutorial](docs/tutorials/run-the-deal-room-blueprint.md) ·
+[demo tour](docs/demo/README.md)
+
+### CareLine voice check-in
+
+Runs a local voice check-in call that remembers earlier calls, detects decline
 signals with a deterministic scorer, and escalates concerning calls to a human
-care contact. It routes routine turns to Bonsai 4B, turns where concern
-registers to Bonsai 8B, and post-call fact extraction to ternary Bonsai 27B. It
-speaks with on-device speech models and includes a consented self-voice mode. It
-is self-contained per
-[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
+care contact. Routine turns go to Bonsai 4B, turns where concern registers to
+Bonsai 8B, and post-call fact extraction to ternary Bonsai 27B. It speaks with
+on-device speech models and includes a consented self-voice mode. Self-contained
+per [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
+
+[![The CareLine console during a call: transcript on the left, escalation alerts
+with their signals and scores top right, and dated facts recalled from earlier
+calls below](docs/assets/screenshots/careline/careline-console.png)](blueprints/careline-voice-checkin/README.md)
+
+A call with Dorothy, a synthetic resident. Three things are visible at once: the
+live transcript, one escalation alert naming the exact signals that fired and the
+score they produced, and the dated facts the agent carries between calls. The
+score, not the model, decides whether a turn escalates.
+
+```bash
+blueprints/careline-voice-checkin/scripts/preflight
+blueprints/careline-voice-checkin/scripts/run
+
+# in another terminal: three scripted calls that prove the loop
+cd blueprints/careline-voice-checkin/app && uv run python scripts/demo_run.py
+```
+
+Then open `http://127.0.0.1:8100/` and select **Start call**.
+
+Verified setup: macOS on Apple Silicon, `uv`, `ffmpeg`, `espeak-ng`, and LM
+Studio serving Bonsai `4b`, `8b`, and `27b@q1_0`.
+
+**Read next:** [blueprint README](blueprints/careline-voice-checkin/README.md) ·
+[voice cloning and fine-tuning](blueprints/careline-voice-checkin/VOICE_CLONE_SETUP.md)
+
+## First time here
+
+```bash
+git clone https://github.com/ChaiWithJai/hybrid-ai-blueprints.git
+cd hybrid-ai-blueprints
+```
+
+Then, in order:
+
+1. **Read [GETTING_STARTED.md](GETTING_STARTED.md).** It records the verified
+   path from clone to two running blueprints, plus 28 footguns hit and diagnosed
+   on a real machine. Several fail in ways that look like something else: a
+   missing `espeak-ng` kills the server process rather than the request, `uv
+   sync` removes packages you installed by hand, a room page returns 200 with no
+   workspace behind it, and `docker exec psql` cannot verify a password.
+2. **Check your machine** against the [hardware matrix](docs/reference/hardware-matrix.md).
+   Both blueprints are verified on Apple Silicon. NVIDIA paths exist in code and
+   are marked unverified rather than claimed.
+3. **Run one blueprint** using the commands above. Run its `preflight` first —
+   it names the missing prerequisite instead of failing later inside a request.
+4. **Then read the demo tour** for the blueprint you ran, so the screens above
+   have names.
+
+## Coming back
+
+| You want to | Go to |
+| --- | --- |
+| Run the deal room demo end to end | [Tutorial](docs/tutorials/run-the-deal-room-blueprint.md) |
+| Understand a screen in the deal room | [Demo tour](docs/demo/README.md) |
+| See traces and grade them | [CareLine traces and evaluation](blueprints/careline-voice-checkin/README.md#traces-and-evaluation) |
+| Record a voice corpus, fine-tune, and score candidates | [Voice clone setup](blueprints/careline-voice-checkin/VOICE_CLONE_SETUP.md) |
+| Size a machine, or move to NVIDIA | [Hardware matrix](docs/reference/hardware-matrix.md) |
+| Diagnose a failure you have hit before | [GETTING_STARTED footguns](GETTING_STARTED.md) |
+| Add a blueprint of your own | [Create a blueprint](docs/how-to/create-a-blueprint.md) |
+| Add or change an evaluation | [Evaluation framework](docs/EVALUATION_FRAMEWORK.md) |
+| Refresh a screenshot after a UI change | [Update demo screenshots](docs/how-to/update-demo-screenshots.md) |
+| Know what is and is not proven | [Architecture reality matrix](docs/ARCHITECTURE_REALITY_MATRIX.md) |
+| Browse everything | [Documentation index](docs/README.md) |
 
 ## Hardware
 
@@ -64,58 +150,6 @@ verified host.
 Read the [hardware matrix](docs/reference/hardware-matrix.md) for per-model
 footprints, memory sizing, the NVIDIA porting path, and what remains unmeasured
 on cloud hardware.
-
-## Get started
-
-Clone the repository:
-
-```bash
-git clone https://github.com/ChaiWithJai/hybrid-ai-blueprints.git
-cd hybrid-ai-blueprints
-```
-
-Each blueprint ships its own host check and run commands.
-
-> **Read [GETTING_STARTED.md](GETTING_STARTED.md) first.** It records the
-> verified path from clone to two running blueprints, plus 28 footguns hit and
-> diagnosed on a real machine. Several of them fail in ways that look like
-> something else: a missing `espeak-ng` kills the server process rather than the
-> request, `uv sync` removes packages you installed by hand, silence gets
-> returned as HTTP 200, and `docker exec psql` cannot verify a password.
-
-**Deal room analyst** (verified setup: macOS, Python 3, Docker, and LM Studio
-with Bonsai 27B loaded as `27b@q1_0`):
-
-```bash
-blueprints/deal-room-analyst/scripts/preflight
-blueprints/deal-room-analyst/scripts/run
-
-# once, in another terminal: give each demo room its own Buzz channel
-cd blueprints/deal-room-analyst/app && python3 scripts/seed_fixture_room.py --all
-```
-
-Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`. Without the
-seeding step the page waits on "Opening workspace", because a catalog room is
-listed before it has a workspace. Project Titan
-is synthetic. It demonstrates the workflow, but it does not provide accuracy or
-customer evidence. The
-[getting started tutorial](docs/tutorials/run-the-deal-room-blueprint.md)
-includes expected output, screenshots, verification, cleanup, and
-troubleshooting. The [demo tour](docs/demo/README.md) explains each product
-view.
-
-**CareLine voice check-in** (verified setup: macOS on Apple Silicon, `uv`,
-`ffmpeg`, `espeak-ng`, and LM Studio serving Bonsai `4b`, `8b`, and
-`27b@q1_0`):
-
-```bash
-blueprints/careline-voice-checkin/scripts/preflight
-blueprints/careline-voice-checkin/scripts/run
-```
-
-Open `http://127.0.0.1:8100/`. The synthetic Dorothy demo and the verify
-regression are described in the
-[blueprint README](blueprints/careline-voice-checkin/README.md).
 
 ## Repository contents
 
