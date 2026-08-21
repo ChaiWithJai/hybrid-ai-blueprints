@@ -19,3 +19,10 @@ catalog/generated/
 
 # Voice-clone reference recordings are biometric data. See SECURITY.md.
 blueprints/*/app/voices/
+
+# Fine-tune checkpoints: multi-GB, derived from personal voice data. Glob rather
+# than enumerating run names -- results_combined/ was missed by an explicit list
+# and 3 GB was one `git add` away from being committed.
+blueprints/*/app/results*/
+# Runtime SQLite for the CareLine demo (call transcripts, synthetic or not).
+blueprints/*/app/*.db

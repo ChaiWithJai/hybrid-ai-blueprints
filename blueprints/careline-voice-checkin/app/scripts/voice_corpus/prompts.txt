@@ -1,0 +1,115 @@
+# CareLine self-voice corpus. One utterance per line; blank lines and #comments ignored.
+# Read each line as you would actually SAY it on a warm, unhurried check-in call.
+#
+# Design notes:
+#  - Section A is the real domain: things the agent actually says. Highest value,
+#    because prosody transfer is register-specific and the existing 11.8h of
+#    training audio is all lecture delivery, not gentle check-in delivery.
+#  - Section B carries the emotional range the domain needs (concern, warmth,
+#    reassurance) without which replies land flat.
+#  - Section C is phonetic/prosodic coverage: questions, lists, numbers, dates,
+#    names, and consonant clusters that rarely appear in section A.
+#  - Lines are 2-9 seconds when spoken naturally, which fits the training cap.
+
+# ---- A. greetings and openings ----
+Hey, it's good to hear your voice today.
+Hi, it's your check-in call. How are you doing?
+Good morning. I just wanted to see how you're settling into the day.
+Hello, it's me again. I've been thinking about you since we last talked.
+Hi there. Is now still a good time to talk for a few minutes?
+It's good to catch you. How has your morning been so far?
+I wanted to check in and see how you're feeling today.
+
+# ---- A. check-in questions ----
+How have you been sleeping this week?
+Have you managed to eat something this morning?
+How's your energy been the last couple of days?
+Did you get outside at all yesterday?
+Has anyone stopped by to see you recently?
+Are you keeping up with your medication alright?
+How are you feeling in yourself today, honestly?
+Is there anything that's been worrying you?
+What's felt good this week, even if it was small?
+
+# ---- A. memory and continuity ----
+Last time we spoke you mentioned Emily's recital was coming up.
+You told me on Tuesday that your knee had been bothering you.
+When we talked on Saturday you said you'd been sleeping better.
+You mentioned your son was going to call over the weekend.
+I remember you said the garden was starting to come back.
+
+# ---- A. acknowledging and reflecting ----
+That sounds like it's been weighing on you.
+I'm glad you told me that.
+That does sound like a hard few days.
+It makes sense that you'd feel tired after all that.
+I can hear that you're doing your best with it.
+That's a lot to carry on your own.
+It sounds like you've had more on your plate than usual.
+
+# ---- A. gentle concern and escalation ----
+I want to make sure your care team knows about that.
+That does sound like something we shouldn't leave alone.
+I'm a little concerned about the dizziness you're describing.
+Would it be alright if I passed that along to your nurse?
+Let's make sure someone checks in on you properly today.
+I'm not a doctor, but I don't think that should wait.
+
+# ---- A. reassurance and closing ----
+You don't have to have it all figured out today.
+I'll check in with you again soon.
+Thank you for talking with me. It was good to hear you.
+Take it gently for the rest of the day.
+I'll let you get back to your afternoon.
+You did the right thing telling me about this.
+Rest if you can, and we'll talk again soon.
+
+# ---- B. emotional range ----
+Oh no, I'm so sorry to hear that.
+That's wonderful. I'm really glad.
+Take your time. There's no rush at all.
+That must have been frightening.
+I understand. It's alright.
+Are you sure you're okay? You sound a bit tired.
+That's a real accomplishment, and I hope you're proud of it.
+Hmm. Tell me a bit more about that.
+Of course. That makes complete sense.
+
+# ---- C. questions and intonation contours ----
+Did you sleep alright, or were you up in the night?
+Would you rather talk about something else?
+Is your daughter still coming on Thursday?
+Have you been able to get to the shops this week?
+Do you want me to stay on the line a little longer?
+Was it the stairs again, or something different this time?
+
+# ---- C. numbers, dates, times ----
+It's the twenty first of August, a Thursday.
+You mentioned it started about three days ago.
+Your appointment is at quarter past two on Monday.
+That was nineteen seventy four, if I remember right.
+About seventy five percent, they said.
+It's been eleven days since your last visit.
+Twenty two, thirty seven, forty eight, fifty nine, sixty three.
+
+# ---- C. names and proper nouns ----
+Dorothy, Margaret, Eleanor, Thomas, and Raymond.
+She's in Manchester now, near her sister.
+Doctor Okafor called about the results.
+It was Saint Thomas's, over on the north side.
+
+# ---- C. consonant clusters and hard phonetics ----
+The strengths of the twelfth month surprised us.
+She asked for sixths and twelfths, which sounds awkward.
+Crisp texts scrolled past the glimpsed screens.
+World thoughts, ninth breaths, and mixed depths.
+The rural juror judged the brewery's blueprint.
+Thirty thieves thought they thrilled the throne.
+Please pass the fresh shrimp shells and thick sliced bread.
+
+# ---- C. longer flowing sentences (prosodic arcs) ----
+I know it's not easy to talk about, and you don't have to go into detail, but I do want to understand how you've been.
+When you said that last week, I wasn't sure whether you meant the pain itself or the worry about it coming back.
+There's no right answer here, and honestly, whatever you tell me is going to be helpful for the people looking after you.
+If it turns out to be nothing at all, that's a good outcome, and nobody's going to mind that we checked.
+I'd rather ask twice and be a bit annoying than miss something that mattered to you.

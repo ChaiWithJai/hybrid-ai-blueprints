@@ -143,3 +143,202 @@ listener — a cloned family voice presented as actually-them is a hard no.
 Clinical claims stay modest: it is a wellness ritual with crisis-escalation
 defaults, not a treatment. Voice references are biometric data and are
 gitignored, never committed.
+
+---
+
+# Session 2 (2026-08-20/21) — voice quality, and corrections to the record above
+
+**Hardware:** the machine used for this session reports **48 GB** unified memory
+(`sysctl hw.memsize`), not the 24 GB stated at the top of this document. Every
+memory and latency claim above describes different hardware and should be
+re-measured before being quoted.
+
+## Corrections to claims above
+
+| Claim above | Correction |
+|---|---|
+| Bonsai-27B is served on `:8081` | `:8081` serves `Qwen_Qwen3.6-35B-A3B-Q4_K_M.gguf`. The real Ternary-Bonsai-27B is in LM Studio on `:1234` as `27b@q1_0`. `llm.py`'s `bonsai-27b` alias therefore points at a Qwen model. |
+| `chat_template_kwargs: {enable_thinking: false}` is *the* thinking-off fix | True for the llama.cpp fork on `:8081`. **LM Studio ignores it.** There, the model always reasons first, so `max_tokens` must cover reasoning *and* the answer — a 300-token cap returned an empty reply with every token spent thinking. 3000 worked. |
+| "Clone TTS (CSM-1B) ~5 s short sentence / 55–70 s long reply" | Superseded: the clone backend is now F5-TTS. ~5 s of compute for ~4.6 s of audio (RTF ~1.2), including long replies. |
+
+## CSM-1B → F5-TTS
+
+CSM-1B was replaced for `mode: "self"`. Measured on one reference and sentence:
+
+| | pitch range p10–p90 | speaker cosine | compute / 4.5 s audio |
+|---|---|---|---|
+| reference (real voice) | 118 Hz | — | — |
+| **F5-TTS (MLX)** | **130 Hz** | 0.93 | **~5 s** |
+| CSM-1B | 80 Hz (−32 %) | 0.92 | ~16 s |
+
+The finding worth keeping: **both models reproduced speaker identity equally
+well** (0.92 vs 0.93, and a different-speaker floor control sat at 0.47). What
+CSM degraded was **prosody** — it compressed the pitch range by a third, heard
+as monotone. Speaker-similarity metrics are blind to this, so a clone can score
+at the ceiling and still sound bad. Identity and naturalness need separate
+measurements.
+
+## Two bugs that returned success while broken
+
+1. **Silence as HTTP 200.** F5's duration predictor returned a total ≈ the
+   reference length, leaving ~zero frames for new speech: 0.04 s of audio,
+   status 200. `duration` is **total (reference + generated) in frames** and the
+   caller slices the reference back off. Derive it from `estimated_duration()`;
+   never leave it unset.
+2. **The pause after every punctuation mark.** Each synthesized chunk carried
+   300–500 ms of leading silence. The UI requests TTS **per sentence** and plays
+   chunks back to back, so that silence was *added* to every natural pause.
+   `_trim_edges()` in `tts.py` removes it (15 ms margin kept — plosives start
+   quiet and clipping them sounds truncated). Verified 296–473 ms → 0 ms.
+
+## What predicts clone quality
+
+963 candidate segments across 10 recordings were scored acoustically, then a
+clone was generated from each of the top 24 and measured against a centroid of
+held-out real clips from 5 other recordings.
+
+- **SNR and pitch stability did not predict clone quality.** The
+  highest-SNR/steadiest candidate produced one of the worst clones.
+- **Speaker-embedding similarity of the *reference* did** (r = 0.77 with the
+  similarity of the clone it produced).
+- **Transcript quality matters and acoustics cannot see it.** Silence-bounded
+  cuts frequently land mid-sentence. Bonsai-27B, reading only transcripts,
+  flagged references as "incomplete ending" / "truncated thought" that scored
+  fine acoustically — and those had been chosen and shipped twice.
+- **Within-recording variance ≈ between-recording variance** (one recording
+  spanned rank 5 to rank 23 of 24). One clip does not characterise a session.
+- **Scoring above the speaker's own band is channel overfitting**, not
+  superhuman fidelity: the clone copies the reference's mic/room/codec, which
+  embeddings are sensitive to. Controls (a floor speaker and a leave-one-out
+  band) are what make the number mean anything.
+
+**Multiple references do not help zero-shot.** Concatenating the top 3 into one
+reference vs the best single clip, 5 seeds each: +0.003 (t = 0.34), i.e. noise.
+F5 conditions on one reference; concatenation lengthens it, it does not weight
+examples. It did cut variance (sd 0.019 → 0.006–0.012), so it buys consistency.
+
+## Fine-tuning: implemented, not yet a win
+
+`scripts/finetune_voice.py` + `scripts/build_ft_dataset.py`. 620 pairs /
+52.5 min, lower 16 of 22 blocks frozen (102.0 M of 337.1 M trainable), lr 1e-5,
+batch 2, 1500 steps in 15.5 min (~1.6 step/s).
+
+**Result: negative.** At 250 steps speaker similarity fell 0.909 → 0.881
+(Welch t = −3.46, significant). **Loss went NaN at step ~394**, and every
+checkpoint after it is 100 % non-finite (140/140 tensors).
+
+Not the data: 0 non-finite mels, 0 silent clips, 0 degenerate transcripts across
+620 samples; weights are fp32. All 140 tensors going non-finite in one step is
+the signature of **global gradient-norm clipping** — one overflowing gradient
+makes the norm `inf`, every gradient becomes `NaN`, and a single update destroys
+the model. The upstream trainer applies updates with no finite check, and F5's
+flow-matching loss at batch 2 is very high variance (loss bounced 0.5–2.0
+throughout, never converging).
+
+Needed for a real attempt: skip-step on non-finite loss/grads, gradient
+accumulation to effective batch 16–32, lr ~1e-6, eval every ~100 steps.
+
+### `f5-tts-mlx`'s training path does not run as shipped
+
+Six defects, all fixed in `scripts/finetune_voice.py` (on the instance, never in
+`site-packages`, so `uv sync` cannot revert them):
+
+1. Training extras undeclared (`mlx-data`, `pillow`, `matplotlib`, `wandb`).
+2. `_to_mel_spec` stores an **mlx** array into an mlx.data sample; batching then
+   fails with `Contiguous buffer expected`. Store contiguous numpy.
+3. `mel_len` batches to `(b, 1)`; the model's einx expression wants `(b,)` →
+   `RankError`.
+4. MLX ops inside `.prefetch()` worker threads **abort the process**:
+   `There is no Stream(gpu, N) in current thread`. Same hazard `_SingleThreadMlx`
+   guards against in `tts.py`, one layer down. Do not prefetch.
+5. `self._scale_factor = 1 / mx.sqrt(dim_head)` is an **mlx array** passed to
+   `mx.fast.scaled_dot_product_attention`, which wants `scale: float`. A concrete
+   0-d array converts implicitly, so **inference works and only training fails**
+   — under `nn.value_and_grad` it is a tracer with no concrete value.
+6. `save_checkpoint(step, finetune=False)` never reads `finetune`; dead
+   parameter, no separate fine-tune save path. Checkpoints hold only
+   `trainable_parameters()`, so they must be overlaid on pretrained weights with
+   `strict=False`.
+
+## Operational lessons
+
+- **A 27B left loaded in LM Studio held 22 GB while idle** — weights are only
+  4.73 GB; the rest was KV cache for a 262144-token context × 4 parallel slots.
+  Unloading took free memory from 48 % to 90 %. Check `lms ps` before any
+  multi-GB job.
+- **This machine has zero swap** (`vm.swapusage total = 0.00M`). Overcommit is an
+  immediate kill, not a slowdown. `CARELINE_FT_MEM_LIMIT_GB` sets an MLX limit so
+  an over-large config raises instead of taking the host down.
+- **Sequence length is the strongest memory lever**, because attention is O(n²):
+  6 s clips cost 1.66 GB of attention activations where 10 s cost 4.61 GB. That
+  beat layer freezing (5.02 GB → 2.40 GB optimizer floor).
+- **The loader silently drops samples longer than `max_duration`.** A dataset of
+  10 s clips would train on nothing while looking healthy. `build_ft_dataset.py`
+  verifies the contract instead of assuming it.
+- **Derived artifacts do not belong in `/tmp`.** A reboot cleared a 620-pair
+  dataset and ~26 minutes of 27B labelling. Datasets now live in
+  `~/careline-ft/` and every build step is resumable.
+
+## Oversampling by file duplication — what it broke
+
+**Shipping:** `results_combined/f5tts_375.safetensors`, selected by listening test.
+
+The in-domain corpus (79 purpose-recorded prompts, 3.66 min) had to be weighted
+against the mined lecture set (620 clips, 52.5 min) or it would have been ~7% of
+steps and the style signal would have been swamped. The weighting was implemented
+the lazy way: **each recorded clip was copied 6× as separate files** on disk,
+giving 474 + 620 = 1094 clips and a 43% in-domain share.
+
+That worked as a share calculation and failed in three measurable ways.
+
+**1. Gradient pathology.** Norms reached **1.47e17**, against a maximum of
+**61,268** across 800 steps of the mined-only run at *identical* block depth
+(lower 16/22 frozen). Six identical copies can land inside one 8-micro-batch
+accumulation window; the window then averages near-duplicate gradients, gradient
+diversity collapses, and the norm explodes. Every spike was clipped and the
+skip-step guard held — all 8 checkpoints finite — but a norm distribution
+spanning 5e3 to 1e17 means the objective was badly conditioned throughout.
+
+Note this corrected an earlier misattribution: the spikes were first blamed on
+unfreezing more blocks. They recur at the original depth, so the cause is the
+data, not the depth. Unfreezing only explained the memory change
+(9.9 GB -> 12.7 GB peak).
+
+**2. Early peak, then decay.** Quality peaks near step 375 and degrades after;
+ck750 and ck1000 are audibly worse than ck250. Later steps re-fit the same 79
+utterances rather than learning anything new. The run was ~2.7x longer than
+useful, and weight drift had saturated at 1.03e-02 by step 720 in any case —
+two independent signals to stop early that were both visible in the logs.
+
+**3. Phoneme-level overfitting, caught by ear.** The operator localised the
+ck500 regression to a single diphthong: the /aʊ/ in "how". The corpus contains
+"how" in **8 of 79 prompts (10%)**, three of them sentence-initial; multiplied by
+6 that is one of the densest patterns in the whole training signal. By step 500
+the model had over-fit the sentence-initial realisation and stopped generalising
+to mid-sentence "how", which is exactly where the evaluation sentence uses it.
+No automated check surfaced this; a human ear localised it to the phoneme.
+
+### The fix
+
+- **Weight by sampling, not duplication.** Sample the minority set more often
+  *without replacement within an accumulation window*, or raise the window so
+  repeats cannot cluster. Never duplicate files.
+- **Stop near 400 steps** for this configuration, or flatten the LR schedule so
+  later steps still contribute.
+- **Diversify the corpus** — vary sentence openings and phoneme contexts instead
+  of repeating the same interrogative frames.
+
+### The evaluation lesson, restated
+
+Speaker-embedding cosine contributed **nothing** to any decision today. It rated
+every combined-run checkpoint a tie (mean 0.894, sd 0.009, all inside the
+0.781–0.942 speaker band) and had earlier rated the winning ck600 a tie with
+zero-shot, which the operator described as "wayyy better". The metric measures
+speaker *identity*, and identity was never the gap — zero-shot already sat inside
+the speaker's own cross-session band. Prosody was the gap, and cosine is
+deliberately invariant to it.
+
+Keep the metric as a **guardrail** — it proves identity has not drifted and that
+a checkpoint is not silence — and treat the listening test as the decision
+procedure. A pipeline that promotes on cosine alone would have shipped zero-shot
+and stopped.

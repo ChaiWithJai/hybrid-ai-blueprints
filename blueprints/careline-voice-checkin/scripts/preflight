@@ -12,16 +12,30 @@ check() {
 
 check "uv"        "command -v uv"        "install: https://docs.astral.sh/uv/"
 check "ffmpeg"    "command -v ffmpeg"    "install: brew install ffmpeg (needed for mic audio decode)"
-check "ollama"    "command -v ollama"    "install: https://ollama.com (fast LLM route)"
-check "fast LLM (qwen2.5:7b pulled)" "ollama list | grep -q qwen2.5:7b" "run: ollama pull qwen2.5:7b"
-check "fast LLM endpoint :11434" "curl -s -m 2 http://localhost:11434/v1/models" "run: ollama serve"
-
-if curl -s -m 2 http://localhost:8081/props 2>/dev/null | grep -q model_path; then
-  echo "[OK]   strong LLM endpoint :8081 (Bonsai 27B)"
-else
-  echo "[INFO] strong LLM endpoint :8081 absent — router falls back to the fast model."
-  echo "       To enable: https://github.com/PrismML-Eng/Bonsai-demo (BONSAI_PORT=8081)"
-fi
+# Kokoro -> phonemizer -> espeak-ng exits() in native code when phontab is
+# missing, killing the server on the first care-mode synthesis. The wheel's
+# bundled data does not satisfy it; a system espeak-ng does.
+check "espeak-ng data (care-mode TTS)" \
+  "ls /opt/homebrew/share/espeak-ng-data/phontab /usr/local/share/espeak-ng-data/phontab \"\$ESPEAK_DATA_PATH/espeak-ng-data/phontab\" 2>/dev/null | grep -q phontab" \
+  "install: brew install espeak-ng (without it, care-mode TTS crashes the server)"
+# The runtime is the Bonsai family, served locally. Tiers are chosen by measured
+# latency: 4B (~1.2s) for routine turns, 8B (~1.9s) when concern registers, and
+# 27B ternary (~26s, reasons on every call) for post-hangup extraction only.
+LLM_HOST="${CARELINE_LLM_BASE_URL:-http://localhost:1234/v1}"
+MODELS=$(curl -s -m 3 "$LLM_HOST/models" 2>/dev/null)
+check "local LLM endpoint" "test -n \"$MODELS\"" \
+  "serve the Bonsai family locally (LM Studio, or any OpenAI-compatible host) at $LLM_HOST"
+for tier in "${CARELINE_LLM_MODEL:-4b}:routine turns" \
+            "${CARELINE_LLM_STRONG_MODEL:-8b}:concerning turns" \
+            "${CARELINE_LLM_EXTRACT_MODEL:-27b@q1_0}:post-hangup extraction"; do
+  m="${tier%%:*}"; role="${tier#*:}"
+  if printf '%s' "$MODELS" | grep -q "\"$m\""; then
+    echo "[OK]   Bonsai $m ($role)"
+  else
+    echo "[MISS] Bonsai $m ($role) — load it in your local model server"
+    fail=1
+  fi
+done
 
 [ "$fail" -eq 0 ] && echo "Preflight passed." || echo "Preflight found missing requirements."
 exit "$fail"

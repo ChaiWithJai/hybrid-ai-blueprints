@@ -5,4 +5,25 @@
 set -e
 cd "$(dirname "$0")/../app"
 uv sync
+
+# Kokoro's phonemizer initializes espeak-ng through a wheel whose data path is a
+# baked-in CI build path (/Users/runner/...). When espeak cannot find phontab it
+# calls exit() in native code — no Python except can catch it, so the whole
+# server dies on the first care-mode synthesis. Point it at a real data dir.
+# The value must be the PARENT of espeak-ng-data. Bundled wheel data does not
+# satisfy Kokoro; a system espeak-ng (brew install espeak-ng) does.
+if [ -z "$ESPEAK_DATA_PATH" ]; then
+  for candidate in "$(brew --prefix 2>/dev/null)/share" /opt/homebrew/share /usr/local/share /usr/share; do
+    if [ -f "$candidate/espeak-ng-data/phontab" ]; then
+      ESPEAK_DATA_PATH="$candidate"
+      export ESPEAK_DATA_PATH
+      break
+    fi
+  done
+fi
+if [ -z "$ESPEAK_DATA_PATH" ]; then
+  echo "warning: no espeak-ng-data found; care-mode (Kokoro) TTS will crash the server." >&2
+  echo "         fix: brew install espeak-ng" >&2
+fi
+
 exec uv run uvicorn careline.main:app --host 127.0.0.1 --port 8100

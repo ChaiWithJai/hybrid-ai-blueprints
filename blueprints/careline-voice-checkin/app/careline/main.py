@@ -15,27 +15,16 @@ from contextlib import asynccontextmanager
 
 TTS = tts.get_backend()
 STT = stt.get_backend()
-CLONE_TTS = tts.CsmCloneBackend()  # "call yourself" voice; lazy-loads on first use
+CLONE_TTS = tts.get_clone_backend()  # "call yourself" voice; lazy-loads on first use
 
 
 @asynccontextmanager
 async def lifespan(app):
-    # Warm both voice models at startup so the first call has no cold-start
-    # (cold loads are 10s+; warm TTS is ~0.2s and warm STT is sub-second).
-    async def warm():
-        try:
-            await TTS.synthesize("CareLine is ready.")
-        except Exception:
-            pass  # backend down is fine; the UI falls back to browser TTS
-        try:
-            wav = await TTS.synthesize("warm up")
-            await STT.transcribe(wav, "audio/wav")
-        except Exception:
-            pass
-
-    task = asyncio.create_task(warm())
+    # Warm the clone model so the first spoken turn does not pay the cold load.
+    if hasattr(CLONE_TTS, "_preload"):
+        asyncio.create_task(CLONE_TTS._preload())
     yield
-    task.cancel()
+    # Shutdown (no-op for now)
 
 
 app = FastAPI(title="CareLine", lifespan=lifespan)

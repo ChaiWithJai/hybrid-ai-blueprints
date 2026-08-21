@@ -23,32 +23,44 @@ The job and its guards are defined in the
 6. Concerning calls fire at most one alert per severity level to a webhook —
    the care contact's channel.
 
-A **"call yourself" mode** speaks in the operator's own cloned voice (CSM-1B,
-~5–8 s per sentence) as a consented self-compassion ritual. Voice references
+A **"call yourself" mode** speaks in the operator's own cloned voice (F5-TTS via
+MLX, ~5 s per sentence) as a consented self-compassion ritual. Voice references
 are biometric data: they stay on the operator's disk and are never committed.
+Setup, reference selection, and troubleshooting:
+[VOICE_CLONE_SETUP.md](VOICE_CLONE_SETUP.md).
 
 ## Run it
 
-Requirements: macOS on Apple Silicon, `uv`, `ffmpeg`, Ollama with `qwen2.5:7b`,
-and (optional, for strong turns) Ternary-Bonsai-27B served by the PrismML
-llama.cpp fork on port 8081 — see the
+Requirements: macOS on Apple Silicon, `uv`, `ffmpeg`, **`espeak-ng`**
+(`brew install espeak-ng`), Ollama with `qwen2.5:7b`, and (optional, for strong
+turns) Ternary-Bonsai-27B — see the
 [Bonsai demo repository](https://github.com/PrismML-Eng/Bonsai-demo). The
 router falls back to the fast model when the strong endpoint is absent.
 
+`espeak-ng` is not optional: without it the first care-mode synthesis calls
+`exit()` in native code and takes the server process down with it. `scripts/run`
+exports `ESPEAK_DATA_PATH` once a system install is present, and
+`scripts/preflight` fails loudly if it is missing.
+
 ```bash
 blueprints/careline-voice-checkin/scripts/run      # server on :8100
-blueprints/careline-voice-checkin/scripts/verify   # scripted 3-call regression
+blueprints/careline-voice-checkin/scripts/verify   # conversation + voice regression
 ```
 
-Open http://127.0.0.1:8100/ and start a call. The verify script runs the
-synthetic Dorothy demo: a healthy call that seeds memory, a recall call, and a
-decline call that must alert exactly once. It exits nonzero on any failure.
+Open http://127.0.0.1:8100/ and start a call. `scripts/verify` runs two
+regressions and exits nonzero on any failure:
+
+- the synthetic Dorothy demo — a healthy call that seeds memory, a recall call,
+  and a decline call that must alert exactly once;
+- the voice path (`app/scripts/verify_voice.py`) — that the clone returns real
+  audio rather than silence with HTTP 200, carries no per-chunk leading silence,
+  meets a latency budget, and that care-mode synthesis leaves the server alive.
 
 ## Routes
 
 | Route | Fast LLM | Strong LLM | Speech |
 |---|---|---|---|
-| local (default) | Ollama on-device | Bonsai-27B fork server on-device | mlx-audio on-device |
+| local (default) | Ollama on-device | Bonsai-27B on-device | mlx-audio (Kokoro) + F5-TTS clone, on-device |
 | cloud | any OpenAI-compatible endpoint | any OpenAI-compatible endpoint | TTS/STT NIM endpoints |
 | hybrid | on-device | cloud endpoint (or the reverse) | on-device |
 
@@ -62,8 +74,18 @@ Route selection is environment variables only (`CARELINE_LLM_BASE_URL`,
   precision/recall on realistic transcripts is unmeasured.
 - Decline scoring is keyword/threshold based by design (explainable,
   deterministic); paralinguistic signals are out of scope.
-- Cloned-voice synthesis is ~5–8 s per sentence on an M4 Pro; the sentence
-  pipeline hides part of this, not all of it.
+- Cloned-voice synthesis is ~5 s per sentence (real-time factor ~1.2) on an
+  M4 Pro; the sentence pipeline hides part of this, not all of it.
+- Clone quality is bounded by the reference recording. Speaker identity measures
+  inside the speaker's own session-to-session band, so the remaining gap is
+  prosody, not similarity.
+- A fine-tuned checkpoint ships for the cloned voice, selected by listening
+  test; delete `app/voices/f5_finetuned.safetensors` to fall back to zero-shot.
+  Automated speaker-similarity scoring rated every candidate a tie and did not
+  select it — it measures identity, not prosody. See
+  [VOICE_CLONE_SETUP.md](VOICE_CLONE_SETUP.md#fine-tuning).
+- `espeak-ng` must be installed system-wide or care-mode synthesis kills the
+  server process (native `exit()`, uncatchable from Python).
 - Memory fact extraction appends without deduplication across calls.
 - Cloud and hybrid routes are wired but unverified end to end.
 - This is a wellness tool, not clinical monitoring, diagnosis, or treatment.

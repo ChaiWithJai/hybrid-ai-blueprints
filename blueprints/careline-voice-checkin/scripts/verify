@@ -3,4 +3,11 @@
 # Exits nonzero if memory, recall hygiene, or escalation checks fail.
 set -e
 cd "$(dirname "$0")/../app"
-exec uv run python scripts/demo_run.py
+
+# Conversation regression: memory, recall hygiene, escalation debounce.
+uv run python scripts/demo_run.py
+
+# Voice-path regression. Kept separate because the failures are different in
+# kind: a broken voice path returns HTTP 200 with silence, or kills the server
+# process outright, neither of which the conversation checks above can see.
+exec uv run python scripts/verify_voice.py

@@ -9,6 +9,10 @@ dependencies = [
     "httpx>=0.27",
     "mlx-audio>=0.5.0",
     "misaki[en]>=0.9.4",
+    # Clone voice for "call yourself" mode. Kept declared here (not installed
+    # ad hoc) because scripts/run calls `uv sync`, which removes anything the
+    # manifest does not list.
+    "f5-tts-mlx>=0.2.6",
 ]
 
 [tool.uv]
