@@ -1,7 +1,6 @@
 """CareLine API + demo UI server."""
 
 import os
-import re
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, Response
@@ -20,9 +19,28 @@ CLONE_TTS = tts.get_clone_backend()  # "call yourself" voice; lazy-loads on firs
 
 @asynccontextmanager
 async def lifespan(app):
-    # Warm the clone model so the first spoken turn does not pay the cold load.
-    if hasattr(CLONE_TTS, "_preload"):
-        asyncio.create_task(CLONE_TTS._preload())
+    async def warm():
+        """Prewarm with a real synthesis, not just a weight load.
+
+        Loading the model is only part of the first-call cost: the first actual
+        synthesis also pays MLX graph compilation, reference-audio decode and
+        RMS conditioning, and vocoder setup. Running one throwaway utterance at
+        startup moves all of that off the demo's critical path.
+
+        Only the clone voice is warmed. Kokoro is already ~1.5s cold, and
+        warming it here would move the espeak-ng failure to STARTUP -- that path
+        calls exit() in native C, so a missing system espeak would kill the
+        server before it serves anything, which is harder to diagnose than
+        failing on the first care-mode turn. scripts/preflight checks for it.
+        """
+        if hasattr(CLONE_TTS, "_preload"):
+            await CLONE_TTS._preload()
+        try:
+            await CLONE_TTS.synthesize("Warming up.")
+        except Exception:
+            pass  # a cold first call is a slow demo, not a broken one
+
+    asyncio.create_task(warm())
     yield
     # Shutdown (no-op for now)
 
@@ -60,20 +78,16 @@ def _voice_for(mode: str) -> tts.TTSBackend:
     return CLONE_TTS if mode == "self" else TTS
 
 
-def _split_sentences(text: str) -> list[str]:
-    # Must mirror splitSentences() in web/index.html — the UI requests TTS
-    # per sentence, so the greeting cache has to be keyed the same way.
-    parts = re.findall(r"[^.!?]+[.!?]+[\"'”]?|[^.!?]+$", text)
-    return [p.strip() for p in parts if p.strip()] or [text]
-
-
 @app.post("/api/calls/prepare")
 async def prepare_call(body: StartCall):
     session = CallSession(body.resident_id, body.name, mode=body.mode)
     greeting = await session.open_call()
     try:
-        for sentence in _split_sentences(greeting):
-            TTS_CACHE[sentence] = await _voice_for(body.mode).synthesize(sentence)
+        # Key on the WHOLE greeting: the client requests one synthesis per reply,
+        # so per-sentence keys would never be hit and the precompute would be
+        # dead weight -- the greeting would pay full synthesis cost on click.
+        voice = _voice_for(body.mode)
+        TTS_CACHE[greeting] = await voice.synthesize(greeting)
         while len(TTS_CACHE) > 32:
             TTS_CACHE.pop(next(iter(TTS_CACHE)))
     except Exception:

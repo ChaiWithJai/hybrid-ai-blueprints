@@ -10,6 +10,8 @@ import os
 
 import httpx
 
+from . import tracing
+
 # THREE-TIER BONSAI FAMILY RUNTIME (measured 2026-08-21, LM Studio on :1234).
 # The tiers exist because latency, not quality, decides what can serve a live
 # phone call. Measured on this machine, same prompt:
@@ -24,6 +26,13 @@ import httpx
 # hangup. Nothing leaves the machine.
 BASE_URL = os.environ.get("CARELINE_LLM_BASE_URL", "http://localhost:1234/v1")
 MODEL = os.environ.get("CARELINE_LLM_MODEL", "4b")
+# The fast tier sent no max_tokens, so one greeting ran to 70 words -> 23s of
+# audio. Capping at 70 tokens still gave 34 words -> 12s of audio and a 16s wait
+# for the caller, because speech runs ~170 wpm and synthesis costs ~1.3x
+# realtime on top. Budget from the audio backwards: a 5s reply is ~14 words is
+# ~35 tokens. Short replies are also better check-in technique -- they leave
+# room for the person to talk.
+MAX_TOKENS = int(os.environ.get("CARELINE_MAX_TOKENS", "38"))
 
 # By-stakes switch: concerning turns lean on a larger Bonsai; routine turns stay
 # on the fast tier. If a tier is unreachable OR returns an empty reply, we fall
@@ -80,30 +89,47 @@ async def chat(
                 "chat_template_kwargs": {"enable_thinking": False},
                 "max_tokens": int(os.environ.get("CARELINE_STRONG_MAX_TOKENS", "120")),
             }
-        try:
-            async with httpx.AsyncClient(timeout=300 if extracting else 60) as client:
-                resp = await client.post(f"{url}/chat/completions", json=payload)
-                resp.raise_for_status()
-                msg = resp.json()["choices"][0]["message"]
-            content = (msg.get("content") or "").strip()
-            if not content:
-                # Reasoning models sometimes put the answer only in the reasoning
-                # channel. Recover it rather than speaking silence.
-                content = (msg.get("reasoning_content") or "").strip()
-            if content:
-                return content
+        tier = "extraction" if extracting else "concerning"
+        with tracing.llm_span(f"bonsai.{tier}", model=model, endpoint=url,
+                              tier=tier, messages=messages) as sp:
+            try:
+                async with httpx.AsyncClient(timeout=300 if extracting else 60) as client:
+                    resp = await client.post(f"{url}/chat/completions", json=payload)
+                    resp.raise_for_status()
+                    body = resp.json()
+                    msg = body["choices"][0]["message"]
+                content = (msg.get("content") or "").strip()
+                recovered = False
+                if not content:
+                    # Reasoning models sometimes put the answer only in the reasoning
+                    # channel. Recover it rather than speaking silence.
+                    content = (msg.get("reasoning_content") or "").strip()
+                    recovered = bool(content)
+                if content:
+                    sp.finish_llm(content, body.get("usage"), fell_back=False)
+                    sp.set_attribute("careline.recovered_from_reasoning", recovered)
+                    return content
+                sp.finish_llm("", body.get("usage"), fell_back=True)
+                sp.set_attribute("careline.empty_reply", True)
             # Still empty: fall through to the fast tier. Returning "" here would
             # make the agent silently say nothing, which reads as a dead call.
-        except (httpx.HTTPError, KeyError, IndexError):
-            pass  # tier down -> fast tier
+            except (httpx.HTTPError, KeyError, IndexError) as exc:
+                sp.finish_llm("", None, fell_back=True)
+                sp.set_attribute("careline.error", type(exc).__name__)
 
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            f"{BASE_URL}/chat/completions",
-            json={"model": MODEL, "messages": messages, "temperature": temperature},
-        )
-        resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]["content"]
+    with tracing.llm_span("bonsai.routine", model=MODEL, endpoint=BASE_URL,
+                          tier="routine", messages=messages) as sp:
+        async with httpx.AsyncClient(timeout=120) as client:
+            resp = await client.post(
+                f"{BASE_URL}/chat/completions",
+                json={"model": MODEL, "messages": messages, "temperature": temperature,
+                      "max_tokens": MAX_TOKENS},
+            )
+            resp.raise_for_status()
+            body = resp.json()
+        out = body["choices"][0]["message"]["content"]
+        sp.finish_llm(out, body.get("usage"))
+        return out
 
 
 def _extract_json(raw: str) -> dict | list:

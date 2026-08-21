@@ -115,12 +115,46 @@ async function fetchWav(text) {
   }
 }
 
+// Browsers block audio that is not tied to a user gesture, and an awaited
+// fetch can lose that gesture context. The previous version did
+// `a.play().catch(() => resolve())`, which swallowed that rejection: the audio
+// arrived, was never played, and nothing was logged -- indistinguishable from
+// a dead server. Surface it and offer a one-tap recovery instead.
+let audioUnlocked = false;
+
 function playUrl(url) {
   return new Promise(resolve => {
     const a = new Audio(url);
-    a.onended = a.onerror = () => resolve();
-    a.play().catch(() => resolve());
+    a.onended = () => resolve();
+    a.onerror = () => { setStatus("audio decode failed"); resolve(); };
+    a.play().then(() => { audioUnlocked = true; }).catch(err => {
+      console.warn("autoplay blocked:", err && err.name, err && err.message);
+      offerTapToPlay(a, resolve);
+    });
   });
+}
+
+function offerTapToPlay(audio, resolve) {
+  const bar = document.getElementById("status");
+  let btn = document.getElementById("tap-to-play");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.id = "tap-to-play";
+    btn.style.marginLeft = "8px";
+    bar.parentNode.insertBefore(btn, bar.nextSibling);
+  }
+  btn.textContent = "▶ Tap to hear (browser blocked autoplay)";
+  btn.onclick = () => {
+    audio.play().then(() => { audioUnlocked = true; btn.remove(); })
+                .catch(e => setStatus("playback failed: " + e.name));
+  };
+  audio.onended = () => { btn.remove(); resolve(); };
+}
+
+function setStatus(msg) {
+  const el = document.getElementById("status");
+  if (el) el.textContent = msg;
+  console.log("[careline]", msg);
 }
 
 function splitSentences(text) {
@@ -129,23 +163,26 @@ function splitSentences(text) {
 }
 
 async function speak(text) {
-  // Fetch sentences STRICTLY in order (concurrent fetches race for the
-  // synthesis lock and can invert order, delaying first audio); playback of
-  // sentence N overlaps the fetch of sentence N+1, so the voice starts as
-  // soon as the first sentence is synthesized.
-  const sentences = splitSentences(text);
-  let playChain = Promise.resolve();
-  for (const s of sentences) {
-    const url = await fetchWav(s);
-    if (url === null) {  // server TTS down — browser voice fallback
-      const u = new SpeechSynthesisUtterance(text);
-      u.rate = 0.95;
-      speechSynthesis.speak(u);
-      return;
-    }
-    playChain = playChain.then(() => playUrl(url));
+  // ONE request for the whole reply. The previous per-sentence pipeline assumed
+  // synthesis was faster than playback; it is not. Measured on this machine for
+  // a three-sentence reply:
+  //
+  //   per sentence : 13.74s wall for 4.7s of audio -> 3.7s/3.1s/2.3s of dead
+  //                  air after each sentence, because every call re-conditions
+  //                  on the whole reference clip (a fixed ~3.5s cost paid N times)
+  //   one call     :  5.53s wall for 4.93s of audio, no internal gaps
+  //
+  // Time-to-first-audio is the same either way (the first sentence alone already
+  // costs ~5s), so one call is strictly better: same start, no gaps, and the
+  // model keeps prosody across sentence boundaries instead of restarting it.
+  const url = await fetchWav(text);
+  if (url === null) {  // server TTS down — browser voice fallback
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.95;
+    speechSynthesis.speak(u);
+    return;
   }
-  await playChain;
+  await playUrl(url);
 }
 
 async function refreshPanels() {

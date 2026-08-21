@@ -13,6 +13,7 @@ from abc import ABC, abstractmethod
 
 import httpx
 
+from . import tracing
 from .tts import _SingleThreadMlx  # MLX work must stay on one dedicated thread
 
 
@@ -60,10 +61,12 @@ class MlxWhisperBackend(_SingleThreadMlx, STTBackend):
             os.unlink(path)
 
     async def transcribe(self, audio: bytes, mime: str) -> str:
-        async with self._lock:
-            if self._model is None:
-                self._model = await self._run(self._load)
-            return await self._run(self._transcribe, audio, mime)
+        with tracing.span("stt.whisper", kind="LLM",
+                          **{"careline.backend": "mlx-whisper", "careline.bytes": len(audio)}):
+            async with self._lock:
+                if self._model is None:
+                    self._model = await self._run(self._load)
+                return await self._run(self._transcribe, audio, mime)
 
 
 class NimAsrBackend(STTBackend):

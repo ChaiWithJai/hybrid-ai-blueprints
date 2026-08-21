@@ -44,6 +44,13 @@ cd hybrid-ai-blueprints
 
 Each blueprint ships its own host check and run commands.
 
+> **Read [GETTING_STARTED.md](GETTING_STARTED.md) first.** It records the
+> verified path from clone to two running blueprints, plus 25 footguns hit and
+> diagnosed on a real machine. Several of them fail in ways that look like
+> something else: a missing `espeak-ng` kills the server process rather than the
+> request, `uv sync` removes packages you installed by hand, silence gets
+> returned as HTTP 200, and `docker exec psql` cannot verify a password.
+
 **Deal room analyst** (verified setup: macOS, Python 3, Docker, and LM Studio
 with Bonsai 27B loaded as `27b@q1_0`):
 
@@ -85,6 +92,7 @@ Catalog areas:
 | `packages/` | Shared components a blueprint may adopt |
 | `schemas/` | Manifest schemas |
 | `tooling/` | Catalog and documentation validators |
+| `GETTING_STARTED.md` | Verified setup path and the footguns worth knowing first |
 | `docs/` | Tutorials, guides, concepts, reference, and decisions |
 | `evidence/` | Versioned test and release records |
 | `research/` | Source material that motivates use case selection |

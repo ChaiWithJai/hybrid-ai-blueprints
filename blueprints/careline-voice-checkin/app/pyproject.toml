@@ -13,6 +13,11 @@ dependencies = [
     # ad hoc) because scripts/run calls `uv sync`, which removes anything the
     # manifest does not list.
     "f5-tts-mlx>=0.2.6",
+    # Tracing. Declared (not installed ad hoc) because scripts/run calls
+    # `uv sync`, which removes anything the manifest does not list.
+    "opentelemetry-sdk>=1.30",
+    "opentelemetry-exporter-otlp-proto-http>=1.30",
+    "openinference-semantic-conventions>=0.1.14",
 ]
 
 [tool.uv]

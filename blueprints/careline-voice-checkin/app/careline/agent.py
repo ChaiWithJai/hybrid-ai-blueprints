@@ -3,12 +3,12 @@
 import uuid
 from datetime import datetime, timezone
 
-from . import escalation, llm, memory
+from . import escalation, llm, memory, tracing
 
 SYSTEM_TEMPLATE = """You are CareLine, a warm, unhurried wellness check-in companion calling {name} on behalf of their care team. Today is {today}.
 
 Guidelines:
-- Speak in short, natural sentences — this is a phone call, not an essay. One or two sentences per turn.
+- ONE short sentence per turn. Two only if both are very short. Under 25 words total. This is a phone call: leave room for them to talk.
 - Be genuinely curious about their day: meals, sleep, mood, plans, family.
 - You are NOT a clinician. Never diagnose, never give medical advice. If something sounds concerning, gently acknowledge it and say you'll make sure their care team knows.
 - Use what you remember from earlier calls to show continuity — ask follow-ups about things they mentioned before, naming when they said it.
@@ -19,7 +19,7 @@ Guidelines:
 SELF_TEMPLATE = """You are {name}'s own voice — literally: this call speaks in their cloned voice, and they know it. This is a "call yourself" self-compassion check-in they chose to receive. Today is {today}.
 
 Guidelines:
-- Speak as a kind, steady version of themselves: "we" and "you" language, never clinical, never saccharine. One or two short sentences per turn.
+- Speak as a kind, steady version of themselves: "we" and "you" language, never clinical, never saccharine. ONE short sentence per turn, under 25 words.
 - Ask about the real day: what got done, what got dropped, what they're avoiding, what felt good.
 - Practice honest self-compassion: acknowledge hard things plainly, then point at evidence of effort. No toxic positivity.
 - You are NOT a therapist and never claim to be. If they mention self-harm, crisis, or relapse, respond with warmth, name it seriously, tell them their support contact will be notified, and mention they can reach a crisis line right now.
@@ -69,25 +69,47 @@ class CallSession:
         if self.is_first_call:
             cue = (
                 "(The call connects. You have NEVER spoken with this person before — this is the "
-                "very first call. Do not mention any last call, previous chat, or shared history. "
-                "Introduce yourself as a new check-in service from their care team.)"
+                "very first call. Do not mention any last call, previous chat, shared history, or "
+                "any routine you supposedly have together: inventing prior contact is the worst "
+                "possible failure on a first call. Introduce yourself briefly as a new check-in "
+                "service from their care team and ask ONE opening question. "
+                "ONE OR TWO VERY SHORT SENTENCES, UNDER 25 WORDS.)"
             )
         else:
-            cue = "(The call connects. Greet them and open the check-in.)"
+            cue = ("(The call connects. Greet them and open the check-in. "
+                   "ONE OR TWO VERY SHORT SENTENCES, UNDER 25 WORDS.)")
         self.messages.append({"role": "user", "content": cue})
         reply = await llm.chat(self.messages)
         self.messages.append({"role": "assistant", "content": reply})
         return reply
 
     async def turn(self, user_text: str) -> tuple[str, dict | None]:
-        self.messages.append({"role": "user", "content": user_text})
-        self.concern_score, self.alerted_severity, alert = await escalation.check_and_alert(
-            self.resident_id, self.id, user_text, self.concern_score, self.alerted_severity
-        )
-        # by-stakes switch: once concern registers, the strong model leans in
-        reply = await llm.chat(self.messages, strong=self.concern_score > 0)
-        self.messages.append({"role": "assistant", "content": reply})
-        return reply, alert
+        # One span per conversational turn, parenting the LLM span. This is what
+        # makes the by-stakes router legible in a trace: the routing decision and
+        # the tier that served it appear together instead of as unrelated calls.
+        with tracing.span("careline.turn", kind="CHAIN",
+                          **{"careline.resident_id": self.resident_id,
+                             "careline.call_id": self.id,
+                             "careline.mode": self.mode,
+                             "careline.turn_index": len(self.messages)}) as sp:
+            self.messages.append({"role": "user", "content": user_text})
+            self.concern_score, self.alerted_severity, alert = await escalation.check_and_alert(
+                self.resident_id, self.id, user_text, self.concern_score, self.alerted_severity
+            )
+            # by-stakes switch: once concern registers, the strong model leans in
+            strong = self.concern_score > 0
+            try:
+                sp.set_attributes({
+                    "careline.concern_score": int(self.concern_score),
+                    "careline.route": "concerning" if strong else "routine",
+                    "careline.alert_fired": bool(alert),
+                    "careline.alert_severity": (alert or {}).get("severity") or "",
+                })
+            except Exception:
+                pass
+            reply = await llm.chat(self.messages, strong=strong)
+            self.messages.append({"role": "assistant", "content": reply})
+            return reply, alert
 
     async def end(self) -> dict:
         transcript = "\n".join(

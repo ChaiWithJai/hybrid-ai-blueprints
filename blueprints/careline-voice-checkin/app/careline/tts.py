@@ -18,6 +18,20 @@ from concurrent.futures import ThreadPoolExecutor
 
 import httpx
 
+from . import tracing
+
+
+def normalize_for_speech(text: str) -> str:
+    """Collapse whitespace before synthesis.
+
+    LLM replies arrive with embedded newlines ("...today.  \nWhat's one thing").
+    Speech models render those as pauses: measured on CSM-1B, the same 14 words
+    took 5.20s with a newline and 4.64s without -- 0.56s of dead air the caller
+    hears as the voice stalling mid-reply. Nothing downstream wants line breaks,
+    so strip them once, here, rather than in each backend.
+    """
+    return " ".join((text or "").split())
+
 
 class TTSBackend(ABC):
     @abstractmethod
@@ -89,6 +103,7 @@ class MlxAudioBackend(_SingleThreadMlx, TTSBackend):
                 return f.read()
 
     async def synthesize(self, text: str) -> bytes:
+        text = normalize_for_speech(text)
         async with self._lock:  # MLX generation is not concurrency-safe
             if self._model is None:
                 self._model = await self._run(self._load)
@@ -115,12 +130,114 @@ class CsmCloneBackend(_SingleThreadMlx, TTSBackend):
     )
     LOCAL_HF_HOME = MlxAudioBackend.LOCAL_HF_HOME
 
-    _response_cache = {}  # Cache common responses (greeting, acknowledgments)
+    # FEW-SHOT CONTEXT. CSM is a *conversational* model: generate() takes
+    # `context: List[Segment]`, and a single ref_audio/ref_text pair is just the
+    # degenerate one-segment case --
+    #     if len(context) == 0 and ref_audio and ref_text:
+    #         context = [Segment(speaker, ref_text, ref_audio)]
+    # Passing several short real utterances instead conditions the model the way
+    # it was designed to be conditioned. Point this at a directory of
+    # <id>.wav + <id>.normalized.txt pairs (what scripts/record_voice_corpus.py
+    # produces); empty or missing falls back to the single-reference path.
+    CONTEXT_DIR = os.environ.get(
+        "CARELINE_CLONE_CONTEXT_DIR",
+        os.path.expanduser("~/careline-ft/recorded"),
+    )
+    CONTEXT_N = int(os.environ.get("CARELINE_CLONE_CONTEXT_N", "6"))
+    # Only condition on clips in the target register. The corpus ends with a
+    # phonetic-coverage section ("Thirty thieves thought they thrilled the
+    # throne", numbers, consonant clusters) which is useful for TRAINING breadth
+    # and actively wrong as conversational context for a warm check-in voice.
+    # Sections are read from the corpus file so this self-corrects if it changes.
+    CONTEXT_SECTIONS = tuple(
+        x.strip() for x in os.environ.get("CARELINE_CLONE_CONTEXT_SECTIONS", "A,B").split(",")
+    )
+    CORPUS = os.environ.get(
+        "CARELINE_CLONE_CORPUS",
+        os.path.join(os.path.dirname(__file__), "..", "scripts", "voice_corpus", "prompts.txt"),
+    )
+    # Context costs tokens on every call, so prefer short clips: 2-4s carries
+    # prosody without paying for a long prefix.
+    CONTEXT_MIN_S = float(os.environ.get("CARELINE_CLONE_CONTEXT_MIN_S", "2.0"))
+    CONTEXT_MAX_S = float(os.environ.get("CARELINE_CLONE_CONTEXT_MAX_S", "4.0"))
 
     def __init__(self):
         super().__init__()
         self._ref_text: str | None = None  # read lazily: the reference files are
         # personal biometric data, gitignored — a fresh clone must still boot.
+        self._context = None  # built once on the MLX thread
+
+    def _eligible_indices(self) -> set[int] | None:
+        """Prompt indices belonging to CONTEXT_SECTIONS, or None if unknown.
+
+        Recorded clips are named rec<NNN>_<hash>.wav where NNN is the prompt's
+        position in the corpus, so the corpus file is the source of truth for
+        which clips are in which register.
+        """
+        try:
+            lines = open(self.CORPUS).read().splitlines()
+        except OSError:
+            return None
+        keep, idx, section = set(), 0, None
+        for line in lines:
+            t = line.strip()
+            if t.startswith("# ---- "):
+                section = t.strip("# -").split(".")[0].strip()
+                continue
+            if not t or t.startswith("#"):
+                continue
+            if section in self.CONTEXT_SECTIONS:
+                keep.add(idx)
+            idx += 1
+        return keep or None
+
+    def _build_context(self):
+        """Build few-shot Segments from a directory of wav+transcript pairs."""
+        import glob as _glob
+        import re as _re
+        import wave as _wave
+
+        if self._context is not None:
+            return self._context
+        self._context = []
+        if not self.CONTEXT_DIR or not os.path.isdir(self.CONTEXT_DIR):
+            return self._context
+
+        eligible = self._eligible_indices()
+        cands = []
+        for wav in sorted(_glob.glob(os.path.join(self.CONTEXT_DIR, "*.wav"))):
+            txt = wav[:-4] + ".normalized.txt"
+            if not os.path.exists(txt):
+                continue
+            m = _re.search(r"rec(\d+)_", os.path.basename(wav))
+            if eligible is not None and m and int(m.group(1)) not in eligible:
+                continue  # wrong register for conversational conditioning
+            try:
+                with _wave.open(wav) as h:
+                    dur = h.getnframes() / h.getframerate()
+            except Exception:
+                continue
+            if self.CONTEXT_MIN_S <= dur <= self.CONTEXT_MAX_S:
+                cands.append((wav, txt))
+
+        # Spread the picks across the eligible range instead of taking the first
+        # N consecutive ones: consecutive prompts share a contour (all greetings,
+        # or all questions), and the point of context is prosodic variety.
+        if cands and self.CONTEXT_N < len(cands):
+            step = len(cands) / self.CONTEXT_N
+            cands = [cands[int(i * step)] for i in range(self.CONTEXT_N)]
+
+        for wav, txt in cands[: self.CONTEXT_N]:
+            try:
+                body = open(txt).read().strip()
+                if not body:
+                    continue
+                self._context.append(
+                    self._model.prepare_prompt(body, 0, wav, self._model.sample_rate)
+                )
+            except Exception:
+                continue  # a bad clip must not break synthesis
+        return self._context
 
     def _load_ref_text(self) -> str:
         if self._ref_text is None:
@@ -145,27 +262,40 @@ class CsmCloneBackend(_SingleThreadMlx, TTSBackend):
             return load_model(self.MODEL_ID)
 
     def _generate(self, text: str) -> bytes:
-        from mlx_audio.tts.generate import generate_audio
+        import io
 
-        with tempfile.TemporaryDirectory() as tmp:
-            generate_audio(
-                text=text,
-                model=self._model,
-                ref_audio=self.REF_AUDIO,
-                ref_text=self._load_ref_text(),
-                output_path=tmp,
-                file_prefix="out",
-                join_audio=True,
-                save=True,
-                verbose=False,
-            )
-            wavs = sorted(glob.glob(os.path.join(tmp, "*.wav")))
-            if not wavs:
-                raise RuntimeError("csm clone produced no audio")
-            with open(wavs[0], "rb") as f:
-                return f.read()
+        import numpy as np
+        import soundfile as sf
+
+        ctx = self._build_context()
+        kwargs = dict(text=text, speaker=0)
+        if ctx:
+            kwargs["context"] = ctx
+        else:
+            # no context corpus available -> original single-reference behaviour
+            kwargs["ref_audio"] = self.REF_AUDIO
+            kwargs["ref_text"] = self._load_ref_text()
+        # Budget the cap from the text: the 90s default lets a short reply run
+        # away, and every extra second costs ~1.3x realtime to synthesize.
+        kwargs["max_audio_length_ms"] = min(
+            30_000.0, max(4_000.0, len(text.split()) / 165 * 60 * 1000 * 1.6)
+        )
+
+        chunks = [
+            np.asarray(r.audio).reshape(-1)
+            for r in self._model.generate(**kwargs)
+            if getattr(r, "audio", None) is not None
+        ]
+        if not chunks:
+            raise RuntimeError("csm clone produced no audio")
+        wave_out = np.concatenate(chunks) if len(chunks) > 1 else chunks[0]
+        buf = io.BytesIO()
+        sf.write(buf, wave_out, int(self._model.sample_rate),
+                 format="WAV", subtype="PCM_16")
+        return buf.getvalue()
 
     async def synthesize(self, text: str) -> bytes:
+        text = normalize_for_speech(text)
         async with self._lock:
             if self._model is None:
                 self._model = await self._run(self._load)
@@ -327,10 +457,13 @@ class F5CloneBackend(_SingleThreadMlx, TTSBackend):
         return buf.getvalue()
 
     async def synthesize(self, text: str) -> bytes:
-        async with self._lock:
-            if self._model is None:
-                self._model = await self._run(self._load)
-            return await self._run(self._generate, text)
+        text = normalize_for_speech(text)
+        with tracing.span("tts.clone", kind="LLM",
+                          **{"careline.backend": "f5", "careline.chars": len(text)}):
+            async with self._lock:
+                if self._model is None:
+                    self._model = await self._run(self._load)
+                return await self._run(self._generate, text)
 
 
 class MagpieNimBackend(TTSBackend):
@@ -340,6 +473,7 @@ class MagpieNimBackend(TTSBackend):
     VOICE = os.environ.get("CARELINE_TTS_VOICE", "Magpie-Multilingual.EN-US.Female-1")
 
     async def synthesize(self, text: str) -> bytes:
+        text = normalize_for_speech(text)
         if not self.NIM_URL:
             raise RuntimeError("Set CARELINE_TTS_NIM_URL to the Magpie NIM endpoint")
         async with httpx.AsyncClient(timeout=60) as client:
@@ -356,7 +490,18 @@ def get_backend() -> TTSBackend:
 
 
 def get_clone_backend() -> TTSBackend:
-    """The "call yourself" voice. F5 by default -- see F5CloneBackend for the
-    measured reason it replaced CSM. Set CARELINE_CLONE_BACKEND=csm to A/B."""
-    choice = os.environ.get("CARELINE_CLONE_BACKEND", "f5")
-    return CsmCloneBackend() if choice == "csm" else F5CloneBackend()
+    """The "call yourself" voice.
+
+    CSM-1B via mlx-audio by default. The whole speech stack then runs on
+    mlx-audio -- Kokoro for the care voice, Whisper for capture, CSM for the
+    clone -- which keeps the demo on one PrismML-ecosystem library instead of
+    mixing in a second inference path for one backend.
+
+    F5 remains available (CARELINE_CLONE_BACKEND=f5) along with its fine-tuned
+    checkpoint. Its measured advantages are real and recorded in
+    F5CloneBackend: it preserved the reference pitch range where CSM compressed
+    it ~32%, and it is roughly 3x faster. Those are the costs of this choice,
+    not arguments against it -- so keep both paths working and A/B by ear.
+    """
+    choice = os.environ.get("CARELINE_CLONE_BACKEND", "csm")
+    return F5CloneBackend() if choice == "f5" else CsmCloneBackend()
