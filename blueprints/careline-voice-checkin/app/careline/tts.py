@@ -1,12 +1,15 @@
 """Voice synthesis behind a dependency-inverted seam.
 
-PLATFORM STRATEGY (2026-08-19): CareLine targets two accelerator ecosystems.
-Apple Metal (mlx-audio/MLX, Ollama) serves the consumer install base — which we
-expect to grow substantially over the next 9 months — and is where PrismML
-develops working demos. NVIDIA (NIM microservices) serves enterprise and the
-GB10 competition build. Callers depend only on TTSBackend; on Saturday
-(2026-08-22, AGI House hackathon) MagpieNimBackend is selected via
-CARELINE_TTS_BACKEND=nim with zero changes to the app or the browser client.
+PLATFORM STRATEGY: CareLine targets two accelerator ecosystems. Apple Metal
+(mlx-audio/MLX) serves the consumer install base and is the only configuration
+that has been measured. NVIDIA NIM microservices serve enterprise and
+data-centre hosts.
+
+Callers depend only on TTSBackend, so selecting MagpieNimBackend with
+CARELINE_TTS_BACKEND=nim moves synthesis to NVIDIA without touching the app or
+the browser client. That path is implemented but has never been run against a
+live NIM endpoint. The cloned-voice backends below are MLX-only and have no
+NVIDIA equivalent. See docs/reference/hardware-matrix.md.
 """
 
 import asyncio
@@ -467,7 +470,12 @@ class F5CloneBackend(_SingleThreadMlx, TTSBackend):
 
 
 class MagpieNimBackend(TTSBackend):
-    """NVIDIA path: Magpie TTS NIM on the GB10 (Saturday). Same seam, HTTP out."""
+    """NVIDIA path: Magpie TTS NIM over HTTP. Same seam as the Metal backends.
+
+    Implemented against the documented NIM request shape but never exercised
+    against a live endpoint. Raises rather than falling back so a partial
+    configuration fails loudly.
+    """
 
     NIM_URL = os.environ.get("CARELINE_TTS_NIM_URL", "")
     VOICE = os.environ.get("CARELINE_TTS_VOICE", "Magpie-Multilingual.EN-US.Female-1")

@@ -122,6 +122,40 @@ curl -fsS http://127.0.0.1:8787/api/status | python3 -m json.tool
 Confirm that the response reports a configured local model and a live Buzz
 relay. The exact trace counts and room counts can differ from the screenshots.
 
+## Bind the demo room
+
+The demo rooms are listed from the catalog, but each one needs its own Buzz
+channel before its workspace opens. On a fresh clone none are bound, and the
+room page shows "Opening workspace" indefinitely. Bind them once:
+
+```bash
+cd blueprints/deal-room-analyst/app
+python3 scripts/seed_fixture_room.py --all
+```
+
+Expected output, with one line per room:
+
+```text
+project_aeroflux_crossborder_ma: bound to channel <uuid> with 4 documents
+project_biovanguard_carveout: bound to channel <uuid> with 4 documents
+project_titan_lbo: bound to channel <uuid> with 4 documents
+sample_ma_acquisition: bound to channel <uuid> with 4 documents
+```
+
+The command is idempotent, so running it again reports the existing bindings
+instead of creating more channels. Confirm the binding with the workspace API
+rather than the page, because the room route returns the single-page shell and
+answers 200 even when nothing is bound:
+
+```bash
+curl -fsS 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo' \
+  | python3 -m json.tool | head -8
+```
+
+Expect `room_name`, `total_documents: 4`, and an empty `parse_warnings` list. An
+`{"error": "workspace_not_bound"}` response means the seeding step did not run
+in this application directory.
+
 ## Review Project Titan
 
 Open the canonical demo URL:

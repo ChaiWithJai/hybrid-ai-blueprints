@@ -180,13 +180,65 @@ password here can break the other repo's relay. Give each repo its own `name:`.
 
 ## Deal room
 
-**13. A registered fixture room has no workspace until its folder is opened.**
-`buzz.room_count: 0` in `/api/status` is the tell, and the page sits on
-"Opening workspace" forever. `ensure_room()` has exactly one caller —
-`/api/deal-room/open` — and it derives the id from the path:
-`local_<sha256(path)[:12]>`. So the canonical paths the fixture catalog
-advertises (`/rooms/project_titan_lbo`, also `DEFAULT_ROOM` in `server.py`)
-**can never be seeded**. Use the `local_<hash>` path the open call returns.
+**13. A fixture room is listed but has no workspace until a Buzz channel is
+bound to it, and `/rooms/<id>` returns 200 either way.**
+
+The four demo rooms in `DEAL_ROOM_CATALOG` appear in the room list immediately.
+That is only catalog metadata. Until a channel is bound, the browser sits on
+"Opening workspace" forever and the API says so plainly:
+
+```bash
+curl -s 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo'
+# {"error": "workspace_not_bound", "room": "project_titan_lbo"}
+```
+
+Three things make this hard to diagnose:
+
+*The page is not a check.* `GET /rooms/project_titan_lbo` returns the
+single-page shell and answers **200 whether or not anything is bound**. Curling
+the route proves the server is up and nothing else. Check
+`/api/workspace?room=<id>` instead.
+
+*Opening the folder produces a different room.* That path keys the room by the
+folder's absolute path, so the Titan fixture folder registers as
+`local_cedf07e82624`, not `project_titan_lbo`. You get a working room at a URL
+that no tutorial, screenshot manifest, or link mentions. Move the repository and
+the hash changes, which is why an older registration can linger under a second
+`local_` id after the application directory moves.
+
+*One channel cannot serve two rooms.* The server does try to bind the default
+room at startup:
+
+```python
+_demo_channel = PROJECT_ROOT / ".runtime" / "buzz" / "demo-channel-id"
+if _demo_channel.exists() and global_buzz.room(DEFAULT_ROOM) is None:
+    global_buzz.bind_existing_room(DEFAULT_ROOM, _demo_channel.read_text().strip())
+```
+
+but handing it a channel that already belongs to another room raises
+`BuzzUnavailable: Buzz room registry assigns one channel to multiple rooms`, and
+the `except BuzzUnavailable: pass` around that call swallows it. Startup stays
+silent and the room stays unbound. The invariant is correct — two rooms sharing
+one conversation would be worse — but reusing an existing channel is not the
+workaround it looks like.
+
+The fix is to give each fixture its own channel:
+
+```bash
+cd blueprints/deal-room-analyst/app
+python3 scripts/seed_fixture_room.py --all     # or: project_titan_lbo
+python3 scripts/seed_fixture_room.py --list    # show every fixture and its binding
+```
+
+That calls the same `BuzzBridge.ensure_room` the application uses, so the
+channel is created private, the agent identity is added as a `bot` member, and
+the initial canvas is written. It is idempotent. Verify with the workspace API:
+
+```bash
+curl -s 'http://127.0.0.1:8787/api/workspace?room=project_titan_lbo' \
+  | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["room_name"], d["total_documents"], "documents")'
+# Project Titan: $2.4B Sponsor-Backed LBO 4 documents
+```
 
 **14. Do not put a textual `@Bonsai` in a message.**
 buzz-cli parses `@handle` mentions from the body and resolves them against

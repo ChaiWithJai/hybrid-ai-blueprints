@@ -70,7 +70,11 @@ Every documentation change must pass:
 
 ```bash
 python3 tooling/documentation/validate_links.py
-python3 -m unittest tests.test_documentation_assets tests.test_platform_catalog
+cd blueprints/deal-room-analyst/app && python3 -m unittest tests.test_documentation_assets tests.test_platform_catalog
 ```
+
+The link validator runs from the repository root. The unit tests run from the
+blueprint application directory, because that is where `tests/` lives and there
+is no root test package.
 
 Run the full blueprint verification before a release claim.
