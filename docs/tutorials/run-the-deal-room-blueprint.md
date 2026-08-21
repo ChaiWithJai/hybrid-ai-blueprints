@@ -164,8 +164,25 @@ Open the canonical demo URL:
 http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass
 ```
 
-First, read the decision state and decision question on the Overview tab. The
-saved example is paused because the model draft did not pass the source rules.
+A newly bound room has no review yet, so the Overview tab opens on "What
+should the team decide?" with a prefilled decision focus. The screenshots in
+this tutorial show the state *after* a review, not the state you land on.
+
+First, run the review. Leave the prefilled decision focus as it is and select
+**Review deal room**. The button disables while the model works. On the
+measured host, with Bonsai 27B served by LM Studio, this took about 80 seconds
+for Titan's four documents. When it finishes, the Overview tab shows a decision
+status, the reason, the decision question, and the priority files to read next.
+
+The expected result is **Not Ready To Advance**, with "The automated review did
+not meet the source rules." The guard pausing the draft is the demonstration,
+not a failure: the model's first pass did not satisfy the source rules, so the
+product refuses to present it as a finished brief. A run that advanced without
+review would be the surprising outcome.
+
+The decision question is generated, so its wording can differ between runs. On
+the measured run it read: "Should Project Titan advance despite the mismatch
+between debt paydown and the Section 2.02 cash sweep terms?"
 
 Second, select a priority file to open the exact cited passage.
 

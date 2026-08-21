@@ -16,7 +16,7 @@ operator's disk and is gitignored (see [SECURITY.md](../../SECURITY.md)).
 | `uv` | dependency management |
 | `ffmpeg` | audio decode and segment extraction |
 | **`brew install espeak-ng`** | **required — see below** |
-| Ollama with `qwen2.5:7b` | the conversation LLM |
+| LM Studio serving Bonsai `4b`, `8b`, and `27b@q1_0` | the conversation LLM and post-call extraction |
 
 `scripts/preflight` checks all of these.
 
@@ -35,20 +35,51 @@ Kokoro — a system install does.
 
 ## Which model does the cloning
 
-`mode: "self"` uses **F5-TTS via MLX** (`F5CloneBackend`). It replaced CSM-1B,
-measured on the same reference and sentence:
+`mode: "self"` uses **CSM-1B via mlx-audio** (`CsmCloneBackend`), with
+**F5-TTS via MLX** kept available behind `CARELINE_CLONE_BACKEND=f5`.
+
+CSM is the default so the whole speech stack runs on one library: Kokoro for the
+care voice, Whisper for capture, CSM for the clone, all through mlx-audio. That
+is a demo and ecosystem decision, not a quality result. The measured comparison
+went the other way, on the same reference and sentence:
 
 | | pitch range (p10–p90) | speaker cosine | compute for ~4.5 s audio |
 |---|---|---|---|
-| your reference | 118 Hz | — | — |
-| **F5-TTS** | **130 Hz** | 0.93 | **~5 s** |
+| the reference recording | 118 Hz | — | — |
+| F5-TTS | **130 Hz** | 0.93 | **~5 s** |
 | CSM-1B | 80 Hz (**−32 %**) | 0.92 | ~16 s |
 
-Both reproduced *identity* equally well. What CSM degraded was **prosody**: it
-compressed the pitch range by a third, which is heard as flat and monotone. That
-is the reason for the swap — not similarity, which was already fine.
+Both reproduced *identity* about equally. What differed was **prosody**: CSM
+compressed the pitch range by roughly a third, which is heard as flat. Keep both
+paths working and choose by ear; `CsmCloneBackend`'s few-shot conditioning
+(below) exists to recover some of that range.
 
-Switch back for comparison with `CARELINE_CLONE_BACKEND=csm`.
+> **The honest state of this feature.** No configuration of either backend has
+> yet produced a clone the operator judged good enough to present as their own
+> voice. Automated similarity scores stayed in a narrow band across every
+> variant tried and selected nothing useful; each real decision came from
+> listening. Treat the numbers in this document as a record of what was
+> measured, not as evidence that the output is convincing. mlx-audio ships
+> further cloning backends (`chatterbox`, `chatterbox_turbo`, `higgs_audio_v3`,
+> `indextts`, `voxcpm2`) that have not been tried here and are the obvious next
+> step.
+
+### Few-shot conditioning (CSM only)
+
+CSM accepts a list of `Segment(speaker, text, audio)` examples as context, so it
+conditions on several clips rather than one. `CsmCloneBackend` assembles that
+context from the recorded corpus:
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `CARELINE_CLONE_CONTEXT_N` | `6` | how many clips to include |
+| `CARELINE_CLONE_CONTEXT_SECTIONS` | `A,B` | which corpus sections to draw from |
+| `CARELINE_CLONE_CONTEXT_MIN_S` | `2.0` | shortest clip admitted |
+| `CARELINE_CLONE_CONTEXT_MAX_S` | `4.0` | longest clip admitted |
+| `CARELINE_CLONE_CONTEXT_DIR` | corpus directory | where the clips live |
+
+Section C of the prompt list is phonetic-coverage material and is excluded by
+default: it reads as clipped and unnatural, which the model then imitates.
 
 ## Building a reference
 
@@ -128,16 +159,20 @@ references. The script prints the speaker's own session-to-session band
 Identity is not the whole story: CSM matched F5 on this metric while sounding
 clearly worse. Use it alongside listening, never instead of it.
 
-## Multiple references do not help
+## Concatenating references does not help (F5)
 
-Concatenating the top 3 segments into one reference was tested against the best
-single clip, 5 seeds each: **+0.003 (t = 0.34)** — indistinguishable from noise.
-F5 zero-shot conditions on *one* reference; concatenating does not weight
-examples, it just makes a longer clip.
+F5 conditions on **one** reference clip. Concatenating the top 3 segments into a
+single longer reference was tested against the best single clip, 5 seeds each:
+**+0.003 (t = 0.34)** — indistinguishable from noise. Concatenation does not
+weight examples, it just makes a longer clip.
 
 It did reduce *variance* (sd 0.006–0.012 vs 0.019, worst case 0.914 vs 0.892),
-so it buys consistency, not accuracy. Genuine multi-example weighting needs
-fine-tuning — see [Fine-tuning](#fine-tuning).
+so it buys consistency, not accuracy.
+
+This result is specific to F5. CSM takes genuinely separate examples through its
+`context` argument, which is a different mechanism — see
+[Few-shot conditioning](#few-shot-conditioning-csm-only). Weighting examples
+under F5 needs fine-tuning; see [Fine-tuning](#fine-tuning).
 
 ## Testing
 
@@ -184,10 +219,20 @@ curl -s -X POST http://127.0.0.1:8100/api/tts -H "Content-Type: application/json
 `scripts/record_voice_corpus.py` records a purpose-built one with exact
 transcripts.
 
-**A fine-tuned checkpoint now ships** (`voices/f5_finetuned.safetensors`), loaded
-as a `strict=False` overlay on the pretrained weights because it holds only the
-trainable parameters. Delete the file and the app falls back to zero-shot, which
-remains supported.
+**No checkpoint or reference audio ships with the repository.** The whole
+`app/voices/` directory is gitignored, because it holds reference recordings and
+those are biometric data (see [SECURITY.md](../../SECURITY.md)). A fresh clone
+has no `self_ref.wav`, no corpus, and no checkpoint, so `mode: "self"` has
+nothing to speak with until you record your own.
+
+What ships is the tooling: `scripts/record_voice_corpus.py` and its prompt list,
+`scripts/build_ft_dataset.py`, `scripts/finetune_guarded.py`,
+`scripts/generate_with_checkpoint.py`, and `scripts/eval_voice_similarity.py`.
+
+If a checkpoint is present at `voices/f5_finetuned.safetensors` it is loaded as a
+`strict=False` overlay on the pretrained weights, because it holds only the
+trainable parameters. Remove the file and the app falls back to zero-shot, which
+remains supported and is what a new operator gets first.
 
 ### What worked
 

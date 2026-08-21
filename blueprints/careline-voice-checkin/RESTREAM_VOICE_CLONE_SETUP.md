@@ -16,7 +16,7 @@ its own file**, named by participant:
 ```
 Jai Bhagat — Camera — Audio 1.m4a        <- one speaker, isolated
 Audio — Background Music — Audio 1.m4a   <- music on a separate track
-Jai & Keegan — Camera — Audio 1.m4a      <- MIXED, two speakers: unusable
+Jai & Guest — Camera — Audio 1.m4a      <- MIXED, two speakers: unusable
 ```
 
 This matters more than any processing step: it removes the need for speaker
@@ -26,7 +26,7 @@ clean.
 
 **Check the track names before trusting the file count.** A ZIP containing one
 file is not necessarily one speaker — a two-person episode produced a single
-`Jai & Keegan` track, which is a mix and cannot be used as a reference. Solo
+`Jai & Guest` track, which is a mix and cannot be used as a reference. Solo
 episodes are the reliable source.
 
 The plain **Audio (M4A)** download is the full mix; it is fine when the episode
