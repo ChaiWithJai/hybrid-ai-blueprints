@@ -13,18 +13,23 @@ The job and its guards are defined in the
 1. The call opens instantly: the greeting text and audio are precomputed while
    the page loads (measured start: 0.002–0.03 s).
 2. The caller speaks. Whisper transcribes on-device (~1 s warm).
-3. A deterministic scorer checks the utterance for decline signals. Routine
-   turns go to a fast 7B model (~0.6 s). The moment concern registers, a
-   27B-class model handles the delicate turns (5–9 s) — the by-stakes router.
-4. Replies are spoken sentence-by-sentence so the voice starts while later
-   sentences still synthesize.
-5. On hangup, the strong model extracts dated facts and a one-sentence care
-   summary. The next call references those facts by date.
+3. A deterministic scorer checks the utterance for decline signals, and the
+   score alone selects the tier — the by-stakes router. Routine turns go to
+   Bonsai 4B (~1.2 s). The moment concern registers, Bonsai 8B takes the
+   delicate turns (~1.9 s). Both are ternary and both run on-device.
+4. The reply is synthesised in one call. Splitting it per sentence was measured
+   slower for the same text (13.74 s against 5.53 s), because every fragment
+   repaid the model's fixed setup cost.
+5. On hangup, ternary Bonsai 27B extracts dated facts and a one-sentence care
+   summary. It reasons on every call and takes about 26 s, which is affordable
+   only because the caller has already hung up. The next call references those
+   facts by date.
 6. Concerning calls fire at most one alert per severity level to a webhook —
    the care contact's channel.
 
-A **"call yourself" mode** speaks in the operator's own cloned voice (F5-TTS via
-MLX, ~5 s per sentence) as a consented self-compassion ritual. Voice references
+A **"call yourself" mode** speaks in the operator's own cloned voice (CSM-1B via
+mlx-audio by default, with F5-TTS available) as a consented self-compassion
+ritual. Voice references
 are biometric data: they stay on the operator's disk and are never committed.
 Setup, reference selection, and troubleshooting:
 [VOICE_CLONE_SETUP.md](VOICE_CLONE_SETUP.md).
@@ -32,10 +37,17 @@ Setup, reference selection, and troubleshooting:
 ## Run it
 
 Requirements: macOS on Apple Silicon, `uv`, `ffmpeg`, **`espeak-ng`**
-(`brew install espeak-ng`), Ollama with `qwen2.5:7b`, and (optional, for strong
-turns) Ternary-Bonsai-27B — see the
-[Bonsai demo repository](https://github.com/PrismML-Eng/Bonsai-demo). The
-router falls back to the fast model when the strong endpoint is absent.
+(`brew install espeak-ng`), and a local OpenAI-compatible server holding three
+Bonsai tiers — `4b`, `8b`, and `27b@q1_0`. The measured configuration is LM
+Studio on `127.0.0.1:1234`; see the
+[Bonsai demo repository](https://github.com/PrismML-Eng/Bonsai-demo) for the
+weights. `scripts/preflight` checks each tier by name and reports which are
+missing. The router falls back to the fast tier if a stronger one does not
+answer, and the trace records the fallback rather than hiding it.
+
+Ternary quantization is what makes three tiers affordable at once: the four
+model files together are under 6 GB on disk. Footprints and memory sizing are in
+the [hardware matrix](../../docs/reference/hardware-matrix.md).
 
 `espeak-ng` is not optional: without it the first care-mode synthesis calls
 `exit()` in native code and takes the server process down with it. `scripts/run`

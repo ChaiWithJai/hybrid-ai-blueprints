@@ -1,9 +1,9 @@
 """Voice capture (speech-to-text) behind the same dependency-inverted seam as tts.py.
 
-Apple Metal path: Whisper via mlx-audio, in-process. NVIDIA path (Saturday,
-GB10): the Multilingual ASR NIM behind CARELINE_STT_NIM_URL. The browser
-records audio and POSTs it to /api/stt either way — the client never knows
-which accelerator transcribed it.
+Apple Metal path: Whisper via mlx-audio, in-process. This is the measured one.
+NVIDIA path: the Multilingual ASR NIM behind CARELINE_STT_NIM_URL, implemented
+but never run against a live endpoint. The browser records audio and POSTs it to
+/api/stt either way -- the client never knows which accelerator transcribed it.
 """
 
 import asyncio
