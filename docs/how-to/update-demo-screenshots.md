@@ -55,8 +55,8 @@ before or after the image.
 Run:
 
 ```bash
-python3 -m unittest tests.test_documentation_assets
 python3 tooling/documentation/validate_links.py
+cd blueprints/deal-room-analyst/app && python3 -m unittest tests.test_documentation_assets
 ```
 
 The asset test checks the required screenshot set, PNG headers, dimensions,

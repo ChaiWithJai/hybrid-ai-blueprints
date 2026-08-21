@@ -17,8 +17,9 @@ authorized M&A folder and prepares a source linked first pass underwriting
 brief that helps a deal professional decide whether to advance, pause, or stop
 review. It uses Bonsai 27B locally, document parsing and evidence retrieval,
 reproducible calculations, a shared Buzz workspace, and blind review with task
-specific evaluations. It runs on the shared runtime (`core/`, `server.py`,
-`packages/`).
+specific evaluations. Its application is stdlib-only Python, which is why it
+runs unchanged on any machine that can reach an OpenAI-compatible model
+endpoint.
 
 ![Project Titan deal room overview](docs/assets/screenshots/deal-room-overview.png)
 
@@ -28,10 +29,41 @@ because the model draft did not meet the source rules.
 **[CareLine voice check-in](blueprints/careline-voice-checkin/README.md)** runs
 a local voice check-in call that remembers earlier calls, detects decline
 signals with a deterministic scorer, and escalates concerning calls to a human
-care contact. It routes routine turns to a fast 7B model and delicate turns to
-Ternary-Bonsai-27B, speaks with on-device speech models, and includes a
-consented self-voice mode. It is self-contained per
+care contact. It routes routine turns to Bonsai 4B, turns where concern
+registers to Bonsai 8B, and post-call fact extraction to ternary Bonsai 27B. It
+speaks with on-device speech models and includes a consented self-voice mode. It
+is self-contained per
 [ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md).
+
+## Hardware
+
+The catalog targets local AI on consumer hardware first, then larger cloud
+machines. One host has been measured: an Apple M5 Pro with 48 GB of unified
+memory on macOS 26.5. Every number in this repository comes from it.
+
+| Blueprint | Apple Silicon | NVIDIA consumer | NVIDIA cloud (H100 class) |
+| --- | --- | --- | --- |
+| Deal room analyst | Verified | Expected, unverified. No scanned-PDF OCR | Expected, unverified. No scanned-PDF OCR |
+| CareLine voice check-in | Verified | Care mode: implemented via NVIDIA NIM, unverified. Cloned voice: no NVIDIA backend | Same as consumer |
+
+The deal room analyst is portable because its application imports only the
+Python standard library and reaches its model over HTTP, so moving hardware
+means pointing `PRISM_LOCAL_AI_URL` at a different OpenAI-compatible server.
+CareLine puts every model behind a backend seam, so its care-mode call path
+moves to NVIDIA NIM microservices through environment variables alone. Those
+NIM backends are written but have never been run against an endpoint. The
+cloned self-voice has no NVIDIA backend, because both cloning models are
+MLX-only.
+
+Ternary quantization is what puts a 27B model on a laptop. Bonsai 27B Q1_0 is
+3.54 GB on disk against 16.55 GB for a comparable non-ternary 27B at Q4_K_M.
+Weights are not the binding constraint, though: serving that model at a 262,144
+token context with four parallel slots held 21.9 GB of resident memory on the
+verified host.
+
+Read the [hardware matrix](docs/reference/hardware-matrix.md) for per-model
+footprints, memory sizing, the NVIDIA porting path, and what remains unmeasured
+on cloud hardware.
 
 ## Get started
 
@@ -45,7 +77,7 @@ cd hybrid-ai-blueprints
 Each blueprint ships its own host check and run commands.
 
 > **Read [GETTING_STARTED.md](GETTING_STARTED.md) first.** It records the
-> verified path from clone to two running blueprints, plus 25 footguns hit and
+> verified path from clone to two running blueprints, plus 28 footguns hit and
 > diagnosed on a real machine. Several of them fail in ways that look like
 > something else: a missing `espeak-ng` kills the server process rather than the
 > request, `uv sync` removes packages you installed by hand, silence gets
@@ -57,9 +89,14 @@ with Bonsai 27B loaded as `27b@q1_0`):
 ```bash
 blueprints/deal-room-analyst/scripts/preflight
 blueprints/deal-room-analyst/scripts/run
+
+# once, in another terminal: give each demo room its own Buzz channel
+cd blueprints/deal-room-analyst/app && python3 scripts/seed_fixture_room.py --all
 ```
 
-Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`. Project Titan
+Open `http://127.0.0.1:8787/rooms/project_titan_lbo/first-pass`. Without the
+seeding step the page waits on "Opening workspace", because a catalog room is
+listed before it has a workspace. Project Titan
 is synthetic. It demonstrates the workflow, but it does not provide accuracy or
 customer evidence. The
 [getting started tutorial](docs/tutorials/run-the-deal-room-blueprint.md)
@@ -68,7 +105,8 @@ troubleshooting. The [demo tour](docs/demo/README.md) explains each product
 view.
 
 **CareLine voice check-in** (verified setup: macOS on Apple Silicon, `uv`,
-`ffmpeg`, Ollama):
+`ffmpeg`, `espeak-ng`, and LM Studio serving Bonsai `4b`, `8b`, and
+`27b@q1_0`):
 
 ```bash
 blueprints/careline-voice-checkin/scripts/preflight
@@ -86,7 +124,6 @@ Catalog areas:
 | Area | Purpose |
 | --- | --- |
 | `CATALOG.yaml` | The canonical machine readable list of use cases and blueprints |
-| `blueprints/deal-room-analyst/app/` | The deal room application, its tests, and its fixtures |
 | `use-cases/` | Valuable jobs, users, tasks, and economic reasons |
 | `blueprints/` | Runnable agent systems with evaluations |
 | `models/` | Model cards and supported runtime profiles |
@@ -95,25 +132,20 @@ Catalog areas:
 | `tooling/` | Catalog and documentation validators |
 | `GETTING_STARTED.md` | Verified setup path and the footguns worth knowing first |
 | `docs/` | Tutorials, guides, concepts, reference, and decisions |
-| `evidence/` | Versioned test and release records |
+| `blueprints/<name>/app/evidence/` | Versioned test and release records |
 | `research/` | Source material that motivates use case selection |
 | `examples/` | Small integration examples |
 
-The deal room analyst predates the catalog, so its application still sits at
-the repository root instead of inside its blueprint directory:
+Both blueprints now keep their application inside their own directory, as
+[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md) requires:
 
 | Area | Purpose |
 | --- | --- |
-| `core/` | Deal room application modules |
-| `server.py`, `web/` | Deal room server and browser interface |
-| `deal_rooms/` | Deal room demo fixtures |
-| `benchmarks/`, `tests/`, `scripts/`, `tools/`, `prismctl/`, `infra/` | Deal room evaluations, tests, and operations |
+| `blueprints/<name>/app/` | The application, its tests, and its fixtures |
+| `blueprints/<name>/scripts/` | `preflight`, `run`, and `verify` wrappers |
 
-This layout is migration debt rather than a catalog convention. New blueprints
-keep their application inside their own directory, as
-`blueprints/careline-voice-checkin/` does.
-[ADR 0003](docs/ADR_0003_CATALOG_SCALING_PATTERN.md) records the target
-structure and the steps that move the deal room into it.
+Documentation under `docs/` that names a module path such as `core/first_pass.py`
+means a path relative to that blueprint's `app/` directory.
 
 ## Why the project evaluates agents
 

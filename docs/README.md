@@ -26,6 +26,7 @@ Start with the page that matches your task.
 - [Use case specification](reference/use-case-spec.md)
 - [Blueprint specification](reference/blueprint-spec.md)
 - [Evidence policy](reference/evidence-policy.md)
+- [Hardware matrix](reference/hardware-matrix.md)
 
 ## Review decisions and current evidence
 

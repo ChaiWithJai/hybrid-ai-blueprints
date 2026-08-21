@@ -70,7 +70,12 @@ class MlxWhisperBackend(_SingleThreadMlx, STTBackend):
 
 
 class NimAsrBackend(STTBackend):
-    """NVIDIA path: Multilingual ASR NIM on the GB10 (Saturday)."""
+    """NVIDIA path: Multilingual ASR NIM over HTTP.
+
+    Implemented against the documented NIM request shape but never exercised
+    against a live endpoint. Raises rather than falling back so a partial
+    configuration fails loudly.
+    """
 
     NIM_URL = os.environ.get("CARELINE_STT_NIM_URL", "")
 

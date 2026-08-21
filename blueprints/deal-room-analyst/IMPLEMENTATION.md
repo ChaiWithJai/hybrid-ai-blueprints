@@ -556,13 +556,18 @@ The current integration boundary is recorded in
 
 ## Run the product and tests
 
+Run these from `blueprints/deal-room-analyst/app/`:
+
 ```bash
-./prismctl serve --port 8080
-# Open http://127.0.0.1:8080
+./prismctl serve --port 8787
+# Open http://127.0.0.1:8787
 
 python3 -m unittest discover -s tests -v
 python3 scripts/verify_product.py --runtime baseline
 ```
+
+The blueprint wrappers `scripts/preflight`, `scripts/run`, and `scripts/verify`
+change into that directory for you and are the supported entry points.
 
 The managed development sandbox may forbid loopback socket binding; the live
 HTTP test reports a skip in that environment and must be run outside it before

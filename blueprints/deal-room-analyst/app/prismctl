@@ -199,7 +199,7 @@ def cmd_agent(args):
 
 
 def cmd_serve(args):
-    port = args.port or 8080
+    port = args.port or 8787
     print(f"\n[*] Starting Prism Vault local prototype on http://127.0.0.1:{port} ...")
     from server import run_server
     run_server(port=port)
@@ -298,7 +298,7 @@ def main():
 
     # serve
     p_serve = subparsers.add_parser("serve", help="Launch Buzz-Style Collaborative Web UI")
-    p_serve.add_argument("--port", type=int, default=8080, help="Port to listen on (default: 8080)")
+    p_serve.add_argument("--port", type=int, default=8787, help="Port to listen on (default: 8787)")
     p_serve.set_defaults(func=cmd_serve)
 
     p_benchmark = subparsers.add_parser("benchmark", help="Run reproducible deal-room reliability cases")
