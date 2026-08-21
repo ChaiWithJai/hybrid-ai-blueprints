@@ -156,6 +156,23 @@ measured on each configuration:
 On NVIDIA consumer cards the same table applies to VRAM, with the caveat that
 Apple unified memory is shared with the operating system while VRAM is not.
 
+## Unified-memory NVIDIA boxes
+
+Between a consumer card and a data-centre card sits a class of machine with
+large unified memory rather than discrete VRAM: GB10-based systems such as DGX
+Spark, quoted at 128 GB. That class matters for this catalog because it removes
+the constraint that shapes the tables above — a 27B model, three tiers loaded at
+once, and the speech stack all fit without competing for a 24 GB card.
+
+CareLine's implementation notes name a GB10-class box as the intended
+enterprise-edge target, and the NIM backends were written for it. Nothing has
+been run on one. Treat every row above as unchanged: implemented, unverified.
+
+The reason to record the class separately is that its memory behaviour resembles
+Apple Silicon more than it resembles a discrete GPU. The sizing advice in
+[Sizing memory](#sizing-memory) transfers; the advice to keep weights under a
+fixed VRAM ceiling does not.
+
 ## Serving the model on NVIDIA
 
 The application code needs no change. Point it at a different endpoint:

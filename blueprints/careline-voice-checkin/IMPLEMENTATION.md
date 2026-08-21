@@ -1,13 +1,21 @@
 # CareLine implementation record
 
-**Date:** 2026-08-19 · **Hardware:** MacBook Pro M4 Pro, 24 GB unified memory ·
-**Context:** prototype rig for the GB10 hackathon (2026-08-22, AGI House), and
-the first self-contained consumer-edge blueprint in this catalog.
+**Started:** 2026-08-19 · **Last measured:** 2026-08-21 ·
+**Context:** the first self-contained consumer-edge blueprint in this catalog.
 
-Every latency claim below reproduces on the stated hardware with
-`scripts/preflight`, `scripts/run`, and `scripts/verify`; the engineering
-findings record what those numbers cost to obtain. This is a development
-record, not release evidence (see `evals/benchmark.yaml` for release state).
+This is a running development record, not release evidence (see
+`evals/benchmark.yaml` for release state). It spans two hosts, and each figure
+belongs to the one it was taken on:
+
+| Recorded | Host |
+| --- | --- |
+| 2026-08-19, the original prototype numbers | MacBook Pro M4 Pro, 24 GB unified memory |
+| 2026-08-21, the three-tier Bonsai runtime, tracing, and voice work | Apple M5 Pro, 48 GB unified memory, macOS 26.5 |
+
+Latency claims reproduce on their stated host with `scripts/preflight`,
+`scripts/run`, and `scripts/verify`. The engineering findings record what those
+numbers cost to obtain. Per-accelerator support is in the
+[hardware matrix](../../docs/reference/hardware-matrix.md).
 
 ## What it is
 
@@ -19,14 +27,15 @@ cloning, memory. No audio or text ever leaves the machine.
 
 Core loop: call → transcript → fact extraction → SQLite memory → next call
 references it ("you mentioned Emily's recital on Saturday") → keyword/threshold
-decline detection → escalation webhook (OpenClaw/Telegram gateway on the GB10).
+decline detection → escalation webhook (a messaging gateway in deployment).
 
 ## The stack, and the seams that make it hybrid
 
-| Slot | Consumer edge (this machine) | Enterprise edge (GB10, Saturday) | Seam |
+| Slot | Consumer edge (Apple Metal) | Enterprise edge (NVIDIA NIM) | Seam |
 |---|---|---|---|
-| Fast LLM (routine turns) | Qwen2.5-7B, Ollama, Metal | Nemotron Nano 30B A3B NIM | `CARELINE_LLM_BASE_URL` (OpenAI-compat) |
-| Strong LLM (concern + extraction) | **Ternary-Bonsai-27B** (~1.7 bpw), PrismML llama.cpp fork | same model, CUDA build | `CARELINE_LLM_STRONG_BASE_URL` |
+| Routine turns | **Bonsai 4B** ternary, LM Studio | any OpenAI-compatible endpoint | `CARELINE_LLM_BASE_URL` |
+| Concerning turns | **Bonsai 8B** ternary, LM Studio | any OpenAI-compatible endpoint | `CARELINE_LLM_STRONG_BASE_URL` |
+| Post-call extraction | **Bonsai 27B** ternary (~1.7 bpw) | same model, CUDA build | `CARELINE_LLM_EXTRACT_BASE_URL` |
 | TTS | Kokoro-82M via mlx-audio | Magpie TTS NIM | `tts.TTSBackend` / `CARELINE_TTS_BACKEND` |
 | Voice clone | CSM-1B via mlx-audio (`ref_audio`) | (same, CUDA) | `tts.CsmCloneBackend` |
 | STT | Whisper large-v3-turbo via mlx-audio | Multilingual ASR NIM | `stt.STTBackend` / `CARELINE_STT_BACKEND` |
@@ -123,11 +132,14 @@ kernels, and mlx-audio gives TTS/STT/cloning in one package. This is the
 fastest-growing install base for local AI, and it's where privacy-sensitive
 consumer products (voice, health, memory) should demo.
 
-**NVIDIA (Saturday):** the GB10's 128 GB and NVFP4 run the enterprise version
-of the same architecture — NIM microservices for LLM/ASR/TTS, OpenShell
-sandboxing, OpenClaw escalation — under competition constraints. Bonsai's fork
-ships CUDA kernels too (third parties already benchmark 1.76× on H100), so
-even the strong model can stay identical across tiers.
+**NVIDIA:** the same architecture is meant to run on NIM microservices for
+LLM, ASR, and TTS. A GB10-class box (128 GB unified memory, NVFP4) is the
+intended enterprise-edge target, and Bonsai's fork ships CUDA kernels, so the
+model can stay identical across tiers rather than being swapped for a different
+one. None of this has been run: the NIM backends exist in `tts.py` and `stt.py`
+and have never been pointed at a live endpoint. See the
+[hardware matrix](../../docs/reference/hardware-matrix.md) for what is verified
+against what is only implemented.
 
 Because every seam is an interface, the tier flip is:
 `CARELINE_LLM_BASE_URL`, `CARELINE_LLM_STRONG_BASE_URL`,

@@ -1,60 +1,40 @@
-# CareLine — eldercare voice check-in agent (Mac prototype)
+# CareLine application
 
-B2B wellness check-in agent for home-health / senior-living care teams. This is
-the **M4 Pro prototype rig** for the GB10 hackathon (2026-08-22): it proves the
-logic loop — scripted call → transcript → memory write → next call references
-it → decline detection → escalation alert — with Mac-friendly component swaps.
-It is **not** the submission; the submission runs the NIM blueprint stack on the
-GB10 with OpenShell (sandbox) + OpenClaw (escalation gateway).
+This is the application directory. The reader-facing documentation is one level
+up and should be read first:
 
-> Note: this project lives in `~/projects/careline` (NOT `~/Documents`) because
-> a broken file-sync provider on this machine hangs reads under
-> `~/Documents/qedc` — see `brctl status` (blocked-app-uninstalled).
+- [Blueprint README](../README.md) — what the agent does, the routes, the
+  measured limits, tracing and evaluation.
+- [VOICE_CLONE_SETUP.md](../VOICE_CLONE_SETUP.md) — the cloned "call yourself"
+  voice, and fine-tuning.
+- [IMPLEMENTATION.md](../IMPLEMENTATION.md) — engineering findings and latency
+  tables.
+- [Hardware matrix](../../../docs/reference/hardware-matrix.md) — which
+  accelerators each route runs on.
 
-## Platform strategy — dependency inversion at the voice seam
+This page covers only what a developer working inside `app/` needs.
 
-CareLine runs on two accelerator ecosystems on purpose: **Apple Metal**
-(mlx-audio/MLX + Ollama) for the consumer base — which we expect to grow
-substantially over the next 9 months, and where PrismML builds working demos —
-and **NVIDIA** (NIM microservices) for enterprise and the GB10 competition
-build. Every hardware-touching capability sits behind an interface
-(`tts.TTSBackend`, the OpenAI-compatible LLM client): the app and browser code
-depend on the abstraction, never the vendor. Saturday (2026-08-22, AGI House
-hackathon w/ LM Studio ecosystem) we flip `CARELINE_TTS_BACKEND=nim` +
-`CARELINE_LLM_BASE_URL=<NIM>` and the same app runs under competition
-constraints on the GB10.
+## Run
 
-Bonsai models (imported from local GGUFs, `bonsai-8b` in Ollama) are part of
-the ecosystem story (Prince Canuma, mlx-audio's author, is a strong community
-user) and are used as **super-scoped coding subagents** for MLX/NVIDIA snippet
-tasks: one small function per prompt, always reviewed — they produce subtle
-bugs (off-by-one clipping, duplicated tokens) when asked to reason at length.
-
-## Component map
-
-| Slot | GB10 (submission) | This prototype |
-|---|---|---|
-| LLM | Nemotron 3 Nano 30B A3B (NIM, NVFP4) | Qwen2.5-7B via Ollama (native, Metal) |
-| ASR | Multilingual ASR NIM | Browser Web Speech API (→ MLX Whisper next) |
-| TTS | Magpie TTS NIM (`CARELINE_TTS_BACKEND=nim`) | Kokoro-82M via mlx-audio on Metal (default) |
-| Memory | mem0/Letta | SQLite (`careline.db`), same fact-per-call shape |
-| Escalation | OpenClaw → Telegram | Alert log + optional `CARELINE_ALERT_WEBHOOK` |
-| Sandbox | OpenShell | n/a on Mac |
-
-## Run (native, fastest for dev)
+Use the blueprint wrappers rather than starting uvicorn by hand. They check the
+host first and export the environment the speech stack needs, including
+`ESPEAK_DATA_PATH`, without which care-mode synthesis kills the server process:
 
 ```bash
-ollama pull qwen2.5:7b          # once
+../scripts/preflight
+../scripts/run
+open http://localhost:8100
+```
+
+Running the module directly works for iteration once preflight passes:
+
+```bash
 uv sync
 uv run uvicorn careline.main:app --port 8100
-open http://localhost:8100      # care-team console UI
 ```
 
-## Run (Docker parity — orchestration only, models stay native)
-
-```bash
-docker compose up --build
-```
+`docker-compose.yml` builds the server for orchestration parity only. Models
+stay native, because MLX needs direct access to Metal.
 
 ## End-to-end proof
 
@@ -64,16 +44,46 @@ With the server running:
 uv run python scripts/demo_run.py
 ```
 
-Runs three synthetic Dorothy calls (no real PHI): a fine baseline call, a
-recall call where the agent should mention the recital from call 1, and a
-decline scenario that must fire exactly one escalation alert. Also asserts the
-first-call greeting invents no shared history and healthy calls stay
-alert-free. Exits non-zero on any failure.
+Three synthetic Dorothy calls, no real personal health information: a baseline
+call, a recall call where the agent must reference the recital from call 1
+unprompted, and a decline scenario that must fire exactly one escalation alert.
+It also asserts the first-call greeting invents no shared history and that
+healthy calls stay alert-free. Exits non-zero on any failure.
 
-## Env
+That last assertion exists because the agent did invent shared history on a
+first call, and every automated evaluator passed the run anyway.
 
-- `CARELINE_LLM_BASE_URL` (default `http://localhost:11434/v1`) — any OpenAI-compatible endpoint; point at the Nemotron NIM on the GB10.
-- `CARELINE_LLM_MODEL` (default `qwen2.5:7b`)
-- `CARELINE_ALERT_WEBHOOK` — optional POST sink for alerts (OpenClaw/Telegram stand-in)
-- `CARELINE_ALERT_THRESHOLD` (default 3)
-- `CARELINE_DB` — SQLite path
+## Layout
+
+| Path | Contents |
+| --- | --- |
+| `careline/` | the application: `main.py` routes, `agent.py` call loop, `llm.py` tiers, `tts.py`, `stt.py`, `memory.py`, `tracing.py` |
+| `scripts/` | demo, corpus recording, dataset build, fine-tuning, checkpoint generation, similarity scoring, trace evaluation |
+| `scripts/voice_corpus/` | the prompt list used to record a reference corpus |
+| `web/` | browser client |
+| `voices/` | reference audio and checkpoints. Gitignored: biometric data |
+| `results*/` | training checkpoints. Gitignored: hundreds of megabytes each |
+
+## Environment
+
+Model tiers, speech backends, and tracing variables are documented in the
+[blueprint README](../README.md). The rest:
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `CARELINE_ALERT_THRESHOLD` | `3` | concern score at which an alert fires |
+| `CARELINE_ALERT_WEBHOOK` | unset | optional POST sink for alerts |
+| `CARELINE_DB` | `careline.db` beside this directory | SQLite path |
+| `CARELINE_TTS_MODEL` | `mlx-community/Kokoro-82M-bf16` | care-voice model |
+
+## Dependencies
+
+`scripts/run` calls `uv sync`, which removes anything not declared in
+`pyproject.toml`. Installing a package by hand and then running the server will
+uninstall it, and the failure surfaces later as an HTTP 503 from a backend that
+imported fine a moment earlier. Declare new runtime dependencies in
+`pyproject.toml`.
+
+Training dependencies are deliberately kept in a separate virtual environment
+outside this directory for the same reason; see
+[VOICE_CLONE_SETUP.md](../VOICE_CLONE_SETUP.md#fine-tuning).
