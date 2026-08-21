@@ -30,7 +30,7 @@ Then, always:
 
 ```bash
 blueprints/careline-voice-checkin/scripts/preflight   # voice blueprint
-python3 scripts/preflight.py --phase host             # deal room
+blueprints/deal-room-analyst/scripts/preflight        # deal room
 ```
 
 Preflight is the fastest way to find a missing prerequisite. Both fail loudly
@@ -122,6 +122,24 @@ install "worked". Declare dependencies in the manifest. This bit twice: once for
 **4. Training dependencies live in a separate venv on purpose.**
 Because of footgun 3, fine-tuning deps are installed in `~/careline-ft/.venv`,
 not the app venv, so the app's `uv sync` cannot strip them.
+
+**4b. The deal room preflight's one WARN is expected, and is about provenance.**
+`benchmark_deployment_metadata: optional_missing` means the run will not be able
+to say which hardware and runtime served it. Nothing is broken and the required
+checks still pass. Set them before any measurement you intend to compare against
+another machine:
+
+```bash
+export PRISM_LOCAL_AI_HARDWARE=apple-m5-pro-48gb
+export PRISM_LOCAL_AI_RUNTIME=llama.cpp
+export PRISM_LOCAL_AI_RUNTIME_VERSION=<version>
+export PRISM_LOCAL_AI_CONTEXT_TOKENS=16384
+```
+
+`core/ai_provider.py` copies these into the deployment evidence attached to each
+response. Unset, they record as null and a local-versus-cloud comparison has no
+hardware label to join on. Full list in the
+[hardware matrix](docs/reference/hardware-matrix.md#recording-which-hardware-served-a-response).
 
 ## Memory, on a machine with no swap
 
@@ -317,8 +335,11 @@ memory. Absence of a check is not evidence of correctness.
 invalidates it.** Room ids are `local_<sha256(absolute folder path)[:12]>`. After
 the application moved, the existing room resolved to a folder that no longer
 existed and every `ask_bonsai` message returned 409
-`deal_room_source_unavailable: folder does not exist`. Re-run preview + open
-against the new path; the room gets a new id.
+`deal_room_source_unavailable: folder does not exist`. For a folder you opened
+yourself, re-run preview and open against the new path; the room gets a new id,
+and the stale one lingers in the registry. For a catalog fixture, use
+`app/scripts/seed_fixture_room.py` instead — it binds the fixture's own id, which
+does not move when the folder does. See footgun 13.
 
 **27. `.runtime/` must move with the application, or Buzz regenerates its
 secrets.** `scripts/buzz_up.py` derives its root from
