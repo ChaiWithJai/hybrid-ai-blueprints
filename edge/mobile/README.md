@@ -76,6 +76,29 @@ Live verdicts are recorded findings, not required gates: a live "kill" is
 the capability envelope talking (see each `evidence/*-live.json`), and the
 committed evidence preserves exactly what the model did.
 
+## The Flutter build (Awaaz, for real)
+
+[`bonsai_edge_flutter/`](bonsai_edge_flutter/) is the Flutter sprint's
+output: Awaaz as one Dart codebase for web/Android/iOS/macOS — animated
+onboarding (family, language, elder mode), **real microphone recording**
+with a live amplitude waveform, real playback and TTS read-aloud, the
+grounding guard ported to Dart, live Bonsai 1.7b when LM Studio is up,
+and a queue that survives restarts. 15 tests (`flutter test`), including
+regression contracts from the design review. Run it:
+
+```bash
+cd bonsai_edge_flutter && flutter run -d web-server
+# or serve the committed-ready release: flutter build web --release
+```
+
+Native builds compile once Xcode / the Android SDK land (ADR 0004
+addendum); the web device runs today.
+
+[`bonsai_edge_pod/`](bonsai_edge_pod/) is the Serverpod backend, running:
+the VoiceNote sync model migrated into postgres (Docker compose, dev
+ports 9432/9379), upload + delta-fetch endpoints, and an end-to-end proof
+via the generated client (`bonsai_edge_pod_client/bin/prove_sync.dart`).
+
 ## The Serverpod productization path
 
 ```bash

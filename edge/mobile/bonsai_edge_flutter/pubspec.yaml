@@ -1,0 +1,25 @@
+name: bonsai_edge
+description: "Awaaz — family voices, kept close. The Flutter build of the edge/mobile keeps, on-device-AI-first and offline-first."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0
+  record: ^6.1.2
+  audioplayers: ^6.1.0
+  flutter_tts: ^4.2.0
+  shared_preferences: ^2.3.0
+  flutter_svg: ^2.0.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

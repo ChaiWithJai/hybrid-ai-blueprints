@@ -1,0 +1,15 @@
+# The boilerplate's flagship model (edge/mobile/boilerplate/README.md),
+# realized. Transcripts and summaries stay on-device by design — the
+# server carries metadata and the (later, encrypted) blob reference only.
+class: VoiceNote
+table: voice_note
+fields:
+  familyId: int
+  senderName: String
+  audioRef: String
+  lang: String
+  durationMs: int
+  receivedAt: DateTime
+indexes:
+  voice_note_family_received_idx:
+    fields: familyId, receivedAt

@@ -36,3 +36,18 @@ bootstrap and tmux cockpit remain the on-ramp once the toolchain lands.
   offline-state semantics already proven here.
 - Cost: nothing here exercises Dart codegen, real websockets, or mobile
   packaging — those risks stay open until the Serverpod path is built.
+
+## Addendum (same day)
+
+The Serverpod path stopped being hypothetical hours later: Flutter 3.47.2
+and serverpod_cli 3.4.13 were installed, `edge/mobile/bonsai_edge_flutter`
+now holds the real Flutter build of Awaaz (15 tests green, web release
+built and rendered; only the web platform directory is committed —
+android/ios/macos scaffolds are generator output that regenerates with
+one command and cannot build on this host, so they stay out of git until
+a native toolchain lands), and `edge/mobile/bonsai_edge_pod` is a
+running Serverpod project — VoiceNote model migrated into postgres via
+Docker, and the generated Dart client proven with a live upload +
+delta-fetch round trip (`bonsai_edge_pod_client/bin/prove_sync.dart`).
+The Python demos remain the fastest evidence loop; the decision's
+consequences section stands.

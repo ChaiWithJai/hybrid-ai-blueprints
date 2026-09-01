@@ -1,0 +1,12 @@
+name: _
+publish_to: none
+
+environment:
+  sdk: '^3.8.0'
+
+# The generated sample Flutter app was removed — the real app lives at
+# ../bonsai_edge_flutter and consumes bonsai_edge_pod_client directly.
+workspace:
+  - bonsai_edge_pod_client
+  - bonsai_edge_pod_server
+
