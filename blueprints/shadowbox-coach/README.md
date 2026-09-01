@@ -129,9 +129,16 @@ sweep tunes the detector to *your* body and camera.
 node check.mjs   # unit tests + eval suite against hard thresholds
 ```
 
-Gates: F1 ≥ 0.985, ≤ 2 missed punches, ≤ 8 phantoms, ≤ 80 ms impact latency.
-`.github/workflows/shadowbox-eval.yml` runs this on every PR touching the
-blueprint — a threshold "fix" can never silently regress detection again.
+Gates: F1 ≥ 0.99, ≤ 3 missed punches, ≤ 4 phantoms, ≤ 80 ms impact latency.
+The ready-made workflow lives at `ci/shadowbox-eval.yml`; activate it with
+
+```bash
+git mv blueprints/shadowbox-coach/ci/shadowbox-eval.yml .github/workflows/
+```
+
+(pushing workflow files needs `gh auth refresh -s workflow` once). It then runs
+the gate on every PR touching the blueprint — a threshold "fix" can never
+silently regress detection again.
 
 ## Eval environment on Arize Phoenix
 
