@@ -16,6 +16,25 @@ const stats = { total: 0, JAB: 0, CROSS: 0, HOOK: 0, UPPERCUT: 0, peakSpeed: 0 }
 const punchLog = []; // {t, type, hand, speed} — feeds PPM + the coach
 let roundNum = 1, roundLeft = ROUND_SEC, resting = false, ticking = null;
 
+// CompuBox convention: jabs vs power (everything that isn't the lead straight)
+const power = (s) => s.CROSS + s.HOOK + s.UPPERCUT;
+let roundStart = { ...stats };
+const roundHistory = []; // {round, thrown, jabs, power}
+
+function closeRound() {
+  roundHistory.push({
+    round: roundNum,
+    thrown: stats.total - roundStart.total,
+    jabs: stats.JAB - roundStart.JAB,
+    power: power(stats) - power(roundStart),
+  });
+  const panel = $("rounds-panel");
+  panel.hidden = false;
+  panel.querySelector("tbody").innerHTML = roundHistory
+    .map((r) => `<tr><td>${r.round}</td><td>${r.thrown}</td><td>${r.jabs}</td><td>${r.power}</td></tr>`)
+    .join("");
+}
+
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
 const smoother = new LandmarkSmoother();
 
@@ -92,6 +111,7 @@ function recordPunch(ev, now) {
   $("stat-cross").textContent = stats.CROSS;
   $("stat-hook").textContent = stats.HOOK;
   $("stat-uppercut").textContent = stats.UPPERCUT;
+  $("stat-power").textContent = power(stats);
   $("stat-speed").innerHTML = `${stats.peakSpeed.toFixed(1)}<small>sw/s</small>`;
   flash.textContent = ev.type === "JAB" || ev.type === "CROSS" ? ev.type : `${ev.hand} ${ev.type}`;
   flash.classList.remove("pop");
@@ -150,8 +170,8 @@ $("btn-start").addEventListener("click", () => {
   ticking = setInterval(() => {
     roundLeft--;
     if (roundLeft <= 0) {
-      if (resting) { resting = false; roundNum++; roundLeft = ROUND_SEC; }
-      else { resting = true; roundLeft = REST_SEC; askCoach(); }
+      if (resting) { resting = false; roundNum++; roundLeft = ROUND_SEC; roundStart = { ...stats }; }
+      else { resting = true; roundLeft = REST_SEC; closeRound(); askCoach(); }
     }
     renderClock();
   }, 1000);
@@ -159,6 +179,13 @@ $("btn-start").addEventListener("click", () => {
 $("btn-reset").addEventListener("click", () => {
   clearInterval(ticking); ticking = null; $("btn-start").textContent = "START";
   roundNum = 1; roundLeft = ROUND_SEC; resting = false;
+  Object.assign(stats, { total: 0, JAB: 0, CROSS: 0, HOOK: 0, UPPERCUT: 0, peakSpeed: 0 });
+  punchLog.length = 0;
+  roundHistory.length = 0;
+  roundStart = { ...stats };
+  $("rounds-panel").hidden = true;
+  for (const id of ["stat-total", "stat-jab", "stat-cross", "stat-hook", "stat-uppercut", "stat-power", "stat-ppm"]) $(id).textContent = "0";
+  $("stat-speed").innerHTML = `0<small>sw/s</small>`;
   renderClock();
 });
 renderClock();
@@ -186,7 +213,9 @@ function roundSummary() {
   return {
     round: roundNum,
     total: stats.total,
-    jabs: stats.JAB, crosses: stats.CROSS, hooks: stats.HOOK, uppercuts: stats.UPPERCUT,
+    jabs: stats.JAB, power_punches: power(stats),
+    crosses: stats.CROSS, hooks: stats.HOOK, uppercuts: stats.UPPERCUT,
+    rounds: roundHistory,
     punches_per_min: Number($("stat-ppm").textContent),
     fastest_hand_sw_per_s: Number(stats.peakSpeed.toFixed(1)),
     last_sequence: last.map((p) => p.type).join(" "),

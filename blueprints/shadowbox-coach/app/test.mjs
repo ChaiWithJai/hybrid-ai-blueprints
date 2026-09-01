@@ -1,42 +1,90 @@
-// Unit test for the punch state machine: run the synthetic sparring partner
-// through the same pipeline the app uses and check the count and types.
+// Unit tests for the punch state machine. Run: node test.mjs
 //
-//   node test.mjs
+// 1. Synthetic combo: 5 cycles of jab/cross/hook/uppercut — exact count,
+//    exact type sequence, AND CompuBox-grade timing: every punch must score
+//    within 150 ms of true peak extension (impact), not on return to guard.
+// 2. Double jab: two jabs with only a half retraction between them — the
+//    re-arm path must catch both.
 //
 import { L, HandTracker, LandmarkSmoother, SYNTH, syntheticFrame } from "./punch.js";
 
-const CYCLES = 5;
 const FPS = 60;
-const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
-const smoother = new LandmarkSmoother();
-const events = [];
+let failed = false;
 
-const totalMs = CYCLES * SYNTH.cycleMs;
-for (let t = 0; t <= totalMs; t += 1000 / FPS) {
-  const lm = smoother.update(syntheticFrame(t));
-  const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
-  const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
-  for (const [hand, wi, si] of [["L", L.L_WRIST, L.L_SHOULDER], ["R", L.R_WRIST, L.R_SHOULDER]]) {
-    const ev = hands[hand].update(lm.get(wi), lm.get(si), sw, t);
-    if (ev) events.push(ev);
+function runFeed(frameFn, totalMs) {
+  const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
+  const smoother = new LandmarkSmoother();
+  const events = [];
+  for (let t = 0; t <= totalMs; t += 1000 / FPS) {
+    const lm = smoother.update(frameFn(t));
+    const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
+    const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
+    for (const [hand, wi, si] of [["L", L.L_WRIST, L.L_SHOULDER], ["R", L.R_WRIST, L.R_SHOULDER]]) {
+      const ev = hands[hand].update(lm.get(wi), lm.get(si), sw, t);
+      if (ev) events.push({ t, ...ev });
+    }
   }
+  return events;
 }
 
-const expected = [];
-for (let c = 0; c < CYCLES; c++) for (const p of SYNTH.combo) expected.push(p.type);
-const got = events.map((e) => e.type);
-
-const counts = {};
-for (const e of events) counts[e.type] = (counts[e.type] || 0) + 1;
-console.log(`events: ${got.length} (expected ${expected.length})`);
-console.log("counts:", counts);
-console.log("speeds:", events.slice(0, 4).map((e) => e.speed.toFixed(1)).join(" "), "sw/s");
-
-let ok = got.length === expected.length && got.every((t, i) => t === expected[i]);
-if (!ok) {
-  console.error("MISMATCH");
-  console.error("expected:", expected.join(" "));
-  console.error("got:     ", got.join(" "));
-  process.exit(1);
+function check(name, cond, detail) {
+  if (!cond) { failed = true; console.error(`FAIL ${name}: ${detail}`); }
+  else console.log(`ok   ${name}`);
 }
-console.log("OK — every synthetic punch counted and classified correctly");
+
+// ---- 1. combo cycles + impact latency ----
+{
+  const CYCLES = 5;
+  const slotMs = SYNTH.punchMs + SYNTH.gapMs;
+  const events = runFeed(syntheticFrame, CYCLES * SYNTH.cycleMs);
+
+  const expected = [];
+  for (let c = 0; c < CYCLES; c++) for (const p of SYNTH.combo) expected.push(p.type);
+  const got = events.map((e) => e.type);
+  check("combo count", got.length === expected.length, `${got.length} events, expected ${expected.length}`);
+  check("combo types", got.every((t, i) => t === expected[i]),
+    `expected ${expected.join(" ")}, got ${got.join(" ")}`);
+
+  const latencies = events.map((e, i) => {
+    const truePeak = i * slotMs + SYNTH.punchMs / 2; // triangle wave peaks mid-window
+    return e.t - truePeak;
+  });
+  const worst = Math.max(...latencies.map(Math.abs));
+  console.log(`     impact latency: avg ${(latencies.reduce((a, b) => a + b, 0) / latencies.length).toFixed(0)}ms, worst ${worst.toFixed(0)}ms`);
+  check("scores at impact", latencies.every((l) => l >= 0 && l <= 150),
+    `latencies ${latencies.map((l) => l.toFixed(0)).join(" ")}ms — must be 0..150ms after peak`);
+}
+
+// ---- 2. double jab off a half retraction ----
+{
+  const d = SYNTH.combo[0].d; // jab delta
+  const guard = { x: 0.60, y: 0.30, z: -0.05 };
+  // extension fraction k over time: full, back to 0.7, full again, home
+  const keys = [[0, 0], [150, 1], [280, 0.7], [380, 1], [600, 0], [900, 0]];
+  const kAt = (t) => {
+    for (let i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) {
+        const [t0, k0] = keys[i - 1], [t1, k1] = keys[i];
+        return k0 + (k1 - k0) * ((t - t0) / (t1 - t0));
+      }
+    }
+    return 0;
+  };
+  const frameFn = (t) => {
+    const lm = syntheticFrame(SYNTH.punchMs + 1); // any frame with both hands in guard
+    const k = kAt(t);
+    lm[L.L_WRIST] = {
+      x: guard.x + d.x * SYNTH.sw * k,
+      y: guard.y + d.y * SYNTH.sw * k,
+      z: guard.z + d.z * SYNTH.sw * k,
+    };
+    lm[L.R_WRIST] = { x: 0.40, y: 0.30, z: -0.05 };
+    return lm;
+  };
+  const events = runFeed(frameFn, 900);
+  check("double jab", events.length === 2 && events.every((e) => e.type === "JAB"),
+    `expected JAB JAB, got ${events.map((e) => e.type).join(" ") || "(none)"}`);
+}
+
+if (failed) process.exit(1);
+console.log("OK — scored at impact, double jabs included");

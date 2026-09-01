@@ -12,7 +12,8 @@ no stats, and no audio ever leave the machine.
 ## What it does
 
 - Live skeleton overlay on your webcam feed (mirrored, selfie-style)
-- Counts punches and classifies them: **jab, cross, hook, uppercut**
+- Counts punches **at the moment of impact** and classifies them: **jab, cross, hook, uppercut**
+- CompuBox-style scorecard: jabs vs power punches, plus a round-by-round table
 - Punches-per-minute, fastest-hand speed (in shoulder-widths/sec — scale-invariant)
 - 3:00 round / 1:00 rest timer; the coach speaks between rounds
 - **Corner coach:** round stats go to whatever model LM Studio has loaded
@@ -53,9 +54,12 @@ Everything is normalized by shoulder width, so distance from the camera doesn't 
 
 1. **Reach** = 3D wrist-to-shoulder distance (MediaPipe's relative depth `z` catches
    straights thrown at the camera, which barely move in 2D).
-2. Each hand runs a tiny state machine: *guard → extended → back to guard* counts one
-   punch, gated by a minimum peak hand speed (so a slow reach isn't a rep) and a 200 ms
-   cooldown.
+2. Each hand runs a tiny state machine: *guard → extended → retracting*. The punch is
+   **scored at impact** — the frame the reach curve turns over at peak extension — not
+   when the hand returns to guard, so the count lands CompuBox-fast (~50 ms after peak
+   in the synthetic test). A minimum peak hand speed gates out slow reaches, and a
+   re-arm path catches double jabs thrown off a half retraction that never gets back
+   to guard.
 3. Classification compares the extension vector against guard position: mostly toward
    the camera → jab/cross, mostly lateral → hook, mostly upward → uppercut.
 

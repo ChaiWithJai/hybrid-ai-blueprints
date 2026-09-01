@@ -46,9 +46,17 @@
       <div class="stat"><div class="stat-label">HOOK</div><div class="stat-value" id="stat-hook">0</div></div>
       <div class="stat"><div class="stat-label">UPPERCUT</div><div class="stat-value" id="stat-uppercut">0</div></div>
     </div>
-    <div class="stat-grid">
-      <div class="stat"><div class="stat-label">PUNCHES / MIN</div><div class="stat-value" id="stat-ppm">0</div></div>
-      <div class="stat"><div class="stat-label">FASTEST HAND</div><div class="stat-value" id="stat-speed">0<small>sw/s</small></div></div>
+    <div class="stat-grid three">
+      <div class="stat"><div class="stat-label">POWER</div><div class="stat-value" id="stat-power">0</div></div>
+      <div class="stat"><div class="stat-label">PER MIN</div><div class="stat-value" id="stat-ppm">0</div></div>
+      <div class="stat"><div class="stat-label">FASTEST</div><div class="stat-value" id="stat-speed">0<small>sw/s</small></div></div>
+    </div>
+    <div class="stat rounds" id="rounds-panel" hidden>
+      <div class="stat-label">ROUND BY ROUND</div>
+      <table id="rounds-table">
+        <thead><tr><th>RD</th><th>THROWN</th><th>JABS</th><th>POWER</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
     <div class="coach">
       <div class="coach-head">

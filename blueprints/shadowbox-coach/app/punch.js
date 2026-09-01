@@ -19,9 +19,11 @@ export const CFG = {
   smooth: 0.55,        // EMA alpha for landmarks (higher = snappier)
   zWeight: 0.7,        // how much to trust MediaPipe's relative depth
   extendAt: 1.15,      // reach that arms a punch
-  returnAt: 0.95,      // reach that completes it
+  returnAt: 0.95,      // reach that re-enters guard
+  peakDrop: 0.08,      // reach falling this far below max = impact just happened
+  rearm: 0.2,          // rise off the retraction low that counts as punching again
   minPeakSpeed: 2.2,   // slower than this is a stretch, not a punch
-  cooldownMs: 200,
+  cooldownMs: 120,     // jitter guard only — the re-arm path handles real double counts
 };
 
 export class LandmarkSmoother {
@@ -72,6 +74,10 @@ export class HandTracker {
     }
     this.prev = { ...wrist, t: now };
 
+    // Scored at impact, CompuBox-style: the event fires the moment the reach
+    // curve turns over (peak extension), not after the hand returns to guard.
+    // "retracting" exists only to prevent double counts — and to re-arm on a
+    // half-retracted double jab, which never gets back to guard at all.
     let event = null;
     if (this.phase === "guard") {
       if (this.reach < CFG.returnAt) this.guardPos = { ...wrist };
@@ -79,17 +85,29 @@ export class HandTracker {
         this.phase = "extended";
         this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist } };
       }
-    } else {
-      if (this.reach > this.peak.reach) this.peak.pos = { ...wrist };
-      this.peak.reach = Math.max(this.peak.reach, this.reach);
+    } else if (this.phase === "extended") {
+      if (this.reach >= this.peak.reach) {
+        this.peak.reach = this.reach;
+        this.peak.pos = { ...wrist };
+      }
       this.peak.speed = Math.max(this.peak.speed, this.speed);
-      if (this.reach < CFG.returnAt) {
-        this.phase = "guard";
+      if (this.reach < this.peak.reach - CFG.peakDrop) {
+        this.phase = "retracting";
+        this.localMin = this.reach;
         if (this.peak.speed >= CFG.minPeakSpeed && now - this.lastCountAt > CFG.cooldownMs) {
           this.lastCountAt = now;
           event = { hand: this.hand, type: this.classify(sw), speed: this.peak.speed };
         }
+      }
+    } else { // retracting
+      this.localMin = Math.min(this.localMin, this.reach);
+      if (this.reach < CFG.returnAt) {
+        this.phase = "guard";
         this.guardPos = { ...wrist };
+      } else if (this.reach > this.localMin + CFG.rearm && this.speed >= CFG.minPeakSpeed * 0.6) {
+        // thrown again without returning to guard — double jab
+        this.phase = "extended";
+        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist } };
       }
     }
     return event;

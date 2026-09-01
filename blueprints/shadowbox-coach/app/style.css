@@ -173,6 +173,30 @@ main {
 .stat-value small { font-size: 12px; color: var(--dim); margin-left: 4px; font-weight: 400; }
 .stat.big .stat-value { font-size: 64px; line-height: 1.1; color: var(--red); }
 .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.stat-grid.three .stat-value { font-size: 22px; }
+.rounds table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.rounds th {
+  color: var(--dim);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: right;
+  font-weight: 400;
+  padding: 2px 6px;
+}
+.rounds td {
+  text-align: right;
+  padding: 3px 6px;
+  font-size: 14px;
+  font-weight: 700;
+  border-top: 1px solid var(--edge);
+}
+.rounds th:first-child, .rounds td:first-child { text-align: left; color: var(--gold); }
 
 .coach {
   background: var(--panel);
