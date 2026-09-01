@@ -103,6 +103,42 @@ main {
   pointer-events: none;
 }
 #punch-flash.pop { animation: pop .5s ease-out; }
+#combo-flash {
+  position: absolute;
+  left: 0; right: 0; top: 34%;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: #6be675;
+  text-shadow: 0 2px 18px rgba(0,0,0,.8);
+  opacity: 0;
+  pointer-events: none;
+}
+#combo-flash.pop { animation: pop .8s ease-out; }
+.meters {
+  position: absolute;
+  left: 14px; right: 14px; bottom: 12px;
+  display: flex;
+  gap: 14px;
+}
+.meter { flex: 1; display: flex; align-items: center; gap: 8px; }
+.meter-tag { font-size: 12px; font-weight: 800; color: var(--dim); }
+.meter-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--red);
+  border-radius: 4px;
+  transition: width 40ms linear;
+}
+.meter-fill.armed { background: var(--gold); }
 @keyframes pop {
   0% { opacity: 1; transform: scale(.7); }
   60% { opacity: 1; transform: scale(1.05); }

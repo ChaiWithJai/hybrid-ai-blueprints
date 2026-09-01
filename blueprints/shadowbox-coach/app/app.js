@@ -30,12 +30,56 @@ function onFrame(landmarks, now) {
     if (ev && !resting) recordPunch(ev, now);
   }
   draw(lm);
+  for (const [hand, id] of [["L", "meter-l"], ["R", "meter-r"]]) {
+    const el = $(id);
+    el.style.width = `${Math.min(100, (hands[hand].reach / 1.6) * 100)}%`;
+    el.classList.toggle("armed", hands[hand].reach > CFG.extendAt);
+  }
   if (!debugPanel.hidden) {
     debugPanel.textContent =
       `L reach ${hands.L.reach.toFixed(2)}  speed ${hands.L.speed.toFixed(1)}  phase ${hands.L.phase}\n` +
       `R reach ${hands.R.reach.toFixed(2)}  speed ${hands.R.speed.toFixed(1)}  phase ${hands.R.phase}\n` +
       `shoulder-width ${sw.toFixed(3)}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}`;
   }
+}
+
+// ---- punch sound: a synthesized thump, no audio assets ----
+let audio = null;
+function initAudio() {
+  if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+}
+document.addEventListener("pointerdown", initAudio, { once: true });
+document.addEventListener("keydown", initAudio, { once: true });
+function thump(speed) {
+  if (!audio || audio.state !== "running") return;
+  const t = audio.currentTime;
+  const gain = audio.createGain();
+  gain.gain.setValueAtTime(Math.min(0.5, 0.15 + speed * 0.04), t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+  gain.connect(audio.destination);
+  const osc = audio.createOscillator();
+  osc.frequency.setValueAtTime(160, t);
+  osc.frequency.exponentialRampToValueAtTime(50, t + 0.12);
+  osc.connect(gain);
+  osc.start(t);
+  osc.stop(t + 0.15);
+}
+
+// ---- combo caller: name the trailing sequence when it lands inside 2s ----
+const COMBOS = [
+  [["JAB", "CROSS", "HOOK"], "1-2-3!"],
+  [["JAB", "CROSS", "UPPERCUT"], "1-2-6!"],
+  [["JAB", "CROSS"], "1-2!"],
+  [["JAB", "JAB"], "DOUBLE JAB"],
+  [["HOOK", "HOOK"], "HOOK HOOK!"],
+];
+function comboName(now) {
+  const recent = punchLog.filter((p) => now - p.t < 2000).map((p) => p.type);
+  for (const [seq, name] of COMBOS) {
+    if (recent.length >= seq.length &&
+        seq.every((t, i) => recent[recent.length - seq.length + i] === t)) return name;
+  }
+  return null;
 }
 
 function recordPunch(ev, now) {
@@ -53,6 +97,15 @@ function recordPunch(ev, now) {
   flash.classList.remove("pop");
   void flash.offsetWidth; // restart the animation
   flash.classList.add("pop");
+  thump(ev.speed);
+  const combo = comboName(now);
+  if (combo) {
+    const cf = $("combo-flash");
+    cf.textContent = combo;
+    cf.classList.remove("pop");
+    void cf.offsetWidth;
+    cf.classList.add("pop");
+  }
 }
 
 setInterval(() => {
