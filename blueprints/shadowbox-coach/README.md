@@ -22,6 +22,11 @@ no stats, and no audio ever leave the machine.
   your output per round across sessions
 - Orthodox/southpaw stance toggle; `?model=lite|full|heavy` A/Bs the pose model
   (inference ms shows in the debug panel)
+- **Latency-tuned pipeline**: the camera is asked for 60 fps, pose inference runs
+  in a Web Worker (`pose-worker.js`, one frame in flight, stale frames skipped —
+  main-thread HUD work can never delay a detection; falls back inline if workers
+  fail), and the detector can score **predictively** on the reach-velocity
+  turnover (`predVel`) instead of waiting for the reach to visibly drop
 - 3:00 round / 1:00 rest timer; the coach speaks between rounds
 - **Corner coach:** round stats go to whatever model LM Studio has loaded
   (`http://localhost:1234`). No LM Studio? It falls back to canned corner talk.

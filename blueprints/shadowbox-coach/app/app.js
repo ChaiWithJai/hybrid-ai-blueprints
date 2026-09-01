@@ -368,30 +368,77 @@ function sizeOverlay() {
   overlay.height = video.videoHeight || 720;
 }
 
-async function startLive() {
-  const MP = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
-  const { PoseLandmarker, FilesetResolver } = await import(MP);
-  const vision = await FilesetResolver.forVisionTasks(`${MP}/wasm`);
-  // A/B the pose model with ?model=lite|full|heavy (record clips under each
-  // and judge them with replay.mjs — same reward function, different model)
-  const landmarker = await PoseLandmarker.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath:
-        `https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_${POSE_MODEL}/float16/1/pose_landmarker_${POSE_MODEL}.task`,
-      delegate: "GPU",
-    },
-    runningMode: "VIDEO",
-    numPoses: 1,
-  });
+// A/B the pose model with ?model=lite|full|heavy (record clips under each
+// and judge them with replay.mjs — same reward function, different model)
+const MODEL_PATH =
+  `https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_${POSE_MODEL}/float16/1/pose_landmarker_${POSE_MODEL}.task`;
+
+async function openCamera() {
   stageMsg.textContent = "requesting camera…";
   const stream = await navigator.mediaDevices.getUserMedia({
-    video: { width: 960, height: 720, facingMode: "user" },
+    // 60 fps halves the sampling interval: tighter peaks, ~16 ms less latency
+    video: { width: 960, height: 720, facingMode: "user", frameRate: { ideal: 60 } },
   });
   video.srcObject = stream;
   await video.play();
   sizeOverlay();
   stageMsg.hidden = true;
+}
 
+// Preferred path: inference in a Web Worker so main-thread HUD work can
+// never delay a detection frame. Falls back to inline inference below.
+function startLiveWorker() {
+  return new Promise((resolve, reject) => {
+    let worker;
+    try { worker = new Worker("pose-worker.js", { type: "module" }); }
+    catch (err) { reject(err); return; }
+    let busy = false; // at most one frame in flight — stale frames are skipped, not queued
+    const bail = (why) => { worker.terminate(); reject(new Error(why)); };
+    const timer = setTimeout(() => bail("pose worker init timed out"), 20000);
+
+    worker.onerror = (e) => { clearTimeout(timer); bail(e.message || "pose worker failed"); };
+    worker.onmessage = async (e) => {
+      const msg = e.data;
+      if (msg.type === "init-error") { clearTimeout(timer); bail(msg.message); return; }
+      if (msg.type === "landmarks") {
+        busy = false;
+        inferMs += (msg.inferMs - inferMs) * 0.1;
+        if (msg.landmarks) onFrame(msg.landmarks, msg.t);
+        return;
+      }
+      if (msg.type === "ready") {
+        clearTimeout(timer);
+        try { await openCamera(); } catch (err) { bail(err.message); return; }
+        let lastVideoTime = -1;
+        const loop = () => {
+          if (!busy && video.currentTime !== lastVideoTime && video.videoWidth) {
+            lastVideoTime = video.currentTime;
+            busy = true;
+            createImageBitmap(video).then((bitmap) => {
+              worker.postMessage({ type: "frame", bitmap, t: performance.now() }, [bitmap]);
+            }).catch(() => { busy = false; });
+          }
+          requestAnimationFrame(loop);
+        };
+        loop();
+        resolve();
+      }
+    };
+    worker.postMessage({ type: "init", modelPath: MODEL_PATH });
+  });
+}
+
+// Fallback: inference inline on the main thread (original path)
+async function startLiveInline() {
+  const MP = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+  const { PoseLandmarker, FilesetResolver } = await import(MP);
+  const vision = await FilesetResolver.forVisionTasks(`${MP}/wasm`);
+  const landmarker = await PoseLandmarker.createFromOptions(vision, {
+    baseOptions: { modelAssetPath: MODEL_PATH, delegate: "GPU" },
+    runningMode: "VIDEO",
+    numPoses: 1,
+  });
+  await openCamera();
   let lastVideoTime = -1;
   const loop = () => {
     if (video.currentTime !== lastVideoTime) {
@@ -404,6 +451,16 @@ async function startLive() {
     requestAnimationFrame(loop);
   };
   loop();
+}
+
+async function startLive() {
+  try {
+    await startLiveWorker();
+    console.info("pose inference: worker thread");
+  } catch (err) {
+    console.warn(`pose worker unavailable (${err.message}); falling back to main thread`);
+    await startLiveInline();
+  }
 }
 
 function startSynthetic() {

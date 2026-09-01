@@ -38,6 +38,7 @@ function sample() {
     zWeight: uni(0.45, 0.95),
     speedAlpha: uni(0.35, 1.0),
     armFrames: pick([1, 1, 2, 2, 3]),
+    predVel: pick([999, uni(0.3, 3.0), uni(0.3, 3.0)]), // predictive impact competes with off (999)
     smoother: pick(["ema", "ema", "oneeuro"]),
     smooth: uni(0.35, 0.85),
     minCutoff: uni(0.6, 3.0),
