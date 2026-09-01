@@ -1,0 +1,36 @@
+{
+  "messages": [
+    {
+      "sourceRefId": "msg-011", "lang": "es",
+      "sourceText": "Mamá, ya deposité 3000 pesos en Spin para las medicinas de la abuela."
+    },
+    {
+      "sourceRefId": "msg-012", "lang": "ur",
+      "sourceText": "امی، میں نے پانچ سو درہم حوالے سے بھیجے، عدنان کی سکول فیس کے لیے۔"
+    },
+    {
+      "sourceRefId": "msg-013", "lang": "bn",
+      "sourceText": "মা, আমি বিকাশে ২০০০ টাকা পাঠিয়েছি, বাড়ি ভাড়ার জন্য।"
+    },
+    {
+      "sourceRefId": "msg-014", "lang": "fr",
+      "sourceText": "Tonton, j'ai envoyé 75000 francs par Wave ce matin pour l'ordonnance de maman."
+    },
+    {
+      "sourceRefId": "msg-015", "lang": "en",
+      "sourceText": "Hi Ma, I sent 250 dollars through Remitly today for the roof repair."
+    },
+    {
+      "sourceRefId": "msg-016", "lang": "en",
+      "sourceText": "Ma, don't worry, I'll sort out the money situation next week."
+    }
+  ],
+  "fixture_extractions": {
+    "msg-011": "AMOUNT: 300000\nCURRENCY: MXN\nCHANNEL: wallet\nPURPOSE: medicinas de la abuela\nCONFIDENCE: 0.95",
+    "msg-012": "AMOUNT: 50000\nCURRENCY: AED\nCHANNEL: informal\nPURPOSE: سکول فیس\nCONFIDENCE: 0.88",
+    "msg-013": "AMOUNT: 200000\nCURRENCY: BDT\nCHANNEL: wallet\nPURPOSE: বাড়ি ভাড়া\nCONFIDENCE: 0.92",
+    "msg-014": "AMOUNT: 75000\nCURRENCY: XOF\nCHANNEL: wallet\nPURPOSE: ordonnance de maman\nCONFIDENCE: 0.9",
+    "msg-015": "AMOUNT: 25000\nCURRENCY: USD\nCHANNEL: remitly\nPURPOSE: roof repair\nCONFIDENCE: 0.97",
+    "msg-016": "AMOUNT: UNKNOWN\nCURRENCY: UNKNOWN\nCHANNEL: unknown\nPURPOSE: UNKNOWN\nCONFIDENCE: 0.4"
+  }
+}

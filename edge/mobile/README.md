@@ -44,7 +44,27 @@ generic `EdgeResource` path plus per-demo typed models where codegen earns
 it. Full mapping and the three deliberate inversions from violet_rails:
 [boilerplate/README.md](boilerplate/README.md).
 
-## Getting started
+## Running the suite (the demos are code, not documents)
+
+Every demo runs today on the shared [`edgekit`](edgekit/) platform —
+stdlib Python implementing the namespace/action/store transplant — with a
+deterministic fixture mode and a live mode against Bonsai 1.7b on LM
+Studio. Each demo ships its own unit tests, acceptance gates including a
+negative control that proves its evaluator can fail, and writes a
+keep/kill scorecard to [`evidence/`](evidence/).
+
+```bash
+cd edge/mobile
+python3 run_all.py                # full portfolio sweep (live if 1.7b is up)
+python3 run_all.py --fixture-only # deterministic, no model server needed
+cd demos/01-voice-note-intelligence && python3 -m unittest && python3 app.py auto
+```
+
+Live verdicts are recorded findings, not required gates: a live "kill" is
+the capability envelope talking (see each `evidence/*-live.json`), and the
+committed evidence preserves exactly what the model did.
+
+## The Serverpod productization path
 
 ```bash
 cd edge/mobile/boilerplate

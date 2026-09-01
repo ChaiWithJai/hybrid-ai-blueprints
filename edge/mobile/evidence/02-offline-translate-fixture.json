@@ -1,0 +1,30 @@
+{
+  "demo": "02-offline-translate",
+  "mode": "fixture",
+  "model": "fixture",
+  "ran_at": "2026-08-31T21:21:31-0400",
+  "gates": [
+    {
+      "gate": "all_pairs_translate_with_correct_engine",
+      "required": true,
+      "passed": true,
+      "detail": "tj-001(es->en):model; tj-002(fr->en):model; tj-003(ur->en):model; tj-004(bn->en):model; tj-005(tg->ru):sidecar-fixture; tj-006(wo->fr):sidecar-fixture",
+      "elapsed_ms": 1.1
+    },
+    {
+      "gate": "sidecar_tier_never_calls_llm",
+      "required": true,
+      "passed": true,
+      "detail": "llm_calls=0 engines=['sidecar-fixture', 'sidecar-fixture']",
+      "elapsed_ms": 0.5
+    },
+    {
+      "gate": "echo_guard_rejects_untranslated_output",
+      "required": true,
+      "passed": true,
+      "detail": "engine=fallback",
+      "elapsed_ms": 0.4
+    }
+  ],
+  "verdict": "keep"
+}

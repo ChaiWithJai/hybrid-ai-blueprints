@@ -1,0 +1,37 @@
+{
+  "demo": "05-catch-up",
+  "mode": "fixture",
+  "model": "fixture",
+  "ran_at": "2026-08-31T21:23:12-0400",
+  "gates": [
+    {
+      "gate": "digest_grounded",
+      "required": true,
+      "passed": true,
+      "detail": "mode=model lines_kept=5 lines_dropped=0 actions=it-002,it-003,it-005",
+      "elapsed_ms": 1.6
+    },
+    {
+      "gate": "zero_ungrounded_lines",
+      "required": true,
+      "passed": true,
+      "detail": "dropped=1 groundedRefs='it-006' actions=''",
+      "elapsed_ms": 0.9
+    },
+    {
+      "gate": "client_only",
+      "required": true,
+      "passed": true,
+      "detail": "states=['local'] synced_while_online=0 sync_modes=('none', 'none')",
+      "elapsed_ms": 0.8
+    },
+    {
+      "gate": "hierarchical_plumbing",
+      "required": true,
+      "passed": true,
+      "detail": "items=12 provider_calls=3 mode=model groundedRefs=it-001,it-008,it-006,it-002,it-009",
+      "elapsed_ms": 0.7
+    }
+  ],
+  "verdict": "keep"
+}

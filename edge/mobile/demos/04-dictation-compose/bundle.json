@@ -1,0 +1,18 @@
+{
+  "slug": "compositions",
+  "version": 1,
+  "sync_mode": "none",
+  "properties": {
+    "rawTranscript":     {"type": "string", "required": true},
+    "lang":              {"type": "string", "required": true},
+    "register":          {"type": "string", "required": true},
+    "asrConfidence":     {"type": "float",  "required": true},
+    "lowConfidenceSpan": {"type": "string"},
+    "cleanText":         {"type": "string"},
+    "composeMode":       {"type": "string"},
+    "clarifyPrompt":     {"type": "string"}
+  },
+  "client_actions": [
+    {"name": "clean_compose", "params": {"confidence_floor": 0.75}}
+  ]
+}

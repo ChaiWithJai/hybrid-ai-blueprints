@@ -1,0 +1,37 @@
+{
+  "demo": "05-catch-up",
+  "mode": "live",
+  "model": "1.7b",
+  "ran_at": "2026-08-31T21:23:30-0400",
+  "gates": [
+    {
+      "gate": "digest_grounded",
+      "required": true,
+      "passed": false,
+      "detail": "exception: ProviderError('model call failed: HTTP Error 400: Bad Request')",
+      "elapsed_ms": 8676.7
+    },
+    {
+      "gate": "zero_ungrounded_lines",
+      "required": true,
+      "passed": true,
+      "detail": "dropped=1 groundedRefs='it-006' actions=''",
+      "elapsed_ms": 2.0
+    },
+    {
+      "gate": "client_only",
+      "required": true,
+      "passed": false,
+      "detail": "exception: ProviderError('model call failed: HTTP Error 400: Bad Request')",
+      "elapsed_ms": 9206.1
+    },
+    {
+      "gate": "hierarchical_plumbing",
+      "required": true,
+      "passed": true,
+      "detail": "items=12 provider_calls=3 mode=model groundedRefs=it-001,it-008,it-006,it-002,it-009",
+      "elapsed_ms": 1.4
+    }
+  ],
+  "verdict": "kill"
+}

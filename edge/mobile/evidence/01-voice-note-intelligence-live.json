@@ -1,0 +1,30 @@
+{
+  "demo": "01-voice-note-intelligence",
+  "mode": "live",
+  "model": "1.7b",
+  "ran_at": "2026-08-31T21:21:31-0400",
+  "gates": [
+    {
+      "gate": "pipeline_summarizes_all_notes",
+      "required": true,
+      "passed": true,
+      "detail": "vn-001.ogg:fallback; vn-002.ogg:model; vn-003.ogg:model; vn-004.ogg:model; vn-005.ogg:model",
+      "elapsed_ms": 7164.5
+    },
+    {
+      "gate": "offline_queue_then_sync",
+      "required": true,
+      "passed": true,
+      "detail": "delivered=1 state=synced",
+      "elapsed_ms": 807.6
+    },
+    {
+      "gate": "grounding_guard_rejects_mutation",
+      "required": true,
+      "passed": true,
+      "detail": "summaryMode=fallback",
+      "elapsed_ms": 0.4
+    }
+  ],
+  "verdict": "keep"
+}

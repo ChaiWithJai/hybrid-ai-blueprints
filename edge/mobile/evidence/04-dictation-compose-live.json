@@ -1,0 +1,37 @@
+{
+  "demo": "04-dictation-compose",
+  "mode": "live",
+  "model": "1.7b",
+  "ran_at": "2026-08-31T21:23:11-0400",
+  "gates": [
+    {
+      "gate": "high_confidence_items_composed",
+      "required": true,
+      "passed": true,
+      "detail": "bn/formal:fallback; bn/familiar:fallback; ur/formal:fallback; es/familiar:fallback; fr/formal:fallback",
+      "elapsed_ms": 5688.9
+    },
+    {
+      "gate": "low_confidence_never_reaches_model",
+      "required": true,
+      "passed": true,
+      "detail": "0 provider calls; clarify prompt names uncertain span",
+      "elapsed_ms": 0.8
+    },
+    {
+      "gate": "client_only_rule_stays_local",
+      "required": true,
+      "passed": true,
+      "detail": "sync moved 0; states after sync: ['local']",
+      "elapsed_ms": 7345.0
+    },
+    {
+      "gate": "grounding_guard_rejects_mutation",
+      "required": true,
+      "passed": true,
+      "detail": "composeMode=fallback",
+      "elapsed_ms": 0.8
+    }
+  ],
+  "verdict": "keep"
+}

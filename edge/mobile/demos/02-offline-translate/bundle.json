@@ -1,0 +1,19 @@
+{
+  "slug": "translations",
+  "version": 1,
+  "sync_mode": "none",
+  "properties": {
+    "jobId":          {"type": "string", "required": true},
+    "srcLang":        {"type": "string", "required": true},
+    "dstLang":        {"type": "string", "required": true},
+    "srcText":        {"type": "string", "required": true},
+    "translation":    {"type": "string"},
+    "engine":         {"type": "string"},
+    "tier":           {"type": "string"},
+    "sidecarMode":    {"type": "string"},
+    "confidenceNote": {"type": "string"}
+  },
+  "client_actions": [
+    {"name": "translate", "params": {}}
+  ]
+}
