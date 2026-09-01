@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadowbox Coach</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>SHADOWBOX<span>COACH</span></h1>
+  <div class="round-box">
+    <div id="round-label">ROUND 1</div>
+    <div id="round-clock">3:00</div>
+    <div class="round-controls">
+      <button id="btn-start">START</button>
+      <button id="btn-reset">RESET</button>
+      <button id="btn-stance" title="which hand is your jab">ORTHODOX</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="stage">
+    <div class="video-wrap">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="stage-msg">loading pose model…</div>
+      <div id="punch-flash"></div>
+      <div id="combo-flash"></div>
+      <div id="rec-dot" hidden>● REC</div>
+      <div class="meters">
+        <div class="meter"><span class="meter-tag">L</span><div class="meter-track"><div class="meter-fill" id="meter-l"></div></div></div>
+        <div class="meter"><span class="meter-tag">R</span><div class="meter-track"><div class="meter-fill" id="meter-r"></div></div></div>
+      </div>
+    </div>
+    <div id="debug-panel" hidden></div>
+  </section>
+
+  <aside class="hud">
+    <div class="stat big">
+      <div class="stat-label">PUNCHES</div>
+      <div class="stat-value" id="stat-total">0</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-label">JAB</div><div class="stat-value" id="stat-jab">0</div></div>
+      <div class="stat"><div class="stat-label">CROSS</div><div class="stat-value" id="stat-cross">0</div></div>
+      <div class="stat"><div class="stat-label">HOOK</div><div class="stat-value" id="stat-hook">0</div></div>
+      <div class="stat"><div class="stat-label">UPPERCUT</div><div class="stat-value" id="stat-uppercut">0</div></div>
+    </div>
+    <div class="stat-grid three">
+      <div class="stat"><div class="stat-label">POWER</div><div class="stat-value" id="stat-power">0</div></div>
+      <div class="stat"><div class="stat-label">PER MIN</div><div class="stat-value" id="stat-ppm">0</div></div>
+      <div class="stat"><div class="stat-label">FASTEST</div><div class="stat-value" id="stat-speed">0<small>sw/s</small></div></div>
+    </div>
+    <div class="stat rounds" id="rounds-panel" hidden>
+      <div class="stat-label">ROUND BY ROUND</div>
+      <table id="rounds-table">
+        <thead><tr><th>RD</th><th>THROWN</th><th>JABS</th><th>POWER</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="stat" id="trends-panel" hidden>
+      <div class="stat-label">OUTPUT TREND (PUNCHES / ROUND)</div>
+      <div id="trends-line" class="trends-line"></div>
+    </div>
+    <div class="coach">
+      <div class="coach-head">
+        <span class="stat-label">CORNER COACH</span>
+        <span id="coach-source" class="coach-source">canned tips</span>
+      </div>
+      <div id="coach-text">Hands up. Hit START and throw your first combination.</div>
+      <button id="btn-coach">ASK COACH</button>
+    </div>
+    <div class="footnote">pose: MediaPipe · coach: Bonsai on LM Studio (localhost) · everything stays on this machine · press <b>d</b> for debug</div>
+  </aside>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
