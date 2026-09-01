@@ -1,0 +1,137 @@
+# Part B — Kill list
+#
+# Every top-100 incumbent the four ship-capabilities (voice-note
+# intelligence, catch-up summaries, dictation-compose, archive answers)
+# plus the two fine-tunes (translation LoRAs, remittance-record
+# extraction) can attack — classed by verdict.
+#
+#   kill      — replace the feature or app outright
+#   displace  — erode its core job over time
+#   ride      — parasitize its rails without fighting it
+#   partner   — its users are our users; integration beats war
+#   benchmark — defended incumbent or comp to learn from
+#
+# Numbers dated 2026-08-31; sources in The Kill Sheet artifact. `demo`
+# names the prototype in edge/mobile/demos/ that carries the attack.
+
+meta:
+  compiled: 2026-08-31
+  companion: "The Kill Sheet (claude.ai artifact e201bc03)"
+
+tier_1_feature_kills:
+  - target: "Telegram Premium voice transcription"
+    verdict: kill
+    numbers: "15M+ paid subs (Durov, May 2025); ~$5-6/mo; cloud-processed, listener-gated; UZ/TJ UIs community-beta"
+    attack: "Free on-device transcription + summary in Uzbek/Tajik/Russian — their only monetized corridor feature"
+    demo: 01-voice-note-intelligence
+  - target: "WhatsApp voice transcription (free Android tier)"
+    verdict: kill
+    numbers: "4 languages (EN/PT/ES/RU); 7B+ voice notes/day globally (Meta 2022)"
+    attack: "Transcription + read-aloud in Urdu, Bengali, Hindi, Tagalog, French — every excluded corridor language"
+    demo: 01-voice-note-intelligence
+  - target: "Google Translate offline tier"
+    verdict: kill
+    numbers: "1B+ installs; 249 languages online, 59 offline; Tajik/Wolof/Uzbek zero offline coverage from any incumbent"
+    attack: "Per-corridor LoRA + NLLB sidecar owns offline translation where nobody has ever shipped it"
+    demo: 02-offline-translate
+  - target: "Yandex Translate (Central Asia)"
+    verdict: kill
+    numbers: "10M+ downloads; Tajik/Kyrgyz experimental, cloud-only"
+    attack: "Offline where it needs a connection, finished where it is beta"
+    demo: 02-offline-translate
+
+tier_2_displacements:
+  - target: IMO
+    verdict: displace
+    numbers: "1B+ Play installs; ~200M users; #3 BD, #4 SA, #4 QA, #10 UAE; no default E2EE (forensics recovered chats); no AI"
+    attack: "Its moat is works-on-bad-networks — offline-first + on-device summaries do that job better, with encryption it never had"
+    demo: 03-family-line
+  - target: "Botim (UAE)"
+    verdict: displace
+    numbers: "150M registered claim (Astra Tech); born of the UAE WhatsApp-call ban; legacy AED 50/mo plan; central-bank license"
+    attack: "Offline store-and-forward voice + summaries sidestep the live-VoIP ban that is its entire moat; zero migrant-language UIs"
+    demo: 03-family-line
+  - target: "Viber (PH, MM, UA)"
+    verdict: displace
+    numbers: "1B+ Play global; sliding — PH Communication #6, absent iOS top-25; no PH language, no Burmese"
+    attack: "Softest big target: its core artifact is the family voice note, untranscribed and unlocalized"
+    demo: 01-voice-note-intelligence
+  - target: "MAX (Russia state messenger)"
+    verdict: displace
+    numbers: "75M registered (Dec 2025); preinstall-mandated since Sep 2025; no E2EE; pulled from Apple/Google stores Jun 2026"
+    attack: "For the migrant wary of state surveillance: intelligence that never leaves the phone"
+    demo: 03-family-line
+  - target: "Truecaller (India)"
+    verdict: displace
+    numbers: "350M+ MAU India of 500M global (TechCrunch, Mar 2026); IN Play #8"
+    attack: "'Who called and why' is a summarization job — the catch-up layer answers it inside the family context"
+    demo: 05-catch-up
+  - target: "Ridmik Keyboard (BD)"
+    verdict: displace
+    numbers: "50M+ downloads; BD Play #9 — a keyboard outranking banks proves Bangla input pain"
+    attack: "Dictation-compose makes the typing problem disappear instead of solving it"
+    demo: 04-dictation-compose
+
+tier_3_ride_the_rails:
+  - target: WhatsApp
+    verdict: ride
+    numbers: "#1 in 13 of 18 charted countries; ~75-80M users MX alone; Zimbabwe: WhatsApp bundles are the documented data purchase unit"
+    play: "Do not fight the network — wrap it: transcribe, summarize, compose for the conversations it carries, on languages and hardware Meta ignores"
+    demo: 01-voice-note-intelligence
+  - target: "Remitly / Wise / Western Union / Ria"
+    verdict: ride
+    numbers: "Remitly 10.2M actives, $23.5B/qtr; Wise 11.9M, $69.3B/qtr; Ria ~83% still cash/agent (Q2-2026 filings)"
+    play: "~$90B+/quarter of public-company volume whose apps open ~1-2x/month — the record-keeping and family-context layer is unclaimed"
+    demo: 06-remittance-ledger
+  - target: "Félix Pago"
+    verdict: ride
+    numbers: "300K+ senders, $1B+ moved 2024, $75M Series B — no app, lives inside WhatsApp"
+    play: "The proof-of-thesis and closest analog; extraction competes for the same money-as-conversation surface"
+    demo: 06-remittance-ledger
+
+tier_4_receiving_side_wallets:
+  # Every wallet here is text-first, official-language-only, transactional.
+  # The remittance-receiving household — often low-literacy, often elderly —
+  # is exactly our user. Voice UI + record extraction + read-aloud makes
+  # their product usable; integration beats war. If partnership fails, the
+  # same features are the displacement vector.
+  - { target: "GCash (PH)",              verdict: partner, numbers: "81M actives (Jan 2025); PH Play #9; English-only, no voice", demo: 06-remittance-ledger }
+  - { target: "bKash / Nagad (BD)",      verdict: partner, numbers: "42M actives / 28.2M; BD Play #10 / #11", demo: 06-remittance-ledger }
+  - { target: "easypaisa / JazzCash (PK)", verdict: partner, numbers: "20M MAU / 20.6M MAU; PK Play #9 / #11", demo: 06-remittance-ledger }
+  - { target: "Wave (SN) / EcoCash (ZW)", verdict: partner, numbers: "Wave ~23M users, $1.7B valuation, SN #2; EcoCash ZW #4, ~99% share", demo: 06-remittance-ledger }
+  - { target: "OPay / PalmPay (NG)",     verdict: partner, numbers: "50M+ / 35M+ registered; NG Play #2 / #14", demo: 06-remittance-ledger }
+  - { target: "Spin by OXXO (MX) / Korona Pay (RU-CA)", verdict: partner, numbers: "10.5M actives / 17.5M users", demo: 06-remittance-ledger }
+
+tier_5_benchmarks:
+  - target: "Zalo (Vietnam)"
+    verdict: benchmark
+    numbers: "83.1M MAU (Q1 2026); shipped cloud voice-to-text"
+    lesson: "The one incumbent that localized deeply and added voice AI — a defended market; deprioritized in the Ledger for this reason"
+  - target: "Life360 (US)"
+    verdict: benchmark
+    numbers: "102.4M MAU, $159M/qtr (+38%)"
+    lesson: "A 'family' app category monetizes at scale — but it owns location, not conversation"
+  - target: "Diia (Ukraine)"
+    verdict: benchmark
+    numbers: "23M users, ~81% of adults; added a government AI assistant"
+    lesson: "Mass-market proof of document-centric assistant demand — archive-RAG is the family-scale version"
+  - target: "Gemini Nano / Apple Intelligence / Galaxy AI"
+    verdict: benchmark
+    numbers: "Flagship-only device lists (Pixel 9+, S25+, iPhone 15 Pro+); cheapest entry $599"
+    lesson: "The future competition — structurally gated out of the 3-4GB budget tier; our window is as long as their gate holds"
+  - target: "SHAREit / Xender / Opera Mini"
+    verdict: benchmark
+    numbers: "1B+ / 500M+ / 500M+ installs; three offline-transfer apps in Zimbabwe's top 30 alone"
+    lesson: "Offline-first works at billion scale in exactly our markets — and none added intelligence. YouTube Go was killed at 500M+ installs: Google abandoned the segment"
+
+whitespace:
+  - "No voice-note transcription app charts in any of the 18 charted countries — the slot is held by general assistants (ChatGPT, Gemini, Dola), none voice-note-first, none offline, none in corridor languages"
+  - "No Russian-learning app for Central Asian migrants charts anywhere"
+  - "Myanmar's entire iOS top-10 requires an illegal VPN — the most extreme offline-first case"
+  - "4 of Uzbekistan's top 10 are government document apps — households organize their lives around documents; nobody gives the family an offline brain for theirs"
+
+flags:
+  - "Chart snapshots are one week of data, not a trend"
+  - "Several MAU figures are company claims, not filings (Botim 150M, DANA ~200M, SHAREit 2.4B)"
+  - "Tajikistan has no public chart source; RuStore lists unretrievable"
+  - "Unverified: easypaisa Urdu UI, Capitec language menu, Korona CA-language support, current EcoCash/Maya/Wave Money MAU"

@@ -1,0 +1,220 @@
+# Part A — Language-mismatch inventory
+#
+# Where a country's top apps are not in the language its people actually
+# speak. Each entry is a named opportunity: the app holds the chart
+# position, the language holds the people, and nothing connects them.
+#
+# Compiled 2026-08-31 from six parallel research sweeps. Chart positions
+# are Similarweb/Appfigures snapshots dated 2026-08-29/31 — a week of
+# data, not a trend. Speaker counts are approximate. Entries marked
+# `verified: listing` were audited from store listings, not in-app
+# screenshots. Full sources: docs/../The Kill Sheet artifact and the
+# per-region sweep reports.
+#
+# serve_tier: how a 1.7B on-device model reaches the language today
+#   generative   — servable by the LLM directly (Qwen3-class coverage)
+#   lora         — marginal; one per-language LoRA fine-tune away
+#   sidecar      — NLLB-200-600M translation only; LLM cannot generate it
+#   none         — not reachable at 1.7B today (honest deferral)
+
+meta:
+  compiled: 2026-08-31
+  chart_snapshot: 2026-08-29/31
+  regions_swept: 5
+  countries_charted: 18
+  companion: "The Kill Sheet (claude.ai artifact e201bc03)"
+
+south_asia:
+  - app: "all mainstream apps"
+    country: PK
+    ranks: "n/a — absence is the finding"
+    missing_language: Punjabi/Shahmukhi
+    speakers_m: 85
+    serve_tier: lora
+    note: "No mainstream app interface exists anywhere; deepest single wedge in the region"
+  - app: "all mainstream apps"
+    country: PK
+    missing_language: Pashto
+    speakers_m: 40
+    serve_tier: sidecar
+  - app: "all mainstream apps"
+    country: PK
+    missing_language: Sindhi
+    speakers_m: 30
+    serve_tier: sidecar
+  - app: "all mainstream apps"
+    country: PK
+    missing_language: Saraiki
+    speakers_m: 25
+    serve_tier: sidecar
+  - app: WhatsApp
+    country: IN
+    ranks: "Play #1"
+    missing_language: Bhojpuri
+    speakers_m: 51
+    serve_tier: lora
+    note: "UI ships in 10 Indian languages; Bhojpuri/Odia/Maithili/Assamese excluded"
+  - app: WhatsApp
+    country: IN
+    missing_language: Odia
+    speakers_m: 38
+    serve_tier: lora
+  - app: WhatsApp
+    country: IN
+    missing_language: Maithili
+    speakers_m: 34
+    serve_tier: lora
+  - app: WhatsApp
+    country: IN
+    missing_language: Assamese
+    speakers_m: 15
+    serve_tier: lora
+  - app: ChatGPT
+    country: IN/PK/BD
+    ranks: "iOS #1 IN, Play #4 PK, Play #6 BD"
+    missing_language: "Indic-voice-first UX (any)"
+    speakers_m: null
+    serve_tier: generative
+    note: "English-first onboarding despite top-6 rank in all three countries"
+  - app: easypaisa
+    country: PK
+    ranks: "Play #9"
+    missing_language: Urdu (UI unconfirmed)
+    speakers_m: 70
+    serve_tier: lora
+    verified: flag
+    note: "Possibly English-first finance in a 58%-literacy country — needs in-app check"
+  - app: "all apps incl. IMO"
+    country: BD + UK diaspora
+    missing_language: Sylheti
+    speakers_m: 10
+    serve_tier: none
+    note: "The UK-remittance corridor dialect; zero support anywhere"
+  - app: "all apps"
+    country: BD
+    missing_language: Chittagonian
+    speakers_m: 13
+    serve_tier: none
+
+africa:
+  - app: WhatsApp
+    country: NG/SN/MA/DZ/TN/ZA/ZW
+    ranks: "#1 or #2 in all seven"
+    missing_language: "Hausa, Yoruba, Igbo, Wolof, Zulu, Xhosa, Shona, Ndebele, Darija, Tamazight"
+    speakers_m: 290
+    serve_tier: sidecar
+    note: "Official FAQ lists only Afrikaans + Swahili for all of Africa — the anchor fact of this inventory"
+  - app: "OPay / PalmPay / Moniepoint"
+    country: NG
+    ranks: "Play #2 / #14 / #11"
+    missing_language: "Hausa (80M), Yoruba (45M), Igbo (30M) — English-only finance"
+    speakers_m: 155
+    serve_tier: sidecar
+    note: "50M+ / 35M+ / 10M+ users respectively"
+  - app: Wave
+    country: SN
+    ranks: "Play #2"
+    missing_language: Wolof
+    speakers_m: 13
+    serve_tier: sidecar
+    note: "FR/EN UI on the fintech ~70% of Senegal uses"
+  - app: Capitec
+    country: ZA
+    ranks: "Play #13"
+    missing_language: "isiZulu (12M), isiXhosa (8M)"
+    speakers_m: 20
+    serve_tier: sidecar
+    verified: flag
+  - app: "telco + gov apps"
+    country: MA/DZ/TN
+    missing_language: "Darija first-class (35M), Tamazight (14M)"
+    speakers_m: 49
+    serve_tier: sidecar
+    note: "Everything ships FR/MSA; French carries the corridor for the LLM"
+
+central_asia:
+  - app: Telegram
+    country: UZ/TJ
+    ranks: "Play #2 UZ; 70% primary-messenger share"
+    missing_language: "Uzbek, Tajik, Kyrgyz — community-beta packs only"
+    speakers_m: 61
+    serve_tier: "Uzbek: lora / Tajik, Kyrgyz: sidecar"
+  - app: WhatsApp
+    country: KG
+    ranks: "Play #1"
+    missing_language: "Kyrgyz, Tajik (medium confidence)"
+    speakers_m: 17
+    serve_tier: sidecar
+    verified: flag
+  - app: "Korona Pay"
+    country: "RU→CA corridor"
+    ranks: "remittance king, 17.5M users"
+    missing_language: "Uzbek/Tajik/Kyrgyz — RU/EN-first"
+    speakers_m: 60
+    serve_tier: mixed
+    verified: flag
+  - app: "Yandex Translate"
+    country: "CA region"
+    missing_language: "Tajik, Kyrgyz (experimental only, cloud-only)"
+    speakers_m: 17
+    serve_tier: sidecar
+
+sea_gulf:
+  - app: "GCash / Maya"
+    country: PH
+    ranks: "Play #9 / iOS #19"
+    missing_language: "English-only — not even Tagalog; Cebuano (25.6M), Ilocano (7.6M), Hiligaynon (7.9M)"
+    speakers_m: 41
+    serve_tier: "Tagalog: lora / regional: sidecar"
+  - app: "DANA, GoPay, OVO, WhatsApp, Shopee, Gojek"
+    country: ID
+    missing_language: "Javanese + Sundanese"
+    speakers_m: 110
+    serve_tier: sidecar
+    note: "One localized top app total (TikTok, Javanese only) — largest unserved bloc outside India; caveat: bilingual in Indonesian, gap bites on voice/elders/money"
+  - app: "Telegram / Viber / JumpJumpVPN"
+    country: MM
+    ranks: "iOS #2 / #5 / #4"
+    missing_language: "Burmese (none at all); Shan, S'gaw Karen in zero apps"
+    speakers_m: 39
+    serve_tier: none
+    note: "Zawgyi/Unicode encoding chaos is an NLP moat for whoever solves it"
+  - app: Absher
+    country: SA
+    ranks: "iOS #20; mandatory, 20M+ users"
+    missing_language: "Urdu/Bengali/Hindi/Malayalam/Tagalog — AR/EN only vs ~10-13M foreign residents"
+    speakers_m: 12
+    serve_tier: "Hindi: generative / Urdu, Bengali: lora / Malayalam, Tagalog: lora"
+  - app: "UAE PASS, ENBD X, AlRajhi, telcos, Western Union UAE"
+    country: AE
+    missing_language: "No South Asian languages — WU UAE ships European languages instead"
+    speakers_m: 10
+    serve_tier: mixed
+  - app: Botim
+    country: AE
+    ranks: "Play #14; the licensed VoIP monopoly"
+    missing_language: "Urdu/Bengali/Tagalog/Malayalam"
+    speakers_m: 8
+    serve_tier: mixed
+
+americas:
+  - app: "US fintechs (10 of 11 studied)"
+    country: US
+    missing_language: "Spanish — only PayPal offers any, incomplete (Corporate Insight 2024)"
+    speakers_m: 44.9
+    serve_tier: generative
+    note: "44.9M speak Spanish at home (ACS 2024); the mismatch is on the sending side"
+  - app: "all mainstream apps"
+    country: MX
+    missing_language: "Nahuatl (1.6M), Maya (0.8M)"
+    speakers_m: 2.4
+    serve_tier: none
+    note: "Real but small wedge; ~866K monolingual indigenous speakers (INEGI 2020)"
+
+pattern: >
+  Apps localize where money is earned, not where it is needed. Gulf
+  remittance-sender apps ship 10-18 languages; mandatory government apps and
+  receiving-side finance apps ship 1-2. The chart position is held in the
+  colonial or state language; the household speaks something else. The
+  dictation-compose and read-aloud capabilities do not need the incumbent to
+  fix its UI — they wrap it.
