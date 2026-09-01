@@ -23,7 +23,7 @@ no stats, and no audio ever leave the machine.
 
 ```bash
 cd blueprints/shadowbox-coach/app
-python3 -m http.server 4790
+node server.mjs
 # open http://localhost:4790 and allow camera access
 ```
 
@@ -63,8 +63,27 @@ Everything is normalized by shoulder width, so distance from the camera doesn't 
 3. Classification compares the extension vector against guard position: mostly toward
    the camera → jab/cross, mostly lateral → hook, mostly upward → uppercut.
 
-Press **`d`** in the app for a live debug readout of reach/speed/phase per hand — use it
-to tune the thresholds at the top of `app.js` for your setup.
+Guard rails against real-world noise: a punch must launch **from guard** within the
+last 500 ms at arming speed (hanging arms and fidgeting never score), must peak above
+hip height, and hooks are identified by a **bent elbow at peak** (3D elbow angle)
+rather than displacement direction — which real crosses fooled.
+
+Press **`d`** in the app for a live debug readout of reach/speed/elbow-angle/phase per
+hand — the thresholds live at the top of `punch.js`.
+
+## Calibrate against your own punches (record → replay)
+
+Press **`r`** to start recording, throw one punch type ~10 times, press **`r`** again
+and name what you threw (e.g. `jab x10`). The raw landmarks plus every call the app
+made land in `recordings/` via the local server. Then replay offline:
+
+```bash
+node replay.mjs recordings/<file>.json                 # what would be called, punch by punch
+node replay.mjs recordings/*.json minPeakSpeed=1.8     # re-run with threshold overrides
+```
+
+Real labeled punches become regression data: tune the config until every recording
+scores correctly, then bake the winning values into `punch.js`.
 
 ## Honest limits
 

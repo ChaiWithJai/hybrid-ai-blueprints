@@ -116,6 +116,17 @@ main {
   pointer-events: none;
 }
 #combo-flash.pop { animation: pop .8s ease-out; }
+#rec-dot {
+  position: absolute;
+  top: 12px; right: 14px;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  animation: blink 1.2s step-end infinite;
+}
+#rec-dot[hidden] { display: none; }
+@keyframes blink { 50% { opacity: .25; } }
 .meters {
   position: absolute;
   left: 14px; right: 14px; bottom: 12px;

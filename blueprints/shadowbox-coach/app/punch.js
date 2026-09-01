@@ -23,8 +23,20 @@ export const CFG = {
   peakDrop: 0.08,      // reach falling this far below max = impact just happened
   rearm: 0.2,          // rise off the retraction low that counts as punching again
   minPeakSpeed: 2.2,   // slower than this is a stretch, not a punch
+  armSpeed: 1.5,       // outbound speed required to arm — punches leave guard fast
+  guardWindowMs: 500,  // a punch must launch from guard this recently (kills phantom counts from hanging arms)
+  elbowArm: 155,       // a straight elbow also arms the punch (depth under-reads straights at the camera)
+  elbowStraight: 140,  // bent elbow at peak = hook; straighter = jab/cross
   cooldownMs: 120,     // jitter guard only — the re-arm path handles real double counts
 };
+
+export function elbowAngleDeg(shoulder, elbow, wrist) {
+  const ax = shoulder.x - elbow.x, ay = shoulder.y - elbow.y, az = (shoulder.z - elbow.z) * CFG.zWeight;
+  const bx = wrist.x - elbow.x, by = wrist.y - elbow.y, bz = (wrist.z - elbow.z) * CFG.zWeight;
+  const cos = (ax * bx + ay * by + az * bz) /
+    (Math.hypot(ax, ay, az) * Math.hypot(bx, by, bz) + 1e-9);
+  return Math.acos(Math.min(1, Math.max(-1, cos))) * 180 / Math.PI;
+}
 
 export class LandmarkSmoother {
   constructor(alpha = CFG.smooth) {
@@ -54,14 +66,19 @@ export class HandTracker {
     this.guardPos = null;
     this.peak = null;
     this.lastCountAt = -Infinity;
+    this.lastGuardAt = -Infinity;
     this.reach = 0;
     this.speed = 0;
+    this.elbowAngle = 0;
   }
 
-  update(wrist, shoulder, sw, now) {
+  // ctx: { sw (shoulder width), hipY (avg hip height, image coords) }
+  update(wrist, elbow, shoulder, ctx, now) {
+    const sw = ctx.sw;
     const dx = wrist.x - shoulder.x, dy = wrist.y - shoulder.y;
     const dz = (wrist.z - shoulder.z) * CFG.zWeight;
     this.reach = Math.hypot(dx, dy, dz) / sw;
+    this.elbowAngle = elbowAngleDeg(shoulder, elbow, wrist);
 
     if (this.prev) {
       const dt = (now - this.prev.t) / 1000;
@@ -80,21 +97,29 @@ export class HandTracker {
     // half-retracted double jab, which never gets back to guard at all.
     let event = null;
     if (this.phase === "guard") {
-      if (this.reach < CFG.returnAt) this.guardPos = { ...wrist };
-      if (this.reach > CFG.extendAt && this.guardPos) {
+      if (this.reach < CFG.returnAt) { this.guardPos = { ...wrist }; this.lastGuardAt = now; }
+      // Arm on reach — or on a straight elbow, since depth under-reads straights
+      // thrown at the camera. Either way the punch must have LEFT GUARD recently
+      // and be moving fast: hanging arms and camera drift never arm.
+      const extended = this.reach > CFG.extendAt ||
+        (this.elbowAngle > CFG.elbowArm && this.reach > 0.8);
+      if (extended && this.guardPos &&
+          now - this.lastGuardAt < CFG.guardWindowMs && this.speed > CFG.armSpeed) {
         this.phase = "extended";
-        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist } };
+        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist }, elbowAngle: this.elbowAngle };
       }
     } else if (this.phase === "extended") {
       if (this.reach >= this.peak.reach) {
         this.peak.reach = this.reach;
         this.peak.pos = { ...wrist };
+        this.peak.elbowAngle = this.elbowAngle;
       }
       this.peak.speed = Math.max(this.peak.speed, this.speed);
       if (this.reach < this.peak.reach - CFG.peakDrop) {
         this.phase = "retracting";
         this.localMin = this.reach;
-        if (this.peak.speed >= CFG.minPeakSpeed && now - this.lastCountAt > CFG.cooldownMs) {
+        const aboveHips = this.peak.pos.y < ctx.hipY; // image y grows downward
+        if (aboveHips && this.peak.speed >= CFG.minPeakSpeed && now - this.lastCountAt > CFG.cooldownMs) {
           this.lastCountAt = now;
           event = { hand: this.hand, type: this.classify(sw), speed: this.peak.speed };
         }
@@ -104,10 +129,11 @@ export class HandTracker {
       if (this.reach < CFG.returnAt) {
         this.phase = "guard";
         this.guardPos = { ...wrist };
+        this.lastGuardAt = now;
       } else if (this.reach > this.localMin + CFG.rearm && this.speed >= CFG.minPeakSpeed * 0.6) {
         // thrown again without returning to guard — double jab
         this.phase = "extended";
-        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist } };
+        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist }, elbowAngle: this.elbowAngle };
       }
     }
     return event;
@@ -119,7 +145,9 @@ export class HandTracker {
     const up = (g.y - p.y) / sw;                             // image y grows downward
     const fwd = Math.max(0, (g.z - p.z) * CFG.zWeight) / sw; // toward camera
     if (up > 0.35 && up >= lateral && up >= fwd) return "UPPERCUT";
-    if (lateral > fwd * 1.15 && lateral > 0.5) return "HOOK";
+    // A hook is a bent-elbow punch; direction alone misreads crosses that
+    // travel across the midline. Elbow geometry at peak is the honest signal.
+    if (this.peak.elbowAngle < CFG.elbowStraight) return "HOOK";
     return this.hand === "L" ? "JAB" : "CROSS";
   }
 }
@@ -130,10 +158,10 @@ export class HandTracker {
 
 export const SYNTH = {
   combo: [
-    { hand: "L", type: "JAB", d: { x: 0, y: -0.1, z: -1.6 } },
-    { hand: "R", type: "CROSS", d: { x: 0, y: -0.1, z: -1.6 } },
-    { hand: "L", type: "HOOK", d: { x: -1.5, y: 0, z: -0.4 } },
-    { hand: "R", type: "UPPERCUT", d: { x: 0.2, y: -1.5, z: -0.3 } },
+    { hand: "L", type: "JAB", d: { x: 0, y: -0.1, z: -1.6 }, arm: "straight" },
+    { hand: "R", type: "CROSS", d: { x: 0, y: -0.1, z: -1.6 }, arm: "straight" },
+    { hand: "L", type: "HOOK", d: { x: -1.5, y: 0, z: -0.4 }, arm: "bent" },
+    { hand: "R", type: "UPPERCUT", d: { x: 0.2, y: -1.5, z: -0.3 }, arm: "bent" },
   ],
   punchMs: 500,
   gapMs: 300,
@@ -163,7 +191,7 @@ export function syntheticFrame(tMs) {
   const tIn = tMs % cycleMs;
   const idx = Math.floor(tIn / (punchMs + gapMs));
   const tPunch = tIn - idx * (punchMs + gapMs);
-  const { hand, d } = combo[idx];
+  const { hand, d, arm } = combo[idx];
   // triangle wave: out for the first half of the punch window, back for the second
   let k = 0;
   if (tPunch < punchMs) k = tPunch < punchMs / 2 ? tPunch / (punchMs / 2) : 2 - tPunch / (punchMs / 2);
@@ -176,5 +204,15 @@ export function syntheticFrame(tMs) {
   w.x += d.x * sw * k;
   w.y += d.y * sw * k;
   w.z += d.z * sw * k;
+  // a straight punch straightens the arm: elbow tracks the shoulder–wrist
+  // midpoint at full extension; hooks and uppercuts keep the elbow bent
+  if (arm === "straight" && k > 0) {
+    const s = lm[hand === "L" ? L.L_SHOULDER : L.R_SHOULDER];
+    const e = lm[hand === "L" ? L.L_ELBOW : L.R_ELBOW];
+    const mid = { x: (s.x + w.x) / 2, y: (s.y + w.y) / 2, z: (s.z + w.z) / 2 };
+    e.x += (mid.x - e.x) * k;
+    e.y += (mid.y - e.y) * k;
+    e.z += (mid.z - e.z) * k;
+  }
   return lm;
 }

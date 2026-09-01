@@ -38,14 +38,46 @@ function closeRound() {
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
 const smoother = new LandmarkSmoother();
 
+// ---- session recorder (press r): raw landmarks + fired events → recordings/ ----
+let recording = null;
+function toggleRecording() {
+  if (!recording) {
+    recording = { startedAt: new Date().toISOString(), frames: [], events: [] };
+    $("rec-dot").hidden = false;
+    return;
+  }
+  const rec = recording;
+  recording = null;
+  $("rec-dot").hidden = true;
+  rec.label = prompt("What did you actually throw? (e.g. 'jab x10')") || "unlabeled";
+  fetch("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) })
+    .then((r) => r.json())
+    .then((j) => alert(`saved ${j.file} — ${rec.frames.length} frames, ${rec.events.length} punches called`))
+    .catch(() => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(rec)], { type: "application/json" }));
+      a.download = `shadowbox-${Date.now()}.json`;
+      a.click();
+    });
+}
+
 function onFrame(landmarks, now) {
+  if (recording) {
+    const snap = {};
+    for (const i of Object.values(L)) {
+      const p = landmarks[i];
+      snap[i] = { x: +p.x.toFixed(4), y: +p.y.toFixed(4), z: +p.z.toFixed(4) };
+    }
+    recording.frames.push({ t: +now.toFixed(1), lm: snap });
+  }
   const lm = smoother.update(landmarks);
   const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
   const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
   if (sw < 0.02) return; // not actually facing the camera
+  const ctx2 = { sw, hipY: (lm.get(L.L_HIP).y + lm.get(L.R_HIP).y) / 2 };
 
-  for (const [hand, wristIdx, shoulderIdx] of [["L", L.L_WRIST, L.L_SHOULDER], ["R", L.R_WRIST, L.R_SHOULDER]]) {
-    const ev = hands[hand].update(lm.get(wristIdx), lm.get(shoulderIdx), sw, now);
+  for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
+    const ev = hands[hand].update(lm.get(wi), lm.get(ei), lm.get(si), ctx2, now);
     if (ev && !resting) recordPunch(ev, now);
   }
   draw(lm);
@@ -56,9 +88,9 @@ function onFrame(landmarks, now) {
   }
   if (!debugPanel.hidden) {
     debugPanel.textContent =
-      `L reach ${hands.L.reach.toFixed(2)}  speed ${hands.L.speed.toFixed(1)}  phase ${hands.L.phase}\n` +
-      `R reach ${hands.R.reach.toFixed(2)}  speed ${hands.R.speed.toFixed(1)}  phase ${hands.R.phase}\n` +
-      `shoulder-width ${sw.toFixed(3)}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}`;
+      `L reach ${hands.L.reach.toFixed(2)}  speed ${hands.L.speed.toFixed(1)}  elbow ${hands.L.elbowAngle.toFixed(0)}°  phase ${hands.L.phase}\n` +
+      `R reach ${hands.R.reach.toFixed(2)}  speed ${hands.R.speed.toFixed(1)}  elbow ${hands.R.elbowAngle.toFixed(0)}°  phase ${hands.R.phase}\n` +
+      `shoulder-width ${sw.toFixed(3)}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}  ${recording ? "REC " + recording.frames.length : ""}`;
   }
 }
 
@@ -106,6 +138,7 @@ function recordPunch(ev, now) {
   stats[ev.type]++;
   stats.peakSpeed = Math.max(stats.peakSpeed, ev.speed);
   punchLog.push({ t: now, ...ev });
+  if (recording) recording.events.push({ t: +now.toFixed(1), ...ev });
   $("stat-total").textContent = stats.total;
   $("stat-jab").textContent = stats.JAB;
   $("stat-cross").textContent = stats.CROSS;
@@ -192,6 +225,7 @@ renderClock();
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "d") debugPanel.hidden = !debugPanel.hidden;
+  if (e.key === "r") toggleRecording();
 });
 
 // =========================================================================

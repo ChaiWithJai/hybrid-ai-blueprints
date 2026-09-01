@@ -19,8 +19,9 @@ function runFeed(frameFn, totalMs) {
     const lm = smoother.update(frameFn(t));
     const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
     const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
-    for (const [hand, wi, si] of [["L", L.L_WRIST, L.L_SHOULDER], ["R", L.R_WRIST, L.R_SHOULDER]]) {
-      const ev = hands[hand].update(lm.get(wi), lm.get(si), sw, t);
+    const ctx = { sw, hipY: (lm.get(L.L_HIP).y + lm.get(L.R_HIP).y) / 2 };
+    for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
+      const ev = hands[hand].update(lm.get(wi), lm.get(ei), lm.get(si), ctx, t);
       if (ev) events.push({ t, ...ev });
     }
   }
@@ -79,6 +80,11 @@ function check(name, cond, detail) {
       z: guard.z + d.z * SYNTH.sw * k,
     };
     lm[L.R_WRIST] = { x: 0.40, y: 0.30, z: -0.05 };
+    // jabs straighten the arm — elbow tracks toward the shoulder–wrist midpoint
+    const s = lm[L.L_SHOULDER], e = lm[L.L_ELBOW], w = lm[L.L_WRIST];
+    e.x += ((s.x + w.x) / 2 - e.x) * k;
+    e.y += ((s.y + w.y) / 2 - e.y) * k;
+    e.z += ((s.z + w.z) / 2 - e.z) * k;
     return lm;
   };
   const events = runFeed(frameFn, 900);
