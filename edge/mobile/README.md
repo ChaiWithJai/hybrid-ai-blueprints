@@ -22,8 +22,8 @@ Studio, per this repository's conventions.
 ## The portfolio (after the live review)
 
 Every demo ran the same scorecard against live Bonsai 1.7b. The keeps got
-the design layer and a running app; the kills got parked with their
-revival conditions — see [demos/parked/PARKED.md](demos/parked/PARKED.md).
+the design layer and a running app; the kills were deleted on the
+evidence — see [POSTMORTEM.md](POSTMORTEM.md).
 
 **Keeps — running apps on the [design layer](design/README.md):**
 
@@ -33,13 +33,17 @@ revival conditions — see [demos/parked/PARKED.md](demos/parked/PARKED.md).
 | **Dhaaga** (port 8033) | [03 family-line](demos/03-family-line/DESIGN.md) | E2EE store-and-forward voice over degraded networks | IMO (1B+ installs, no E2EE), Botim's VoIP-ban moat, MAX |
 | **Bol** (port 8034) | [04 dictation-compose](demos/04-dictation-compose/DESIGN.md) | Speak → clean written message, register-aware | Ridmik Keyboard (50M+), the 754M low-literacy non-market |
 
-**Parked — live-killed, revival condition is the LoRA roadmap:**
+**Killed — deleted from the tree on live evidence.** The record lives in
+[POSTMORTEM.md](POSTMORTEM.md), the decision in
+[ADR 0003](../../docs/ADR_0003_EDGE_DEMO_PORTFOLIO_KILLS.md), the
+scorecards in [evidence/](evidence/), and the code in git history.
+Revival = restore from history + a clean `app.py auto` with unweakened
+gates, once the per-corridor LoRAs land.
 
-| Demo | Killed on | Revives when |
-| --- | --- | --- |
-| [02 offline-translate](demos/parked/02-offline-translate/DESIGN.md) | Format non-compliance + number/kin-term errors | Per-pair translation LoRAs; real NLLB artifact |
-| [05 catch-up](demos/parked/05-catch-up/DESIGN.md) | Grounded-digest format half-held; LM Studio parser 400s | Format-tuned 1.7b + parser fix upstream |
-| [06 remittance-ledger](demos/parked/06-remittance-ledger/DESIGN.md) | es/ur/fr → confirm_needed; bn currency misassigned | Per-corridor extraction LoRA with currency supervision |
+The suite is also design-reviewed: a screenshot-atlas rig
+([design-review/](design-review/)) captures every app state at two
+viewports, annotations are clustered by failure mode, and fixes are
+verified by recapture — see `design-review/REVIEW.md`.
 
 ## How a demo is built (the violet_rails transplant)
 

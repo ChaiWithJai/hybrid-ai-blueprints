@@ -6,10 +6,14 @@
 <title>Dhaaga</title>
 <link rel="stylesheet" href="/tokens.css">
 <style>
-  .shell { max-width: 430px; margin: 0 auto; min-height: 100vh;
+  .shell { max-width: 430px; margin: 0 auto; height: 100vh;
            display: flex; flex-direction: column; }
 
-  header { padding: 18px 20px 8px; }
+  /* The thread scrolls inside its own container; the header (and its
+   * lock chip — the trust cue) never leaves the screen. Round-1 review:
+   * window-level autoscroll blanked the first paint entirely. */
+  header { padding: 18px 20px 8px; position: sticky; top: 0; z-index: 5;
+           background: var(--paper); }
   .titlerow { display: flex; align-items: center; gap: 12px; }
   header h1 { font-size: var(--fs-hero); margin: 0; letter-spacing: -0.01em; }
   header .tag { font-size: var(--fs-meta); color: var(--ink-soft); }
@@ -26,7 +30,8 @@
                     align-items: center; gap: 10px; }
   body.offline .offline-banner { display: flex; }
 
-  main { flex: 1; padding: 8px 16px 150px; display: flex;
+  main { flex: 1; min-height: 0; overflow-y: auto;
+         padding: 8px 16px 150px; display: flex;
          flex-direction: column; gap: 14px; }
 
   .empty { text-align: center; padding: 56px 24px; color: var(--ink-soft); }
@@ -122,8 +127,9 @@
   .speak .sub { display: block; font-size: 0.78rem; font-weight: 600;
                 opacity: 0.9; }
 
-  .devstrip { position: fixed; top: 0; right: 0; margin: 8px; z-index: 30;
-              display: flex; gap: 6px; opacity: 0.85; }
+  .devstrip { position: fixed; bottom: 120px; left: 10px; z-index: 15;
+              /* demo controls: above the full-width dock, clear of chrome */
+              display: flex; gap: 6px; opacity: 0.7; }
   .devstrip button { min-height: 36px; min-width: 0; font-size: 0.78rem;
                      padding: 4px 12px; border-radius: var(--radius-chip);
                      background: var(--ink); color: var(--paper);
@@ -325,7 +331,7 @@ function render(state) {
     thread.appendChild(c);
   }
   if (thread.scrollHeight !== stuck)
-    window.scrollTo(0, document.body.scrollHeight);
+    thread.scrollTop = thread.scrollHeight;   // scroll the thread, not the page
 }
 
 let online = true;

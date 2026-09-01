@@ -53,6 +53,7 @@ A new app = one namespace bundle + one screen:
    screen from `tokens.css` + `sprites.svg` + the COPY.md rules.
 5. Add nothing to the design system without needing it twice.
 
-The parked demos (`../demos/parked/`) are the counter-examples worth
-reading: correct code, killed on live model evidence, waiting on LoRAs —
-that is the bar, and the honesty convention, for anything new.
+The killed demos (see `../POSTMORTEM.md`; code in git history) are the
+counter-examples worth reading: correct code, killed on live model
+evidence, awaiting LoRAs — that is the bar, and the honesty convention,
+for anything new.

@@ -2,35 +2,35 @@
   "demo": "04-dictation-compose",
   "mode": "fixture",
   "model": "fixture",
-  "ran_at": "2026-08-31T21:44:10-0400",
+  "ran_at": "2026-08-31T23:12:15-0400",
   "gates": [
     {
       "gate": "high_confidence_items_composed",
       "required": true,
       "passed": true,
       "detail": "bn/formal:model; bn/familiar:model; ur/formal:model; es/familiar:model; fr/formal:model",
-      "elapsed_ms": 1.4
+      "elapsed_ms": 1.0
     },
     {
       "gate": "low_confidence_never_reaches_model",
       "required": true,
       "passed": true,
       "detail": "0 provider calls; clarify prompt names uncertain span",
-      "elapsed_ms": 0.6
+      "elapsed_ms": 0.4
     },
     {
       "gate": "client_only_rule_stays_local",
       "required": true,
       "passed": true,
       "detail": "sync moved 0; states after sync: ['local']",
-      "elapsed_ms": 0.9
+      "elapsed_ms": 1.0
     },
     {
       "gate": "grounding_guard_rejects_mutation",
       "required": true,
       "passed": true,
       "detail": "composeMode=fallback",
-      "elapsed_ms": 0.4
+      "elapsed_ms": 0.7
     }
   ],
   "verdict": "keep"

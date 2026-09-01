@@ -123,7 +123,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
-        body = json.loads(self.rfile.read(n) or b"{}") if n else {}
+        try:
+            body = json.loads(self.rfile.read(n) or b"{}") if n else {}
+        except ValueError:
+            self._send(400, {"error": "body must be a JSON object"})
+            return
         with STATE.lock:
             if self.path == "/api/dictate":
                 try:

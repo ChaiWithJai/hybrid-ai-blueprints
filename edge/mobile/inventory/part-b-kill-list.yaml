@@ -33,12 +33,12 @@ tier_1_feature_kills:
     verdict: kill
     numbers: "1B+ installs; 249 languages online, 59 offline; Tajik/Wolof/Uzbek zero offline coverage from any incumbent"
     attack: "Per-corridor LoRA + NLLB sidecar owns offline translation where nobody has ever shipped it"
-    demo: 02-offline-translate
+    demo: 02-offline-translate (killed on live evidence — see ../POSTMORTEM.md)
   - target: "Yandex Translate (Central Asia)"
     verdict: kill
     numbers: "10M+ downloads; Tajik/Kyrgyz experimental, cloud-only"
     attack: "Offline where it needs a connection, finished where it is beta"
-    demo: 02-offline-translate
+    demo: 02-offline-translate (killed on live evidence — see ../POSTMORTEM.md)
 
 tier_2_displacements:
   - target: IMO
@@ -65,7 +65,7 @@ tier_2_displacements:
     verdict: displace
     numbers: "350M+ MAU India of 500M global (TechCrunch, Mar 2026); IN Play #8"
     attack: "'Who called and why' is a summarization job — the catch-up layer answers it inside the family context"
-    demo: 05-catch-up
+    demo: 05-catch-up (killed on live evidence — see ../POSTMORTEM.md)
   - target: "Ridmik Keyboard (BD)"
     verdict: displace
     numbers: "50M+ downloads; BD Play #9 — a keyboard outranking banks proves Bangla input pain"
@@ -82,12 +82,12 @@ tier_3_ride_the_rails:
     verdict: ride
     numbers: "Remitly 10.2M actives, $23.5B/qtr; Wise 11.9M, $69.3B/qtr; Ria ~83% still cash/agent (Q2-2026 filings)"
     play: "~$90B+/quarter of public-company volume whose apps open ~1-2x/month — the record-keeping and family-context layer is unclaimed"
-    demo: 06-remittance-ledger
+    demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md)
   - target: "Félix Pago"
     verdict: ride
     numbers: "300K+ senders, $1B+ moved 2024, $75M Series B — no app, lives inside WhatsApp"
     play: "The proof-of-thesis and closest analog; extraction competes for the same money-as-conversation surface"
-    demo: 06-remittance-ledger
+    demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md)
 
 tier_4_receiving_side_wallets:
   # Every wallet here is text-first, official-language-only, transactional.
@@ -95,12 +95,12 @@ tier_4_receiving_side_wallets:
   # is exactly our user. Voice UI + record extraction + read-aloud makes
   # their product usable; integration beats war. If partnership fails, the
   # same features are the displacement vector.
-  - { target: "GCash (PH)",              verdict: partner, numbers: "81M actives (Jan 2025); PH Play #9; English-only, no voice", demo: 06-remittance-ledger }
-  - { target: "bKash / Nagad (BD)",      verdict: partner, numbers: "42M actives / 28.2M; BD Play #10 / #11", demo: 06-remittance-ledger }
-  - { target: "easypaisa / JazzCash (PK)", verdict: partner, numbers: "20M MAU / 20.6M MAU; PK Play #9 / #11", demo: 06-remittance-ledger }
-  - { target: "Wave (SN) / EcoCash (ZW)", verdict: partner, numbers: "Wave ~23M users, $1.7B valuation, SN #2; EcoCash ZW #4, ~99% share", demo: 06-remittance-ledger }
-  - { target: "OPay / PalmPay (NG)",     verdict: partner, numbers: "50M+ / 35M+ registered; NG Play #2 / #14", demo: 06-remittance-ledger }
-  - { target: "Spin by OXXO (MX) / Korona Pay (RU-CA)", verdict: partner, numbers: "10.5M actives / 17.5M users", demo: 06-remittance-ledger }
+  - { target: "GCash (PH)",              verdict: partner, numbers: "81M actives (Jan 2025); PH Play #9; English-only, no voice", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
+  - { target: "bKash / Nagad (BD)",      verdict: partner, numbers: "42M actives / 28.2M; BD Play #10 / #11", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
+  - { target: "easypaisa / JazzCash (PK)", verdict: partner, numbers: "20M MAU / 20.6M MAU; PK Play #9 / #11", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
+  - { target: "Wave (SN) / EcoCash (ZW)", verdict: partner, numbers: "Wave ~23M users, $1.7B valuation, SN #2; EcoCash ZW #4, ~99% share", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
+  - { target: "OPay / PalmPay (NG)",     verdict: partner, numbers: "50M+ / 35M+ registered; NG Play #2 / #14", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
+  - { target: "Spin by OXXO (MX) / Korona Pay (RU-CA)", verdict: partner, numbers: "10.5M actives / 17.5M users", demo: 06-remittance-ledger (killed on live evidence — see ../POSTMORTEM.md) }
 
 tier_5_benchmarks:
   - target: "Zalo (Vietnam)"

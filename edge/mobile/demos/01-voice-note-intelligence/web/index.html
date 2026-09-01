@@ -67,7 +67,9 @@
           font-size: var(--fs-meta); font-weight: 600;
           border-radius: var(--radius-chip); padding: 6px 12px; }
   .chip svg { width: 16px; height: 16px; }
-  .chip.reply { background: var(--clay-soft); color: var(--clay); }
+  /* Needs-reply is attention, not alarm: clay/red stays reserved for real
+   * problems (COPY.md rule 5; round-1 review finding). */
+  .chip.reply { background: var(--wait-soft); color: var(--wait); }
   .chip.queued { background: var(--wait-soft); color: var(--wait); }
   .chip.synced { background: var(--leaf-soft); color: var(--leaf); }
   .readall { background: none; border: none; color: var(--sky);
@@ -89,8 +91,10 @@
   .mic-label { font-size: var(--fs-meta); font-weight: 600;
                color: var(--ink-soft); }
 
-  .devstrip { position: fixed; top: 0; right: 0; margin: 8px;
-              display: flex; gap: 6px; opacity: 0.85; }
+  /* Demo controls live bottom-left, small and translucent — they must
+   * never collide with product chrome (round-1 review finding). */
+  .devstrip { position: fixed; bottom: 10px; left: 10px; z-index: 5;
+              display: flex; flex-direction: column; gap: 6px; opacity: 0.7; }
   .devstrip button { min-height: 36px; min-width: 0; font-size: 0.78rem;
                      padding: 4px 12px; border-radius: var(--radius-chip);
                      background: var(--ink); color: var(--paper);
@@ -215,8 +219,7 @@ function render(state) {
     c.querySelector(".meta").textContent =
       Math.round(n.durationMs / 1000) + "s · voice note";
     waveBars(c.querySelector(".wave"), n.id);
-    c.querySelector(".dur").textContent =
-      Math.round(n.durationMs / 1000) + 's';
+    c.querySelector(".dur").remove();  // duration already lives in the meta line
 
     const sum = c.querySelector(".summary");
     if (n.direction === "out") {

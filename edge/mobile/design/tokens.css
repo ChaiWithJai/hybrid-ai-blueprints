@@ -83,6 +83,10 @@
 
 /* base element behavior every demo inherits */
 * { box-sizing: border-box; }
+/* An author display rule silently defeats the hidden attribute (UA
+ * [hidden]{display:none} loses to any author display). Round-1 design
+ * review caught two state-leak bugs from exactly this; kill the class. */
+[hidden] { display: none !important; }
 body {
   margin: 0;
   background: var(--paper);

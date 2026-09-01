@@ -119,7 +119,8 @@
   .mic-label { font-size: var(--fs-meta); font-weight: 600;
                color: var(--ink-soft); }
 
-  .devstrip { position: fixed; top: 0; right: 0; margin: 8px;
+  .devstrip { position: fixed; bottom: 10px; left: 10px; z-index: 5;
+              /* demo controls: bottom-left, never over product chrome */
               display: flex; gap: 6px; opacity: 0.85; }
   .devstrip button { min-height: 36px; min-width: 0; font-size: 0.78rem;
                      padding: 4px 12px; border-radius: var(--radius-chip);
@@ -135,10 +136,7 @@
       <h1>Bol</h1>
       <span class="tag">Say it, send it written</span>
     </div>
-    <span class="made-chip">
-      <svg aria-hidden="true"><use href="#ic-sparkle"/></svg>
-      Made on this phone
-    </span>
+
     <span class="net-pill on" id="netPill" role="status">
       <svg style="width:16px;height:16px" aria-hidden="true">
         <use href="#ic-delivered"/></svg><span id="netWord">Connected</span>
