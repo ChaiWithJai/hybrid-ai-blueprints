@@ -1,0 +1,106 @@
+/* edge/mobile design tokens — the one place look-and-feel lives.
+ *
+ * Product constraints these tokens encode:
+ *  - Fully offline: system font stack, no external fetches, ever.
+ *  - Low-literacy first: type is big, targets are big, color never
+ *    carries meaning alone (every state ships an icon + a word).
+ *  - Warm and human: paper, ink, marigold — a family kitchen, not a bank.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ground */
+  --paper:      #fdf6ea;   /* warm paper, the app's ground */
+  --card:       #fffdf8;   /* raised card */
+  --sand:       #f2e5cd;   /* recessed wells, chips */
+  --ink:        #2b2016;   /* primary text + sprite strokes */
+  --ink-soft:   #6b5a48;   /* secondary text */
+  --ink-faint:  #a08b74;   /* hints, timestamps */
+  --line:       #e5d5bb;   /* hairlines */
+
+  /* voice — the one accent: marigold, used ONLY for speak/act */
+  --marigold:      #e07b28;
+  --marigold-deep: #b85e17;
+  --marigold-soft: #fbe8d3;
+
+  /* states — always icon + word, never color alone */
+  --leaf:       #2f7d4f;   /* delivered / confirmed / good */
+  --leaf-soft:  #dff0e4;
+  --sky:        #3778b8;   /* info / on-device intelligence */
+  --sky-soft:   #e3eefa;
+  --clay:       #b8452e;   /* needs attention / failed */
+  --clay-soft:  #f9e2dc;
+  --wait:       #8a6d3b;   /* queued / waiting for network */
+  --wait-soft:  #f4ead2;
+
+  /* type — system stack, offline by construction */
+  --font: -apple-system, "SF Pro Rounded", "Segoe UI", Roboto,
+          "Noto Sans", "Noto Sans Bengali", "Noto Nastaliq Urdu",
+          "Noto Sans Devanagari", sans-serif;
+  --fs-hero: 1.65rem;   /* one hero line per screen, max */
+  --fs-body: 1.125rem;  /* 18px floor — never smaller for content */
+  --fs-meta: 0.9rem;
+
+  /* touch — 56px minimum; the mic is 88px because it IS the app */
+  --tap:     56px;
+  --tap-hero: 88px;
+  --radius:  18px;
+  --radius-chip: 999px;
+
+  --shadow: 0 2px 10px rgba(43, 32, 22, 0.10);
+  --motion: 180ms ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper:      #211a12;
+    --card:       #2a2218;
+    --sand:       #352b1e;
+    --ink:        #f4ead9;
+    --ink-soft:   #cbb99f;
+    --ink-faint:  #937f66;
+    --line:       #443929;
+    --marigold:      #ef9247;
+    --marigold-deep: #f6ac6e;
+    --marigold-soft: #462d1a;
+    --leaf:       #5cb984;
+    --leaf-soft:  #253c2e;
+    --sky:        #6ea9dd;
+    --sky-soft:   #23344a;
+    --clay:       #dd7a63;
+    --clay-soft:  #46281f;
+    --wait:       #c8a262;
+    --wait-soft:  #3b321f;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion: 0ms; }
+}
+
+/* base element behavior every demo inherits */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button {
+  font: inherit;
+  min-height: var(--tap);
+  min-width: var(--tap);
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform var(--motion), background var(--motion);
+}
+button:active { transform: scale(0.97); }
+button:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+[dir="rtl"] { text-align: right; }

@@ -10,7 +10,8 @@
     "lowConfidenceSpan": {"type": "string"},
     "cleanText":         {"type": "string"},
     "composeMode":       {"type": "string"},
-    "clarifyPrompt":     {"type": "string"}
+    "clarifyPrompt":     {"type": "string"},
+    "approved":          {"type": "bool",   "default": false}
   },
   "client_actions": [
     {"name": "clean_compose", "params": {"confidence_floor": 0.75}}

@@ -42,7 +42,10 @@ class BundleError(ValueError):
 
 class FamilyStore:
     def __init__(self, path=":memory:", registry=None):
-        self.db = sqlite3.connect(path)
+        # check_same_thread=False so a threaded HTTP server can hold one
+        # store; the store itself is NOT thread-safe — callers serialize
+        # access with their own lock (see the demo serve.py files).
+        self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
         self.db.executescript(_SCHEMA)
         self.registry = registry or ActionRegistry()

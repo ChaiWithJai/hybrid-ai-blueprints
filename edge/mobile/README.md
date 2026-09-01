@@ -19,19 +19,27 @@ language. Nothing in this directory claims a working phone deployment:
 unproven**, and every demo is designed to run laptop-first against LM
 Studio, per this repository's conventions.
 
-## The demos
+## The portfolio (after the live review)
 
-| Demo | Ships | Primary targets (from [part-b](inventory/part-b-kill-list.yaml)) |
+Every demo ran the same scorecard against live Bonsai 1.7b. The keeps got
+the design layer and a running app; the kills got parked with their
+revival conditions — see [demos/parked/PARKED.md](demos/parked/PARKED.md).
+
+**Keeps — running apps on the [design layer](design/README.md):**
+
+| App | Demo | Ships | Primary targets (from [part-b](inventory/part-b-kill-list.yaml)) |
+| --- | --- | --- | --- |
+| **Awaaz** (port 8031) | [01 voice-note-intelligence](demos/01-voice-note-intelligence/DESIGN.md) | On-device transcript + summary + read-aloud | Telegram Premium transcription (15M paid subs), WhatsApp's 4-language free tier, Viber |
+| **Dhaaga** (port 8033) | [03 family-line](demos/03-family-line/DESIGN.md) | E2EE store-and-forward voice over degraded networks | IMO (1B+ installs, no E2EE), Botim's VoIP-ban moat, MAX |
+| **Bol** (port 8034) | [04 dictation-compose](demos/04-dictation-compose/DESIGN.md) | Speak → clean written message, register-aware | Ridmik Keyboard (50M+), the 754M low-literacy non-market |
+
+**Parked — live-killed, revival condition is the LoRA roadmap:**
+
+| Demo | Killed on | Revives when |
 | --- | --- | --- |
-| [01 voice-note-intelligence](demos/01-voice-note-intelligence/DESIGN.md) | On-device transcript + summary + read-aloud | Telegram Premium transcription (15M paid subs), WhatsApp's 4-language free tier, Viber |
-| [02 offline-translate](demos/02-offline-translate/DESIGN.md) | LoRA + NLLB translation, fully offline | Google Translate's 59/249 offline gap, Yandex TJ/KG |
-| [03 family-line](demos/03-family-line/DESIGN.md) | E2EE store-and-forward voice over degraded networks | IMO (1B+ installs, no E2EE), Botim's VoIP-ban moat, MAX |
-| [04 dictation-compose](demos/04-dictation-compose/DESIGN.md) | Speak → clean written message, register-aware | Ridmik Keyboard (50M+), the 754M low-literacy non-market |
-| [05 catch-up](demos/05-catch-up/DESIGN.md) | Grounded digest of everything missed, on-unlock | Truecaller's "who called and why" (350M+ MAU India) |
-| [06 remittance-ledger](demos/06-remittance-ledger/DESIGN.md) | Extract + recall money records from conversation | The engagement layer above Remitly/Wise/wallets (~$90B+/qtr) |
-
-Demos 01–03 are the Tier-1/2 attack; 04 grows the market; 05 proves the
-boilerplate's client-only rule; 06 is the monetization surface.
+| [02 offline-translate](demos/parked/02-offline-translate/DESIGN.md) | Format non-compliance + number/kin-term errors | Per-pair translation LoRAs; real NLLB artifact |
+| [05 catch-up](demos/parked/05-catch-up/DESIGN.md) | Grounded-digest format half-held; LM Studio parser 400s | Format-tuned 1.7b + parser fix upstream |
+| [06 remittance-ledger](demos/parked/06-remittance-ledger/DESIGN.md) | es/ur/fr → confirm_needed; bn currency misassigned | Per-corridor extraction LoRA with currency supervision |
 
 ## How a demo is built (the violet_rails transplant)
 

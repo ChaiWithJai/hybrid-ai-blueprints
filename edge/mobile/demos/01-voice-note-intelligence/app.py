@@ -58,6 +58,12 @@ def build_registry(fixture):
 
     @reg.action("summarize")
     def summarize(props, params, ctx):
+        if props.get("direction") == "out":
+            # Your own voice needs no summary — you said it. The model only
+            # ever speaks about what OTHERS sent.
+            props.update(summary=props["transcript"][:140], needsReply=False,
+                         summaryMode="own")
+            return
         raw = ctx["provider"].chat(
             SUMMARIZE_SYSTEM.format(max_words=params.get("max_words", 28)),
             f"[{props['audioRef']}] ({props['lang']}) {props['transcript']}",

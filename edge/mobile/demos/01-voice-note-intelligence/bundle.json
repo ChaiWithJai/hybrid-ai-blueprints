@@ -11,7 +11,8 @@
     "asrMode":    {"type": "string"},
     "summary":    {"type": "string"},
     "needsReply": {"type": "bool"},
-    "summaryMode": {"type": "string", "default": "model"}
+    "summaryMode": {"type": "string", "default": "model"},
+    "direction":   {"type": "string", "default": "in"}
   },
   "client_actions": [
     {"name": "transcribe", "params": {"asr": "fixture"}},
