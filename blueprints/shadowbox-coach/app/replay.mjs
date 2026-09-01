@@ -6,7 +6,7 @@
 // key=value pairs override CFG for the replay, so thresholds can be tuned
 // against real labeled punches without touching the app.
 import fs from "node:fs";
-import { L, CFG, HandTracker, LandmarkSmoother } from "./punch.js";
+import { L, CFG, HandTracker, makeSmoother } from "./punch.js";
 
 const files = [];
 for (const arg of process.argv.slice(2)) {
@@ -25,7 +25,7 @@ if (!files.length) {
 for (const file of files) {
   const rec = JSON.parse(fs.readFileSync(file, "utf8"));
   const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
-  const smoother = new LandmarkSmoother();
+  const smoother = makeSmoother();
   const events = [];
   let frames = 0;
 
@@ -33,7 +33,7 @@ for (const file of files) {
     frames++;
     const raw = [];
     for (const [i, p] of Object.entries(f.lm)) raw[i] = p;
-    const lm = smoother.update(raw);
+    const lm = smoother.update(raw, f.t);
     const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
     const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
     if (sw < 0.02) continue;

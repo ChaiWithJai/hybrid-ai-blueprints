@@ -1,7 +1,7 @@
 // Shadowbox Coach — webcam punch tracker (MediaPipe pose) + Bonsai corner coach.
 // All inference is on-device: pose in the browser, coaching via LM Studio on localhost.
 
-import { L, BONES, CFG, HandTracker, LandmarkSmoother, SYNTH, syntheticFrame } from "./punch.js";
+import { L, BONES, CFG, HandTracker, makeSmoother, SYNTH, syntheticFrame } from "./punch.js";
 
 const SYNTHETIC = new URLSearchParams(location.search).has("synthetic");
 const ROUND_SEC = 180, REST_SEC = 60;
@@ -36,7 +36,8 @@ function closeRound() {
 }
 
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
-const smoother = new LandmarkSmoother();
+const smoother = makeSmoother();
+let fps = 0, lastFrameAt = 0;
 
 // ---- session recorder (press r): raw landmarks + fired events → recordings/ ----
 let recording = null;
@@ -70,7 +71,9 @@ function onFrame(landmarks, now) {
     }
     recording.frames.push({ t: +now.toFixed(1), lm: snap });
   }
-  const lm = smoother.update(landmarks);
+  if (lastFrameAt) fps += ((1000 / (now - lastFrameAt)) - fps) * 0.1;
+  lastFrameAt = now;
+  const lm = smoother.update(landmarks, now);
   const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
   const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
   if (sw < 0.02) return; // not actually facing the camera
@@ -90,7 +93,7 @@ function onFrame(landmarks, now) {
     debugPanel.textContent =
       `L reach ${hands.L.reach.toFixed(2)}  speed ${hands.L.speed.toFixed(1)}  elbow ${hands.L.elbowAngle.toFixed(0)}°  phase ${hands.L.phase}\n` +
       `R reach ${hands.R.reach.toFixed(2)}  speed ${hands.R.speed.toFixed(1)}  elbow ${hands.R.elbowAngle.toFixed(0)}°  phase ${hands.R.phase}\n` +
-      `shoulder-width ${sw.toFixed(3)}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}  ${recording ? "REC " + recording.frames.length : ""}`;
+      `shoulder-width ${sw.toFixed(3)}  ${fps.toFixed(0)} fps  ${CFG.smoother}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}  ${recording ? "REC " + recording.frames.length : ""}`;
   }
 }
 
@@ -222,6 +225,11 @@ $("btn-reset").addEventListener("click", () => {
   renderClock();
 });
 renderClock();
+
+$("btn-stance").addEventListener("click", () => {
+  CFG.leadHand = CFG.leadHand === "L" ? "R" : "L";
+  $("btn-stance").textContent = CFG.leadHand === "L" ? "ORTHODOX" : "SOUTHPAW";
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "d") debugPanel.hidden = !debugPanel.hidden;

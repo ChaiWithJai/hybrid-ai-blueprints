@@ -6,17 +6,17 @@
 // 2. Double jab: two jabs with only a half retraction between them — the
 //    re-arm path must catch both.
 //
-import { L, HandTracker, LandmarkSmoother, SYNTH, syntheticFrame } from "./punch.js";
+import { L, HandTracker, makeSmoother, SYNTH, syntheticFrame } from "./punch.js";
 
 const FPS = 60;
 let failed = false;
 
 function runFeed(frameFn, totalMs) {
   const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
-  const smoother = new LandmarkSmoother();
+  const smoother = makeSmoother();
   const events = [];
   for (let t = 0; t <= totalMs; t += 1000 / FPS) {
-    const lm = smoother.update(frameFn(t));
+    const lm = smoother.update(frameFn(t), t);
     const ls = lm.get(L.L_SHOULDER), rs = lm.get(L.R_SHOULDER);
     const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
     const ctx = { sw, hipY: (lm.get(L.L_HIP).y + lm.get(L.R_HIP).y) / 2 };

@@ -48,7 +48,7 @@ h1 span { color: var(--red); margin-left: 6px; }
   letter-spacing: 1px;
   cursor: pointer;
 }
-#btn-reset { background: var(--panel); border: 1px solid var(--edge); color: var(--dim); }
+#btn-reset, #btn-stance { background: var(--panel); border: 1px solid var(--edge); color: var(--dim); }
 .round-controls button:hover, #btn-coach:hover { filter: brightness(1.15); }
 
 main {

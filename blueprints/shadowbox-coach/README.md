@@ -85,6 +85,29 @@ node replay.mjs recordings/*.json minPeakSpeed=1.8     # re-run with threshold o
 Real labeled punches become regression data: tune the config until every recording
 scores correctly, then bake the winning values into `punch.js`.
 
+## The optimization loop (verifiable rewards, RLVR-style)
+
+The detector's 12+ thresholds aren't hand-tuned anymore — they're searched. The
+algorithm is boring; the reward function is everything:
+
+- **`eval.mjs`** — the reward function: ~10 synthetic scenario templates × 2
+  framerates (30/60 fps) × seeds, spanning body sizes (small/far ↔ big/close),
+  punch speeds (flurries ↔ slow-sloppy), landmark noise, double jabs — plus
+  **negative scenarios** (hanging arms while walking, slow reaches, guard jitter)
+  that must call zero. Reward = correct calls − 1.25·phantoms − misses − latency
+  penalty. `node eval.mjs` prints the report at the current config.
+- **`sweep.mjs`** — random search over the whole config space (both the EMA and
+  One Euro smoothers compete). Shardable: run N panes in tmux.
+- **`aggregate.mjs`** — merges shards and re-validates finalists on **held-out
+  seeds** before crowning a champion, so the winner didn't just overfit the
+  training seeds.
+
+```bash
+tmux new-session -d -s opt -c app 'node sweep.mjs --shard 0 --of 8 --n 5000 --out results/shard-0.json'
+# ...split 7 more panes, then:
+node aggregate.mjs
+```
+
 ## Honest limits
 
 2D pose with relative depth is an approximate judge: very fast punches can blur past

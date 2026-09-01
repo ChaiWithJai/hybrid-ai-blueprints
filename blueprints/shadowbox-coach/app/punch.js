@@ -16,18 +16,25 @@ export const BONES = [
 
 // tunables (distances in shoulder-widths, speeds in shoulder-widths/sec)
 export const CFG = {
-  smooth: 0.55,        // EMA alpha for landmarks (higher = snappier)
-  zWeight: 0.7,        // how much to trust MediaPipe's relative depth
-  extendAt: 1.15,      // reach that arms a punch
-  returnAt: 0.95,      // reach that re-enters guard
-  peakDrop: 0.08,      // reach falling this far below max = impact just happened
-  rearm: 0.2,          // rise off the retraction low that counts as punching again
-  minPeakSpeed: 2.2,   // slower than this is a stretch, not a punch
-  armSpeed: 1.5,       // outbound speed required to arm — punches leave guard fast
-  guardWindowMs: 500,  // a punch must launch from guard this recently (kills phantom counts from hanging arms)
-  elbowArm: 155,       // a straight elbow also arms the punch (depth under-reads straights at the camera)
-  elbowStraight: 140,  // bent elbow at peak = hook; straighter = jab/cross
-  cooldownMs: 120,     // jitter guard only — the re-arm path handles real double counts
+  leadHand: "L",       // orthodox: left = jab. Southpaw flips this to "R".
+  smoother: "ema",     // "ema" | "oneeuro" — which landmark filter to use
+  minCutoff: 1.2,      // one-euro: baseline smoothing (lower = smoother, laggier)
+  euroBeta: 0.04,      // one-euro: how fast smoothing relaxes with speed
+  // Values below were found by sweep.mjs (40k-candidate random search scored
+  // by eval.mjs, validated on held-out seeds): holdout F1 0.990, 0 missed
+  // punches, mean impact latency 42 ms. Don't hand-tweak — re-run the sweep.
+  smooth: 0.71,        // EMA alpha for landmarks (higher = snappier)
+  zWeight: 0.78,       // how much to trust MediaPipe's relative depth
+  extendAt: 1.01,      // reach that arms a punch
+  returnAt: 0.91,      // reach that re-enters guard
+  peakDrop: 0.065,     // reach falling this far below max = impact just happened
+  rearm: 0.13,         // rise off the retraction low that counts as punching again
+  minPeakSpeed: 3.0,   // slower than this is a stretch, not a punch
+  armSpeed: 1.25,      // outbound speed required to arm — punches leave guard fast
+  guardWindowMs: 350,  // a punch must launch from guard this recently (kills phantom counts from hanging arms)
+  elbowArm: 157,       // a straight elbow also arms the punch (depth under-reads straights at the camera)
+  elbowStraight: 137,  // bent elbow at peak = hook; straighter = jab/cross
+  cooldownMs: 155,     // jitter guard only — the re-arm path handles real double counts
 };
 
 export function elbowAngleDeg(shoulder, elbow, wrist) {
@@ -43,7 +50,7 @@ export class LandmarkSmoother {
     this.alpha = alpha;
     this.pts = new Map();
   }
-  update(landmarks) {
+  update(landmarks, _tMs) {
     for (const i of Object.values(L)) {
       const cur = landmarks[i], prev = this.pts.get(i);
       if (!prev) { this.pts.set(i, { ...cur }); continue; }
@@ -53,6 +60,60 @@ export class LandmarkSmoother {
     }
     return this.pts;
   }
+}
+
+// One Euro filter (Casiez et al.): smooth when slow, snappy when fast —
+// a better lag/jitter trade for punch-speed motion than a fixed EMA.
+class OneEuroAxis {
+  constructor(minCutoff, beta, dCutoff = 1) {
+    this.minCutoff = minCutoff; this.beta = beta; this.dCutoff = dCutoff;
+    this.prev = null;
+  }
+  static alpha(cutoff, dt) {
+    const tau = 1 / (2 * Math.PI * cutoff);
+    return 1 / (1 + tau / dt);
+  }
+  filter(x, tMs) {
+    if (!this.prev) { this.prev = { x, dx: 0, t: tMs }; return x; }
+    const dt = Math.max((tMs - this.prev.t) / 1000, 1e-3);
+    const aD = OneEuroAxis.alpha(this.dCutoff, dt);
+    const dx = aD * ((x - this.prev.x) / dt) + (1 - aD) * this.prev.dx;
+    const a = OneEuroAxis.alpha(this.minCutoff + this.beta * Math.abs(dx), dt);
+    const xf = a * x + (1 - a) * this.prev.x;
+    this.prev = { x: xf, dx, t: tMs };
+    return xf;
+  }
+}
+
+export class OneEuroSmoother {
+  constructor(minCutoff = CFG.minCutoff, beta = CFG.euroBeta) {
+    this.minCutoff = minCutoff; this.beta = beta;
+    this.filters = new Map();
+    this.pts = new Map();
+  }
+  update(landmarks, tMs) {
+    for (const i of Object.values(L)) {
+      let f = this.filters.get(i);
+      if (!f) {
+        f = {
+          x: new OneEuroAxis(this.minCutoff, this.beta),
+          y: new OneEuroAxis(this.minCutoff, this.beta),
+          z: new OneEuroAxis(this.minCutoff, this.beta),
+        };
+        this.filters.set(i, f);
+        this.pts.set(i, { x: 0, y: 0, z: 0 });
+      }
+      const p = this.pts.get(i), cur = landmarks[i];
+      p.x = f.x.filter(cur.x, tMs);
+      p.y = f.y.filter(cur.y, tMs);
+      p.z = f.z.filter(cur.z, tMs);
+    }
+    return this.pts;
+  }
+}
+
+export function makeSmoother() {
+  return CFG.smoother === "oneeuro" ? new OneEuroSmoother() : new LandmarkSmoother();
 }
 
 // One small state machine per hand. reach = 3D wrist-to-shoulder distance in
@@ -148,7 +209,7 @@ export class HandTracker {
     // A hook is a bent-elbow punch; direction alone misreads crosses that
     // travel across the midline. Elbow geometry at peak is the honest signal.
     if (this.peak.elbowAngle < CFG.elbowStraight) return "HOOK";
-    return this.hand === "L" ? "JAB" : "CROSS";
+    return this.hand === CFG.leadHand ? "JAB" : "CROSS";
   }
 }
 
