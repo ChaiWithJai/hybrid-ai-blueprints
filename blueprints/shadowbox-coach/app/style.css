@@ -209,6 +209,13 @@ main {
 }
 .rounds th:first-child, .rounds td:first-child { text-align: left; color: var(--gold); }
 
+.trends-line {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-top: 6px;
+}
 .coach {
   background: var(--panel);
   border: 1px solid var(--edge);

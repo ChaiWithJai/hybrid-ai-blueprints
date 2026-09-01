@@ -36,6 +36,8 @@ function sample() {
     elbowStraight: uni(120, 152),
     cooldownMs: uni(70, 170),
     zWeight: uni(0.45, 0.95),
+    speedAlpha: uni(0.35, 1.0),
+    armFrames: pick([1, 1, 2, 2, 3]),
     smoother: pick(["ema", "ema", "oneeuro"]),
     smooth: uni(0.35, 0.85),
     minCutoff: uni(0.6, 3.0),

@@ -20,22 +20,47 @@ export const CFG = {
   smoother: "ema",     // "ema" | "oneeuro" — which landmark filter to use
   minCutoff: 1.2,      // one-euro: baseline smoothing (lower = smoother, laggier)
   euroBeta: 0.04,      // one-euro: how fast smoothing relaxes with speed
-  // Values below were found by sweep.mjs (40k-candidate random search scored
-  // by eval.mjs, validated on held-out seeds): holdout F1 0.990, 0 missed
-  // punches, mean impact latency 42 ms. Don't hand-tweak — re-run the sweep.
-  smooth: 0.71,        // EMA alpha for landmarks (higher = snappier)
-  zWeight: 0.78,       // how much to trust MediaPipe's relative depth
-  extendAt: 1.01,      // reach that arms a punch
-  returnAt: 0.91,      // reach that re-enters guard
-  peakDrop: 0.065,     // reach falling this far below max = impact just happened
-  rearm: 0.13,         // rise off the retraction low that counts as punching again
-  minPeakSpeed: 3.0,   // slower than this is a stretch, not a punch
-  armSpeed: 1.25,      // outbound speed required to arm — punches leave guard fast
-  guardWindowMs: 350,  // a punch must launch from guard this recently (kills phantom counts from hanging arms)
-  elbowArm: 157,       // a straight elbow also arms the punch (depth under-reads straights at the camera)
-  elbowStraight: 137,  // bent elbow at peak = hook; straighter = jab/cross
-  cooldownMs: 155,     // jitter guard only — the re-arm path handles real double counts
+  // Values below were found by sweep.mjs (random search scored by eval.mjs,
+  // validated on held-out seeds): holdout F1 0.998, ZERO phantom punches,
+  // mean impact latency 41 ms. Don't hand-tweak — re-run the sweep.
+  smooth: 0.66,        // EMA alpha for landmarks (higher = snappier)
+  zWeight: 0.72,       // how much to trust MediaPipe's relative depth
+  extendAt: 1.02,      // reach that arms a punch
+  returnAt: 0.89,      // reach that re-enters guard
+  peakDrop: 0.045,     // reach falling this far below max = impact just happened
+  rearm: 0.145,        // rise off the retraction low that counts as punching again
+  minPeakSpeed: 2.65,  // slower than this is a stretch, not a punch
+  armSpeed: 1.85,      // outbound speed required to arm — punches leave guard fast
+  guardWindowMs: 545,  // a punch must launch from guard this recently (kills phantom counts from hanging arms)
+  elbowArm: 161,       // a straight elbow also arms the punch (depth under-reads straights at the camera)
+  elbowStraight: 131,  // bent elbow at peak = hook; straighter = jab/cross
+  cooldownMs: 85,      // jitter guard only — the re-arm path handles real double counts
+  speedAlpha: 0.38,    // EMA on hand speed used for gates — soaks up single-frame noise spikes (the phantom killer)
+  armFrames: 1,        // consecutive qualifying frames required to arm
 };
+
+// Rough per-punch power score from hand speed + torso rotation (the kinetic
+// chain): an arm-punch moves the hand without turning the shoulders. Yaw is
+// read from the shoulders' relative depth, so this is an estimate, not force.
+export function punchPower(speed, yawRate) {
+  return Math.max(5, Math.min(99, Math.round(55 * speed / 6 + 45 * Math.abs(yawRate) / 4)));
+}
+
+export class ShoulderRotation {
+  constructor(alpha = 0.4) { this.alpha = alpha; this.prev = null; this.rate = 0; }
+  update(ls, rs, now) {
+    const yaw = Math.atan2((ls.z - rs.z), (ls.x - rs.x));
+    if (this.prev) {
+      const dt = Math.max((now - this.prev.t) / 1000, 1e-3);
+      let d = yaw - this.prev.yaw;
+      if (d > Math.PI) d -= 2 * Math.PI;
+      if (d < -Math.PI) d += 2 * Math.PI;
+      this.rate += this.alpha * (d / dt - this.rate);
+    }
+    this.prev = { yaw, t: now };
+    return this.rate;
+  }
+}
 
 export function elbowAngleDeg(shoulder, elbow, wrist) {
   const ax = shoulder.x - elbow.x, ay = shoulder.y - elbow.y, az = (shoulder.z - elbow.z) * CFG.zWeight;
@@ -130,7 +155,10 @@ export class HandTracker {
     this.lastGuardAt = -Infinity;
     this.reach = 0;
     this.speed = 0;
+    this.speedSm = 0;
+    this.armStreak = 0;
     this.elbowAngle = 0;
+    this.lastRetractMs = null; // impact → back-in-guard time of the last punch
   }
 
   // ctx: { sw (shoulder width), hipY (avg hip height, image coords) }
@@ -151,6 +179,7 @@ export class HandTracker {
       }
     }
     this.prev = { ...wrist, t: now };
+    this.speedSm += CFG.speedAlpha * (this.speed - this.speedSm);
 
     // Scored at impact, CompuBox-style: the event fires the moment the reach
     // curve turns over (peak extension), not after the hand returns to guard.
@@ -165,17 +194,20 @@ export class HandTracker {
       const extended = this.reach > CFG.extendAt ||
         (this.elbowAngle > CFG.elbowArm && this.reach > 0.8);
       if (extended && this.guardPos &&
-          now - this.lastGuardAt < CFG.guardWindowMs && this.speed > CFG.armSpeed) {
-        this.phase = "extended";
-        this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist }, elbowAngle: this.elbowAngle };
-      }
+          now - this.lastGuardAt < CFG.guardWindowMs && this.speedSm > CFG.armSpeed) {
+        this.armStreak++;
+        if (this.armStreak >= CFG.armFrames) {
+          this.phase = "extended";
+          this.peak = { reach: this.reach, speed: this.speedSm, pos: { ...wrist }, elbowAngle: this.elbowAngle };
+        }
+      } else this.armStreak = 0;
     } else if (this.phase === "extended") {
       if (this.reach >= this.peak.reach) {
         this.peak.reach = this.reach;
         this.peak.pos = { ...wrist };
         this.peak.elbowAngle = this.elbowAngle;
       }
-      this.peak.speed = Math.max(this.peak.speed, this.speed);
+      this.peak.speed = Math.max(this.peak.speed, this.speedSm);
       if (this.reach < this.peak.reach - CFG.peakDrop) {
         this.phase = "retracting";
         this.localMin = this.reach;
@@ -191,7 +223,8 @@ export class HandTracker {
         this.phase = "guard";
         this.guardPos = { ...wrist };
         this.lastGuardAt = now;
-      } else if (this.reach > this.localMin + CFG.rearm && this.speed >= CFG.minPeakSpeed * 0.6) {
+        this.lastRetractMs = now - this.lastCountAt;
+      } else if (this.reach > this.localMin + CFG.rearm && this.speedSm >= CFG.minPeakSpeed * 0.6) {
         // thrown again without returning to guard — double jab
         this.phase = "extended";
         this.peak = { reach: this.reach, speed: this.speed, pos: { ...wrist }, elbowAngle: this.elbowAngle };

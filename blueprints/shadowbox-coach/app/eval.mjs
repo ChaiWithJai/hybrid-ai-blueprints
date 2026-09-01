@@ -8,7 +8,12 @@
 //
 //   node eval.mjs
 //
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { L, CFG, HandTracker, makeSmoother } from "./punch.js";
+
+const APP_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 // ---- seeded rng ----
 export function mulberry32(seed) {
@@ -236,21 +241,76 @@ export function makeScenarios() {
   return scns;
 }
 
-export function runSuite(seeds) {
+// ---- real recorded clips as eval cases ----------------------------------
+// A clip labeled "jab x10" (from the app's `r` recorder) becomes an eval case
+// expecting ten JABs; "nothing x0" becomes a negative case. Recorded clips are
+// ground truth from YOUR camera and body — they outrank synthetic scenarios.
+export function parseLabel(label) {
+  const m = String(label).toLowerCase().match(/(jab|cross|hook|uppercut|nothing|none)[^0-9]*(\d+)/);
+  if (!m) return null;
+  const n = Number(m[2]);
+  if (m[1] === "nothing" || m[1] === "none" || n === 0) return [];
+  return new Array(n).fill(m[1].toUpperCase());
+}
+
+export function loadRecordingCases(dir = path.join(APP_DIR, "recordings")) {
+  if (!fs.existsSync(dir)) return [];
+  const cases = [];
+  for (const f of fs.readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    try {
+      const rec = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+      const types = parseLabel(rec.label);
+      if (types === null || !rec.frames?.length) continue;
+      cases.push({ name: `rec:${f}`, frames: rec.frames, expected: types.map((type) => ({ t: 0, type })) });
+    } catch { /* unreadable clip — skip it */ }
+  }
+  return cases;
+}
+
+export function runRecordingCase(rc) {
+  const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
+  const smoother = makeSmoother();
+  const events = [];
+  for (const f of rc.frames) {
+    const raw = [];
+    for (const [i, p] of Object.entries(f.lm)) raw[i] = p;
+    const sm = smoother.update(raw, f.t);
+    const ls = sm.get(L.L_SHOULDER), rs = sm.get(L.R_SHOULDER);
+    const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
+    if (sw < 0.02) continue;
+    const ctx = { sw, hipY: (sm.get(L.L_HIP).y + sm.get(L.R_HIP).y) / 2 };
+    for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
+      const ev = hands[hand].update(sm.get(wi), sm.get(ei), sm.get(si), ctx, f.t);
+      if (ev) events.push({ t: f.t, ...ev });
+    }
+  }
+  return { expected: rc.expected, events };
+}
+
+export function runSuite(seeds, { recordings = true } = {}) {
   const scns = makeScenarios();
   let tp = 0, fp = 0, fn = 0;
   const lats = [];
   const perScenario = {};
+  const tally = (name, expected, events, countLats) => {
+    const { tp: t, lats: l } = align(expected, events);
+    const f = events.length - t, miss = expected.length - t;
+    tp += t; fp += f; fn += miss;
+    if (countLats) lats.push(...l);
+    perScenario[name] = perScenario[name] || { tp: 0, fp: 0, fn: 0 };
+    perScenario[name].tp += t; perScenario[name].fp += f; perScenario[name].fn += miss;
+  };
   for (const seed of seeds) {
     for (const scn of scns) {
       const { expected, events } = runScenario(scn, seed);
-      const { tp: t, lats: l } = align(expected, events);
-      const f = events.length - t, miss = expected.length - t;
-      tp += t; fp += f; fn += miss;
-      lats.push(...l);
-      const k = scn.name;
-      perScenario[k] = perScenario[k] || { tp: 0, fp: 0, fn: 0 };
-      perScenario[k].tp += t; perScenario[k].fp += f; perScenario[k].fn += miss;
+      tally(scn.name, expected, events, true);
+    }
+  }
+  if (recordings) {
+    // real clips count triple: they are the ground truth we actually care about
+    for (const rc of loadRecordingCases()) {
+      const { expected, events } = runRecordingCase(rc);
+      for (let i = 0; i < 3; i++) tally(rc.name, expected, events, false);
     }
   }
   const meanLat = lats.length ? lats.reduce((a, b) => a + b, 0) / lats.length : 0;

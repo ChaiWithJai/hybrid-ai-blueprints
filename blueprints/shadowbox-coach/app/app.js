@@ -1,9 +1,11 @@
 // Shadowbox Coach — webcam punch tracker (MediaPipe pose) + Bonsai corner coach.
 // All inference is on-device: pose in the browser, coaching via LM Studio on localhost.
 
-import { L, BONES, CFG, HandTracker, makeSmoother, SYNTH, syntheticFrame } from "./punch.js";
+import { L, BONES, CFG, HandTracker, makeSmoother, SYNTH, syntheticFrame, ShoulderRotation, punchPower } from "./punch.js";
 
-const SYNTHETIC = new URLSearchParams(location.search).has("synthetic");
+const PARAMS = new URLSearchParams(location.search);
+const SYNTHETIC = PARAMS.has("synthetic");
+const POSE_MODEL = ["lite", "full", "heavy"].includes(PARAMS.get("model")) ? PARAMS.get("model") : "lite";
 const ROUND_SEC = 180, REST_SEC = 60;
 
 // ---- DOM ----
@@ -22,22 +24,56 @@ let roundStart = { ...stats };
 const roundHistory = []; // {round, thrown, jabs, power}
 
 function closeRound() {
-  roundHistory.push({
+  const entry = {
     round: roundNum,
     thrown: stats.total - roundStart.total,
     jabs: stats.JAB - roundStart.JAB,
     power: power(stats) - power(roundStart),
-  });
+  };
+  roundHistory.push(entry);
   const panel = $("rounds-panel");
   panel.hidden = false;
   panel.querySelector("tbody").innerHTML = roundHistory
     .map((r) => `<tr><td>${r.round}</td><td>${r.thrown}</td><td>${r.jabs}</td><td>${r.power}</td></tr>`)
     .join("");
+  saveRoundToHistory(entry);
+  renderTrends();
 }
+
+// ---- cross-session trends (localStorage, per-browser, best-effort) ----
+const HISTORY_KEY = "shadowbox-history";
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
+}
+function saveRoundToHistory(entry) {
+  try {
+    const h = loadHistory();
+    h.push({ day: new Date().toISOString().slice(0, 10), ...entry,
+      avgPower: form.powerN ? Math.round(form.powerSum / form.powerN) : null });
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(-200)));
+  } catch { /* storage unavailable — trends just stay session-local */ }
+}
+function renderTrends() {
+  const h = loadHistory();
+  if (h.length < 2) return;
+  const el = $("trends-panel");
+  el.hidden = false;
+  // sparkline of punches thrown per round, last 24 rounds
+  const recent = h.slice(-24);
+  const max = Math.max(...recent.map((r) => r.thrown), 1);
+  const BARS = "▁▂▃▄▅▆▇█";
+  const spark = recent.map((r) => BARS[Math.min(7, Math.floor((r.thrown / max) * 7.99))]).join("");
+  const best = Math.max(...h.map((r) => r.thrown));
+  $("trends-line").textContent = `${spark}  best ${best}/rd · ${h.length} rounds logged`;
+}
+renderTrends();
 
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
 const smoother = makeSmoother();
-let fps = 0, lastFrameAt = 0;
+const rotation = new ShoulderRotation();
+let fps = 0, lastFrameAt = 0, inferMs = 0;
+// form telemetry for the corner coach: guard height, retraction, kinetic chain
+const form = { powerSum: 0, powerN: 0, armPunches: 0, powerPunches: 0, retractSum: 0, retractN: 0, guardSum: 0, guardN: 0 };
 
 // ---- session recorder (press r): raw landmarks + fired events → recordings/ ----
 let recording = null;
@@ -78,10 +114,23 @@ function onFrame(landmarks, now) {
   const sw = Math.hypot(ls.x - rs.x, ls.y - rs.y);
   if (sw < 0.02) return; // not actually facing the camera
   const ctx2 = { sw, hipY: (lm.get(L.L_HIP).y + lm.get(L.R_HIP).y) / 2 };
+  rotation.update(ls, rs, now);
 
   for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
-    const ev = hands[hand].update(lm.get(wi), lm.get(ei), lm.get(si), ctx2, now);
-    if (ev && !resting) recordPunch(ev, now);
+    const tracker = hands[hand];
+    const ev = tracker.update(lm.get(wi), lm.get(ei), lm.get(si), ctx2, now);
+    if (ev && !resting) {
+      ev.power = punchPower(ev.speed, rotation.rate);
+      recordPunch(ev, now);
+    }
+    if (tracker.phase === "guard") {
+      if (tracker.lastRetractMs != null && tracker.lastRetractMs < 2000) {
+        form.retractSum += tracker.lastRetractMs; form.retractN++;
+        tracker.lastRetractMs = null;
+      }
+      // guard height: how far the wrist sits above the shoulder line, in sw
+      form.guardSum += (lm.get(si).y - lm.get(wi).y) / sw; form.guardN++;
+    }
   }
   draw(lm);
   for (const [hand, id] of [["L", "meter-l"], ["R", "meter-r"]]) {
@@ -93,7 +142,7 @@ function onFrame(landmarks, now) {
     debugPanel.textContent =
       `L reach ${hands.L.reach.toFixed(2)}  speed ${hands.L.speed.toFixed(1)}  elbow ${hands.L.elbowAngle.toFixed(0)}°  phase ${hands.L.phase}\n` +
       `R reach ${hands.R.reach.toFixed(2)}  speed ${hands.R.speed.toFixed(1)}  elbow ${hands.R.elbowAngle.toFixed(0)}°  phase ${hands.R.phase}\n` +
-      `shoulder-width ${sw.toFixed(3)}  ${fps.toFixed(0)} fps  ${CFG.smoother}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}  ${recording ? "REC " + recording.frames.length : ""}`;
+      `shoulder-width ${sw.toFixed(3)}  ${fps.toFixed(0)} fps  pose ${inferMs.toFixed(1)}ms (${POSE_MODEL})  rot ${rotation.rate.toFixed(1)}r/s  ${CFG.smoother}  ${SYNTHETIC ? "SYNTHETIC FEED" : "live camera"}  ${recording ? "REC " + recording.frames.length : ""}`;
   }
 }
 
@@ -142,6 +191,11 @@ function recordPunch(ev, now) {
   stats.peakSpeed = Math.max(stats.peakSpeed, ev.speed);
   punchLog.push({ t: now, ...ev });
   if (recording) recording.events.push({ t: +now.toFixed(1), ...ev });
+  form.powerSum += ev.power; form.powerN++;
+  if (ev.type !== "JAB") {
+    form.powerPunches++;
+    if (Math.abs(rotation.rate) < 1.0) form.armPunches++; // power punch thrown without turning the body
+  }
   $("stat-total").textContent = stats.total;
   $("stat-jab").textContent = stats.JAB;
   $("stat-cross").textContent = stats.CROSS;
@@ -149,7 +203,8 @@ function recordPunch(ev, now) {
   $("stat-uppercut").textContent = stats.UPPERCUT;
   $("stat-power").textContent = power(stats);
   $("stat-speed").innerHTML = `${stats.peakSpeed.toFixed(1)}<small>sw/s</small>`;
-  flash.textContent = ev.type === "JAB" || ev.type === "CROSS" ? ev.type : `${ev.hand} ${ev.type}`;
+  const label = ev.type === "JAB" || ev.type === "CROSS" ? ev.type : `${ev.hand} ${ev.type}`;
+  flash.textContent = `${label} ${ev.power}`;
   flash.classList.remove("pop");
   void flash.offsetWidth; // restart the animation
   flash.classList.add("pop");
@@ -257,9 +312,15 @@ function roundSummary() {
     total: stats.total,
     jabs: stats.JAB, power_punches: power(stats),
     crosses: stats.CROSS, hooks: stats.HOOK, uppercuts: stats.UPPERCUT,
-    rounds: roundHistory,
     punches_per_min: Number($("stat-ppm").textContent),
     fastest_hand_sw_per_s: Number(stats.peakSpeed.toFixed(1)),
+    // form telemetry — pre-digested stats only, never raw traces, so the
+    // small judge model can't drift off into re-scoring punches itself
+    avg_power_score_0_to_99: form.powerN ? Math.round(form.powerSum / form.powerN) : null,
+    arm_punch_pct: form.powerPunches ? Math.round(100 * form.armPunches / form.powerPunches) : null,
+    avg_retraction_ms: form.retractN ? Math.round(form.retractSum / form.retractN) : null,
+    guard_height_above_shoulders_sw: form.guardN ? Number((form.guardSum / form.guardN).toFixed(2)) : null,
+    rounds: roundHistory,
     last_sequence: last.map((p) => p.type).join(" "),
   };
 }
@@ -280,7 +341,7 @@ async function askCoach() {
         max_tokens: 120,
         temperature: 0.7,
         messages: [
-          { role: "system", content: "You are a boxing corner coach between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words. No preamble, no lists." },
+          { role: "system", content: "You are a boxing corner coach between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words. Prioritize form problems: high arm_punch_pct means they aren't turning the body; slow avg_retraction_ms means hands hang out; low guard_height means the chin is open. No preamble, no lists." },
           { role: "user", content: JSON.stringify(roundSummary()) },
         ],
       }),
@@ -311,10 +372,12 @@ async function startLive() {
   const MP = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
   const { PoseLandmarker, FilesetResolver } = await import(MP);
   const vision = await FilesetResolver.forVisionTasks(`${MP}/wasm`);
+  // A/B the pose model with ?model=lite|full|heavy (record clips under each
+  // and judge them with replay.mjs — same reward function, different model)
   const landmarker = await PoseLandmarker.createFromOptions(vision, {
     baseOptions: {
       modelAssetPath:
-        "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+        `https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_${POSE_MODEL}/float16/1/pose_landmarker_${POSE_MODEL}.task`,
       delegate: "GPU",
     },
     runningMode: "VIDEO",
@@ -335,6 +398,7 @@ async function startLive() {
       lastVideoTime = video.currentTime;
       const now = performance.now();
       const result = landmarker.detectForVideo(video, now);
+      inferMs += (performance.now() - now - inferMs) * 0.1;
       if (result.landmarks?.[0]) onFrame(result.landmarks[0], now);
     }
     requestAnimationFrame(loop);
