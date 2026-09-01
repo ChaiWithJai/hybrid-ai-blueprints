@@ -1,0 +1,26 @@
+{
+  "envelopes": [
+    {
+      "senderName": "Amina", "lang": "bn",
+      "plaintext": "মা, আমি এই মাসের টাকা বিকাশে পাঠিয়ে দিয়েছি, পাঁচশো দিরহাম। ওষুধ কেনার পর বাকিটা রেখে দিও। শুক্রবার ফোন করব।"
+    },
+    {
+      "senderName": "Bilal", "lang": "ur",
+      "plaintext": "امی، مکان کے کاغذات وکیل کے پاس ہیں۔ جمعرات کو دستخط کے لیے جانا ہے۔ عدنان کو ساتھ لے جائیں۔"
+    },
+    {
+      "senderName": "Lupita", "lang": "es",
+      "plaintext": "Mamá, ya deposité lo de este mes en Spin, son tres mil pesos. Aparta quinientos para las medicinas de la abuela y me avisas cuando llegue."
+    },
+    {
+      "senderName": "Moussa", "lang": "fr",
+      "plaintext": "Tonton, l'argent est parti par Wave ce matin. Cent cinquante mille francs. Dis à maman que j'appelle dimanche après la prière."
+    }
+  ],
+  "fixture_summaries": {
+    "বিকাশে": "SUMMARY: টাকা বিকাশে পাঠানো হয়েছে, পাঁচশো দিরহাম; ওষুধ কেনার পর বাকিটা রাখতে বলেছে।\nNEEDS_REPLY: no",
+    "کاغذات": "SUMMARY: مکان کے کاغذات وکیل کے پاس، جمعرات کو دستخط کے لیے عدنان کے ساتھ جانا ہے۔\nNEEDS_REPLY: yes",
+    "medicinas": "SUMMARY: Depositó tres mil pesos en Spin; apartar quinientos para las medicinas y avisar cuando llegue.\nNEEDS_REPLY: yes",
+    "cinquante": "SUMMARY: L'argent est parti par Wave, cent cinquante mille francs; il appelle dimanche.\nNEEDS_REPLY: no"
+  }
+}

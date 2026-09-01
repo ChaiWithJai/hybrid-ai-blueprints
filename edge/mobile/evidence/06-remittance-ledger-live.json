@@ -1,0 +1,37 @@
+{
+  "demo": "06-remittance-ledger",
+  "mode": "live",
+  "model": "1.7b",
+  "ran_at": "2026-08-31T21:23:38-0400",
+  "gates": [
+    {
+      "gate": "extraction_all",
+      "required": true,
+      "passed": false,
+      "detail": "msg-011:es:confirm_needed:None None; msg-012:ur:confirm_needed:None None; msg-013:bn:model:2000 INR; msg-014:fr:confirm_needed:None None; msg-015:en:model:250 USD; msg-016:en:confirm_needed:None",
+      "elapsed_ms": 5735.8
+    },
+    {
+      "gate": "unattested_amount_rejected",
+      "required": true,
+      "passed": true,
+      "detail": "extractMode=confirm_needed amount=None",
+      "elapsed_ms": 1.2
+    },
+    {
+      "gate": "recall_only_confirmed",
+      "required": true,
+      "passed": true,
+      "detail": "Confirmed record [msg-011] — channel unknown — purpose: Deposit money for medicines for the aunt — source: \"Mamá, ya deposité 3000 pesos en Spin para las medicinas de la abuela.\"",
+      "elapsed_ms": 1837.9
+    },
+    {
+      "gate": "opt_in_sync",
+      "required": true,
+      "passed": true,
+      "detail": "delivered=1 state=synced",
+      "elapsed_ms": 858.6
+    }
+  ],
+  "verdict": "kill"
+}

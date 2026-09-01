@@ -1,0 +1,18 @@
+{
+  "slug": "envelopes",
+  "version": 1,
+  "sync_mode": "always",
+  "properties": {
+    "senderName":  {"type": "string", "required": true},
+    "lang":        {"type": "string", "required": true},
+    "cipherBlob":  {"type": "string", "required": true},
+    "mediaType":   {"type": "string", "default": "voice"},
+    "deliveredTo": {"type": "string", "default": ""},
+    "transcript":  {"type": "string"},
+    "summary":     {"type": "string"},
+    "summaryMode": {"type": "string"}
+  },
+  "client_actions": [
+    {"name": "decrypt_and_digest", "params": {}}
+  ]
+}

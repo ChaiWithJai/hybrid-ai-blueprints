@@ -1,0 +1,155 @@
+<!-- edge/mobile sprite sheet — original characters in the spirit of Pablo
+     Stanley's Open Peeps: thick ink strokes, flat fills, warm and human.
+     Inline this file once per page and reference with:
+       <svg class="sprite"><use href="#peep-amma"/></svg>
+     Strokes use currentColor so sprites inherit --ink and work in both
+     themes. Skin/cloth fills are deliberate constants chosen to read on
+     paper and dark grounds alike. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+
+  <!-- ============ PEEPS (family characters, bust in a circle) ========= -->
+
+  <!-- Amma — elder woman, headscarf. The left-behind parent. -->
+  <symbol id="peep-amma" viewBox="0 0 96 96">
+    <circle cx="48" cy="48" r="46" fill="#f2e5cd"/>
+    <path d="M20 90 Q24 62 48 62 Q72 62 76 90 Z" fill="#7d5ba6"
+          stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="48" cy="40" r="19" fill="#c68863"
+            stroke="currentColor" stroke-width="3"/>
+    <path d="M27 42 Q24 16 48 15 Q72 16 69 42 Q69 24 48 24 Q27 24 27 42 Z"
+          fill="#e8b04b" stroke="currentColor" stroke-width="3"
+          stroke-linejoin="round"/>
+    <path d="M69 40 Q76 48 71 58" fill="none"
+          stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="41" cy="39" r="1.8" fill="currentColor"/>
+    <circle cx="55" cy="39" r="1.8" fill="currentColor"/>
+    <path d="M38 35 q3 -2 6 0 M52 35 q3 -2 6 0" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M42 49 q6 4 12 0" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Bilal — the worker abroad, cap. -->
+  <symbol id="peep-worker" viewBox="0 0 96 96">
+    <circle cx="48" cy="48" r="46" fill="#dff0e4"/>
+    <path d="M20 90 Q24 62 48 62 Q72 62 76 90 Z" fill="#3778b8"
+          stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="48" cy="41" r="18" fill="#9c6b45"
+            stroke="currentColor" stroke-width="3"/>
+    <path d="M29 36 Q31 20 48 20 Q65 20 67 36 L72 36 Q73 40 67 40 L29 40 Z"
+          fill="#e07b28" stroke="currentColor" stroke-width="3"
+          stroke-linejoin="round"/>
+    <circle cx="41" cy="42" r="1.8" fill="currentColor"/>
+    <circle cx="55" cy="42" r="1.8" fill="currentColor"/>
+    <path d="M41 51 q7 4 14 -1" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M36 58 q2 3 5 3" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Lupita — mother, bun and big smile. -->
+  <symbol id="peep-mother" viewBox="0 0 96 96">
+    <circle cx="48" cy="48" r="46" fill="#fbe8d3"/>
+    <path d="M20 90 Q24 62 48 62 Q72 62 76 90 Z" fill="#2f7d4f"
+          stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="48" cy="42" r="18" fill="#b57a50"
+            stroke="currentColor" stroke-width="3"/>
+    <circle cx="48" cy="18" r="8" fill="currentColor"/>
+    <path d="M30 40 Q28 22 48 22 Q68 22 66 40 Q64 28 48 28 Q32 28 30 40 Z"
+          fill="currentColor" stroke="currentColor" stroke-width="3"
+          stroke-linejoin="round"/>
+    <circle cx="41" cy="43" r="1.8" fill="#fdf6ea"/>
+    <circle cx="41" cy="43" r="1.2" fill="currentColor"/>
+    <circle cx="55" cy="43" r="1.8" fill="#fdf6ea"/>
+    <circle cx="55" cy="43" r="1.2" fill="currentColor"/>
+    <path d="M40 51 q8 6 16 0" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Nia — the kid, curls. -->
+  <symbol id="peep-kid" viewBox="0 0 96 96">
+    <circle cx="48" cy="48" r="46" fill="#e3eefa"/>
+    <path d="M24 90 Q28 66 48 66 Q68 66 72 90 Z" fill="#e8b04b"
+          stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="48" cy="46" r="16" fill="#8a5a3b"
+            stroke="currentColor" stroke-width="3"/>
+    <circle cx="34" cy="34" r="7" fill="currentColor"/>
+    <circle cx="46" cy="29" r="8" fill="currentColor"/>
+    <circle cx="59" cy="33" r="7" fill="currentColor"/>
+    <circle cx="42" cy="47" r="1.8" fill="#fdf6ea"/>
+    <circle cx="54" cy="47" r="1.8" fill="#fdf6ea"/>
+    <circle cx="42" cy="47" r="1.1" fill="currentColor"/>
+    <circle cx="54" cy="47" r="1.1" fill="currentColor"/>
+    <path d="M42 54 q6 5 12 0" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- ============ STATE ICONS (icon + word, never color alone) ======== -->
+
+  <symbol id="ic-mic" viewBox="0 0 32 32">
+    <rect x="11" y="4" width="10" height="16" rx="5" fill="currentColor"/>
+    <path d="M7 15 q0 9 9 9 q9 0 9 -9 M16 24 v4 M11 28 h10" fill="none"
+          stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-play" viewBox="0 0 32 32">
+    <circle cx="16" cy="16" r="13" fill="none"
+            stroke="currentColor" stroke-width="2.6"/>
+    <path d="M13 10.5 L22 16 L13 21.5 Z" fill="currentColor"/>
+  </symbol>
+
+  <!-- offline: sleepy cloud -->
+  <symbol id="ic-offline" viewBox="0 0 32 32">
+    <path d="M9 22 q-5 0 -5 -5 q0 -5 5 -5 q1 -6 8 -6 q6 0 7 5 q6 0 6 5.5
+             q0 5.5 -6 5.5 Z" fill="none"
+          stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M12 26 h4 l-4 4 h4" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- queued: paper plane, waiting -->
+  <symbol id="ic-queued" viewBox="0 0 32 32">
+    <path d="M4 16 L28 6 L20 26 L15 18 Z" fill="none"
+          stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M15 18 L28 6" fill="none"
+          stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="7" cy="26" r="1.6" fill="currentColor"/>
+    <circle cx="12" cy="27.5" r="1.6" fill="currentColor"/>
+  </symbol>
+
+  <!-- delivered: plane + check -->
+  <symbol id="ic-delivered" viewBox="0 0 32 32">
+    <path d="M3 14 L24 5 L17 22 L13 15 Z" fill="currentColor"/>
+    <path d="M19 26 l3.5 3.5 L29 22" fill="none"
+          stroke="currentColor" stroke-width="3" stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- lock: nothing leaves the phone unencrypted -->
+  <symbol id="ic-lock" viewBox="0 0 32 32">
+    <rect x="7" y="14" width="18" height="13" rx="3.5" fill="none"
+          stroke="currentColor" stroke-width="2.6"/>
+    <path d="M11 14 v-3 q0 -6 5 -6 q5 0 5 6 v3" fill="none"
+          stroke="currentColor" stroke-width="2.6"/>
+    <circle cx="16" cy="20.5" r="2" fill="currentColor"/>
+  </symbol>
+
+  <!-- sparkle: made on this phone (the on-device intelligence mark) -->
+  <symbol id="ic-sparkle" viewBox="0 0 32 32">
+    <path d="M16 4 q1.5 8.5 10 10 q-8.5 1.5 -10 10 q-1.5 -8.5 -10 -10
+             q8.5 -1.5 10 -10 Z" fill="currentColor"/>
+    <path d="M25 21 q0.8 3.7 4.5 4.5 q-3.7 0.8 -4.5 4.5 q-0.8 -3.7 -4.5 -4.5
+             q3.7 -0.8 4.5 -4.5 Z" fill="currentColor"/>
+  </symbol>
+
+  <!-- ear: read aloud / listen -->
+  <symbol id="ic-listen" viewBox="0 0 32 32">
+    <path d="M10 12 q0 -7 7 -7 q7 0 7 7 q0 5 -4 8 q-3 2.5 -3 6 q0 3 -3 3
+             q-3 0 -3 -3" fill="none"
+          stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M14 12 q0 -3 3 -3 q3 0 3 3" fill="none"
+          stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </symbol>
+
+</svg>

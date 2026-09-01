@@ -1,0 +1,37 @@
+{
+  "demo": "03-family-line",
+  "mode": "fixture",
+  "model": "fixture",
+  "ran_at": "2026-08-31T23:46:29-0400",
+  "gates": [
+    {
+      "gate": "mailbox_blindness",
+      "required": true,
+      "passed": true,
+      "detail": "4 envelopes: no content word of any plaintext appears in its stored cipherBlob",
+      "elapsed_ms": 0.8
+    },
+    {
+      "gate": "chaos_delivery",
+      "required": true,
+      "passed": true,
+      "detail": "50 connect/disconnect-scripted creates: 50/50 synced, 0 lost, store count 50",
+      "elapsed_ms": 2.8
+    },
+    {
+      "gate": "digest_after_decrypt",
+      "required": true,
+      "passed": true,
+      "detail": "bn:model; ur:model; es:model; fr:model",
+      "elapsed_ms": 0.3
+    },
+    {
+      "gate": "tamper_fails_closed",
+      "required": true,
+      "passed": true,
+      "detail": "raised as required (cipherBlob failed integrity check — refusing to emit plaintext); store count 0->0",
+      "elapsed_ms": 0.2
+    }
+  ],
+  "verdict": "keep"
+}

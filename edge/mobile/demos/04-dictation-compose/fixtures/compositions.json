@@ -1,0 +1,36 @@
+{
+  "drafts": [
+    {
+      "rawTranscript": "আমার ছেলে রাফি ক্লাস ফাইভে পড়ে কাল স্কুলে যেতে পারবে না তার জ্বর হয়েছে দয়া করে তাকে ছুটি দেবেন",
+      "lang": "bn", "register": "formal", "asrConfidence": 0.92
+    },
+    {
+      "rawTranscript": "ভাইজান টাকা পেয়েছি আজকে বিকাশে পাঁচ হাজার এসেছে মায়ের ওষুধ কিনে নিব চিন্তা করো না",
+      "lang": "bn", "register": "familiar", "asrConfidence": 0.88
+    },
+    {
+      "rawTranscript": "جناب میرا اکاؤنٹ نمبر تین چار سات نو ہے پچھلے ہفتے بھیجی ہوئی رقم ابھی تک نہیں پہنچی مہربانی فرما کر معلوم کریں",
+      "lang": "ur", "register": "formal", "asrConfidence": 0.90
+    },
+    {
+      "rawTranscript": "oye hermana ya llegué bien al departamento mañana te mando las fotos dile a mamá que no se preocupe",
+      "lang": "es", "register": "familiar", "asrConfidence": 0.86
+    },
+    {
+      "rawTranscript": "bonjour madame je vous écris au sujet du loyer de septembre le virement partira vendredi merci de votre patience",
+      "lang": "fr", "register": "formal", "asrConfidence": 0.91
+    },
+    {
+      "rawTranscript": "আপা টাকাটা কালকে পাঠাবো নাকি পরশু পাঠাবো বুঝতে পারছি না তুমি জানাও",
+      "lang": "bn", "register": "familiar", "asrConfidence": 0.4,
+      "lowConfidenceSpan": "কালকে নাকি পরশু"
+    }
+  ],
+  "fixture_cleaned": {
+    "রাফি": "CLEAN: আমার ছেলে রাফি ক্লাস ফাইভে পড়ে। জ্বরের কারণে সে কাল স্কুলে যেতে পারবে না। দয়া করে তাকে ছুটি দেবেন।",
+    "ভাইজান": "CLEAN: ভাইজান, টাকা পেয়েছি। বিকাশে পাঁচ হাজার এসেছে। মায়ের ওষুধ কিনে নিব, চিন্তা করো না।",
+    "اکاؤنٹ": "CLEAN: جناب، میرا اکاؤنٹ نمبر تین چار سات نو ہے۔ پچھلے ہفتے بھیجی ہوئی رقم ابھی تک نہیں پہنچی۔ مہربانی فرما کر معلوم کریں۔",
+    "departamento": "CLEAN: Oye hermana, ya llegué bien al departamento. Mañana te mando las fotos. Dile a mamá que no se preocupe.",
+    "loyer": "CLEAN: Bonjour Madame, je vous écris au sujet du loyer de septembre. Le virement partira vendredi. Merci de votre patience."
+  }
+}

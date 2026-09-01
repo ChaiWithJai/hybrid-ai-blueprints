@@ -1,0 +1,37 @@
+{
+  "demo": "06-remittance-ledger",
+  "mode": "fixture",
+  "model": "fixture",
+  "ran_at": "2026-08-31T21:23:30-0400",
+  "gates": [
+    {
+      "gate": "extraction_all",
+      "required": true,
+      "passed": true,
+      "detail": "msg-011:es:model:300000 MXN; msg-012:ur:model:50000 AED; msg-013:bn:model:200000 BDT; msg-014:fr:model:75000 XOF; msg-015:en:model:25000 USD; msg-016:en:confirm_needed:None",
+      "elapsed_ms": 1.8
+    },
+    {
+      "gate": "unattested_amount_rejected",
+      "required": true,
+      "passed": true,
+      "detail": "extractMode=confirm_needed amount=None",
+      "elapsed_ms": 0.7
+    },
+    {
+      "gate": "recall_only_confirmed",
+      "required": true,
+      "passed": true,
+      "detail": "Confirmed record [msg-011] — amount 300000 minor units MXN — channel wallet — purpose: medicinas de la abuela — source: \"Mamá, ya deposité 3000 pesos en Spin para las medicinas de la abuela.\"",
+      "elapsed_ms": 0.8
+    },
+    {
+      "gate": "opt_in_sync",
+      "required": true,
+      "passed": true,
+      "detail": "delivered=1 state=synced",
+      "elapsed_ms": 0.6
+    }
+  ],
+  "verdict": "keep"
+}

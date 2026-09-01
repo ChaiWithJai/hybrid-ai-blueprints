@@ -1,0 +1,36 @@
+{
+  "notes": [
+    {
+      "audioRef": "vn-001.ogg", "lang": "bn", "durationMs": 42000,
+      "senderName": "Amina",
+      "transcript": "মা, আমি এই মাসের টাকা বিকাশে পাঠিয়ে দিয়েছি, পাঁচশো দিরহাম। ওষুধ কেনার পর বাকিটা রেখে দিও। শুক্রবার ফোন করব।"
+    },
+    {
+      "audioRef": "vn-002.ogg", "lang": "ur", "durationMs": 35000,
+      "senderName": "Bilal",
+      "transcript": "امی، مکان کے کاغذات وکیل کے پاس ہیں۔ جمعرات کو دستخط کے لیے جانا ہے۔ عدنان کو ساتھ لے جائیں۔"
+    },
+    {
+      "audioRef": "vn-003.ogg", "lang": "hi", "durationMs": 28000,
+      "senderName": "Suresh",
+      "transcript": "पापा, अगले हफ्ते छुट्टी मिल गई है। मंगलवार की फ्लाइट है। एयरपोर्ट आने की ज़रूरत नहीं, मैं बस से आ जाऊँगा।"
+    },
+    {
+      "audioRef": "vn-004.ogg", "lang": "es", "durationMs": 51000,
+      "senderName": "Lupita",
+      "transcript": "Mamá, ya deposité lo de este mes en Spin, son tres mil pesos. Aparta quinientos para las medicinas de la abuela y me avisas cuando llegue."
+    },
+    {
+      "audioRef": "vn-005.ogg", "lang": "fr", "durationMs": 39000,
+      "senderName": "Moussa",
+      "transcript": "Tonton, l'argent est parti par Wave ce matin. Cent cinquante mille francs. Dis à maman que j'appelle dimanche après la prière."
+    }
+  ],
+  "fixture_summaries": {
+    "vn-001.ogg": "SUMMARY: টাকা বিকাশে পাঠানো হয়েছে, পাঁচশো দিরহাম; ওষুধ কেনার পর বাকিটা রাখতে বলেছে।\nNEEDS_REPLY: no",
+    "vn-002.ogg": "SUMMARY: مکان کے کاغذات وکیل کے پاس، جمعرات کو دستخط کے لیے عدنان کے ساتھ جانا ہے۔\nNEEDS_REPLY: yes",
+    "vn-003.ogg": "SUMMARY: अगले हफ्ते छुट्टी, मंगलवार की फ्लाइट, बस से आएगा, एयरपोर्ट आने की ज़रूरत नहीं।\nNEEDS_REPLY: no",
+    "vn-004.ogg": "SUMMARY: Depositó tres mil pesos en Spin; apartar quinientos para las medicinas y avisar cuando llegue.\nNEEDS_REPLY: yes",
+    "vn-005.ogg": "SUMMARY: L'argent est parti par Wave, cent cinquante mille francs; il appelle dimanche.\nNEEDS_REPLY: no"
+  }
+}

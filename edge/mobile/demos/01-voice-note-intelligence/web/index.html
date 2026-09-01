@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awaaz</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+  .shell { max-width: 430px; margin: 0 auto; min-height: 100vh;
+           display: flex; flex-direction: column; }
+
+  header { display: flex; align-items: center; gap: 12px;
+           padding: 18px 20px 10px; }
+  header h1 { font-size: var(--fs-hero); margin: 0; letter-spacing: -0.01em; }
+  header .tag { font-size: var(--fs-meta); color: var(--ink-soft); }
+  .net-pill { margin-left: auto; display: flex; align-items: center; gap: 7px;
+              font-size: var(--fs-meta); font-weight: 600;
+              border-radius: var(--radius-chip); padding: 7px 14px; }
+  .net-pill.on  { background: var(--leaf-soft); color: var(--leaf); }
+  .net-pill.off { background: var(--wait-soft); color: var(--wait); }
+
+  .offline-banner { display: none; margin: 0 16px 6px; padding: 12px 16px;
+                    border-radius: var(--radius); background: var(--wait-soft);
+                    color: var(--wait); font-size: var(--fs-meta);
+                    align-items: center; gap: 10px; }
+  body.offline .offline-banner { display: flex; }
+
+  main { flex: 1; padding: 8px 16px 130px; display: flex;
+         flex-direction: column; gap: 14px; }
+
+  .empty { text-align: center; padding: 56px 24px; color: var(--ink-soft); }
+  .empty .sprite-lg { width: 128px; height: 128px; }
+
+  .card { background: var(--card); border-radius: var(--radius);
+          box-shadow: var(--shadow); padding: 14px 16px;
+          display: flex; flex-direction: column; gap: 10px; }
+  .card.out { background: var(--marigold-soft); }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .who .sprite { width: 52px; height: 52px; flex-shrink: 0; }
+  .who b { font-size: var(--fs-body); }
+  .who .meta { font-size: var(--fs-meta); color: var(--ink-faint); }
+
+  .playrow { display: flex; align-items: center; gap: 10px; }
+  .playbtn { background: var(--sand); border: none; width: var(--tap);
+             height: var(--tap); border-radius: 50%; display: grid;
+             place-items: center; flex-shrink: 0; }
+  .playbtn svg { width: 26px; height: 26px; color: var(--ink); }
+  .wave { flex: 1; display: flex; align-items: center; gap: 3px; height: 34px; }
+  .wave i { flex: 1; background: var(--ink-faint); border-radius: 2px;
+            min-height: 6px; }
+  .dur { font-size: var(--fs-meta); color: var(--ink-faint);
+         font-variant-numeric: tabular-nums; }
+
+  .summary { display: flex; gap: 10px; align-items: flex-start;
+             background: var(--sky-soft); border-radius: 14px;
+             padding: 10px 14px; }
+  .summary svg { width: 20px; height: 20px; color: var(--sky);
+                 flex-shrink: 0; margin-top: 3px; }
+  .summary .made { display: block; font-size: 0.78rem; color: var(--sky);
+                   font-weight: 700; text-transform: uppercase;
+                   letter-spacing: 0.04em; margin-bottom: 2px; }
+  .summary.fallback { background: var(--sand); }
+  .summary.fallback .made { color: var(--wait); }
+
+  .rowline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .chip { display: inline-flex; align-items: center; gap: 6px;
+          font-size: var(--fs-meta); font-weight: 600;
+          border-radius: var(--radius-chip); padding: 6px 12px; }
+  .chip svg { width: 16px; height: 16px; }
+  /* Needs-reply is attention, not alarm: clay/red stays reserved for real
+   * problems (COPY.md rule 5; round-1 review finding). */
+  .chip.reply { background: var(--wait-soft); color: var(--wait); }
+  .chip.queued { background: var(--wait-soft); color: var(--wait); }
+  .chip.synced { background: var(--leaf-soft); color: var(--leaf); }
+  .readall { background: none; border: none; color: var(--sky);
+             font-size: var(--fs-meta); font-weight: 600; padding: 6px 4px;
+             min-height: 36px; min-width: 0; }
+  .transcript { display: none; border-top: 2px dashed var(--line);
+                padding-top: 10px; color: var(--ink-soft); }
+  .card.open .transcript { display: block; }
+
+  .dock { position: fixed; bottom: 0; left: 0; right: 0;
+          background: linear-gradient(transparent, var(--paper) 30%);
+          padding: 22px 0 20px; display: flex; flex-direction: column;
+          align-items: center; gap: 6px; }
+  .mic { width: var(--tap-hero); height: var(--tap-hero); border-radius: 50%;
+         background: var(--marigold); border: none; display: grid;
+         place-items: center; box-shadow: var(--shadow); }
+  .mic svg { width: 40px; height: 40px; color: #fff; }
+  .mic:active { background: var(--marigold-deep); }
+  .mic-label { font-size: var(--fs-meta); font-weight: 600;
+               color: var(--ink-soft); }
+
+  /* Demo controls live bottom-left, small and translucent — they must
+   * never collide with product chrome (round-1 review finding). */
+  .devstrip { position: fixed; bottom: 10px; left: 10px; z-index: 5;
+              display: flex; flex-direction: column; gap: 6px; opacity: 0.7; }
+  .devstrip button { min-height: 36px; min-width: 0; font-size: 0.78rem;
+                     padding: 4px 12px; border-radius: var(--radius-chip);
+                     background: var(--ink); color: var(--paper);
+                     border: none; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden;
+             clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<!--SPRITES-->
+<div class="shell">
+  <header>
+    <svg class="sprite" style="width:44px;height:44px" aria-hidden="true">
+      <use href="#peep-amma"/></svg>
+    <div>
+      <h1>Awaaz</h1>
+      <span class="tag">Family voices, kept close</span>
+    </div>
+    <span class="net-pill on" id="netPill" role="status">
+      <svg style="width:16px;height:16px" aria-hidden="true">
+        <use href="#ic-delivered"/></svg><span id="netWord">Connected</span>
+    </span>
+  </header>
+
+  <div class="offline-banner" role="status">
+    <svg style="width:22px;height:22px" aria-hidden="true">
+      <use href="#ic-offline"/></svg>
+    No internet right now. Everything here still works.
+  </div>
+
+  <main id="inbox" aria-live="polite"></main>
+
+  <div class="dock">
+    <button class="mic" id="micBtn" aria-label="Hold to speak a reply">
+      <svg aria-hidden="true"><use href="#ic-mic"/></svg>
+    </button>
+    <span class="mic-label" id="micLabel">Hold to speak</span>
+  </div>
+</div>
+
+<div class="devstrip" aria-label="demo controls">
+  <button id="devReceive">receive next note</button>
+  <button id="devNet">toggle network</button>
+</div>
+
+<template id="cardT">
+  <article class="card">
+    <div class="who">
+      <svg class="sprite" aria-hidden="true"><use href=""/></svg>
+      <div><b class="name"></b><div class="meta"></div></div>
+    </div>
+    <div class="playrow">
+      <button class="playbtn" aria-label="Play her voice">
+        <svg aria-hidden="true"><use href="#ic-play"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"></div>
+      <span class="dur"></span>
+    </div>
+    <div class="summary">
+      <svg aria-hidden="true"><use href="#ic-sparkle"/></svg>
+      <div><span class="made">Made on this phone</span>
+        <span class="stext"></span></div>
+    </div>
+    <div class="rowline">
+      <span class="chip reply" hidden>
+        <svg aria-hidden="true"><use href="#ic-listen"/></svg>
+        Waiting to hear back</span>
+      <span class="chip state"></span>
+      <button class="readall">Read every word</button>
+    </div>
+    <p class="transcript"></p>
+  </article>
+</template>
+
+<script>
+const PEEPS = {Amina: "#peep-mother", Bilal: "#peep-worker",
+               Suresh: "#peep-worker", Lupita: "#peep-mother",
+               Moussa: "#peep-worker", You: "#peep-amma"};
+const RTL = new Set(["ur", "ar"]);
+
+async function api(path, body) {
+  const res = await fetch(path, body ? {method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)} : undefined);
+  return res.json();
+}
+
+function waveBars(el, seed) {
+  el.innerHTML = "";
+  for (let i = 0; i < 24; i++) {
+    const b = document.createElement("i");
+    b.style.height = (8 + ((seed * (i + 3) * 7919) % 22)) + "px";
+    el.appendChild(b);
+  }
+}
+
+function render(state) {
+  document.body.classList.toggle("offline", !state.online);
+  const pill = document.getElementById("netPill");
+  pill.className = "net-pill " + (state.online ? "on" : "off");
+  pill.querySelector("use").setAttribute("href",
+    state.online ? "#ic-delivered" : "#ic-offline");
+  document.getElementById("netWord").textContent =
+    state.online ? "Connected" : "Offline";
+
+  const inbox = document.getElementById("inbox");
+  inbox.innerHTML = "";
+  if (!state.notes.length) {
+    inbox.innerHTML = `<div class="empty">
+      <svg class="sprite sprite-lg"><use href="#peep-amma"/></svg>
+      <p>When family speaks, it lands here.</p></div>`;
+    return;
+  }
+  for (const n of [...state.notes].reverse()) {
+    const c = document.getElementById("cardT").content.cloneNode(true);
+    const card = c.querySelector(".card");
+    if (n.direction === "out") card.classList.add("out");
+    c.querySelector("use").setAttribute("href",
+      PEEPS[n.senderName] || "#peep-worker");
+    c.querySelector(".name").textContent =
+      n.direction === "out" ? "You" : n.senderName;
+    c.querySelector(".meta").textContent =
+      Math.round(n.durationMs / 1000) + "s · voice note";
+    waveBars(c.querySelector(".wave"), n.id);
+    c.querySelector(".dur").remove();  // duration already lives in the meta line
+
+    const sum = c.querySelector(".summary");
+    if (n.direction === "out") {
+      sum.remove();  // your own words need no summary
+    } else {
+      const stext = sum.querySelector(".stext");
+      stext.textContent = n.summary || "";
+      stext.setAttribute("lang", n.lang);
+      if (RTL.has(n.lang)) stext.setAttribute("dir", "rtl");
+      if (n.summaryMode === "fallback") {
+        sum.classList.add("fallback");
+        sum.querySelector(".made").textContent =
+          "I couldn't catch this — play the voice instead";
+      }
+    }
+
+    if (n.needsReply && n.direction !== "out")
+      c.querySelector(".chip.reply").hidden = false;
+    const st = c.querySelector(".chip.state");
+    if (n.direction === "out") {
+      const queued = n.sync_state === "queued";
+      st.className = "chip state " + (queued ? "queued" : "synced");
+      st.innerHTML = `<svg><use href="${queued ? "#ic-queued"
+        : "#ic-delivered"}"/></svg>` +
+        (queued ? "Waiting for network — will send by itself" : "Arrived");
+    } else { st.remove(); }
+
+    const t = c.querySelector(".transcript");
+    t.textContent = n.transcript;
+    t.setAttribute("lang", n.lang);
+    if (RTL.has(n.lang)) t.setAttribute("dir", "rtl");
+    c.querySelector(".readall").addEventListener("click", () => {
+      card.classList.toggle("open");
+    });
+    inbox.appendChild(c);
+  }
+}
+
+let online = true;
+async function refresh() { const s = await api("/api/state");
+  online = s.online; render(s); return s; }
+
+document.getElementById("devReceive").addEventListener("click", async () => {
+  render(await api("/api/receive", {}));
+});
+document.getElementById("devNet").addEventListener("click", async () => {
+  render(await api("/api/network", {online: !online})); online = !online;
+});
+document.getElementById("micBtn").addEventListener("click", async () => {
+  const label = document.getElementById("micLabel");
+  label.textContent = "Listening…";
+  const s = await api("/api/reply", {});
+  label.textContent = online ? "Sent" : "Saved — sends by itself";
+  setTimeout(() => { label.textContent = "Hold to speak"; }, 2200);
+  render(s);
+});
+
+refresh().then(async s => {   // seed the inbox with two notes on first load
+  if (!s.notes.length) { await api("/api/receive", {});
+    render(await api("/api/receive", {})); }
+});
+</script>
+</body>
+</html>

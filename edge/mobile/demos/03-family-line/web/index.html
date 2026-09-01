@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhaaga</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+  .shell { max-width: 430px; margin: 0 auto; height: 100vh;
+           display: flex; flex-direction: column; }
+
+  /* The thread scrolls inside its own container; the header (and its
+   * lock chip — the trust cue) never leaves the screen. Round-1 review:
+   * window-level autoscroll blanked the first paint entirely. */
+  header { padding: 18px 20px 8px; position: sticky; top: 0; z-index: 5;
+           background: var(--paper); }
+  .titlerow { display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: var(--fs-hero); margin: 0; letter-spacing: -0.01em; }
+  header .tag { font-size: var(--fs-meta); color: var(--ink-soft); }
+  .net-pill { margin-left: auto; display: flex; align-items: center; gap: 7px;
+              font-size: var(--fs-meta); font-weight: 600;
+              border-radius: var(--radius-chip); padding: 7px 14px; }
+  .net-pill.on  { background: var(--leaf-soft); color: var(--leaf); }
+  .net-pill.off { background: var(--wait-soft); color: var(--wait); }
+  .lockrow { margin-top: 8px; }
+
+  .offline-banner { display: none; margin: 0 16px 6px; padding: 12px 16px;
+                    border-radius: var(--radius); background: var(--wait-soft);
+                    color: var(--wait); font-size: var(--fs-meta);
+                    align-items: center; gap: 10px; }
+  body.offline .offline-banner { display: flex; }
+
+  main { flex: 1; min-height: 0; overflow-y: auto;
+         padding: 8px 16px 150px; display: flex;
+         flex-direction: column; gap: 14px; }
+
+  .empty { text-align: center; padding: 56px 24px; color: var(--ink-soft); }
+  .empty .sprite-lg { width: 108px; height: 108px; margin: 0 8px; }
+
+  .bubble { background: var(--card); border-radius: var(--radius);
+            box-shadow: var(--shadow); padding: 14px 16px;
+            display: flex; flex-direction: column; gap: 10px;
+            width: 92%; }
+  .bubble.worker { align-self: flex-start;
+                   border-bottom-left-radius: 6px; }
+  .bubble.home { align-self: flex-end; background: var(--marigold-soft);
+                 border-bottom-right-radius: 6px; }
+
+  .who { display: flex; align-items: center; gap: 12px; }
+  .who .sprite { width: 48px; height: 48px; flex-shrink: 0; }
+  .who b { font-size: var(--fs-body); }
+  .who .meta { font-size: var(--fs-meta); color: var(--ink-faint); }
+
+  .playrow { display: flex; align-items: center; gap: 10px; }
+  .playbtn { background: var(--sand); border: none; width: var(--tap);
+             height: var(--tap); border-radius: 50%; display: grid;
+             place-items: center; flex-shrink: 0; }
+  .playbtn svg { width: 26px; height: 26px; color: var(--ink); }
+  .wave { flex: 1; display: flex; align-items: center; gap: 3px; height: 34px; }
+  .wave i { flex: 1; background: var(--ink-faint); border-radius: 2px;
+            min-height: 6px; }
+  .bubble.playing .wave i { animation: bounce 700ms ease-in-out infinite
+                            alternate; }
+  @keyframes bounce { to { transform: scaleY(0.35); } }
+  .dur { font-size: var(--fs-meta); color: var(--ink-faint);
+         font-variant-numeric: tabular-nums; }
+
+  .summary { display: flex; gap: 10px; align-items: flex-start;
+             background: var(--sky-soft); border-radius: 14px;
+             padding: 10px 14px; }
+  .summary svg { width: 20px; height: 20px; color: var(--sky);
+                 flex-shrink: 0; margin-top: 3px; }
+  .summary .made { display: block; font-size: 0.78rem; color: var(--sky);
+                   font-weight: 700; text-transform: uppercase;
+                   letter-spacing: 0.04em; margin-bottom: 2px; }
+  .summary.fallback { background: var(--sand); }
+  .summary.fallback .made { color: var(--wait); text-transform: none; }
+
+  .rowline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .chip { display: inline-flex; align-items: center; gap: 6px;
+          font-size: var(--fs-meta); font-weight: 600;
+          border-radius: var(--radius-chip); padding: 6px 12px; }
+  .chip svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .chip.lock { background: var(--leaf-soft); color: var(--leaf); }
+  .chip.queued { background: var(--wait-soft); color: var(--wait); }
+  .chip.synced { background: var(--leaf-soft); color: var(--leaf); }
+  .linkbtn { background: none; border: none; color: var(--sky);
+             font-size: var(--fs-meta); font-weight: 600; padding: 6px 4px;
+             min-height: 36px; min-width: 0; display: inline-flex;
+             align-items: center; gap: 6px; }
+  .linkbtn svg { width: 16px; height: 16px; }
+  .transcript { display: none; border-top: 2px dashed var(--line);
+                padding-top: 10px; color: var(--ink-soft); margin: 0; }
+  .bubble.open .transcript { display: block; }
+
+  /* "What the relay sees" — the ciphertext drawer */
+  .drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+            transform: translateY(105%); transition: transform var(--motion);
+            background: var(--card); border-radius: var(--radius)
+            var(--radius) 0 0; box-shadow: 0 -4px 24px rgba(43,32,22,0.25);
+            max-width: 430px; margin: 0 auto; padding: 18px 20px 20px;
+            display: flex; flex-direction: column; gap: 10px; }
+  .drawer.openx { transform: translateY(0); }
+  .drawer h2 { margin: 0; font-size: var(--fs-body); display: flex;
+               align-items: center; gap: 10px; }
+  .drawer h2 svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .drawer .blob { background: var(--sand); border-radius: 14px;
+                  padding: 12px 14px; font-family: ui-monospace, SFMono-Regular,
+                  Menlo, Consolas, monospace; font-size: 0.8rem;
+                  line-height: 1.45; word-break: break-all;
+                  max-height: 30vh; overflow-y: auto; color: var(--ink-soft); }
+  .drawer .claim { margin: 0; font-weight: 600; }
+  .drawer .caveat { margin: 0; font-size: 0.78rem; color: var(--ink-faint); }
+  .drawer .closebtn { align-self: stretch; background: var(--sand);
+                      border: none; color: var(--ink); font-weight: 600; }
+
+  .dock { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
+          background: linear-gradient(transparent, var(--paper) 30%);
+          padding: 26px 16px 18px; }
+  .dock .row { max-width: 430px; margin: 0 auto; display: flex; gap: 12px; }
+  .speak { flex: 1; min-height: 64px; background: var(--marigold);
+           border: none; color: #fff; font-weight: 700;
+           display: flex; align-items: center; justify-content: center;
+           gap: 10px; box-shadow: var(--shadow); }
+  .speak:active { background: var(--marigold-deep); }
+  .speak svg { width: 26px; height: 26px; flex-shrink: 0; }
+  .speak .sub { display: block; font-size: 0.78rem; font-weight: 600;
+                opacity: 0.9; }
+
+  .devstrip { position: fixed; bottom: 120px; left: 10px; z-index: 15;
+              /* demo controls: above the full-width dock, clear of chrome */
+              display: flex; gap: 6px; opacity: 0.7; }
+  .devstrip button { min-height: 36px; min-width: 0; font-size: 0.78rem;
+                     padding: 4px 12px; border-radius: var(--radius-chip);
+                     background: var(--ink); color: var(--paper);
+                     border: none; }
+</style>
+</head>
+<body>
+<!--SPRITES-->
+<div class="shell">
+  <header>
+    <div class="titlerow">
+      <div>
+        <h1>Dhaaga</h1>
+        <span class="tag">One thread, only your family</span>
+      </div>
+      <span class="net-pill on" id="netPill" role="status">
+        <svg style="width:16px;height:16px" aria-hidden="true">
+          <use href="#ic-delivered"/></svg><span id="netWord">Connected</span>
+      </span>
+    </div>
+    <div class="lockrow">
+      <span class="chip lock">
+        <svg aria-hidden="true"><use href="#ic-lock"/></svg>
+        Only your family can read this</span>
+    </div>
+  </header>
+
+  <div class="offline-banner" role="status">
+    <svg style="width:22px;height:22px" aria-hidden="true">
+      <use href="#ic-offline"/></svg>
+    No internet right now. Everything here still works.
+  </div>
+
+  <main id="thread" aria-live="polite"></main>
+
+  <div class="dock">
+    <div class="row">
+      <button class="speak" id="speakWorker">
+        <svg aria-hidden="true"><use href="#ic-mic"/></svg>
+        <span>Speak from Dubai
+          <span class="sub" id="subWorker">Bilal's side</span></span>
+      </button>
+      <button class="speak" id="speakHome">
+        <svg aria-hidden="true"><use href="#ic-mic"/></svg>
+        <span>Speak from home
+          <span class="sub" id="subHome">Amma's side</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<aside class="drawer" id="drawer" aria-hidden="true"
+       aria-label="What the relay sees">
+  <h2><svg aria-hidden="true"><use href="#ic-lock"/></svg>
+    What the relay sees</h2>
+  <div class="blob" id="drawerBlob"></div>
+  <p class="claim">This is everything that leaves the phone.</p>
+  <p class="caveat">PROTOTYPE-ONLY cipher: a stand-in so the demo is honest
+    about its architecture, not real security. A crypto review comes before
+    any real use.</p>
+  <button class="closebtn" id="drawerClose">Close</button>
+</aside>
+
+<div class="devstrip" aria-label="demo controls">
+  <button id="devNet">toggle network</button>
+</div>
+
+<template id="bubbleT">
+  <article class="bubble">
+    <div class="who">
+      <svg class="sprite" aria-hidden="true"><use href=""/></svg>
+      <div><b class="name"></b><div class="meta"></div></div>
+    </div>
+    <div class="playrow">
+      <button class="playbtn" aria-label="Play the voice">
+        <svg aria-hidden="true"><use href="#ic-play"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"></div>
+      <span class="dur"></span>
+    </div>
+    <div class="summary">
+      <svg aria-hidden="true"><use href="#ic-sparkle"/></svg>
+      <div><span class="made">Made on this phone</span>
+        <span class="stext"></span></div>
+    </div>
+    <div class="rowline">
+      <span class="chip state"></span>
+      <button class="linkbtn readall">Read every word</button>
+      <button class="linkbtn relay">
+        <svg aria-hidden="true"><use href="#ic-lock"/></svg>
+        What the relay sees</button>
+    </div>
+    <p class="transcript"></p>
+  </article>
+</template>
+
+<script>
+const SIDES = {
+  worker: {peep: "#peep-worker", place: "Dubai"},
+  home:   {peep: "#peep-amma",   place: "home"},
+};
+const RTL = new Set(["ur", "ar"]);
+
+async function api(path, body) {
+  const res = await fetch(path, body ? {method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)} : undefined);
+  return res.json();
+}
+
+function waveBars(el, seed) {
+  el.innerHTML = "";
+  for (let i = 0; i < 24; i++) {
+    const b = document.createElement("i");
+    b.style.height = (8 + ((seed * (i + 3) * 7919) % 22)) + "px";
+    b.style.animationDelay = (i * 45) + "ms";
+    el.appendChild(b);
+  }
+}
+
+const drawer = document.getElementById("drawer");
+async function openDrawer(id) {
+  const peek = await api("/api/peek/" + id);
+  document.getElementById("drawerBlob").textContent = peek.cipherBlob;
+  drawer.classList.add("openx");
+  drawer.setAttribute("aria-hidden", "false");
+}
+document.getElementById("drawerClose").addEventListener("click", () => {
+  drawer.classList.remove("openx");
+  drawer.setAttribute("aria-hidden", "true");
+});
+
+function render(state) {
+  document.body.classList.toggle("offline", !state.online);
+  const pill = document.getElementById("netPill");
+  pill.className = "net-pill " + (state.online ? "on" : "off");
+  pill.querySelector("use").setAttribute("href",
+    state.online ? "#ic-delivered" : "#ic-offline");
+  document.getElementById("netWord").textContent =
+    state.online ? "Connected" : "Offline";
+
+  const thread = document.getElementById("thread");
+  const stuck = thread.scrollHeight;
+  thread.innerHTML = "";
+  if (!state.envelopes.length) {
+    thread.innerHTML = `<div class="empty">
+      <svg class="sprite sprite-lg"><use href="#peep-worker"/></svg>
+      <svg class="sprite sprite-lg"><use href="#peep-amma"/></svg>
+      <p>One thread for the whole family.</p>
+      <p>Speak from either side to begin.</p></div>`;
+    return;
+  }
+  for (const n of state.envelopes) {
+    const c = document.getElementById("bubbleT").content.cloneNode(true);
+    const bubble = c.querySelector(".bubble");
+    const side = SIDES[n.who] || SIDES.worker;
+    bubble.classList.add(n.who);
+    c.querySelector("use").setAttribute("href", side.peep);
+    c.querySelector(".name").textContent = n.senderName;
+    const secs = Math.max(6, Math.min(30, Math.round(
+      (n.transcript || "").length / 6)));
+    c.querySelector(".meta").textContent =
+      "voice note · from " + side.place;
+    waveBars(c.querySelector(".wave"), n.id);
+    c.querySelector(".dur").textContent = secs + "s";
+    c.querySelector(".playbtn").addEventListener("click", () => {
+      bubble.classList.add("playing");
+      setTimeout(() => bubble.classList.remove("playing"), 2400);
+    });
+
+    const sum = c.querySelector(".summary");
+    const stext = sum.querySelector(".stext");
+    stext.textContent = n.summary || "";
+    stext.setAttribute("lang", n.lang);
+    if (RTL.has(n.lang)) stext.setAttribute("dir", "rtl");
+    if (n.summaryMode === "fallback") {
+      sum.classList.add("fallback");
+      sum.querySelector(".made").textContent =
+        "I couldn't catch this part. Play the voice instead?";
+    }
+
+    const st = c.querySelector(".chip.state");
+    const queued = n.sync_state === "queued";
+    st.className = "chip state " + (queued ? "queued" : "synced");
+    st.innerHTML = `<svg aria-hidden="true"><use href="${queued
+      ? "#ic-queued" : "#ic-delivered"}"/></svg>` +
+      (queued ? "Waiting for network — will send by itself" : "Arrived");
+
+    const t = c.querySelector(".transcript");
+    t.textContent = n.transcript || "";
+    t.setAttribute("lang", n.lang);
+    if (RTL.has(n.lang)) t.setAttribute("dir", "rtl");
+    c.querySelector(".readall").addEventListener("click", () => {
+      bubble.classList.toggle("open");
+    });
+    c.querySelector(".relay").addEventListener("click", () => {
+      openDrawer(n.id);
+    });
+    thread.appendChild(c);
+  }
+  if (thread.scrollHeight !== stuck)
+    thread.scrollTop = thread.scrollHeight;   // scroll the thread, not the page
+}
+
+let online = true;
+async function refresh() { const s = await api("/api/state");
+  online = s.online; render(s); return s; }
+
+document.getElementById("devNet").addEventListener("click", async () => {
+  const s = await api("/api/network", {online: !online});
+  online = s.online; render(s);
+});
+
+function speakButton(btnId, subId, who) {
+  document.getElementById(btnId).addEventListener("click", async () => {
+    const sub = document.getElementById(subId);
+    sub.textContent = "Listening…";
+    const s = await api("/api/send", {who});
+    online = s.online;
+    sub.textContent = online ? "Sent" : "Saved — sends by itself";
+    setTimeout(() => {
+      sub.textContent = who === "worker" ? "Bilal's side" : "Amma's side";
+    }, 2200);
+    render(s);
+  });
+}
+speakButton("speakWorker", "subWorker", "worker");
+speakButton("speakHome", "subHome", "home");
+
+refresh().then(async s => {   // seed the thread on first load: one each way
+  if (!s.envelopes.length) {
+    await api("/api/send", {who: "worker"});
+    render(await api("/api/send", {who: "home"}));
+  }
+});
+</script>
+</body>
+</html>
