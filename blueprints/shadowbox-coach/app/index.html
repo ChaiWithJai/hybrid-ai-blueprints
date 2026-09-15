@@ -18,9 +18,23 @@
       <button id="btn-reset" title="reset session">↺</button>
       <button id="btn-stance" title="which hand is your jab">ORTHODOX</button>
       <button id="btn-voice" title="spoken coach cues">🔊</button>
+      <button id="btn-map" title="show / hide the full cockpit">▦</button>
     </div>
   </div>
 </header>
+
+<div id="welcome" hidden>
+  <div class="welcome-card">
+    <h2>🥊 SHADOWBOX COACH</h2>
+    <p id="welcome-goal">70 days. Two phases. One camera watching your form.</p>
+    <ol>
+      <li>🧍 stand <b>2–3 m back</b> — shoulders + hips in frame</li>
+      <li>▶ press <b>START DAY</b> — the coach talks, you work</li>
+      <li>✓ finish the blocks — the day banks itself</li>
+    </ol>
+    <button id="welcome-go">LET'S GO ▸</button>
+  </div>
+</div>
 
 <main class="cockpit">
   <!-- LEFT RAIL: the whole program, one glance -->
@@ -85,6 +99,15 @@
       </div>
       <div id="wo-title" class="wo-title"></div>
       <div id="wo-focus" class="wo-focus"></div>
+      <div id="goal-ladder" class="goal-ladder" hidden>
+        <div class="gl-row">🎯 <b id="gl-today"></b></div>
+        <div class="gl-row">📅 <span id="gl-week"></span></div>
+        <details class="gl-more">
+          <summary>🚩 phase &amp; program</summary>
+          <p id="gl-phase"></p>
+          <p id="gl-program"></p>
+        </details>
+      </div>
       <div id="wo-now" class="wo-now" hidden>
         <div class="stat-label" id="wo-now-tag">NOW</div>
         <div id="wo-now-name" class="wo-now-name"></div>

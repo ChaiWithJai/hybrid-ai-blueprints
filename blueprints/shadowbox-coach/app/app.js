@@ -98,12 +98,46 @@ fetch("workout_guide.json").then((r) => r.ok ? r.json() : null).then((g) => {
   const firstUndone = woDays.findIndex((d) => !prog.done.includes(woDayKey(d)));
   woIdx = firstUndone === -1 ? 0 : firstUndone;
   $("workout-panel").hidden = false;
-  $("gate-panel").hidden = false;
   $("program-title").textContent = guide.title.toUpperCase();
   buildProgramGrid();
   renderWorkout();
   renderStreak();
+  applyDisclosure();
+  // first run: three steps and the phase-1 goal, once
+  try {
+    if (!localStorage.getItem("shadowbox-welcomed")) {
+      $("welcome-goal").textContent = `${guide.tagline}`;
+      $("welcome").hidden = false;
+    }
+  } catch { /* storage unavailable */ }
 }).catch(() => {});
+
+$("welcome-go").addEventListener("click", () => {
+  $("welcome").hidden = true;
+  try { localStorage.setItem("shadowbox-welcomed", "1"); } catch { /* fine */ }
+  initAudio();
+});
+
+// ---- earned disclosure: the cockpit reveals itself as the athlete earns it ----
+// day 0: stage + today + coach only · day 1+: program map + streak ·
+// day 3+: trends · week 4+ of phase 1 (or phase 2): the gate panel · ▦ shows all
+function applyDisclosure() {
+  let full = false;
+  try { full = localStorage.getItem("shadowbox-full") === "1"; } catch { /* fine */ }
+  const done = woProgress().done.length;
+  const d = woDays[woIdx];
+  document.body.classList.toggle("simple", !full && done < 1);
+  $("gate-panel").hidden = !(full || (d && (d.week >= 4 || d.program === guide?.phase2.program)));
+  if ($("trends-panel")) $("trends-panel").hidden = $("trends-panel").hidden || (!full && done < 3);
+}
+$("btn-map").addEventListener("click", () => {
+  try {
+    const cur = localStorage.getItem("shadowbox-full") === "1";
+    localStorage.setItem("shadowbox-full", cur ? "0" : "1");
+  } catch { /* fine */ }
+  applyDisclosure();
+  renderTrends();
+});
 
 // ---- program map: all 70 days, one glance ----
 function buildProgramGrid() {
@@ -228,6 +262,15 @@ function renderWorkout() {
     $("wo-focus").textContent = `${d.focus.toUpperCase()} — ☾ REST / RECOVERY`;
   }
   if (!ticking && !session) renderClock(); // preview block 1's clock immediately
+  // goal ladder: today ▸ this week ▸ phase ▸ program — the WHY, always one glance away
+  const gl = $("goal-ladder");
+  gl.hidden = false;
+  $("gl-today").textContent = shortRx(d.summary, 110);
+  $("gl-week").textContent = `week ${d.week} · ${d.focus.toLowerCase()}`;
+  const phaseObj = phase === 1 ? guide.phase1 : guide.phase2;
+  $("gl-phase").textContent = `${phaseObj.title}: ${shortRx(phaseObj.intro, 260)}`;
+  $("gl-program").textContent = `${guide.title} — ${guide.tagline}`;
+  applyDisclosure();
   $("wo-blocks").innerHTML = d.blocks
     .map((b, i) => `<li class="${checks[i] ? "checked" : ""}"><label><input type="checkbox" data-i="${i}" ${checks[i] ? "checked" : ""}><span><b>${b.name}</b> <span class="rx">— ${b.prescription}</span></span></label></li>`)
     .join("");
@@ -434,18 +477,19 @@ function onFrame(landmarks, now) {
   const ctx2 = { sw, hipY: (lm.get(L.L_HIP).y + lm.get(L.R_HIP).y) / 2 };
   rotation.update(ls, rs, now);
 
+  const mode = scoringMode(); // the block's tracking contract governs the camera
   for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
     const tracker = hands[hand];
     const ev = tracker.update(lm.get(wi), lm.get(ei), lm.get(si), ctx2, now);
-    if (ev && !resting) {
+    if (ev && mode === "punch") {
       ev.power = punchPower(ev.speed, rotation.rate);
       recordPunch(ev, now);
-    } else if (ev && resting) {
+    } else if (ev && mode === "rest") {
       // punches during rest are seen, said, and not counted
       $("stage-rest").textContent = "REST ✗";
       setTimeout(() => { $("stage-rest").textContent = "REST"; }, 600);
-    }
-    if (tracker.phase === "guard") {
+    } // defense/movement: form only · conditioning: a push-up is not a punch
+    if (tracker.phase === "guard" && mode !== "conditioning" && mode !== "rest") {
       if (tracker.lastRetractMs != null && tracker.lastRetractMs < 2000) {
         form.retractSum += tracker.lastRetractMs; form.retractN++;
         recentRetracts.push(tracker.lastRetractMs);
@@ -456,7 +500,7 @@ function onFrame(landmarks, now) {
       const gh = (lm.get(si).y - lm.get(wi).y) / sw;
       form.guardSum += gh; form.guardN++;
       guardNow += 0.1 * (gh - guardNow);
-    }
+    } else if (tracker.lastRetractMs != null) tracker.lastRetractMs = null;
   }
   draw(lm);
   for (const [hand, id] of [["L", "meter-l"], ["R", "meter-r"]]) {
@@ -566,8 +610,9 @@ async function liveCue(st) {
       body: JSON.stringify({
         model, max_tokens: 24, temperature: 0.7,
         messages: [
-          { role: "system", content: "Mid-round boxing corner coach. Shout ONE imperative cue, max 8 words. No preamble." },
+          { role: "system", content: "Mid-round boxing corner coach. Shout ONE imperative cue, max 8 words. No preamble." + dayBrief() },
           { role: "user", content: JSON.stringify({
+            current_block: `${st.name} (${st.rx})`,
             seconds_left: roundLeft,
             thrown_this_round: stats.total - roundStart.total,
             recent_arm_punch: recentCalls.slice(-5).filter((c) => c.arm).length,
@@ -644,7 +689,7 @@ setInterval(() => {
   const recent = punchLog.filter((p) => now - p.t < 60000).length;
   $("stat-ppm").textContent = recent;
   if (guide) renderGates(); // live gate readout in the left rail
-  if (ticking && !resting && stats.total - roundStart.total >= 4) coachReflexes(performance.now());
+  if (ticking && !resting && scoringMode() === "punch" && stats.total - roundStart.total >= 4) coachReflexes(performance.now());
   // tracking loss: if the pose stream goes quiet, say so instead of freezing
   if (cameraLive && framedOnce && performance.now() - lastPoseAt > 1500 && stageMsg.hidden) {
     ctx.clearRect(0, 0, overlay.width, overlay.height);
@@ -687,6 +732,31 @@ let session = null;     // the block-driven session player: {steps, idx, nBlocks
 let previewPlan = null; // the selected day's compiled plan, shown before ▶ (display-only)
 const shortRx = (s, n = 64) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
+// tracking contract per block: what should the camera score right now?
+//   punch 🥊 full scoring · defense 🛡 / movement 🦶 form only · conditioning 💪 paused
+// modes are baked into workout_guide.json by pipeline/annotate_guide.py;
+// this JS mirror covers guides built before that pass
+const MODE_GLYPH = { punch: "🥊", defense: "🛡", movement: "🦶", conditioning: "💪" };
+const MODE_RULES = [
+  ["punch", /bag|shadow ?box|freestyle|sparring|pad work|punch|jab|cross\b|hook|uppercut|combo|combination|fight|tennis ball|counter|supplemental|timed round|opening round|partner work|interval/i],
+  ["defense", /slip|roll|head movement|duck|parry|defen/i],
+  ["movement", /stance|movement|footwork|agility|shuffle|pendulum|pivot|shift|step drill|balance/i],
+  ["conditioning", /push-?up|squat|climber|burpee|plank|jump|crunch|sit-?up|pull-?up|med ?ball|dumbbell|barbell|lift|sets? of|reps|circuit|endurance|mobility|stretch|rope|sprawl|raises|jacks|tucks|sprint|conditioning|weighted stick|hip bridge|wall sit|juggling/i],
+];
+function blockMode(b) {
+  if (b.mode) return b.mode;
+  const t = `${b.name} ${b.prescription} ${b.source_drill || ""}`;
+  for (const [m, re] of MODE_RULES) if (re.test(t)) return m;
+  return "punch";
+}
+// what the camera should score during the current step
+function scoringMode() {
+  if (!session || !ticking) return "punch"; // free sessions: full scoring
+  const st = session.steps[session.idx];
+  if (st.kind === "rest") return "rest";
+  return st.mode || "punch";
+}
+
 // Parse a block's prescription into a timed scheme. Handles the curriculum's
 // real shapes ("4 ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST", "9 rounds x
 // 1 min", "1ROUND OF 3MINUTES") — anything rep-based becomes self-paced.
@@ -708,10 +778,11 @@ function buildSessionPlan(d) {
   let global = 0;
   d.blocks.forEach((b, bi) => {
     const s = parseScheme(`${b.prescription} ${b.source_drill || ""}`);
+    const mode = blockMode(b);
     if (s.kind === "rounds") {
       for (let r = 1; r <= s.rounds; r++) {
         global++;
-        steps.push({ kind: "work", sec: s.workSec, blockIdx: bi, name: b.name, rx: b.prescription, round: r, of: s.rounds, global });
+        steps.push({ kind: "work", sec: s.workSec, blockIdx: bi, name: b.name, rx: b.prescription, round: r, of: s.rounds, global, mode });
         if (r < s.rounds) steps.push({ kind: "rest", sec: s.restSec, blockIdx: bi, name: b.name, rx: `breathe — ${s.restSec}s` });
       }
       if (bi < d.blocks.length - 1) {
@@ -719,7 +790,7 @@ function buildSessionPlan(d) {
       }
     } else {
       global++;
-      steps.push({ kind: "selfpaced", sec: 0, blockIdx: bi, name: b.name, rx: b.prescription, global });
+      steps.push({ kind: "selfpaced", sec: 0, blockIdx: bi, name: b.name, rx: b.prescription, global, mode });
     }
   });
   return { steps, idx: 0, nBlocks: d.blocks.length, day: d };
@@ -750,7 +821,7 @@ function renderSession() {
   card.hidden = false;
   $("wo-all").open = false; // progressive disclosure: the full list folds away mid-session
   $("wo-now-tag").textContent = `NOW · BLOCK ${st.blockIdx + 1}/${session.nBlocks}` + (st.round ? ` · ROUND ${st.round}/${st.of}` : "");
-  $("wo-now-name").textContent = st.kind === "rest" ? "REST" : st.name;
+  $("wo-now-name").textContent = st.kind === "rest" ? "REST" : `${MODE_GLYPH[st.mode] || ""} ${st.name}`;
   $("wo-now-rx").textContent = st.rx;
   $("wo-progress").innerHTML = session.day.blocks
     .map((_, i) => `<span class="${i < st.blockIdx ? "done" : i === st.blockIdx ? "current" : ""}"></span>`)
@@ -832,13 +903,15 @@ function renderClock() {
   const sb = $("stage-block");
   if (live && ticking) {
     sb.hidden = false;
+    const tag = live.mode === "conditioning" ? " · scoring ⏸" : (live.mode === "movement" || live.mode === "defense") ? " · form only" : "";
     sb.textContent = live.kind === "rest"
       ? `next ▸ ${session.steps.slice(session.idx + 1).find((s) => s.kind !== "rest")?.name ?? "finish"}`
-      : `${live.name}${live.round ? ` · R${live.round}/${live.of}` : ""} — ${shortRx(live.rx)}`;
+      : `${MODE_GLYPH[live.mode] || ""} ${live.name}${live.round ? ` · R${live.round}/${live.of}` : ""}${tag} — ${shortRx(live.rx)}`;
   } else if (prev) {
     sb.hidden = false;
-    sb.textContent = `up first ▸ ${prev.name} — ${shortRx(prev.rx)}`;
+    sb.textContent = `up first ▸ ${MODE_GLYPH[prev.mode] || ""} ${prev.name} — ${shortRx(prev.rx)}`;
   } else sb.hidden = true;
+  document.body.classList.toggle("scoring-paused", !!live && ticking && live.mode === "conditioning");
   const bn = $("btn-next");
   bn.hidden = !(live && ticking && (selfPaced || live.kind === "rest"));
   bn.textContent = selfPaced ? "DONE ▸ NEXT" : "SKIP REST ▸";
@@ -888,8 +961,9 @@ $("btn-start").addEventListener("click", () => {
       if (left === roundLeft) return;
       roundLeft = left;
       if (st.kind === "work" && roundLeft === 10) bell(1);
-      // tier-1 cadence: one Bonsai cue at the midpoint of long work rounds
-      if (st.kind === "work" && st.sec >= 90 && !st.cueFired && roundLeft <= st.sec / 2) {
+      // tier-1 cadence: one Bonsai cue at the midpoint of long PUNCH rounds
+      // (a hip cue mid-push-ups would be nonsense — contract-gated)
+      if (st.kind === "work" && st.mode === "punch" && st.sec >= 90 && !st.cueFired && roundLeft <= st.sec / 2) {
         st.cueFired = true;
         liveCue(st);
       }
@@ -962,6 +1036,19 @@ let coachKB = null;
 fetch("coach_kb.json").then((r) => r.ok ? r.json() : null).then((kb) => { coachKB = kb; }).catch(() => {});
 
 let workoutFocus = null; // set by START DAY: today's curriculum focus overrides the heuristic
+// the coach is THE program's coach: every call carries where the athlete is
+// in the 70-day arc and what today's blocks actually are
+function dayBrief() {
+  if (!guide) return "";
+  const d = woDays[woIdx];
+  if (!d) return "";
+  const phase = d.program === guide.phase1.program ? 1 : 2;
+  const pos = woDays.indexOf(d) + 1;
+  return ` PROGRAM: '${guide.title}', day ${pos}/70 (phase ${phase}, week ${d.week}, day ${d.day}). ` +
+    `TODAY: ${d.title}, focus ${d.focus} — ${shortRx(d.summary, 150)} ` +
+    `BLOCKS: ${d.blocks.map((b) => `${b.name}[${blockMode(b)}]`).join(", ").slice(0, 280)}.`;
+}
+
 function pickFocusTheme() {
   if (!coachKB) return null;
   if (workoutFocus && coachKB.focuses[workoutFocus]) {
@@ -1030,7 +1117,7 @@ async function askCoach() {
         messages: [
           {
             role: "system",
-            content: "You are a boxing corner coach between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words. Prioritize form problems: high arm_punch_pct means they aren't turning the body; slow avg_retraction_ms means hands hang out; low guard_height means the chin is open. No preamble, no lists." +
+            content: "You are the dedicated corner coach of this 70-day program, between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words, tied to today's focus. Prioritize form problems: high arm_punch_pct means they aren't turning the body; slow avg_retraction_ms means hands hang out; low guard_height means the chin is open. No preamble, no lists." + dayBrief() +
               (() => {
                 const theme = pickFocusTheme();
                 if (!theme) return "";
