@@ -213,6 +213,40 @@ coach grounds its cue in the curriculum → recorded clips feed the detector
 sweep → every generation logs to MLflow → any agent (this one, Codex) reads
 the Mongo learnings doc and continues from there.
 
+## The training cockpit (single-viewport UI)
+
+The app is one screen on a laptop — no page scroll. Left rail: the full 70-day
+program map (click any day; **TODAY** jumps to your first incomplete day) plus a
+live phase-gate readout of this session's telemetry against the promotion
+targets. Center: the camera stage with the stat strip. Right rail: today's
+session — blocks with check-offs, **START DAY** (drives the timer + coach
+focus), **✓ DONE** (logs the day), the corner coach, and round-by-round.
+A streak counter lives in the header.
+
+## Training log → MLflow (and error discovery)
+
+Every completed day and every flagged call is appended to
+`pipeline/datasets/training_log.jsonl` (git-ignored — it's your training data):
+
+- **✓ DONE** logs a `day_complete` snapshot: punch counts, avg power,
+  arm-punch %, retraction, guard height, round history.
+- **Press `x`** to flag the last call as wrong (`call_feedback`) — say what
+  actually happened, or leave blank for "phantom". This is the visual-reasoning
+  feedback stream.
+
+```bash
+/Users/jaibhagat/code/prismml/bonsai-lab/.venv/bin/python pipeline/ingest_training_log.py
+```
+
+pushes it to the shared MLflow (per-day training curves: thrown, power,
+arm-punch %, retraction, guard — charted over day index) and open-codes the
+feedback into failure-mode clusters (`phantom:JAB`, `misclass:HOOK->CROSS`,
+`missed-punch`, …) — error-discovery style. Each cluster is actionable: a new
+sweep scenario, a recorded-clip request, or a classifier fix. For the full
+interactive review, run the `error-discovery` skill from
+`ai-evals-course/evals-skills` over the same JSONL — the dataset is shaped for
+it on purpose. Learnings mirror to Mongo for cross-agent pickup.
+
 ## What the recordings do (and don't) capture
 
 Clips store **pose landmarks, not video** — so replays are deterministic, files

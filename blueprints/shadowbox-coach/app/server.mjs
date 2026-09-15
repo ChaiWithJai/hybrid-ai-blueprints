@@ -14,7 +14,29 @@ const MIME = {
   ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml",
 };
 
+const LOG_PATH = path.join(ROOT, "..", "pipeline", "datasets", "training_log.jsonl");
+
 http.createServer((req, res) => {
+  if (req.method === "POST" && req.url === "/log") {
+    // training + feedback events → the JSONL dataset that the error-discovery
+    // skill reviews and pipeline/ingest_training_log.py pushes to MLflow
+    let body = "";
+    req.on("data", (c) => { body += c; if (body.length > 1e6) req.destroy(); });
+    req.on("end", () => {
+      try {
+        const entry = JSON.parse(body);
+        fs.mkdirSync(path.dirname(LOG_PATH), { recursive: true });
+        fs.appendFileSync(LOG_PATH, JSON.stringify(entry) + "\n");
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ ok: true }));
+        console.log(`log: ${entry.type} (${entry.dayKey ?? entry.actual ?? ""})`);
+      } catch (e) {
+        res.writeHead(400);
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
   if (req.method === "POST" && req.url === "/save") {
     let body = "";
     req.on("data", (c) => { body += c; if (body.length > 50e6) req.destroy(); });

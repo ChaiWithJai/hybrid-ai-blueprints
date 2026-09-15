@@ -80,6 +80,16 @@ function woProgress() {
 }
 function woDayKey(d) { return `${d.program}-w${d.week}-d${d.day}`; }
 
+// every training event lands in pipeline/datasets/training_log.jsonl — the
+// dataset the error-discovery skill reviews and the MLflow ingester reads
+function logEvent(entry) {
+  fetch("/log", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ at: new Date().toISOString(), ...entry }),
+  }).catch(() => {});
+}
+
 fetch("workout_guide.json").then((r) => r.ok ? r.json() : null).then((g) => {
   if (!g) return;
   guide = g;
@@ -88,26 +98,132 @@ fetch("workout_guide.json").then((r) => r.ok ? r.json() : null).then((g) => {
   const firstUndone = woDays.findIndex((d) => !prog.done.includes(woDayKey(d)));
   woIdx = firstUndone === -1 ? 0 : firstUndone;
   $("workout-panel").hidden = false;
+  $("gate-panel").hidden = false;
+  $("program-title").textContent = guide.title.toUpperCase();
+  buildProgramGrid();
   renderWorkout();
+  renderStreak();
 }).catch(() => {});
 
+// ---- program map: all 70 days, one glance ----
+function buildProgramGrid() {
+  const grid = $("program-grid");
+  grid.innerHTML = "";
+  let idx = 0;
+  for (const [pname, p] of [["PHASE 1 · " + guide.phase1.title, guide.phase1], ["PHASE 2 · " + guide.phase2.title, guide.phase2]]) {
+    const head = document.createElement("div");
+    head.className = "pg-phase";
+    head.textContent = pname.toUpperCase();
+    grid.appendChild(head);
+    for (let w = 1; w <= 5; w++) {
+      const row = document.createElement("div");
+      row.className = "pg-week";
+      for (const d of p.days.filter((x) => x.week === w)) {
+        const cell = document.createElement("button");
+        cell.className = "pg-day" + (d.rounds ? "" : " rest");
+        cell.textContent = d.day;
+        cell.title = `${d.title} — ${d.focus}`;
+        const myIdx = idx++;
+        cell.dataset.idx = myIdx;
+        cell.addEventListener("click", () => { woIdx = myIdx; renderWorkout(); });
+        row.appendChild(cell);
+      }
+      grid.appendChild(row);
+    }
+  }
+}
+function paintProgramGrid() {
+  const prog = woProgress();
+  document.querySelectorAll(".pg-day").forEach((cell) => {
+    const d = woDays[Number(cell.dataset.idx)];
+    cell.classList.toggle("done", prog.done.includes(woDayKey(d)));
+    cell.classList.toggle("current", Number(cell.dataset.idx) === woIdx);
+  });
+}
+$("btn-today").addEventListener("click", () => {
+  const prog = woProgress();
+  const first = woDays.findIndex((d) => !prog.done.includes(woDayKey(d)));
+  woIdx = first === -1 ? woDays.length - 1 : first;
+  renderWorkout();
+});
+
+// ---- day streak (calendar days with a completed day) ----
+function dayLog() {
+  try { return JSON.parse(localStorage.getItem("shadowbox-daylog")) || []; } catch { return []; }
+}
+function renderStreak() {
+  const days = [...new Set(dayLog().map((e) => e.date))].sort();
+  let streak = 0;
+  const today = new Date();
+  for (let i = 0; ; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    if (days.includes(key)) streak++;
+    else if (i > 0) break; // today itself may not be trained yet
+  }
+  const done = woProgress().done.length;
+  $("streak-line").textContent =
+    `${streak > 0 ? "🔥 " + streak + "-day streak · " : ""}${done}/${woDays.length || 70} days complete`;
+}
+
+// ---- phase gate: this session's telemetry vs the promotion targets ----
+const GATE_CHECKS = {
+  arm_punch_pct: { get: () => form.powerPunches ? (100 * form.armPunches / form.powerPunches) : null, pass: (v) => v <= 25, fmt: (v) => v.toFixed(0) + "%" },
+  guard_height_sw: { get: () => form.guardN ? form.guardSum / form.guardN : null, pass: (v) => v >= 0.85, fmt: (v) => v.toFixed(2) + " sw" },
+  avg_retraction_ms: { get: () => form.retractN ? form.retractSum / form.retractN : null, pass: (v) => v <= 350, fmt: (v) => v.toFixed(0) + " ms" },
+  punches_per_round: { get: () => roundHistory.length ? roundHistory[roundHistory.length - 1].thrown : (stats.total || null), pass: (v) => v >= 120, fmt: (v) => String(Math.round(v)) },
+  avg_power: { get: () => form.powerN ? form.powerSum / form.powerN : null, pass: (v) => v >= 55, fmt: (v) => v.toFixed(0) },
+};
+function renderGates() {
+  if (!guide) return;
+  $("gate-list").innerHTML = guide.gates.map((g) => {
+    const chk = GATE_CHECKS[g.stat];
+    const v = chk ? chk.get() : null;
+    const ok = v != null && chk.pass(v);
+    return `<li class="${ok ? "gate-pass" : "gate-fail"}">${ok ? "●" : "○"} ${g.stat.replaceAll("_", " ")}: <b>${v == null ? "—" : chk.fmt(v)}</b> <span>(${g.threshold})</span></li>`;
+  }).join("");
+}
+
+// per-day block check-offs, persisted
+function blockChecks() {
+  try { return JSON.parse(localStorage.getItem("shadowbox-blockchecks")) || {}; } catch { return {}; }
+}
 function renderWorkout() {
   const d = woDays[woIdx];
   if (!d) return;
   const phase = d.program === guide.phase1.program ? 1 : 2;
   const prog = woProgress();
-  $("workout-label").textContent =
-    `${guide.title.toUpperCase()} · PHASE ${phase} · WEEK ${d.week} · DAY ${d.day}`;
+  const checks = blockChecks()[woDayKey(d)] || [];
+  $("workout-label").textContent = `PHASE ${phase} · WEEK ${d.week} · DAY ${d.day}`;
   $("wo-title").textContent = d.title;
-  $("wo-focus").textContent = `${d.focus.toUpperCase()} — ${d.rounds} × ${fmt(d.roundSec)} / ${fmt(d.restSec)} rest`;
+  $("wo-focus").textContent = d.rounds
+    ? `${d.focus.toUpperCase()} — ${d.rounds} × ${fmt(d.roundSec)} / ${fmt(d.restSec)} rest`
+    : `${d.focus.toUpperCase()} — REST / RECOVERY`;
   $("wo-blocks").innerHTML = d.blocks
-    .map((b) => `<li><b>${b.name}</b> <span class="rx">— ${b.prescription}</span></li>`)
+    .map((b, i) => `<li class="${checks[i] ? "checked" : ""}"><label><input type="checkbox" data-i="${i}" ${checks[i] ? "checked" : ""}><span><b>${b.name}</b> <span class="rx">— ${b.prescription}</span></span></label></li>`)
     .join("");
+  $("wo-blocks").querySelectorAll("input").forEach((box) => {
+    box.addEventListener("change", () => {
+      try {
+        const all = blockChecks();
+        const arr = all[woDayKey(d)] || [];
+        arr[Number(box.dataset.i)] = box.checked;
+        all[woDayKey(d)] = arr;
+        localStorage.setItem("shadowbox-blockchecks", JSON.stringify(all));
+      } catch { /* storage unavailable */ }
+      renderWorkout();
+    });
+  });
+  const allChecked = d.blocks.length > 0 && d.blocks.every((_, i) => checks[i]);
   $("wo-done").classList.toggle("completed", prog.done.includes(woDayKey(d)));
+  $("wo-done").classList.toggle("ready", allChecked && !prog.done.includes(woDayKey(d)));
   const p1done = guide.phase1.days.filter((x) => prog.done.includes(woDayKey(x))).length;
   $("wo-gate").textContent = phase === 1
     ? `Phase gate (${p1done}/${guide.phase1.days.length} days done): ${guide.gate_text}`
     : guide.coach_guidance;
+  paintProgramGrid();
+  renderGates();
 }
 $("wo-prev").addEventListener("click", () => { woIdx = Math.max(0, woIdx - 1); renderWorkout(); });
 $("wo-next").addEventListener("click", () => { woIdx = Math.min(woDays.length - 1, woIdx + 1); renderWorkout(); });
@@ -128,14 +244,54 @@ $("wo-start").addEventListener("click", () => {
 $("wo-done").addEventListener("click", () => {
   const d = woDays[woIdx];
   if (!d) return;
+  const k = woDayKey(d);
+  const snapshot = {
+    type: "day_complete", dayKey: k, title: d.title, focus: d.focus,
+    date: new Date().toISOString().slice(0, 10),
+    stats: { ...stats, power: power(stats) },
+    form: {
+      avg_power: form.powerN ? Math.round(form.powerSum / form.powerN) : null,
+      arm_punch_pct: form.powerPunches ? Math.round(100 * form.armPunches / form.powerPunches) : null,
+      avg_retraction_ms: form.retractN ? Math.round(form.retractSum / form.retractN) : null,
+      guard_height_sw: form.guardN ? Number((form.guardSum / form.guardN).toFixed(2)) : null,
+    },
+    rounds: roundHistory,
+  };
   try {
     const prog = woProgress();
-    const k = woDayKey(d);
     if (!prog.done.includes(k)) prog.done.push(k);
     localStorage.setItem(WO_KEY, JSON.stringify(prog));
+    const dl = dayLog();
+    dl.push(snapshot);
+    localStorage.setItem("shadowbox-daylog", JSON.stringify(dl.slice(-200)));
   } catch { /* storage unavailable */ }
+  logEvent(snapshot); // → training_log.jsonl → MLflow ingest
   if (woIdx < woDays.length - 1) woIdx++;
   renderWorkout();
+  renderStreak();
+});
+
+// ---- visual-reasoning feedback: press x to flag the last call as wrong ----
+// annotations land in training_log.jsonl, the dataset the error-discovery
+// skill reviews and clusters into failure modes
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "x" || !punchLog.length) return;
+  const last = punchLog[punchLog.length - 1];
+  const note = prompt(`Flag call "${last.hand} ${last.type}" as wrong. What actually happened? (blank = phantom)`);
+  if (note === null) return;
+  logEvent({
+    type: "call_feedback", verdict: "wrong",
+    flagged: { hand: last.hand, type: last.type, speed: +last.speed.toFixed(1), power: last.power },
+    actual: note.trim() || "phantom — no punch thrown",
+    recent: punchLog.slice(-5).map((p) => p.type),
+    rotation_rate: +rotation.rate.toFixed(2),
+    day: woDays[woIdx] ? woDayKey(woDays[woIdx]) : null,
+    config: { extendAt: CFG.extendAt, minPeakSpeed: CFG.minPeakSpeed, peakDrop: CFG.peakDrop },
+  });
+  flash.textContent = "FLAGGED";
+  flash.classList.remove("pop");
+  void flash.offsetWidth;
+  flash.classList.add("pop");
 });
 
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
@@ -293,6 +449,7 @@ setInterval(() => {
   const now = performance.now();
   const recent = punchLog.filter((p) => now - p.t < 60000).length;
   $("stat-ppm").textContent = recent;
+  if (guide) renderGates(); // live gate readout in the left rail
 }, 1000);
 
 // ---- skeleton overlay ----
