@@ -217,9 +217,17 @@ function renderWorkout() {
   const checks = blockChecks()[woDayKey(d)] || [];
   $("workout-label").textContent = `PHASE ${phase} · WEEK ${d.week} · DAY ${d.day}`;
   $("wo-title").textContent = d.title;
-  $("wo-focus").textContent = d.rounds
-    ? `${d.focus.toUpperCase()} — ${d.rounds} × ${fmt(d.roundSec)} / ${fmt(d.restSec)} rest`
-    : `${d.focus.toUpperCase()} — REST / RECOVERY`;
+  // the day header describes the day's real shape, block by block — the old
+  // day-level "6 × 3:00" lied whenever block 1 prescribed something else
+  previewPlan = d.blocks.length ? buildSessionPlan(d) : null;
+  if (previewPlan) {
+    const estMin = Math.round(previewPlan.steps.reduce((a, s) => a + (s.sec || 60), 0) / 60);
+    const timed = previewPlan.steps.filter((s) => s.kind === "work").length;
+    $("wo-focus").textContent = `${d.focus.toUpperCase()} — ${d.blocks.length} ▦ · ${timed} ⏱ · ≈${estMin} MIN`;
+  } else {
+    $("wo-focus").textContent = `${d.focus.toUpperCase()} — ☾ REST / RECOVERY`;
+  }
+  if (!ticking && !session) renderClock(); // preview block 1's clock immediately
   $("wo-blocks").innerHTML = d.blocks
     .map((b, i) => `<li class="${checks[i] ? "checked" : ""}"><label><input type="checkbox" data-i="${i}" ${checks[i] ? "checked" : ""}><span><b>${b.name}</b> <span class="rx">— ${b.prescription}</span></span></label></li>`)
     .join("");
@@ -580,7 +588,9 @@ function draw(lm) {
 // with a finish line — the day ENDS after its prescribed rounds ----
 function fmt(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
 let dayStarted = false, deadline = 0, wakeLock = null;
-let session = null; // the block-driven session player: {steps, idx, nBlocks, day}
+let session = null;     // the block-driven session player: {steps, idx, nBlocks, day}
+let previewPlan = null; // the selected day's compiled plan, shown before ▶ (display-only)
+const shortRx = (s, n = 64) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
 // Parse a block's prescription into a timed scheme. Handles the curriculum's
 // real shapes ("4 ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST", "9 rounds x
@@ -706,29 +716,36 @@ function bell(times = 1) {
 }
 
 function renderClock() {
-  const st = session?.steps[session.idx];
+  const live = session?.steps[session.idx];
+  // idle with a day selected → PREVIEW block 1's real scheme, not a stale 3:00
+  const prev = (!ticking && !session && previewPlan) ? previewPlan.steps[0] : null;
+  const st = live || prev;
   const selfPaced = st?.kind === "selfpaced";
-  $("round-clock").textContent = selfPaced ? "▸▸" : fmt(Math.max(0, roundLeft));
+  const shown = live ? Math.max(0, roundLeft) : (prev ? prev.sec : Math.max(0, roundLeft));
+  $("round-clock").textContent = selfPaced ? "▸▸" : fmt(shown);
   $("round-clock").classList.toggle("rest", resting);
   $("round-label").textContent = st
     ? (st.kind === "rest" ? "REST" : `B${st.blockIdx + 1}${st.round ? ` R${st.round}/${st.of}` : ""}`)
     : (resting ? "REST" : `R${roundNum}`);
   const sc = $("stage-clock");
   sc.hidden = !ticking;
-  sc.textContent = selfPaced ? "▸▸" : fmt(Math.max(0, roundLeft));
-  sc.classList.toggle("warn", !resting && !selfPaced && roundLeft <= 10 && roundLeft > 0);
+  sc.textContent = selfPaced ? "▸▸" : fmt(shown);
+  sc.classList.toggle("warn", !!live && !resting && !selfPaced && roundLeft <= 10 && roundLeft > 0);
   document.body.classList.toggle("resting", resting && !!ticking);
   $("stage-rest").hidden = !(resting && ticking);
-  // on-stage: what am I doing right now
+  // on-stage assist: what move am I on (or about to start), and what does it ask
   const sb = $("stage-block");
-  if (st && ticking) {
+  if (live && ticking) {
     sb.hidden = false;
-    sb.textContent = st.kind === "rest"
+    sb.textContent = live.kind === "rest"
       ? `next ▸ ${session.steps.slice(session.idx + 1).find((s) => s.kind !== "rest")?.name ?? "finish"}`
-      : `${st.name}${st.round ? ` · R${st.round}/${st.of}` : ""}`;
+      : `${live.name}${live.round ? ` · R${live.round}/${live.of}` : ""} — ${shortRx(live.rx)}`;
+  } else if (prev) {
+    sb.hidden = false;
+    sb.textContent = `up first ▸ ${prev.name} — ${shortRx(prev.rx)}`;
   } else sb.hidden = true;
   const bn = $("btn-next");
-  bn.hidden = !(st && ticking && (selfPaced || st.kind === "rest"));
+  bn.hidden = !(live && ticking && (selfPaced || live.kind === "rest"));
   bn.textContent = selfPaced ? "DONE ▸ NEXT" : "SKIP REST ▸";
 }
 
