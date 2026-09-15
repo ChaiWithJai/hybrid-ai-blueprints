@@ -14,6 +14,7 @@ const arg = (name, dflt) => {
   return i > -1 ? process.argv[i + 1] : dflt;
 };
 const SHARD = Number(arg("shard", 0));
+const OF = Number(arg("of", 0)); // informational: shards differ by seed, not partition
 const N = Number(arg("n", 3000));
 const OUT = arg("out", `results/shard-${SHARD}.json`);
 export const TRAIN_SEEDS = [1, 2, 3];

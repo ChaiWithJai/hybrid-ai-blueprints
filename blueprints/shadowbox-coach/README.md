@@ -50,9 +50,9 @@ through the server's `/coach` proxy on the Mac, so Bonsai stays on-device.
 Setup: prop the device at chest height, stand 2–3 m back; the on-screen setup
 assistant (⌖) confirms when shoulders + hips are in frame.
 
-For live coaching, start LM Studio's local server with a model loaded (Bonsai 1.7B is
-plenty — the coach prompt is ~100 tokens each way) and enable **CORS** in LM Studio's
-server settings.
+For live coaching, start LM Studio's local server with a model loaded (Bonsai 1.7B/2B is
+plenty — the coach prompt is ~100 tokens each way). No CORS setup needed: the browser
+talks to the app server's `/coach` proxy, which forwards to LM Studio server-side.
 
 ## No camera? Synthetic sparring partner
 
@@ -83,13 +83,14 @@ Everything is normalized by shoulder width, so distance from the camera doesn't 
    in the synthetic test). A minimum peak hand speed gates out slow reaches, and a
    re-arm path catches double jabs thrown off a half retraction that never gets back
    to guard.
-3. Classification compares the extension vector against guard position: mostly toward
-   the camera → jab/cross, mostly lateral → hook, mostly upward → uppercut.
+3. Classification: mostly upward extension → uppercut; **bent elbow at peak** → hook;
+   otherwise straight (jab from the lead hand, cross from the rear).
 
-Guard rails against real-world noise: a punch must launch **from guard** within the
-last 500 ms at arming speed (hanging arms and fidgeting never score), must peak above
-hip height, and hooks are identified by a **bent elbow at peak** (3D elbow angle)
-rather than displacement direction — which real crosses fooled.
+Guard rails against real-world noise: a punch must launch **from guard** within a
+sweep-tuned window (currently 350 ms, see `CFG.guardWindowMs`) at arming speed
+(hanging arms and fidgeting never score), must peak above hip height, and hooks are
+identified by a **bent elbow at peak** (3D elbow angle) rather than displacement
+direction — which real crosses fooled.
 
 Press **`d`** in the app for a live debug readout of reach/speed/elbow-angle/phase per
 hand — the thresholds live at the top of `punch.js`.
@@ -228,7 +229,12 @@ live phase-gate readout of this session's telemetry against the promotion
 targets. Center: the camera stage with the stat strip. Right rail: today's
 session — blocks with check-offs, **START DAY** (drives the timer + coach
 focus), **✓ DONE** (logs the day), the corner coach, and round-by-round.
-A streak counter lives in the header.
+A streak counter lives in the header. The cockpit is **earned**: day 0 shows only the
+stage, today's card, and the coach; the program map appears after the first ✓ day,
+trends after three, and the phase-gate panel at week 4 (when it starts mattering) —
+the ▦ header button reveals everything at any time. Each day runs as a block-driven
+session (per-block timers parsed from the real prescriptions; the day-level
+`rounds/roundSec` fields in the guide are legacy display values).
 
 ## Training log → MLflow (and error discovery)
 

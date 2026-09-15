@@ -10,20 +10,24 @@ import { L, CFG, HandTracker, makeSmoother } from "./punch.js";
 
 const files = [];
 for (const arg of process.argv.slice(2)) {
-  const m = arg.match(/^([a-zA-Z]+)=(-?[\d.]+)$/);
-  if (m) {
-    if (!(m[1] in CFG)) { console.error(`unknown CFG key: ${m[1]}`); process.exit(1); }
-    CFG[m[1]] = Number(m[2]);
-    console.log(`override ${m[1]} = ${m[2]}`);
-  } else files.push(arg);
+  const m = arg.match(/^([a-zA-Z]+)=(.+)$/); // strings too: smoother=oneeuro, leadHand=R
+  if (m && m[1] in CFG) {
+    const num = Number(m[2]);
+    CFG[m[1]] = Number.isFinite(num) && m[2].trim() !== "" && !Number.isNaN(num) && /^[-\d.]+$/.test(m[2]) ? num : m[2];
+    console.log(`override ${m[1]} = ${CFG[m[1]]}`);
+  } else if (m && !(m[1] in CFG)) { console.error(`unknown CFG key: ${m[1]}`); process.exit(1); }
+  else files.push(arg);
 }
 if (!files.length) {
   console.error("usage: node replay.mjs recordings/<file>.json [cfgKey=value ...]");
   process.exit(1);
 }
 
+const cliLeadHand = CFG.leadHand;
 for (const file of files) {
   const rec = JSON.parse(fs.readFileSync(file, "utf8"));
+  // the clip's own recorded stance wins unless overridden on the CLI
+  CFG.leadHand = process.argv.some((a) => a.startsWith("leadHand=")) ? cliLeadHand : (rec.config?.leadHand ?? cliLeadHand);
   const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
   const smoother = makeSmoother();
   const events = [];
@@ -54,9 +58,11 @@ for (const file of files) {
     console.log(`  ${((e.t - t0) / 1000).toFixed(2)}s  ${e.hand} ${e.type}  ${e.speed.toFixed(1)} sw/s`);
   }
   if (rec.events?.length || events.length) {
-    const live = rec.events?.map((e) => e.type).join(" ") || "(none)";
+    // recordings hold DETECTOR-level events; scored:false marks calls the app
+    // suppressed under the block's tracking contract (shown with ¬)
+    const live = rec.events?.map((e) => e.scored === false ? `¬${e.type}` : e.type).join(" ") || "(none)";
     const now = events.map((e) => e.type).join(" ") || "(none)";
-    if (live !== now) console.log(`live app called: ${live}\nreplay calls:    ${now}`);
-    else console.log("replay matches what the live app called");
+    if (live.replaceAll("¬", "") !== now) console.log(`live app called: ${live}\nreplay calls:    ${now}`);
+    else console.log("replay matches what the live app called" + (live.includes("¬") ? " (¬ = suppressed by tracking contract)" : ""));
   }
 }

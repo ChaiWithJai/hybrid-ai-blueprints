@@ -261,13 +261,23 @@ export function loadRecordingCases(dir = path.join(APP_DIR, "recordings")) {
       const rec = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
       const types = parseLabel(rec.label);
       if (types === null || !rec.frames?.length) continue;
-      cases.push({ name: `rec:${f}`, frames: rec.frames, expected: types.map((type) => ({ t: 0, type })) });
+      cases.push({ name: `rec:${f}`, frames: rec.frames, config: rec.config || null, expected: types.map((type) => ({ t: 0, type })) });
     } catch { /* unreadable clip — skip it */ }
   }
   return cases;
 }
 
 export function runRecordingCase(rc) {
+  // replay under the stance the clip was recorded with — JAB/CROSS depend on it
+  const prevLead = CFG.leadHand;
+  if (rc.config?.leadHand) CFG.leadHand = rc.config.leadHand;
+  try {
+    return runRecordingCaseInner(rc);
+  } finally {
+    CFG.leadHand = prevLead;
+  }
+}
+function runRecordingCaseInner(rc) {
   const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
   const smoother = makeSmoother();
   const events = [];
@@ -307,10 +317,11 @@ export function runSuite(seeds, { recordings = true } = {}) {
     }
   }
   if (recordings) {
-    // real clips count triple: they are the ground truth we actually care about
+    // real clips count once in tp/fp/fn (check.mjs gates on absolute budgets);
+    // their reward weight comes from being deterministic ground truth
     for (const rc of loadRecordingCases()) {
       const { expected, events } = runRecordingCase(rc);
-      for (let i = 0; i < 3; i++) tally(rc.name, expected, events, false);
+      tally(rc.name, expected, events, false);
     }
   }
   const meanLat = lats.length ? lats.reduce((a, b) => a + b, 0) / lats.length : 0;

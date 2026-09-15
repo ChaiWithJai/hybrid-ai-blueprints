@@ -423,6 +423,7 @@ body.simple .rail-left { display: none; }
 body.simple .cockpit { grid-template-columns: minmax(0, 1fr) 340px; }
 body.simple #rounds-panel { display: none !important; }
 body.scoring-paused .stat-strip { opacity: .4; }
+body.scoring-paused .meters { opacity: .3; }
 
 /* NOW card: progressive disclosure — one block at a time */
 .wo-now {

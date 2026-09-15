@@ -22,13 +22,15 @@ self.onmessage = async (e) => {
   }
   if (msg.type === "frame" && landmarker) {
     const t0 = performance.now();
-    let landmarks = null;
+    let landmarks = null, error = null;
     try {
       const result = landmarker.detectForVideo(msg.bitmap, msg.t);
       landmarks = result.landmarks?.[0] ?? null;
+    } catch (err) {
+      error = String(err?.message || err); // ALWAYS answer, or the main thread's busy flag deadlocks
     } finally {
       msg.bitmap.close();
     }
-    postMessage({ type: "landmarks", t: msg.t, landmarks, inferMs: performance.now() - t0 });
+    postMessage({ type: "landmarks", t: msg.t, landmarks, inferMs: performance.now() - t0, error });
   }
 };

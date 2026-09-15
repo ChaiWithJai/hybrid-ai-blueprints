@@ -56,6 +56,10 @@ function saveRoundToHistory(entry) {
 function renderTrends() {
   const h = loadHistory();
   if (h.length < 2) return;
+  // respect earned disclosure — closeRound() calls this and must not bypass it
+  let full = false;
+  try { full = localStorage.getItem("shadowbox-full") === "1"; } catch { /* fine */ }
+  if (!full && woProgress().done.length < 3) { $("trends-panel").hidden = true; return; }
   const el = $("trends-panel");
   el.hidden = false;
   // sparkline of punches thrown per round, last 24 rounds
@@ -226,7 +230,8 @@ const GATE_CHECKS = {
   arm_punch_pct: { get: () => form.powerPunches ? (100 * form.armPunches / form.powerPunches) : lastForm().arm_punch_pct ?? null, pass: (v) => v <= 25, fmt: (v) => v.toFixed(0) + "%" },
   guard_height_sw: { get: () => form.guardN ? form.guardSum / form.guardN : lastForm().guard_height_sw ?? null, pass: (v) => v >= 0.85, fmt: (v) => v.toFixed(2) + " sw" },
   avg_retraction_ms: { get: () => form.retractN ? form.retractSum / form.retractN : lastForm().avg_retraction_ms ?? null, pass: (v) => v <= 350, fmt: (v) => v.toFixed(0) + " ms" },
-  punches_per_round: { get: () => roundHistory.length ? roundHistory[roundHistory.length - 1].thrown : (stats.total || dayLog().at?.(-1)?.stats?.total || null), pass: (v) => v >= 120, fmt: (v) => String(Math.round(v)) },
+  // no day-log fallback here: a whole-day total is not a per-round number
+  punches_per_round: { get: () => roundHistory.length ? roundHistory[roundHistory.length - 1].thrown : (stats.total || null), pass: (v) => v >= 120, fmt: (v) => String(Math.round(v)) },
   avg_power: { get: () => form.powerN ? form.powerSum / form.powerN : lastForm().avg_power ?? null, pass: (v) => v >= 55, fmt: (v) => v.toFixed(0) },
 };
 function renderGates() {
@@ -288,7 +293,7 @@ function renderWorkout() {
   });
   const allChecked = d.blocks.length > 0 && d.blocks.every((_, i) => checks[i]);
   const isDone = prog.done.includes(woDayKey(d));
-  const isRest = !d.rounds || !d.roundSec;
+  const isRest = !d.blocks.length; // blocks are the truth; day-level rounds are legacy
   $("wo-start").disabled = isRest;
   $("wo-start").textContent = isRest ? "☾ REST" : "▶ START DAY";
   $("wo-done").classList.toggle("completed", isDone);
@@ -305,13 +310,14 @@ $("wo-prev").addEventListener("click", () => { woIdx = Math.max(0, woIdx - 1); r
 $("wo-next").addEventListener("click", () => { woIdx = Math.min(woDays.length - 1, woIdx + 1); renderWorkout(); });
 $("wo-start").addEventListener("click", () => {
   const d = woDays[woIdx];
-  if (!d || !d.rounds || !d.roundSec) return; // rest days: button is disabled
-  if (stats.total > 0 && !dayStarted &&
+  if (!d || !d.blocks.length) return; // rest days: button is disabled
+  if (stats.total > 0 &&
       !confirm(`Start ${d.title}? This resets the ${stats.total}-punch session on the clock.`)) return;
   $("btn-reset").click();
-  ROUND_SEC = d.roundSec; REST_SEC = d.restSec || 60; // free-mode fallback values
+  ROUND_SEC = d.roundSec || 180; REST_SEC = d.restSec || 60; // free-mode fallback values
   workoutFocus = d.coach_focus;
   dayStarted = true;
+  activeDay = d;
   session = buildSessionPlan(d);
   const st = session.steps[0];
   resting = st.kind === "rest";
@@ -325,7 +331,8 @@ $("wo-start").addEventListener("click", () => {
 });
 let woDoneArmed = false, lastDoneClick = 0;
 $("wo-done").addEventListener("click", () => {
-  const d = woDays[woIdx];
+  // bank the TRAINED day, never the browsed one
+  const d = trainedDay();
   if (!d) return;
   const nowMs = Date.now();
   if (nowMs - lastDoneClick < 800) return; // glove double-tap guard
@@ -333,15 +340,21 @@ $("wo-done").addEventListener("click", () => {
   const k = woDayKey(d);
   const prog0 = woProgress();
   if (prog0.done.includes(k)) {
-    // undo: the ledger must be repairable
+    // undo: the ledger must be repairable — including the day log + streak
     prog0.done = prog0.done.filter((x) => x !== k);
-    try { localStorage.setItem(WO_KEY, JSON.stringify(prog0)); } catch { /* storage unavailable */ }
+    try {
+      localStorage.setItem(WO_KEY, JSON.stringify(prog0));
+      const dl = dayLog();
+      const last = dl.map((e, i) => [e, i]).filter(([e]) => e.dayKey === k).pop();
+      if (last) { dl.splice(last[1], 1); localStorage.setItem("shadowbox-daylog", JSON.stringify(dl)); }
+    } catch { /* storage unavailable */ }
+    logEvent({ type: "day_undone", dayKey: k });
     renderWorkout(); renderStreak();
     return;
   }
   // soft gate: DONE with zero evidence needs a second, deliberate tap
   const checks = blockChecks()[k] || [];
-  const evidence = stats.total > 0 || d.blocks.some((_, i) => checks[i]) || !d.rounds;
+  const evidence = stats.total > 0 || d.blocks.some((_, i) => checks[i]) || !d.blocks.length;
   if (!evidence && !woDoneArmed) {
     woDoneArmed = true;
     $("wo-done").textContent = "SURE?";
@@ -370,6 +383,7 @@ $("wo-done").addEventListener("click", () => {
     localStorage.setItem("shadowbox-daylog", JSON.stringify(dl.slice(-200)));
   } catch { /* storage unavailable */ }
   logEvent(snapshot); // → training_log.jsonl → MLflow ingest
+  activeDay = null; // banked — the session's claim on DONE is released
   // no auto-advance: let the green land. Tomorrow is selected on next load.
   renderWorkout();
   renderStreak();
@@ -388,7 +402,7 @@ function flagLastCall(note) {
     actual: (note || "").trim() || "phantom — no punch thrown",
     recent: punchLog.slice(-5).map((p) => p.type),
     rotation_rate: +rotation.rate.toFixed(2),
-    day: woDays[woIdx] ? woDayKey(woDays[woIdx]) : null,
+    day: trainedDay() ? woDayKey(trainedDay()) : null,
     config: { extendAt: CFG.extendAt, minPeakSpeed: CFG.minPeakSpeed, peakDrop: CFG.peakDrop },
   });
   $("btn-flag").hidden = true;
@@ -417,7 +431,12 @@ const form = { powerSum: 0, powerN: 0, armPunches: 0, powerPunches: 0, retractSu
 let recording = null;
 function toggleRecording() {
   if (!recording) {
-    recording = { startedAt: new Date().toISOString(), frames: [], events: [] };
+    // config travels with the clip so replay/eval reproduce the same calls
+    recording = {
+      startedAt: new Date().toISOString(),
+      config: { leadHand: CFG.leadHand, smoother: CFG.smoother, model: POSE_MODEL },
+      frames: [], events: [],
+    };
     $("rec-dot").hidden = false;
     return;
   }
@@ -481,6 +500,11 @@ function onFrame(landmarks, now) {
   for (const [hand, wi, ei, si] of [["L", L.L_WRIST, L.L_ELBOW, L.L_SHOULDER], ["R", L.R_WRIST, L.R_ELBOW, L.R_SHOULDER]]) {
     const tracker = hands[hand];
     const ev = tracker.update(lm.get(wi), lm.get(ei), lm.get(si), ctx2, now);
+    if (ev && recording) {
+      // recordings are DETECTOR-level ground truth: every call is logged,
+      // scored or not, so replay.mjs reproduces the same event stream
+      recording.events.push({ t: +now.toFixed(1), hand: ev.hand, type: ev.type, speed: +ev.speed.toFixed(1), scored: mode === "punch" });
+    }
     if (ev && mode === "punch") {
       ev.power = punchPower(ev.speed, rotation.rate);
       recordPunch(ev, now);
@@ -649,7 +673,6 @@ function recordPunch(ev, now) {
   stats[ev.type]++;
   stats.peakSpeed = Math.max(stats.peakSpeed, ev.speed);
   punchLog.push({ t: now, ...ev });
-  if (recording) recording.events.push({ t: +now.toFixed(1), ...ev });
   form.powerSum += ev.power; form.powerN++;
   if (ev.type !== "JAB") {
     form.powerPunches++;
@@ -751,11 +774,17 @@ function blockMode(b) {
 }
 // what the camera should score during the current step
 function scoringMode() {
-  if (!session || !ticking) return "punch"; // free sessions: full scoring
+  if (!session) return (ticking && resting) ? "rest" : "punch"; // free mode: rest doesn't count either
+  if (!ticking) return "rest"; // a PAUSED session never scores — pause must not exit the contract
   const st = session.steps[session.idx];
   if (st.kind === "rest") return "rest";
   return st.mode || "punch";
 }
+
+// the day being TRAINED — banking, coaching, and flags must follow the
+// session, not whatever day the athlete happens to be browsing
+let activeDay = null;
+function trainedDay() { return activeDay ?? woDays[woIdx] ?? null; }
 
 // Parse a block's prescription into a timed scheme. Handles the curriculum's
 // real shapes ("4 ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST", "9 rounds x
@@ -833,7 +862,9 @@ function renderSession() {
 function advanceStep() {
   if (!session) return;
   const st = session.steps[session.idx];
-  if (st.kind === "work") { bell(2); closeRound(); }
+  // only punch rounds belong in the round table — a conditioning "round"
+  // would write thrown:0 rows that poison the pace reflex and the gates
+  if (st.kind === "work") { bell(2); if (st.mode === "punch") closeRound(); }
   else if (st.kind === "selfpaced") bell(1);
   // leaving a block? bank its check-off
   const nx0 = session.steps[session.idx + 1];
@@ -844,6 +875,10 @@ function advanceStep() {
   session.idx++;
   if (session.idx >= session.steps.length) {
     session.day.blocks.forEach((_, i) => checkBlockDone(i));
+    // snap the view back to the day that was actually trained, so the DONE
+    // the athlete is told to press banks THAT day
+    const trainedIdx = woDays.indexOf(session.day);
+    if (trainedIdx >= 0) woIdx = trainedIdx;
     session = null;
     renderSession();
     renderWorkout();
@@ -945,7 +980,7 @@ function dayComplete() {
 $("btn-start").addEventListener("click", () => {
   // with a program loaded, the header ▶ starts TODAY (one ritual, one button)
   if (!ticking && guide && !dayStarted && woDays[woIdx] &&
-      !woProgress().done.includes(woDayKey(woDays[woIdx])) && woDays[woIdx].rounds) {
+      !woProgress().done.includes(woDayKey(woDays[woIdx])) && woDays[woIdx].blocks.length) {
     $("wo-start").click();
     return;
   }
@@ -996,8 +1031,16 @@ $("btn-start").addEventListener("click", () => {
 });
 $("btn-reset").addEventListener("click", () => {
   stopTimer();
+  ROUND_SEC = 180; REST_SEC = 60; // a reset is a reset: free-mode defaults return
+  workoutFocus = null;
   roundNum = 1; roundLeft = ROUND_SEC; resting = false;
-  dayStarted = false; session = null;
+  dayStarted = false; session = null; activeDay = null;
+  // ALL session telemetry resets together — form and stats must never disagree
+  Object.assign(form, { powerSum: 0, powerN: 0, armPunches: 0, powerPunches: 0, retractSum: 0, retractN: 0, guardSum: 0, guardN: 0 });
+  recentCalls.length = 0;
+  recentRetracts.length = 0;
+  guardNow = 0.3;
+  for (const k of Object.keys(reflexCool)) delete reflexCool[k];
   renderSession();
   Object.assign(stats, { total: 0, JAB: 0, CROSS: 0, HOOK: 0, UPPERCUT: 0, peakSpeed: 0 });
   punchLog.length = 0;
@@ -1040,7 +1083,7 @@ let workoutFocus = null; // set by START DAY: today's curriculum focus overrides
 // in the 70-day arc and what today's blocks actually are
 function dayBrief() {
   if (!guide) return "";
-  const d = woDays[woIdx];
+  const d = trainedDay(); // the coach talks about the day being TRAINED
   if (!d) return "";
   const phase = d.program === guide.phase1.program ? 1 : 2;
   const pos = woDays.indexOf(d) + 1;
@@ -1184,15 +1227,29 @@ function startLiveWorker() {
     try { worker = new Worker("pose-worker.js", { type: "module" }); }
     catch (err) { reject(err); return; }
     let busy = false; // at most one frame in flight — stale frames are skipped, not queued
+    let settled = false, workerErrs = 0;
     const bail = (why) => { worker.terminate(); reject(new Error(why)); };
-    const timer = setTimeout(() => bail("pose worker init timed out"), 20000);
+    const timer = setTimeout(() => { if (!settled) bail("pose worker init timed out"); }, 20000);
 
-    worker.onerror = (e) => { clearTimeout(timer); bail(e.message || "pose worker failed"); };
+    worker.onerror = (e) => {
+      clearTimeout(timer);
+      if (!settled) { bail(e.message || "pose worker failed"); return; }
+      // a runtime crash after init must not die silently as "can't see you"
+      worker.terminate();
+      stageMsg.hidden = false;
+      stageMsg.classList.add("error");
+      stageMsg.textContent = "⚠ pose engine crashed — reload the page";
+    };
     worker.onmessage = async (e) => {
       const msg = e.data;
       if (msg.type === "init-error") { clearTimeout(timer); bail(msg.message); return; }
       if (msg.type === "landmarks") {
         busy = false;
+        if (msg.error) {
+          if (++workerErrs > 60) worker.onerror(new ErrorEvent("error", { message: msg.error }));
+          return;
+        }
+        workerErrs = 0;
         inferMs += (msg.inferMs - inferMs) * 0.1;
         if (msg.landmarks) onFrame(msg.landmarks, msg.t);
         return;
@@ -1200,7 +1257,8 @@ function startLiveWorker() {
       if (msg.type === "ready") {
         clearTimeout(timer);
         try { await openCamera(); }
-        catch (err) { clearTimeout(timer); worker.terminate(); reject(err); return; } // keep err.name for the camera branch
+        catch (err) { worker.terminate(); reject(err); return; } // keep err.name for the camera branch
+        settled = true;
         let lastVideoTime = -1;
         const loop = () => {
           if (!busy && video.currentTime !== lastVideoTime && video.videoWidth) {
@@ -1216,6 +1274,8 @@ function startLiveWorker() {
         resolve();
       }
     };
+    // safety: if a landmark message never returns, release the in-flight slot
+    setInterval(() => { busy = false; }, 5000);
     worker.postMessage({ type: "init", modelPath: MODEL_PATH });
   });
 }
@@ -1253,6 +1313,7 @@ async function startLive() {
     // a camera denial fails identically inline — don't re-download the model for it
     if (CAMERA_ERRORS.test((err.name || "") + (err.message || ""))) throw err;
     console.warn(`pose worker unavailable (${err.message}); falling back to main thread`);
+    stageMsg.hidden = false;
     stageMsg.textContent = "retrying without worker…";
     await startLiveInline();
   }
