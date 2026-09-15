@@ -6,7 +6,7 @@ import { L, BONES, CFG, HandTracker, makeSmoother, SYNTH, syntheticFrame, Should
 const PARAMS = new URLSearchParams(location.search);
 const SYNTHETIC = PARAMS.has("synthetic");
 const POSE_MODEL = ["lite", "full", "heavy"].includes(PARAMS.get("model")) ? PARAMS.get("model") : "lite";
-const ROUND_SEC = 180, REST_SEC = 60;
+let ROUND_SEC = 180, REST_SEC = 60; // mutable: a workout day can prescribe its own timer
 
 // ---- DOM ----
 const $ = (id) => document.getElementById(id);
@@ -67,6 +67,76 @@ function renderTrends() {
   $("trends-line").textContent = `${spark}  best ${best}/rd · ${h.length} rounds logged`;
 }
 renderTrends();
+
+// =========================================================================
+// Workout mode: the 2-phase guide (workout_guide.json, built by the
+// prismml-eng agent civilization from boxing.dharmicdata.org). Each day
+// drives the round timer and the coach's curriculum focus.
+// =========================================================================
+let guide = null, woDays = [], woIdx = 0;
+const WO_KEY = "shadowbox-workout";
+function woProgress() {
+  try { return JSON.parse(localStorage.getItem(WO_KEY)) || { done: [] }; } catch { return { done: [] }; }
+}
+function woDayKey(d) { return `${d.program}-w${d.week}-d${d.day}`; }
+
+fetch("workout_guide.json").then((r) => r.ok ? r.json() : null).then((g) => {
+  if (!g) return;
+  guide = g;
+  woDays = [...g.phase1.days, ...g.phase2.days];
+  const prog = woProgress();
+  const firstUndone = woDays.findIndex((d) => !prog.done.includes(woDayKey(d)));
+  woIdx = firstUndone === -1 ? 0 : firstUndone;
+  $("workout-panel").hidden = false;
+  renderWorkout();
+}).catch(() => {});
+
+function renderWorkout() {
+  const d = woDays[woIdx];
+  if (!d) return;
+  const phase = d.program === guide.phase1.program ? 1 : 2;
+  const prog = woProgress();
+  $("workout-label").textContent =
+    `${guide.title.toUpperCase()} · PHASE ${phase} · WEEK ${d.week} · DAY ${d.day}`;
+  $("wo-title").textContent = d.title;
+  $("wo-focus").textContent = `${d.focus.toUpperCase()} — ${d.rounds} × ${fmt(d.roundSec)} / ${fmt(d.restSec)} rest`;
+  $("wo-blocks").innerHTML = d.blocks
+    .map((b) => `<li><b>${b.name}</b> <span class="rx">— ${b.prescription}</span></li>`)
+    .join("");
+  $("wo-done").classList.toggle("completed", prog.done.includes(woDayKey(d)));
+  const p1done = guide.phase1.days.filter((x) => prog.done.includes(woDayKey(x))).length;
+  $("wo-gate").textContent = phase === 1
+    ? `Phase gate (${p1done}/${guide.phase1.days.length} days done): ${guide.gate_text}`
+    : guide.coach_guidance;
+}
+$("wo-prev").addEventListener("click", () => { woIdx = Math.max(0, woIdx - 1); renderWorkout(); });
+$("wo-next").addEventListener("click", () => { woIdx = Math.min(woDays.length - 1, woIdx + 1); renderWorkout(); });
+$("wo-start").addEventListener("click", () => {
+  const d = woDays[woIdx];
+  if (!d) return;
+  if (!d.rounds || !d.roundSec) {
+    // rest / recovery day — never start a zero-length timer (Sahin's sign-off, issue 1)
+    $("coach-text").textContent = `${d.title}: rest day. ${d.summary} No rounds to score — recover, and mark it ✓ DONE.`;
+    return;
+  }
+  ROUND_SEC = d.roundSec; REST_SEC = d.restSec;
+  workoutFocus = d.coach_focus;
+  $("btn-reset").click();
+  $("btn-start").click();
+  $("coach-text").textContent = `Today: ${d.title} — ${d.summary}`;
+});
+$("wo-done").addEventListener("click", () => {
+  const d = woDays[woIdx];
+  if (!d) return;
+  try {
+    const prog = woProgress();
+    const k = woDayKey(d);
+    if (!prog.done.includes(k)) prog.done.push(k);
+    localStorage.setItem(WO_KEY, JSON.stringify(prog));
+  } catch { /* storage unavailable */ }
+  if (woIdx < woDays.length - 1) woIdx++;
+  renderWorkout();
+});
 
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
 const smoother = makeSmoother();
@@ -303,8 +373,12 @@ const LMSTUDIO = "http://localhost:1234/v1";
 let coachKB = null;
 fetch("coach_kb.json").then((r) => r.ok ? r.json() : null).then((kb) => { coachKB = kb; }).catch(() => {});
 
+let workoutFocus = null; // set by START DAY: today's curriculum focus overrides the heuristic
 function pickFocusTheme() {
   if (!coachKB) return null;
+  if (workoutFocus && coachKB.focuses[workoutFocus]) {
+    return { name: workoutFocus, ...coachKB.focuses[workoutFocus] };
+  }
   const names = Object.keys(coachKB.focuses);
   const find = (frag) => names.find((n) => n.toLowerCase().includes(frag));
   const armPct = form.powerPunches ? form.armPunches / form.powerPunches : 0;

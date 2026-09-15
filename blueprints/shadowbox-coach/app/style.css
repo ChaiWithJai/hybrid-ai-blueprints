@@ -209,6 +209,35 @@ main {
 }
 .rounds th:first-child, .rounds td:first-child { text-align: left; color: var(--gold); }
 
+.workout-head { display: flex; justify-content: space-between; align-items: baseline; }
+.workout-nav button {
+  background: var(--bg);
+  border: 1px solid var(--edge);
+  color: var(--dim);
+  border-radius: 4px;
+  padding: 2px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.wo-title { font-size: 17px; font-weight: 800; margin-top: 6px; }
+.wo-focus { color: var(--gold); font-size: 12px; letter-spacing: 1px; margin: 2px 0 6px; }
+.wo-blocks { list-style: none; margin: 0; padding: 0; font-size: 12.5px; line-height: 1.5; color: var(--text); }
+.wo-blocks li { border-top: 1px solid var(--edge); padding: 4px 0; }
+.wo-blocks .rx { color: var(--dim); }
+.workout-actions { display: flex; gap: 8px; margin-top: 8px; }
+.workout-actions button {
+  flex: 1;
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 7px 0;
+  font-weight: 700;
+  cursor: pointer;
+}
+#wo-done { background: var(--bg); border: 1px solid var(--edge); color: var(--dim); }
+#wo-done.completed { color: #6be675; border-color: #6be675; }
+.wo-gate { color: var(--dim); font-size: 11.5px; line-height: 1.5; margin-top: 8px; }
 .trends-line {
   font-family: ui-monospace, Menlo, monospace;
   font-size: 16px;
