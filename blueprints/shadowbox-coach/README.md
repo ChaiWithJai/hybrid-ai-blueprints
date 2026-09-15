@@ -178,6 +178,41 @@ The loop in practice: throw punches → mislabeled call → record the clip (`r`
 it joins the reward function → re-sweep → new champion → CI gate + Phoenix
 dataset prove the fix — and prove nothing else regressed.
 
+## Recursive self-improvement: the boxing curriculum pipeline (MLflow + MongoDB)
+
+`pipeline/flow.py` closes the loop between the app and the KO Boxing curriculum
+at boxing.dharmicdata.org, documenting every run in the **shared** experiment
+infra other agents use, so learnings transfer between agents:
+
+- **MLflow** `http://127.0.0.1:5210` (bonsai-lab tracking server) — experiment
+  `shadowbox-coach`, every stage traced per MLflow's shipped tracing skill
+  (crawl → parse → coach_kb → sft → detector eval), params/metrics/artifacts logged
+- **MongoDB** `mongodb://127.0.0.1:27028` (bonsai-evidence-lab) — a
+  `bonsai_evidence_lab.shadowbox_flow` doc per run: run id, metrics, artifact
+  paths, and plain-language learnings for cross-agent pickup
+
+```bash
+/Users/jaibhagat/code/prismml/bonsai-lab/.venv/bin/python pipeline/flow.py
+```
+
+What one run produces:
+
+1. **`app/coach_kb.json`** — 8 focus themes (stance/movement, defense, pivots,
+   shifts, integration + the competitive camp phases) with verbatim curriculum
+   cues and drills. The in-app coach picks the theme matching the round's
+   weakest form stat (arm-punching → pivots, low guard → defense, slow
+   retraction → stance) and grounds its cue in real curriculum lines.
+2. **`pipeline/datasets/bonsai_coach_sft.jsonl`** — ~450 instruction pairs
+   (round-weakness → cue, session-start → pickup, drill requests → verbatim
+   prescriptions) ready for fine-tuning Bonsai on the curriculum's voice.
+3. **Detector eval metrics** in the same run, so curriculum updates and
+   detector configs live on one timeline.
+
+The full loop: train in the app → form telemetry names your weakness → the
+coach grounds its cue in the curriculum → recorded clips feed the detector
+sweep → every generation logs to MLflow → any agent (this one, Codex) reads
+the Mongo learnings doc and continues from there.
+
 ## What the recordings do (and don't) capture
 
 Clips store **pose landmarks, not video** — so replays are deterministic, files

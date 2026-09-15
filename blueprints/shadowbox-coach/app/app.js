@@ -296,6 +296,27 @@ document.addEventListener("keydown", (e) => {
 // Falls back to canned corner talk when no local model is reachable.
 // =========================================================================
 const LMSTUDIO = "http://localhost:1234/v1";
+
+// Curriculum grounding: coach_kb.json is distilled from boxing.dharmicdata.org
+// by pipeline/flow.py. The coach picks the focus theme matching the round's
+// weakest form stat and grounds its cue in real curriculum lines.
+let coachKB = null;
+fetch("coach_kb.json").then((r) => r.ok ? r.json() : null).then((kb) => { coachKB = kb; }).catch(() => {});
+
+function pickFocusTheme() {
+  if (!coachKB) return null;
+  const names = Object.keys(coachKB.focuses);
+  const find = (frag) => names.find((n) => n.toLowerCase().includes(frag));
+  const armPct = form.powerPunches ? form.armPunches / form.powerPunches : 0;
+  const guardH = form.guardN ? form.guardSum / form.guardN : 1;
+  const retract = form.retractN ? form.retractSum / form.retractN : 0;
+  let name = null;
+  if (armPct > 0.4) name = find("pivot") || find("combination");
+  else if (guardH < 0.1) name = find("defense");
+  else if (retract > 700) name = find("stance") || find("movement");
+  if (!name) name = names[(roundNum - 1) % names.length];
+  return name ? { name, ...coachKB.focuses[name] } : null;
+}
 const CANNED = [
   "Snap the jab back to your chin — same speed out and in.",
   "You're arm-punching the cross. Turn the rear hip through it.",
@@ -341,7 +362,15 @@ async function askCoach() {
         max_tokens: 120,
         temperature: 0.7,
         messages: [
-          { role: "system", content: "You are a boxing corner coach between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words. Prioritize form problems: high arm_punch_pct means they aren't turning the body; slow avg_retraction_ms means hands hang out; low guard_height means the chin is open. No preamble, no lists." },
+          {
+            role: "system",
+            content: "You are a boxing corner coach between rounds. Given round stats, give ONE specific, punchy coaching cue in under 40 words. Prioritize form problems: high arm_punch_pct means they aren't turning the body; slow avg_retraction_ms means hands hang out; low guard_height means the chin is open. No preamble, no lists." +
+              (() => {
+                const theme = pickFocusTheme();
+                if (!theme) return "";
+                return ` Ground your cue in this curriculum focus ("${theme.name}"): cues: ${theme.cues.slice(0, 3).join(" | ")}. drills: ${theme.drills.slice(0, 2).join(" | ")}.`;
+              })(),
+          },
           { role: "user", content: JSON.stringify(roundSummary()) },
         ],
       }),

@@ -321,6 +321,11 @@ export function runSuite(seeds, { recordings = true } = {}) {
 
 // ---- CLI report ----
 if (import.meta.url === `file://${process.argv[1]}`) {
+  if (process.argv.includes("--json")) {
+    const res = runSuite([1, 2, 3, 11, 12, 13]);
+    console.log(JSON.stringify({ f1: res.f1, reward: res.reward, tp: res.tp, fp: res.fp, fn: res.fn, meanLat: res.meanLat }));
+    process.exit(0);
+  }
   const res = runSuite([1, 2, 3]);
   console.log(`reward ${res.reward.toFixed(1)}  F1 ${res.f1.toFixed(3)}  TP ${res.tp}  FP ${res.fp}  FN ${res.fn}  meanLat ${res.meanLat.toFixed(0)}ms`);
   const rows = Object.entries(res.perScenario)
