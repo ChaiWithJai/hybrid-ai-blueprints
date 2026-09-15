@@ -1,0 +1,3717 @@
+{
+ "title": "Shadowbox Coach: Foundation to Fight Camp",
+ "tagline": "70 days, two phases, one camera. Earn your way from fundamentals to fight-ready \u2014 every round measured, every promotion proven.",
+ "source": "https://boxing.dharmicdata.org (owner: Jai Bhagat)",
+ "built_by": "prismml-eng agent civilization (workflow wf_7de8845c-789)",
+ "gate_text": "You are promoted to Fight Camp when your Phase 1 week-5 telemetry clears all five gates. These are the app's own tracked stats \u2014 check them on your stats screen after every session. (1) arm_punch_pct at or under 25%, averaged over your last 10 tracked rounds of week 5: Fight Camp opens with hip-and-shoulder rotation drills and dumbbell punch work that assume your power already comes from the torso \u2014 arm-punching a third of your shots under camp load just hardens the fault. (2) guard_height_sw at or above 0.85 shoulder-widths as a session average on every tracked day of week 5, no single-day exemption: Fight Camp includes light sparring, and a guard that only stays up when the corner coach nags is a safety liability against a partner. (3) avg_retraction_ms at or under 350 ms, averaged over your last 10 tracked rounds of week 5: the camp demands 4-to-8-punch chains off the pendulum step, and a chain is only as long as your slowest hand's trip back to guard. (4) punches_per_round at or above 120 per 3-minute round (40 per minute), taken as the median across the five shadowbox rounds of your final week-5 shadowbox day: camp partner work runs 6 rounds of 4 minutes, and if you cannot hold that pace for 3 minutes you will finish 4-minute rounds with degraded technique. (5) avg_power at or above 55 as a session average on that same final shadowbox day, with round 5 fading no more than 10 points below round 1: the floor proves your mechanics produce real force, the fade cap proves it is conditioned rather than front-loaded \u2014 clean-but-slow is not fight-ready. All five gates read week-5 data only; strong early weeks do not bank credit, and a missed gate means repeating week 5 until the numbers hold.",
+ "coach_guidance": "The corner coach cues from exactly one theme at a time \u2014 the active week's focus \u2014 so trust the narrowness: in week 1 it will only talk stance and movement even if your guard drops, because guard is week 2's job. Press START DAY before every session so the coach loads the right theme and the round clock matches the day's prescription; the timer drives the main tracked block (bag rounds, sparring rounds, shadowbox rounds), while shorter sub-drills listed in a day's blocks are self-timed off the written prescription. After each session, read your stats against the current week's theme, not against everything at once: weeks 1 and 4 (stance, shifts and angles), watch punches_per_round and avg_power trend as your feet organize your offense; week 2 (defense and body work), guard_height_sw is the number that matters \u2014 it should rise and then stop moving; week 3 (pivots and combinations), watch avg_retraction_ms fall as chains get longer; week 5 (integration and control), all five gate stats at once, because this is the only week the gates read. Only camera-visible punching rounds are scored \u2014 lifts, calisthenics, tire work, and heavy-bag-only strength blocks are untracked by design, so a quiet stats day after a lift day is correct, not broken. In Phase 2, keep the same habit but change the question: not \"is my form right\" but \"do my numbers hold in the last round\" \u2014 compare round 1 to the final round on every long-round day, and treat a widening gap as a conditioning signal, not a technique one. Rest days are tracked as rest: do not shadowbox on them to farm stats; gate windows exclude them anyway.",
+ "signoff_notes": "Signed off to ship, with the following recorded for the next revision. Source fidelity is strong: the verifier confirmed all 154 source_drill citations verbatim against lessons.v1.json, repaired 32 concatenated citations to single canonical lines, and confirmed no invented or silently dropped drills; canonical OCR typos and genuine source duplications (Workout #11 twice, Workout #15 reused, #12/#16 nonexistent) are preserved by design and should be annotated as source artifacts in the UI rather than \"fixed\". Open issues, by priority: (1) App safety bug \u2014 rest and lift days ship rounds=0/roundSec=0 and the timer code does not guard against START DAY on them; the app must no-op or show a rest screen instead of entering a zero-length loop. (2) Beginner load \u2014 Phase 1 week 1 day 1 puts a raw beginner on six 3-minute bag rounds with slip/roll defense before any punch is taught (jab/cross first appears w1d4), day 3 demands 7x3 bag rounds, and no day teaches punch mechanics explicitly; a future revision needs an on-ramp or explicit prerequisite note, since 6 days/week with no deload is intermediate load sold as Foundation. (3) Timer expressiveness \u2014 the single day-level rounds/roundSec/restSec only fits one block per day; sub-schemes (2-minute technique rounds with 30s rest, 6x1min/20s tennis-ball work, 45/15 intervals) live in prose and contradict the day header, forcing athletes off the in-app timer on exactly the days that matter. Per-block timing is the top feature request. (4) Vague blocks \u2014 \"Strength block A/B\", \"Lift block A/B\", \"Supplemental rounds\", and \"Timed round\" name no exercises and are unrunnable without guessing. (5) QA content defects to patch: basic w1d1 and w3d1 carry a 3-vs-6-round contradiction between bag sub-drills and the day timer; basic w3d1 has a truncated round-3 prescription (\"3 slips plus\") and a missing hanging-leg-raise rep count; competitive w1d1 leaks transcription/provenance notes into three user-facing prescriptions; competitive w2d6 encodes the endurance circuit as 3x60s/30s while w4d6 encodes the identical prescription as 30x60s/30s (w4d6's 30 rounds also flagged as a likely parse error needing semantic review). (6) Gate machinery gap \u2014 Phase 2 day entries repeatedly reference \"gate windows\" and \"five phase gates\" (w1d6, w2d6, w3d6, w4d6, w4d7, w5d6, w5d7), but the shipped app's only gate counts completed Phase 1 days and is not telemetry-based; either implement telemetry gating as specified in the architect's design or strip the framing from Phase 2 copy. w5d6/w5d7 also mislabel the competitive camp \"Phase 1\", contradicting the on-screen PHASE 2 header. (7) Minor progression copy errors in Phase 2: w4d4 and w4d5 call previously-seen drills \"new\" (pendulum rounds since w2d4, 9x1 freestyle since w3d5) and w4d5 claims sparring \"stretches to\" 6x4 though it has held that scheme since w2d5. Source curriculum owner for all content questions: Jai (boxing.dharmicdata.org).",
+ "gates": [
+  {
+   "stat": "arm_punch_pct",
+   "threshold": "<= 25% averaged over the last 10 tracked rounds of Phase 1 week 5",
+   "why": "Phase 2 opens with 'FIGHTING STNCE: HIP AND SHOULDER ROTATION FOCUSED DRILL' and dumbbell punch work that presumes power already comes from the torso. An athlete still arm-punching a third of their shots will reinforce the fault under the camp's added load, so rotation mechanics must be fixed before entry."
+  },
+  {
+   "stat": "guard_height_sw",
+   "threshold": ">= 0.85 shoulder-widths session-average on every tracked day of Phase 1 week 5 (no single-day exemption)",
+   "why": "Phase 2 weeks 2-4 include 'LIGHT SPARRING WITH SINGLE PUNCHES' and 'FREESTYLE LIGHT SPARRING'. A guard that only stays up when the corner coach nags is a safety liability against a partner; week 2's Defense and body work theme must be automatic, not prompted, by the end of week 5."
+  },
+  {
+   "stat": "avg_retraction_ms",
+   "threshold": "<= 350 ms averaged over the last 10 tracked rounds of Phase 1 week 5",
+   "why": "The camp's Specialized preparation weeks demand '4-8 PUNCHES OFF THE PENDULUM STEP' \u2014 combination chains only work if each hand is back in guard fast enough to fire the next shot. Slow retraction caps chain length and leaves the athlete open between punches."
+  },
+  {
+   "stat": "punches_per_round",
+   "threshold": ">= 120 per 180-second round (40 punches/min), median across the five 3-minute shadowbox rounds of the final Phase 1 week-5 shadowbox day",
+   "why": "Phase 2 stretches partner work to 'PARTNER WORK (6 ROUNDS OF 4 MINUTES)'. An athlete who cannot hold 40 punches/min through 3-minute rounds after 35 days lacks the work capacity for 4-minute rounds and will complete the camp's volume with degraded technique."
+  },
+  {
+   "stat": "avg_power",
+   "threshold": ">= 55 session-average with round 5 no more than 10 points below round 1 on the final week-5 shadowbox day",
+   "why": "Peak performance week scores fight-simulation rounds where power must survive fatigue. The floor of 55 confirms hand speed plus torso rotation are producing real force; the round-1-to-round-5 fade cap confirms it is conditioned, not front-loaded. Complements the arm_punch_pct gate: low arm-punch % with low power means slow correct mechanics, not fight-ready mechanics."
+  }
+ ],
+ "phase1": {
+  "program": "basic",
+  "title": "Foundation 35 (KO Basic Program)",
+  "intro": "Phase 1 \u2014 Foundation 35. Five weeks, one theme per week: stance and movement, defense and body work, pivots and combinations, shifts and angles, then integration and control. The rhythm never changes: two technique days, one high-volume bag day (seven 3-minute rounds, one minute rest \u2014 the classic amateur clock), one virtual-sparring day against a new opponent archetype each week (the slugger, the puncher, the southpaw, the tall guy, the short guy), one lift day, and one full rest day. Every drill comes straight from the KO Boxing basic program \u2014 nothing invented, nothing softened. Here is what makes this phase different from a video course: the camera is watching. Every shadowbox and sparring round is scored \u2014 punch counts, punches per minute, guard height, how fast your hands snap back, how much of your power comes from your torso versus your arm. Phase 1 is not about surviving the volume. It is about making the fundamentals show up in the numbers when nobody is cueing you: a guard that lives at your chin, punches that start at the hips, hands that return fast enough to throw the next shot. You do not graduate on day 35. You graduate when the stats say so \u2014 see the gates below.",
+  "days": [
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 1,
+    "title": "Workout #1",
+    "focus": "Stance and movement",
+    "summary": "Nothing carries over yet \u2014 today sets the baseline: both stances held for 4x2-minute rounds, then movement and slip/roll defense layered onto each stance before six 3-minute rounds of bag work.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance drill",
+      "prescription": "4 rounds of 2 minutes, 30 seconds rest between rounds",
+      "source_drill": "FR0NTAL STANCE DRILL 4 ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST IN BETWEEN.",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FIGHTING STANCE DRILL: 4 ROUNDS OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Knuckle push-ups",
+      "prescription": "20 reps",
+      "source_drill": "20 KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Mountain climbers",
+      "prescription": "20 reps",
+      "source_drill": "20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Frontal stance movement drill (all directions)",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE MOVEMENT DRILL (JUST GO IN ALL DIERECTIONS). 1 ROUND OF 2 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance movement drill (all directions, Z and L steps)",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE MOVEMENT DRILL (JUST GO IN ALL DIERECTIONS, USE Z AND L STEPS). 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "12 reps",
+      "source_drill": "12 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Frontal stance defensive drill (slip, slip move, roll roll)",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE DEFENSIVE DRILL (SLIP, SLIP MOVE, ROLL ROLL). 1 ROUND OF 2 MINUTES",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance defensive drill (slip, slip, move, roll roll)",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE DEFENSIVE DRILL (SLIP, SLIP, MOVE, ROLL ROLL). 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees",
+      "prescription": "10 reps",
+      "source_drill": "10 BURPEES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill on the bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill on the bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "CONDITIONING DRILL",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 2,
+    "title": "Workout #2",
+    "focus": "Stance and movement",
+    "summary": "Keeps Day 1's stance cue but replaces static stance rounds with directional movement ladders, and adds the first punches on the move plus five 3-minute rounds of virtual pad work.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Directional movement drill (forward/backward/sides)",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FORWARD/BACKWARD/TO THE SIDES. 4 ROUNDS OF 2 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Circle movement with punches",
+      "prescription": "1 round of 2 minutes, move in a circle and throw any punches",
+      "source_drill": "1 ROUND OF 2 MINUTES. MOVE IN A CIRLCLE AND THROW ANY PUNCHES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance movement ladder drill",
+      "prescription": "3 rounds of 2 minutes: 1 forward/backward, 2 to the sides, 3 as written",
+      "source_drill": "FIGHTING STANCE MOVEMENT LADDER DRILL (3 ROUNDS OF 2 MINUTES. 1 - FORWARD/BACKWARD, 2 - TO THE SIDES, 3 -",
+      "mode": "punch"
+     },
+     {
+      "name": "Knee touch + punch on the spot",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES. MOVE AT 1 SPOT AND TOUCH YOUR KNEE + PUNCH",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance defensive drill with knee touch + punch",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE DEFENSIVE DRILL 1 ROUND OF 2 MINUTES. MOVE AT 1 SPOT AND TOUCH YOUR KNEE + PUNCH",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRTUAL PAD WORK. 5 RUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "4 sets of 5 reps each exercise",
+      "source_drill": "4 SETS OF 5 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 8-10 reps each exercise",
+      "source_drill": "2 SETS OF 8-10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 3,
+    "title": "Workout #3",
+    "focus": "Stance and movement",
+    "summary": "Carries Day 2's movement cue into a stripped-down session: a plyometric opener and one defensive drill, then bag work stretches from six 3-minute rounds to seven with a strict 1-minute rest.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 7,
+    "blocks": [
+     {
+      "name": "Plyometric push-ups into mountain climbers",
+      "prescription": "10 plyometric push-ups and 30 mountain climbers right after",
+      "source_drill": "10 PLYOMETRIC PUSH-UPS AND 30 MOUNTAIN CLIMBERS RIGHT",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Defensive drill",
+      "prescription": "Default 3 rounds of 3 minutes, 1 minute rest",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "defense"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "7 rounds of 3 minutes with 1 minute of rest in between",
+      "source_drill": "7 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN BETWEEN OF BAG WORK",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 4,
+    "title": "Workout #4",
+    "focus": "Stance and movement",
+    "summary": "Brings Day 3's cue back into full stance work at 3-minute rounds, and adds two new elements: jab/cross ladder shadow boxing at 6x1 minute and the first virtual sparring round, against a slugger.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (move forward/backward progression)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FR0NTAL STANCE DRILL 1 ROUND OF 3 MINUTES. 1-MOVE FORWARD AND BACKWARD, 2-",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill (move forward/backward progression)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE DRILL 1 ROUND OF 3 MINUTES. 1-MOVE FORWARD AND BACKWARD, 2-ADD",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill (head movement, then footwork)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DEFENSIVE DRILL 1 ROUND OF 3 MINUTES. 1-HEAD MOVEMENT 2-ADD FOOTWORK",
+      "mode": "defense"
+     },
+     {
+      "name": "Shadow boxing ladder drills (jab/cross with steps)",
+      "prescription": "6 rounds of 1 minute, default 1 minute rest",
+      "source_drill": "SHADOW BOXING DRILLS WITH THE LADDER 6 ROUNDS OF 1 MINUTE. 1-JAB WITH EVERY STEP, 2-CROSS WITH",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring vs a slugger",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRUAL SPARRING AGAINST A SLUGGER. 5 ROUNDS OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Resistance band drills",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DRILLS WITH RESISTANCE BANDS. 1 ROUND OF 3 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 5,
+    "title": "Workout #5",
+    "focus": "Stance and movement",
+    "summary": "Carries Day 4's sparring rhythm into five rounds of free shadow boxing and six of bag work, adding reactive blocking against called punches and a tennis-ball wall drill at 6x1 minute with only 20 seconds rest.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance drill",
+      "prescription": "Default 3 rounds of 3 minutes, 1 minute rest",
+      "source_drill": "FIGHTING STANCE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "10 reps",
+      "source_drill": "10 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "5 ROUNDS OF 3 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Reactive blocking drill",
+      "prescription": "1 round of 3 minutes: coach throws single punches, you block",
+      "source_drill": "MOVE 1 ROUND OF 3 MINUTES. I THROW SINGLE PUNCHES, YOU BLOCK",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "6 ROUNDS OF 3 MINUTES OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning bag work drill",
+      "prescription": "1 round",
+      "source_drill": "CONDITIONING BAG WORK DRILL (1 ROUND)",
+      "mode": "punch"
+     },
+     {
+      "name": "Tennis ball to the wall drill",
+      "prescription": "6 rounds of 1 minute with 20 seconds rest",
+      "source_drill": "TENNIS BALL TO THE WALL DRILL 6 ROUNDS OF 1 MINUTE WITH 20 SEC OF REST",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-rep circuit scheme",
+      "prescription": "1 set at 80-90% of max reps, 1 minute of rest between the exercises",
+      "source_drill": "1SET OF (80-90% OF MAX REPS) 1 MINUTE OF REST BETWEEN THE EXERCISES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Knuckle push-ups (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Squats with a med ball throw (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SQUATS WITH A MED BALL THROW",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Sit-ups with med ball throws (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SIT-UPS WITH MED BALL THROWS",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 6,
+    "title": "Lift #3 Warm Up:",
+    "focus": "Stance and movement",
+    "summary": "Lift day after Day 5's high-volume rounds: 3x10 and 2x5-8 strength sets build the base with no scored rounds and no gate-window contribution.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": [
+     {
+      "name": "Lift block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Lift block B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 1,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Stance and movement",
+    "summary": "Full rest closing week 1's stance-and-movement work: no drills and no scored rounds, just an honest readiness check before week 2 shifts to defense and body work.",
+    "coach_focus": "Stance and movement",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 1,
+    "title": "Workout #6",
+    "focus": "Defense and body work",
+    "summary": "Picks up week 1's stance cue and attaches punches to defense for the first time \u2014 slip-throw twos with steps \u2014 and adds tire movement drills before the familiar six-round bag block returns.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (slip-throw 2 punches with steps)",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FRONTAL STANCE DRILL 4 ROUNDS OF 2 MINUTES. DO SLIP-THROW 2 PUNCHES WITH STEPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance drill",
+      "prescription": "Default 3 rounds of 3 minutes, 1 minute rest",
+      "source_drill": "FIGHTING STANCE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Knuckle push-ups and mountain climbers",
+      "prescription": "20 knuckle push-ups and 20 mountain climbers",
+      "source_drill": "20 KNUCKLE PUSH-UPS AND 20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Movement drills with a tire",
+      "prescription": "2 rounds of 2 minutes, go around in both directions",
+      "source_drill": "MOVEMENT DRILLS WITH A TIRE 2 ROUNDS OF 2 MINUTES. GO AROUNG IN BOTH DIRECTIONS IN",
+      "mode": "movement"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "12 reps",
+      "source_drill": "12 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees",
+      "prescription": "10 reps",
+      "source_drill": "10 BURPEES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill on the bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill on the bag",
+      "prescription": "1 block of 4 minutes",
+      "source_drill": "CONDITIONING DRILL (4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Band punches (straight, sides, down and up)",
+      "prescription": "6-8 reps for each direction",
+      "source_drill": "(STRAIGHT PUNCHES, TO THE SIDES, DOWN AND UP) 6-8 REPS FOR EACH",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit (push-ups, squats, balanced tucks)",
+      "prescription": "30 seconds each without rest, then 1 minute of rest",
+      "source_drill": "KNUCKLE PUSH-UPS, SQUATS, BALANCED TUCKS (30 SEC EACH W/O REST) 1 MINUTE OF REST",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric finisher",
+      "prescription": "Plyometric push-ups 8-12, jump squats 8-12, hanging leg raises",
+      "source_drill": "PLYOMETRIC PUSH-UPS (8-12), JUMP SQUATS (8-12), HANGING LEG",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 2,
+    "title": "Workout #7",
+    "focus": "Defense and body work",
+    "summary": "Carries Day 8's slip-throw pattern forward and hardens it into roll-roll-throw twos in both stances, keeping the 5x3 virtual pad rounds while directional movement drops from four rounds to one.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (roll-roll-throw 2 punches)",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FRONTAL STANCE DRILL 4 ROUNDS OF 2 MINUTES. DO ROLL-ROLL-THROW 2 PUNCHES WITH",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance drill (roll-roll-throw 2 punches with steps)",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FIGHTING STANCE DRILL 4 ROUNDS OF 2 MINUTES. DO ROLL-ROLL-THROW 2 PUNCHES WITH STEPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance jump drill",
+      "prescription": "1 round of 2 minutes: 2 jumps up and on the 3rd one, as written",
+      "source_drill": "FIGHING STANCE DRILL 1 ROUND OF 2 MINUTES. 2 JUMPS UP AND ON THE 3RD ONE",
+      "mode": "punch"
+     },
+     {
+      "name": "Directional movement drill (forward/backward/sides)",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FORWARD/BACKWARD/TO THE SIDES. 4 ROUNDS OF 2 MINUTE",
+      "mode": "movement"
+     },
+     {
+      "name": "Directional movement drill, single round",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "ORWARD/BACKWARD/TO THE SIDES. 1 ROUND OF 2 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRTUAL PAD WORK. 5 RUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Hands-down movement drill",
+      "prescription": "1 round of 3 minutes, hands down; continuation line reads 2 rounds",
+      "source_drill": "1ROUND OF 3 MINUTES MOVE WITH YOUR HANDS DOWN AND 2 ROUNDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 3,
+    "title": "Workout #8",
+    "focus": "Defense and body work",
+    "summary": "Carries Day 9's rolling cue into a staged defensive progression at one minute per stage, keeps the 7x3 bag day from week 1, and adds a tennis-ball speed-and-accuracy round.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 7,
+    "blocks": [
+     {
+      "name": "Plyometric push-ups into mountain climbers",
+      "prescription": "10 plyometric push-ups and 30 mountain climbers right after",
+      "source_drill": "10 PLYOMETRIC PUSH-UPS AND 30 MOUNTAIN CLIMBERS RIGHT",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Defensive drill progressions",
+      "prescription": "Practice each progression for 1 minute",
+      "source_drill": "DEFENSIVE DRILL PRACTICE EACH PROGRESSION FOR 1 MINUTE",
+      "mode": "defense"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "7 rounds of 3 minutes with 1 minute of rest in between",
+      "source_drill": "7 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN BETWEEN OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Speed and accuracy drill with a tennis ball",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "SPEED AND ACCURACY DRILL WITH A TENNIS BALL 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-rep calisthenics circuit",
+      "prescription": "1 set of max: parallel bar dips, pull-ups, jumping squat lunges and hanging leg raises; rest 1 minute between exercises",
+      "source_drill": "1 SET OF MAX: PARALLEL BAR DIPS, PULL-UPS, JUMPING SQUAT LUNGES AND HANGING LEG RAISES. REST FOR 1 MINUTE BETWEEN EXERCISES.",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 4,
+    "title": "Workout #9",
+    "focus": "Defense and body work",
+    "summary": "Moves Day 10's defensive progressions onto the ladder with single punches on the move, and swaps the sparring archetype from week 1's slugger to a puncher for five 3-minute rounds.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (move forward and throw)",
+      "prescription": "2 rounds of 1.5 minutes",
+      "source_drill": "FRONTAL STANCE DRILL 2 ROUND OF 1.5 MINUTES. 1-MOVE FORWARD AND THROW ANY",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill (forward/backward progression)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE DRILL 1 ROUND OF 3 MINUTES. 1-MOVE FORWARD AND BACKWARD, 2-ADD SINGLE",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill (head movement, then footwork)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DEFENSIVE DRILL. 1 ROUND OF 3 MINUTES. 1-HEAD MOVEMENT 2-ADD FOOTWORK",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance ladder drills (single punches on the move)",
+      "prescription": "3 rounds of 2 minutes",
+      "source_drill": "FIGHTING STANCE LADDER DRILLS 3 ROUNDS OF 2 MINUTES. MOVE AND THROW SINGLE PUNCHES 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring vs a puncher",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRUAL SPARRING AGAINST A PUNCHER. 5 ROUNDS OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Resistance band drills",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DRILLS WITH RESISTANCE BANDS 1 ROUND OF 3 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Agility footwork drill",
+      "prescription": "2 rounds",
+      "source_drill": "AGILITY FOOTWORK DRILL 2 ROUNDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "4 sets of 5 reps each exercise",
+      "source_drill": "4 SETS OF 5 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 8-10 reps each exercise",
+      "source_drill": "2 SETS OF 8-10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 5,
+    "title": "Workout #10",
+    "focus": "Defense and body work",
+    "summary": "Carries Day 11's punch-on-the-move work into squat-and-punch stance rounds at 4x1 minute, keeps the 5x3 shadow boxing and 6x3 bag structure from Day 5, and adds a reactive blocking round before the max-rep finisher.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (squat and throw 2 punches)",
+      "prescription": "4 rounds of 1 minute",
+      "source_drill": "FRONTAL STANCE DRILL 4 ROUNDS OF 1 MINUTE. SQUAT AND THROW PUNCH 2 PUNCHES WITH",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "10 reps",
+      "source_drill": "10 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "5 ROUNDS OF 3 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Reactive blocking drill",
+      "prescription": "1 round of 3 minutes: coach throws single punches, you block",
+      "source_drill": "1 ROUND OF 3 MINUTES. I THROW SINGLE PUNCHES, YOU BLOCK AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "6 ROUNDS OF 3 MINUTES OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "CONDITIONING DRILL (1 ROUND) 1 ROUND OF 3 MINUTES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Interval drill",
+      "prescription": "6 rounds of 1 minute with 20 seconds rest",
+      "source_drill": "6 ROUNDS OF 1 MINUTE WITH 20 SEC OF REST",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-rep circuit scheme",
+      "prescription": "1 set at 80-90% of max reps, 1 minute of rest between the exercises",
+      "source_drill": "1SET OF (80-90% OF MAX REPS) 1 MINUTE OF REST BETWEEN THE EXERCISES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Knuckle push-ups (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Squats with a med ball throw (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SQUATS WITH A MED BALL THROW",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Sit-ups with med ball throws (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SIT-UPS WITH MED BALL THROWS",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 6,
+    "title": "Lift #6 Warm Up:",
+    "focus": "Defense and body work",
+    "summary": "Lift day: heavier 3x8 sets join the 3x10 scheme carried from week 1's lift day, with no scored rounds and no gate-window contribution.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": [
+     {
+      "name": "Lift block A",
+      "prescription": "3 sets of 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Lift block B",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 2,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Defense and body work",
+    "summary": "Full rest closing week 2's defense and body work: no drills and no scored rounds, with a readiness check before week 3 adds pivots and combinations.",
+    "coach_focus": "Defense and body work",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 1,
+    "title": "Workout #11",
+    "focus": "Pivots and combinations",
+    "summary": "Carries week 2's slips and rolls forward and chains pivots after them in both stances \u2014 the new element this week \u2014 while tire movement, shadow boxing, and the six-round bag block stay in place.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (slips, slips and pivots)",
+      "prescription": "4 rounds of 2 minutes: 1 slips, 2 slips and pivots, 3 slips plus",
+      "source_drill": "FRONTAL STANCE DRILL 4 ROUNDS OF 2 MINUTES. 1-SLIPS, 2-SLIPS AND PIVOTS, 3-SLIPS,",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance drill (slips, slips and pivots)",
+      "prescription": "4 rounds of 2 minutes: 1 slips, 2 slips and pivots, 3 slips plus pivots",
+      "source_drill": "FIGHTING STANCE DRILL 4 ROUNDS OF 2 MINUTES. 1-SLIPS, 2-SLIPS AND PIVOTS, 3-SLIPS, PIVOTS",
+      "mode": "punch"
+     },
+     {
+      "name": "Knuckle push-ups and mountain climbers",
+      "prescription": "20 knuckle push-ups and 20 mountain climbers",
+      "source_drill": "20 KNUCKLE PUSH-UPS AND 20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Movement drills with a tire",
+      "prescription": "2 rounds of 2 minutes, go around in both directions and throw",
+      "source_drill": "MOVEMENT DRILLS WITH A TIRE 2 ROUNDS OF 2 MINUTES. GO AROUNG IN BOTH DIRECTIONS AND THROW",
+      "mode": "movement"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "12 reps",
+      "source_drill": "12 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees",
+      "prescription": "10 reps",
+      "source_drill": "10 BURPEES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill on the bag",
+      "prescription": "Within the bag-work rounds (default 3 rounds of 3 minutes, 1 minute rest)",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill on the bag",
+      "prescription": "1 block of 4 minutes",
+      "source_drill": "CONDITIONING DRILL (4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Band punches (straight, sides, down and up)",
+      "prescription": "6-8 reps for each direction",
+      "source_drill": "(STRAIGHT PUNCHES, TO THE SIDES, DOWN AND UP) 6-8 REPS FOR",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit (push-ups, squats, balanced tucks)",
+      "prescription": "30 seconds each without rest, then 1 minute of rest",
+      "source_drill": "KNUCKLE PUSH-UPS, SQUATS, BALANCED TUCKS ((30 SEC EACH W/O REST) 1 MINUTE OF REST",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric finisher",
+      "prescription": "Plyometric push-ups 8-12, jump squats 8-12, hanging leg raises",
+      "source_drill": "PPLYOMETRIC PUSH-UPS (8-12), JUMP SQUATS (8-12), HANGING LEG",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 2,
+    "title": "Workout #11",
+    "focus": "Pivots and combinations",
+    "summary": "Carries Day 15's pivots into pivot-then-throw-two rounds in both stances, and adds a new punch, slip inside, punch counter flow while the 5x3 virtual pad block stays.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill (move, pivot, throw 2)",
+      "prescription": "4 rounds of 2 minutes: 1 move and do pivots, 2 throw 2",
+      "source_drill": "FRONTAL STANCE DRILL 4 ROUNDS OF 2 MINUTES.1-MOVE AND DO PIVOTS. 2-THROW 2",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill (move, pivot, throw 2)",
+      "prescription": "4 rounds of 2 minutes: 1 move and do pivots, 2 throw 2",
+      "source_drill": "FIGHTING STANCE DRILL 4 ROUNDS OF 2 MINUTES.1-MOVE AND DO PIVOTS. 2-THROW 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance jump-punch drill",
+      "prescription": "1 round of 2 minutes: 2 jumps up and then 2 punches",
+      "source_drill": "FIGHING STANCE DRILL 1 ROUND OF 2 MINUTES. 2 JUMPS UP AND THEN 2 PUNCHES IN",
+      "mode": "punch"
+     },
+     {
+      "name": "Punch, slip inside, punch flow",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES. STRAIGT PUNCH, SLIP INSIDE, ANY PUNCH",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRTUAL PAD WORK. 5 RUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Hands-down movement drill",
+      "prescription": "1 round of 3 minutes, hands down; continuation line reads 2 rounds",
+      "source_drill": "1 ROUND OF 3 MINUTES MOVE WITH YOUR HANDS DOWN AND 2 ROUNDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 3,
+    "title": "Workout #13",
+    "focus": "Pivots and combinations",
+    "summary": "Carries Day 16's combination cue into the recurring 7x3 bag day, with a new tennis-ball-tucked shadow boxing round that forces a closed chin through lead- and rear-hand work.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 7,
+    "blocks": [
+     {
+      "name": "Plyometric push-ups into mountain climbers",
+      "prescription": "10 plyometric push-ups and 30 mountain climbers right after",
+      "source_drill": "10 PLYOMETRIC PUSH-UPS AND 30 MOUNTAIN CLIMBERS RIGHT",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Defensive drill (head movement, footwork, hands)",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DEFENSIVE DRILL 1 ROUND OF 3 MINUTES. 1-HEAD MOVEMENT 2-ADD FOOTWORK 3-HANDS",
+      "mode": "defense"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "7 rounds of 3 minutes with 1 minute of rest in between",
+      "source_drill": "7 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN BETWEEN OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Shadow boxing with a tennis ball tucked",
+      "prescription": "1 round of 3 minutes: 1 lead hand, 2 rear hand, 3 drop the ball",
+      "source_drill": "SHADOW BOXING DRILL WITH A TENNIS BALL TUCKED 1 ROUND OF 3 MINUTES. 1 - LEAD HAND 2 - REAR HAND 3 - DROP THE BALL AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-rep calisthenics circuit",
+      "prescription": "1 set of max: parallel bar dips, pull-ups, jumping squat lunges and hanging leg raises; rest 1 minute between exercises",
+      "source_drill": "1 SET OF MAX: PARALLEL BAR DIPS, PULL-UPS, JUMPING SQUAT LUNGES AND HANGING LEG RAISES. REST FOR 1 MINUTE BETWEEN EXERCISES.",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 4,
+    "title": "Workout #14",
+    "focus": "Pivots and combinations",
+    "summary": "Carries Day 17's chin-tucked punching into 45/15 uppercut intervals and ladder punch combos, and introduces a southpaw as the new virtual sparring archetype for five 3-minute rounds.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drills (floor touch with step back)",
+      "prescription": "4 rounds of 1 minute",
+      "source_drill": "FRONTAL STANCE DRILLS 4 ROUNDS OF 1 MINUTE. TOUCH THE FLOOR WITH A STEP BACK AND",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance uppercut intervals",
+      "prescription": "45 seconds of work with 15 seconds of rest in between",
+      "source_drill": "FIGHTING STANCE DRILL UPPERCUTS) FOR 45 SECONDS WITH 15 SECONDS OF REST IN BETWEEN",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill",
+      "prescription": "Default 3 rounds of 3 minutes, 1 minute rest",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance ladder drills (punch combos on the move)",
+      "prescription": "3 rounds of 2 minutes",
+      "source_drill": "FIGHTING STANCE LADDER DRILLS 3 ROUNDS OF 2 MINUTES. MOVE AND THROW PUNCHES COMBOS. 1 -",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring vs a southpaw",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "VIRUAL SPARRING AGAINST A SOUTHPAW. 5 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Resistance band drills",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DRILLS WITH RESISTANCE BANDS 1 ROUND OF 3 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Agility footwork drill",
+      "prescription": "2 rounds",
+      "source_drill": "AGILITY FOOTWORK DRILL 2 ROUNDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "3 sets of 5-8 reps each exercise",
+      "source_drill": "3 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 5,
+    "title": "Workout #15",
+    "focus": "Pivots and combinations",
+    "summary": "Carries Day 18's combos into the recurring 5x3 shadow boxing and 6x3 bag structure, adding new spin-and-box vestibular rounds that test balance in the middle of combinations.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance drill",
+      "prescription": "4 rounds of 2 minutes",
+      "source_drill": "FIGHTING STANCE DRILL. 4 ROUNDS OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "10 reps",
+      "source_drill": "10 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "5 rounds of 3 minutes",
+      "source_drill": "5 ROUNDS OF 3 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Reactive blocking drill",
+      "prescription": "1 round of 3 minutes: coach throws single punches, you block",
+      "source_drill": "1 ROUND OF 3 MINUTES. I THROW SINGLE PUNCHES, YOU BLOCK AND 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "6 ROUNDS OF 3 MINUTES OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill",
+      "prescription": "1 round",
+      "source_drill": "CONDITIONING DRILL (1 ROUND)",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Vestibular apparatus drills (spin and box)",
+      "prescription": "3 rounds of 1 minute: spin left + box, spin right + box, roll",
+      "source_drill": "VESTIBULAR APPARATUS DRILLS 3 ROUND OF 1 MINUTE. SPIN LEFT + BOX, SPIN RIGHT + BOX, ROLL",
+      "mode": "defense"
+     },
+     {
+      "name": "Interval drill",
+      "prescription": "6 rounds of 1 minute with 20 seconds rest",
+      "source_drill": "6 ROUNDS OF 1 MINUTE WITH 20 SEC OF REST",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-rep circuit scheme",
+      "prescription": "1 set at 80-90% of max reps, 1 minute of rest between the exercises",
+      "source_drill": "1SET OF (80-90% OF MAX REPS) 1 MINUTE OF REST BETWEEN THE EXERCISES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Knuckle push-ups (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Squats with a med ball throw (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SQUATS WITH A MED BALL THROW",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Sit-ups with med ball throws (max-rep set)",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SIT-UPS WITH MED BALL THROWS",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 6,
+    "title": "Lift #9 Warm Up:",
+    "focus": "Pivots and combinations",
+    "summary": "Lift day consolidating the week's strength work with 3x8 and 3x10 sets; no scored rounds and no gate-window contribution.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": [
+     {
+      "name": "Lift block A",
+      "prescription": "3 sets of 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Lift block B",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 3,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Pivots and combinations",
+    "summary": "Full rest closing week 3's pivots and combinations: no drills and no scored rounds, with a readiness check before week 4 moves to shifts and angles.",
+    "coach_focus": "Pivots and combinations",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 1,
+    "title": "Workout #15",
+    "focus": "Shifts and angles",
+    "summary": "Picks up the pivot habits closed out in week 3 and converts them into shifts: feet replacement and slip-shift chains are new on top of the familiar tire, shadow boxing and bag circuit, and the bag now demands simultaneous counters off a swinging target.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 4,
+    "blocks": [
+     {
+      "name": "Frontal stance drill: replace feet",
+      "prescription": "4 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "4 ROUNDS OF 2 MINUTES. 1-REPLACE FEET, 2-REPLACE FEET AND",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill: slips with steps, slips and shifts",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES. 1-SLIPS WITH STEPS FORWARD, 2-SLIPS AND SHIFTS, 3-",
+      "mode": "punch"
+     },
+     {
+      "name": "Knuckle push-ups and mountain climbers",
+      "prescription": "20 knuckle push-ups + 20 mountain climbers",
+      "source_drill": "20 KNUCKLE PUSH-UPS AND 20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Movement drills with a tire",
+      "prescription": "2 rounds of 2 minutes, both directions",
+      "source_drill": "MOVEMENT DRILLS WITH A TIRE",
+      "mode": "movement"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "12 reps",
+      "source_drill": "12 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees",
+      "prescription": "10 reps",
+      "source_drill": "10 BURPEES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "within the 6 bag rounds",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill (bag)",
+      "prescription": "within the 6 bag rounds",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Swinging-bag simultaneous counters",
+      "prescription": "within the 6 bag rounds: simultaneous counters only",
+      "source_drill": "MAKE THE BAG SWING AND THROW ONLY SIMULNTANIOUS COUNTERS",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning drill",
+      "prescription": "2 rounds of 75 seconds",
+      "source_drill": "CONDITIONING DRILL (2 ROUNDS OF 75 SEC)",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Med ball throws",
+      "prescription": "6-8 reps each direction (straight, sides, down and up)",
+      "source_drill": "(STRAIGHT PUNCHES, TO THE SIDES, DOWN AND UP) 6-8 REPS FOR EACH",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit",
+      "prescription": "30 sec each exercise without rest, then 1 minute of rest",
+      "source_drill": "KNUCKLE PUSH-UPS, SQUATS, BALANCED TUCKS",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric finisher",
+      "prescription": "plyometric push-ups 8-12, jump squats 8-12, hanging leg raises",
+      "source_drill": "PPLYOMETRIC PUSH-UPS (8-12), JUMP SQUATS (8-12), HANGING LEG",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 2,
+    "title": "Workout #17",
+    "focus": "Shifts and angles",
+    "summary": "Yesterday's shift mechanics move from stance rounds into 3-minute virtual pad rounds, adding shift-plus-two-punch throws and a hands-down movement round on top of the jump-and-punch drill.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill: move and shift",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES.1-MOVE AND DO SHIFTS 2- SHIFT + THROW 2",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill: move and shift",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES.1-MOVE AND DO SHIFTS 2- SHOFT + THROW 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance jump-and-punch drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES. 2 JUMPS UP AND THEN 2 PUNCHES IN ANY",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance drill (second pass)",
+      "prescription": "no round scheme prescribed; defaults 3 rounds of 3 minutes, 60s rest",
+      "source_drill": "FRONTAL STANCE DRILL",
+      "mode": "movement"
+     },
+     {
+      "name": "Push-ups and mountain climbers",
+      "prescription": "20 push-ups + 20 mountain climbers",
+      "source_drill": "20 PUSH-UPS AND 20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "VIRTUAL PAD WORK. 5 RUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Hands-down movement round",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1ROUND OF 3 MINUTES MOVE WITH YOUR HANDS DOWN AND",
+      "mode": "movement"
+     },
+     {
+      "name": "Supplemental rounds",
+      "prescription": "2 rounds (duration defaults to 3 minutes)",
+      "source_drill": "2 ROUNDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Strength sets A",
+      "prescription": "4 sets of 5 reps each exercise",
+      "source_drill": "4 SETS OF 5 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength sets B",
+      "prescription": "2 sets of 8-10 reps each exercise",
+      "source_drill": "2 SETS OF 8-10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 3,
+    "title": "Workout #18",
+    "focus": "Shifts and angles",
+    "summary": "Keeps the shift cue from Day 23 and raises the endurance load: after the head-movement-to-hands defensive progression, the bag stretches to seven 3-minute rounds with a tennis-ball accuracy round to finish.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 7,
+    "blocks": [
+     {
+      "name": "Plyometric push-ups into mountain climbers",
+      "prescription": "10 plyometric push-ups + 30 mountain climbers right after",
+      "source_drill": "10 PLYOMETRIC PUSH-UPS AND 30 MOUNTAIN CLIMBERS RIGHT AFTER",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Defensive drill: head movement, footwork, hands",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1 ROUND OF 3 MINUTES. 1-HEAD MOVEMENT 2-ADD FOOTWORK 3-HANDS",
+      "mode": "defense"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "7 rounds of 3 minutes with 1 minute of rest in between",
+      "source_drill": "7 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN",
+      "mode": "punch"
+     },
+     {
+      "name": "Speed and accuracy drill with a tennis ball",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "SPEED AND ACCURACY DRILL WITH A TENNIS BALL",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-set strength circuit",
+      "prescription": "1 set of max: dips, pull-ups, jumping squat lunges, hanging leg raises; 1 minute rest between exercises",
+      "source_drill": "1 SET OF MAX: PARALLEL BAR DIPS, PULL-UPS, JUMPING SQUAT LUNGES AND",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 4,
+    "title": "Workout #19",
+    "focus": "Shifts and angles",
+    "summary": "The week's angle work meets a new sparring archetype \u2014 a tall opponent \u2014 after full punch-family stance intervals (straights, hooks, uppercuts, body shots) at shorter, denser 1-minute and 45-second work windows than yesterday's long rounds.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance punch-family intervals",
+      "prescription": "4 rounds of 1 minute with 30 sec of rest; 30 mountain climbers in between",
+      "source_drill": "STRAIGHTS, HOOKS, UPPERCUTS AND BODY SHOTS. 4 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance uppercut intervals",
+      "prescription": "45 seconds work with 15 seconds of rest in between (rounds default to 3)",
+      "source_drill": "UPPERCUTS) FOR 45 SECONDS WITH 15 SECONDS OF REST IN BETWEEN",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill: slip-slip-roll-roll",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "SLIP-SLIP-ROLL-ROLL 1 ROUND OF 2 MINUTES",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance ladder drills: punch combos",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES. MOVE AND THROW PUNCHES COMBOS. 1 -",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring against a tall guy",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "VIRUAL SPARRING AGAINST A TALL GUY. 5 ROUNDS OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Opposite-stance round",
+      "prescription": "1 round of 3 minutes in the opposite stance",
+      "source_drill": "1 ROUND OF 3 MINUTES IN THE OPPOSITE STANCE",
+      "mode": "movement"
+     },
+     {
+      "name": "Agility footwork drill",
+      "prescription": "2 rounds",
+      "source_drill": "AGILITY FOOTWORK DRILL",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength sets A",
+      "prescription": "4 sets of 5 reps each exercise",
+      "source_drill": "Y 4 SETS OF 5 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength sets B",
+      "prescription": "2 sets of 8-10 reps each exercise",
+      "source_drill": "2 SETS OF 8-10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 5,
+    "title": "Workout #20",
+    "focus": "Shifts and angles",
+    "summary": "Consolidates the week's shifts and angles in five open shadow boxing rounds and block-and-counter work, returning to long 3-minute rounds after yesterday's short intervals and closing with med-ball power conditioning.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Step-forward punch drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1 ROUND OF 3 MINUTES. PUNCH ITH A STEP FORWARD, FORWARD AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "10 reps",
+      "source_drill": "10 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "5 ROUNDS OF 3 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Block-and-counter round",
+      "prescription": "1 round of 3 minutes: coach throws single punches, you block",
+      "source_drill": "1 ROUND OF 3 MINUTES. I THROW SINGLE PUNCHES, YOU BLOCK AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "6 ROUNDS OF 3 MINUTES OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning round",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Conditioning intervals",
+      "prescription": "6 rounds of 1 minute with 20 sec of rest",
+      "source_drill": "6 ROUNDS OF 1 MINUTE WITH 20 SEC OF REST",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Max-rep strength circuit",
+      "prescription": "1 set of 80-90% of max reps; 1 minute of rest between the exercises",
+      "source_drill": "1SET OF (80-90% OF MAX REPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Knuckle push-ups",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Squats with a med ball throw",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SQUATS WITH A MED BALL THROW",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Sit-ups with med ball throws",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SIT-UPS WITH MED BALL THROWS",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 6,
+    "title": "Lift #12 Warm Up:",
+    "focus": "Shifts and angles",
+    "summary": "Lift-only day supporting the week's shift work with heavier sets after yesterday's max-rep circuit; no scored rounds and no contribution to gate windows.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": [
+     {
+      "name": "Lift sets A",
+      "prescription": "3 sets of 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Lift sets B",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 4,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Shifts and angles",
+    "summary": "Recovery day closing week 4: carry one shifts-and-angles cue from the lift day into next week's integration work; no drills, no scored rounds, and no contribution to gate windows.",
+    "coach_focus": "Shifts and angles",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 1,
+    "title": "Workout #21",
+    "focus": "Integration and control",
+    "summary": "Week 5 integrates week 4's shift base into side-lunge stance rounds and all-direction shadow boxing, and the swinging-bag task upgrades from simultaneous counters to sidestep counters.",
+    "coach_focus": "Integration and control",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 4,
+    "blocks": [
+     {
+      "name": "Frontal stance drills: side lunges",
+      "prescription": "4 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "FRONTAL STANCE DRILLS",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill: side lunges",
+      "prescription": "4 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "FIGHTING STANCE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Knuckle push-ups and mountain climbers",
+      "prescription": "20 knuckle push-ups + 20 mountain climbers",
+      "source_drill": "20 KNUCKLE PUSH-UPS AND 20 MOUNTAIN CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Movement drills with a tire",
+      "prescription": "2 rounds of 2 minutes, both directions",
+      "source_drill": "MOVEMENT DRILLS WITH A TIRE",
+      "mode": "movement"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "12 reps",
+      "source_drill": "12 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing in all directions",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "1 ROUND OF 2 MINUTES OF SHADOW BOXING. MOVE IN ALL DIRECTIONS",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees",
+      "prescription": "10 reps",
+      "source_drill": "10 BURPEES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "within the 6 bag rounds",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill (bag)",
+      "prescription": "within the 6 bag rounds",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "punch"
+     },
+     {
+      "name": "Swinging-bag sidestep counters",
+      "prescription": "within the 6 bag rounds: sidestep counters only",
+      "source_drill": "MAKE THE BAG SWING AND THROW ONLY SIDESTEP COUNTERS",
+      "mode": "punch"
+     },
+     {
+      "name": "Med ball throws",
+      "prescription": "6-8 reps each direction (straight, sides, down and up)",
+      "source_drill": "(STRAIGHT PUNCHES, TO THE SIDES, DOWN AND UP) 6-8 REPS FOR",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit",
+      "prescription": "30 sec each exercise without rest, then 1 minute of rest",
+      "source_drill": "KNUCKLE PUSH-UPS, SQUATS, BALANCED TUCKS",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric finisher",
+      "prescription": "plyometric push-ups 8-12, jump squats 8-12, hanging leg raises",
+      "source_drill": "PPLYOMETRIC PUSH-UPS (8-12), JUMP SQUATS (8-12), HANGING LEG",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 2,
+    "title": "Workout #22",
+    "focus": "Integration and control",
+    "summary": "Yesterday's sidestep counters become back-and-sidestep stance rounds and a circling punch-and-defend round, with new uppercut footwork intervals feeding the familiar 3-minute virtual pad rounds.",
+    "coach_focus": "Integration and control",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance drill",
+      "prescription": "no round scheme prescribed; defaults 3 rounds of 3 minutes, 60s rest",
+      "source_drill": "FRONTAL STANCE DRILL",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance drill: back moves and sidesteps",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES.1-MOVE BACK AND DO SIDESTEPS. 2-THROW",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance defensive drill: circle, punch, defend",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1 ROUND OF 3 MINUTES. MOVE IN A CIRCLE, THROW PUNCHES AND DO",
+      "mode": "punch"
+     },
+     {
+      "name": "Footwork drill: uppercut intervals",
+      "prescription": "2 rounds of 1 minute with 30 sec rest",
+      "source_drill": "THROW UPPERCUTS FOR 2 ROUNDS OF 1 MINUTE WITH 30",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "VIRTUAL PAD WORK. 5 RUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Hands-down movement round",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1ROUND OF 3 MINUTES MOVE WITH YOUR HANDS DOWN # 1",
+      "mode": "movement"
+     },
+     {
+      "name": "Supplemental rounds",
+      "prescription": "2 rounds (duration defaults to 3 minutes)",
+      "source_drill": "2 ROUNDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Strength sets A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength sets B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 3,
+    "title": "Workout #23",
+    "focus": "Integration and control",
+    "summary": "Holds the integration cue from Day 30 while endurance peaks again at seven 3-minute bag rounds behind the head-movement-to-hands defensive ladder.",
+    "coach_focus": "Integration and control",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 7,
+    "blocks": [
+     {
+      "name": "Plyometric push-ups into mountain climbers",
+      "prescription": "10 plyometric push-ups + 30 mountain climbers right after",
+      "source_drill": "10 PLYOMETRIC PUSH-UPS AND 30 MOUNTAIN CLIMBERS RIGHT",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Defensive drill: head movement, footwork, hands",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1 ROUND OF 3 MINUTES. 1-HEAD MOVEMENT 2-ADD FOOTWORK 3-HANDS",
+      "mode": "defense"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "7 rounds of 3 minutes with 1 minute of rest in between",
+      "source_drill": "7 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN",
+      "mode": "punch"
+     },
+     {
+      "name": "Timed round",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Max-set strength circuit",
+      "prescription": "1 set of max: dips, pull-ups, jumping squat lunges, hanging leg raises; 1 minute rest between exercises",
+      "source_drill": "1 SET OF MAX: PARALLEL BAR DIPS, PULL-UPS, JUMPING SQUAT LUNGES",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 4,
+    "title": "Workout #24",
+    "focus": "Integration and control",
+    "summary": "Control under fatigue: dense 1-minute basic-combo intervals and chair get-up rounds are new, leading into another new sparring archetype \u2014 virtual sparring against a short opponent.",
+    "coach_focus": "Integration and control",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance drill: basic combo intervals",
+      "prescription": "6 rounds of 1 minute with 20 seconds of rest",
+      "source_drill": "6 ROUNDS OF 1 MINUTE WITH 20 SECONDS OF REST. THROW A BASIC",
+      "mode": "punch"
+     },
+     {
+      "name": "Chair get-up punch drill",
+      "prescription": "4 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "4 ROUNDS OF 2 MINUTE. SIT ON A CHAIR, GET UP AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill",
+      "prescription": "no round scheme prescribed; defaults 3 rounds of 3 minutes, 60s rest",
+      "source_drill": "DEFENSIVE DRILL",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance ladder drills: punch combos",
+      "prescription": "3 rounds of 2 minutes (rest defaults to 60s)",
+      "source_drill": "3 ROUNDS OF 2 MINUTES. MOVE AND THROW PUNCHES COMBOS. 1 -",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring against a short guy",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "VIRUAL SPARRING AGAINST A SHORT GUY. 5 ROUNDS OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Resistance band drills, opposite stance",
+      "prescription": "1 round of 3 minutes in the opposite stance",
+      "source_drill": "DRILLS WITH RESISTANCE BANDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Agility footwork drill",
+      "prescription": "2 rounds",
+      "source_drill": "AGILITY FOOTWORK DRILL",
+      "mode": "movement"
+     },
+     {
+      "name": "Strength sets A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength sets B",
+      "prescription": "2 sets of 5-8 reps each exercise",
+      "source_drill": "2 SETS OF 5-8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 5,
+    "title": "Workout #25",
+    "focus": "Integration and control",
+    "summary": "The final workout of Phase 1 integrates everything in five open shadow boxing rounds and block-and-counter work \u2014 week-5 scored rounds like these are exactly the data the phase gates evaluate, so no thresholds or windows change today.",
+    "coach_focus": "Integration and control",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance drill",
+      "prescription": "no round scheme prescribed; defaults 3 rounds of 3 minutes, 60s rest",
+      "source_drill": "FIGHTING STANCE DRILL.",
+      "mode": "punch"
+     },
+     {
+      "name": "Jump squats",
+      "prescription": "10 reps",
+      "source_drill": "10 JUMP SQUATS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Shadow boxing",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "5 ROUNDS OF 3 MINUTES OF SHADOW BOXING",
+      "mode": "punch"
+     },
+     {
+      "name": "Block-and-counter round",
+      "prescription": "1 round of 3 minutes: coach throws single punches, you block",
+      "source_drill": "1 ROUND OF 3 MINUTES. I THROW SINGLE PUNCHES, YOU BLOCK AND",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes (rest defaults to 60s)",
+      "source_drill": "6 ROUNDS OF 3 MINUTES OF BAG WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Conditioning intervals",
+      "prescription": "6 rounds of 1 minute with 20 sec of rest",
+      "source_drill": "6 ROUNDS OF 1 MINUTE WITH 20 SEC OF REST",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Max-rep strength circuit",
+      "prescription": "1 set of 80-90% of max reps; 1 minute of rest between the exercises",
+      "source_drill": "1SET OF (80-90% OF MAX REPS)",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Knuckle push-ups",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "KNUCKLE PUSH-UPS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Squats with a med ball throw",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SQUATS WITH A MED BALL THROW",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Sit-ups with med ball throws",
+      "prescription": "1 set of 80-90% of max reps",
+      "source_drill": "SIT-UPS WITH MED BALL THROWS",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 6,
+    "title": "Lift #15 Warm Up:",
+    "focus": "Integration and control",
+    "summary": "Lift-only day between the phase's final workout and the closing rest day: lift sets only, no scored rounds, and it never contributes to gate windows.",
+    "coach_focus": "Integration and control",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": [
+     {
+      "name": "Lift sets A",
+      "prescription": "3 sets of 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Lift sets B",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "basic",
+    "week": 5,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Integration and control",
+    "summary": "Rest and reset closing Phase 1 week 5: recovery and an honest readiness check only \u2014 no drills, no scored rounds, and the five phase gates read the week's existing scored data exactly as specified, unchanged by this day.",
+    "coach_focus": "Integration and control",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   }
+  ]
+ },
+ "phase2": {
+  "program": "competitive",
+  "title": "Fight Camp 35 (KO Competitive Camp)",
+  "intro": "Phase 2 \u2014 Fight Camp 35. This is the KO competitive camp, periodized the way a real camp is. Week 1 is general preparation: the engine gets rebuilt around rotation \u2014 hip-and-shoulder drills, dumbbell punch work, everything reinforcing power from the ground up. Weeks 2 through 4 are the hard middle, specialized preparation: rounds stretch past the amateur standard to 6 rounds of 4 minutes of partner work, light sparring enters, and you drill 4-to-8-punch chains off the pendulum step with feints layered in. Week 5 is peak performance: volume tapers and everything converts to fight simulation \u2014 three 3-minute rounds against an opponent you picture in front of you and fight. Each week closes with endurance work (or active recovery in week 5) and a rest day. The app changes its job here too. It stops nagging you about guard height and arm-punching \u2014 that was Phase 1's business, and you already proved it. Now the telemetry pushes output: punch density under longer clocks, power that holds up in round six, retraction speed inside long combination chains. There is no exit gate at the end. Day 35 is the end \u2014 you arrive fight-ready or you repeat the week that broke you.",
+  "days": [
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 1,
+    "title": "Workout #1",
+    "focus": "General preparation",
+    "summary": "Camp opener from a tension-free stance: builds the slip-punch timing, shuffle steps, and hip-shoulder rotation the general-preparation week reuses, then sets the volume standard with six three-minute bag rounds and dumbbell punch endurance.",
+    "coach_focus": "General preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: slip + punch",
+      "prescription": "4 rounds of 1 minute; rest clause truncated at '20' in source (read as 20 seconds of rest)",
+      "source_drill": "FRONTAL STANCE: SLIP + PUNCH. 4 ROUNDS OF 1 MINUTES. 20",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: shuffle step drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE: SHUFFLE STEP DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance: hip and shoulder rotation drill",
+      "prescription": "1 round of 3 minutes (line wraps in source; continuation line reads 'ROUND OF 3 MINUTES')",
+      "source_drill": "FIGHTING STNCE: HIP AND SHOULDER ROTATION FOCUSED DRILL: 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: step in & out drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: STEP IN&OUT DRILL. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: jump up and punch",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: JUMP UP AND PUNCH. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Movement drill with a bag",
+      "prescription": "performed within the 6 x 3-minute bag rounds",
+      "source_drill": "MOVEMENT DRILL WITH A BAG",
+      "mode": "punch"
+     },
+     {
+      "name": "Dumbbell punches + isometric hold",
+      "prescription": "1 round of 3 minutes (under the 'DRILLS WITH DUMBBELLS' header line in source)",
+      "source_drill": "PUNCHES + ISOMETRIC HOLD. 1 ROUNDS OF 3 MIN",
+      "mode": "punch"
+     },
+     {
+      "name": "Dumbbell punching up & down",
+      "prescription": "3 rounds of 1 minute; rest clause truncated at '20 SECONDS OF' in source (read as 20 seconds of rest)",
+      "source_drill": "PUNCHING UP&DOWN. 3 ROUNDS OF 1 MINUTE. 20 SECONDS OF",
+      "mode": "punch"
+     },
+     {
+      "name": "Dumbbell hammers",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "HAMMERS. 1 ROUND OF 2 MINUTES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Dumbbell freestyle exercises",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FREESTYLE EXERCISES. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle shadow boxing",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FREESTYLE SHADOW BOXING. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 2,
+    "title": "Workout #2",
+    "focus": "General preparation",
+    "summary": "Carries Day 1's stance cue into leg-swing and bounce rhythm work, and adds the first partner rounds (5 x 3 minutes) plus the postman's blow combo as new offensive material.",
+    "coach_focus": "General preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance: leg swing and punch",
+      "prescription": "1 round of 2 minutes, 1 minute each side (source continues '(1 MINUTE EACH SIDE)'); followed by continued rounds of 2 minutes with 30 seconds of rest (continuation line 'ROUNDS OF 2 MINUTES. 30 SECONDS OF REST IN BETWEEN', round count truncated)",
+      "source_drill": "FRONTAL STANCE: LEG SWING AND PUNCH. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit",
+      "prescription": "10 clap push-ups, 10 knees-to-chest jumps, 20 climbers; 2 rounds of 2 minutes with 30 seconds of rest in between (continuation line '2 ROUNDS OF 2 MINUTES. 30 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "10 CLAP PUSH-UPS; 10 KNEES TO CHEST JUMPS; 20 CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Postman's blow combo",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "POSTMAN\u2019S BLOW COMBO: 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Bounce up and throw jab-cross",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "BOUNCE UP AND THROW JAB-CROSS: 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Partner work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "PARTNER WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "2 rounds of 3 minutes",
+      "source_drill": "BAG WORK (2 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight set",
+      "prescription": "1 set of each listed exercise (list truncated in source)",
+      "source_drill": "1 SET OF: PUSH-UPS, SQUATS, HANGING LEG RAISES, SUPERMAN RAISES,",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 12 reps each exercise",
+      "source_drill": "3 SETS OF 12 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 8 reps each exercise",
+      "source_drill": "2 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 3,
+    "title": "Workout #3",
+    "focus": "General preparation",
+    "summary": "Keeps Day 2's punch-with-movement cue and chains defense into offense (slip-punch-move, jab into any-defence into two punches), while bag volume rises to ten two-minute rounds and the agility ladder appears for the first time.",
+    "coach_focus": "General preparation",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 10,
+    "blocks": [
+     {
+      "name": "Frontal stance: knee touch + punch",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE: KNEE TOUCH + PUNCH. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: slip - punch - slip - punch - move",
+      "prescription": "1 round of 2 minutes (line wraps in source; continuation line reads '2 MINUTES')",
+      "source_drill": "FRONTAL STANCE: SLIP - PUNCH - SLIP - PUNCH - MOVE. 1 ROUND OF",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: slip - slip - roll - roll",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE: SLIP - SLIP - ROLL - ROLL. 1 ROUND OF 2 MINUTES",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance: jab - any defence - any 2 punches",
+      "prescription": "1 round of 2 minutes (line wraps in source; continuation line reads 'OF 2 MINUTES')",
+      "source_drill": "FIGHTING STANCE: JAB - ANY DEFENCE - ANY 2 PUNCHES. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: slip - 3 punches with steps",
+      "prescription": "1 round of 2 minutes (duration truncated at '2'; source repeats '1 ROUND OF 2 MINUTES' on the next line)",
+      "source_drill": "FIGHTING STANCE: SLIP - 3 PUNCHES WITH STEPS. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "10 rounds of 2 minutes",
+      "source_drill": "BAG WORK (10 ROUNDS OF 2 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility ladder drills",
+      "prescription": "10 reps each drill; continuation lines list: run forward, icky shuffle, icky shuffle back, in&out jumps, lateral in&out jumps with core twists",
+      "source_drill": "AGILITY LADDER DRILLS (10 REPS EACH DRILL)",
+      "mode": "movement"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 4,
+    "title": "Workout #4",
+    "focus": "General preparation",
+    "summary": "Brings Day 3's slip-to-counter chaining onto single-foot balance, weight transfer, and pendulum footwork, and introduces virtual pad work (5 x 3 minutes) as the first scored pad block of the camp.",
+    "coach_focus": "General preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance: one foot moving",
+      "prescription": "4 rounds of 1 minute; rest clause truncated at '20' in source (read as 20 seconds of rest)",
+      "source_drill": "FRONTAL STANCE: 1 FOOT MOVING. 4 ROUNDS OF 1 MINUTE. 20",
+      "mode": "movement"
+     },
+     {
+      "name": "Frontal stance: transfer body weight",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FRONTAL STANCE: TRANSFER BODY WEIGHT. 1 ROUND OF 3 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Burpees + jumping jacks",
+      "prescription": "10 burpees; 20 jumping jacks",
+      "source_drill": "10 BURPEES; 20 JUMPING JACKS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Fighting stance: cross jumps",
+      "prescription": "1 round of 1 minute",
+      "source_drill": "FIGHTING STANCE: CROSS JUMPS. 1 ROUND OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: 3 punch combos with steps",
+      "prescription": "1 round of 3 minutes (duration truncated at '3' in source)",
+      "source_drill": "FIGHTING STANCE: 3 PUNCH COMBOS WITH STEPS. 1 ROUND OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step at one spot",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FIGHING STANCE: PENDULUM STEP AT ONE SPOT. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: slip - slip - roll - roll",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: SLIP - SLIP - ROLL - ROLL: 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRTUAL PAD WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "2 rounds of 3 minutes",
+      "source_drill": "BAG WORK (2 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle focus rounds",
+      "prescription": "2 rounds of freestyle work (round length unspecified; defaults 3 minutes / 60 seconds rest)",
+      "source_drill": "2 ROUNDS OF FREESTYLE WORK WITH FOCUS ON WHAT YOU",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric strength set",
+      "prescription": "2 sets of 10-12 reps: clap push-ups, jump-squats (list truncated in source)",
+      "source_drill": "2 SETS OF 10-12 REPS: CLAP PUSH-UPS, JUMP-SQUATS,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 5,
+    "title": "Workout #5",
+    "focus": "General preparation",
+    "summary": "Converts the week's drills into open work: Day 4's combos-with-steps become limited freestyle intervals (5 x 1 minute), and virtual sparring (5 x 3 minutes) tests the whole general-preparation base for the first time.",
+    "coach_focus": "General preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Frontal stance: freestyle work",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FRONTAL STANCE: FREESTYLE WORK. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: waist bends",
+      "prescription": "1 round of 90 seconds",
+      "source_drill": "FRONTAL STANCE: WAIST BENDS. 1 ROUND OF 90 SECONDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric jump circuit",
+      "prescription": "10 frog jumps with punches; 20 side to side jumps; 10 pogo jumps",
+      "source_drill": "10 FROG JUMPS WITH PUNCHES ; 20 SIDE TO SIDE JUMPS; 10 POGO JUMPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: limited freestyle work",
+      "prescription": "5 rounds of 1 minute with 20 seconds of rest in between (rest clause on continuation line 'WITH 20 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FIGHTING STANCE: LIMITED FREESTYLE WORK. 5 ROUND OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: defensive drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: DEFENSIVE DRILL: 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRUAL SPARRING (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility footwork drills",
+      "prescription": "5 rounds of 45 seconds with 15 seconds of rest (rest clause truncated in source)",
+      "source_drill": "AGILITY FOOTWORK DRILLS: 5 ROUNDS OF 45 SECONDS WITH 15 SECONDS OF",
+      "mode": "movement"
+     },
+     {
+      "name": "Med ball exercises",
+      "prescription": "15 reps each drill (drill list truncated at 'STRAIGHT PUNCHES,' in source)",
+      "source_drill": "MED BALL EXERCISES (15 REPS EACH DRILL): STRAIGHT PUNCHES,",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 6,
+    "title": "Endurance Workout #1",
+    "focus": "General preparation",
+    "summary": "Endurance workout with no published drill lines in the lesson \u2014 steady aerobic consolidation of the first training week, contributing no scored rounds and no gate-window data.",
+    "coach_focus": "General preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 1,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "General preparation",
+    "summary": "Full rest and an honest readiness check before week 2's shift to specialized preparation; no drills, no scored rounds, no gate contribution.",
+    "coach_focus": "General preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 1,
+    "title": "Workout #6",
+    "focus": "Specialized preparation",
+    "summary": "Opens specialized preparation off Day 7's readiness check: pivot-centric footwork is the new element, drilled in both stances, with attack-defence-attack intervals and six three-minute bag rounds restoring full volume.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: pivoting drill",
+      "prescription": "3 rounds of 2 minutes with 30 seconds of rest in between (rest clause on continuation line '30 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FRONTAL STANCE: PIVOTING DRILL. 3 ROUNDS OF 2 MINUTES WITH",
+      "mode": "movement"
+     },
+     {
+      "name": "Frontal stance: shuffle step drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FRONTAL STANCE: SHUFFLE STEP DRILL. 1 ROUND OF 3 MINUTES",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance: attack - defence - attack",
+      "prescription": "3 rounds of 1 minute with 20 seconds of rest in between (continuation line 'MINUTE WITH 20 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FIGHTING STNCE: ATTACK - DEFENCE - ATTACK. 3 ROUNDS OF 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step in a circle",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP IN A CIRCLE. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pivoting drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: PIVOTING DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "3-second sprints with freestyle work",
+      "prescription": "3-second sprints performed within the bag rounds",
+      "source_drill": "3 SECONDS SPRINTS WITH FREESTYLE WORK",
+      "mode": "punch"
+     },
+     {
+      "name": "Weighted stick drills",
+      "prescription": "each drill for 1 minute",
+      "source_drill": "DRIILS WITH A WEIGHTED STICK (EACH DRILL FOR1 MINUTE)",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 2,
+    "title": "Workout #7",
+    "focus": "Specialized preparation",
+    "summary": "Builds on Day 8's pivots by punching off them (attack-pivot-attack, step and hit), and stretches partner work to six four-minute rounds of light sparring \u2014 the longest rounds of the camp so far.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: squat and attack",
+      "prescription": "4 rounds of 1 minute with 20 seconds of rest in between (rest clause on continuation line '20 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FRONTAL STANCE: SQUAT AND ATTACK. 4 ROUNDS OF 1 MINUTE WITH",
+      "mode": "movement"
+     },
+     {
+      "name": "Frontal stance: bounce and punch",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE: BOUNCE AND PUNCH. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Calisthenics circuit",
+      "prescription": "10 clap push-ups; 10 knees to chest jumps; 20 climbers",
+      "source_drill": "10 CLAP PUSH-UPS; 10 KNEES TO CHEST JUMPS; 20 CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Fighting stance: attack - pivot - attack",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: ATTCK - PIVOT - ATTACK. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: step and hit",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: STEP AND HIT. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: attack - defence",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: ATTACK - DEFENCE. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP DRILL: 1 ROUND OF 2 MONITES",
+      "mode": "punch"
+     },
+     {
+      "name": "Partner work: light and freestyle sparring",
+      "prescription": "6 rounds of 4 minutes (rest defaults to 60 seconds; line omits it): light sparring with single punches, then freestyle light sparring (continuation lines 'LIGHT SPARRING WITH SINGLE PUNCHES' and 'FREESTYLE LIGHT SPARRING')",
+      "source_drill": "PARTNER WORK (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "1 round of 4 minutes",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight set",
+      "prescription": "1 set of each listed exercise (list truncated in source)",
+      "source_drill": "1 SET OF: PUSH-UPS, SQUATS, HANGING LEG RAISES, SUPERMAN RAISES,",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 10 reps each exercise",
+      "source_drill": "3 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 12 reps each exercise",
+      "source_drill": "2 SETS OF 12 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 3,
+    "title": "Workout #8",
+    "focus": "Specialized preparation",
+    "summary": "Turns Day 9's attack-defence pairs into counters off the slip and the pendulum step, backs them with ten two-minute bag rounds, and adds isometric punch holds and a core circuit as new structural work.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 10,
+    "blocks": [
+     {
+      "name": "Opening stance rounds",
+      "prescription": "rounds of 2 minutes with 30 seconds of rest in between (drill name and round count truncated in source; round count defaults to 3)",
+      "source_drill": "ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST IN BETWEEN",
+      "mode": "movement"
+     },
+     {
+      "name": "Frontal stance: frog jumping",
+      "prescription": "1 round of 45 seconds",
+      "source_drill": "FRONTAL STANCE: FROG JUMPING. 1 ROUND OF 45 SECONDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Frontal stance: defensive drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FRONTAL STANCE: DEFENSIVE DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "defense"
+     },
+     {
+      "name": "Fighting stance: pendulum step counter attack",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP COUNTER ATTACK. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: slip and counter",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: SLIP AND COUNTER. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: defensive drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: DEFENSIVE DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "10 rounds of 2 minutes",
+      "source_drill": "BAG WORK (10 ROUNDS OF 2 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Jab hold",
+      "prescription": "4 rounds of 5 seconds",
+      "source_drill": "JAB HOLD. 4 ROUNDS OF 5 SECONDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Cross hold",
+      "prescription": "4 rounds of 5 seconds",
+      "source_drill": "CROSS HOLD. 4 ROUNDS OF 5 SECONDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Hook hold",
+      "prescription": "4 rounds of 5 seconds, each hand",
+      "source_drill": "HOOK HOLD. 4 ROUNDS OF 5 SECONDS (EACH HAND)",
+      "mode": "punch"
+     },
+     {
+      "name": "Uppercut to the body hold",
+      "prescription": "4 rounds of 5 seconds, each hand",
+      "source_drill": "UPPERCUT TO THE BODY HOLD. 4 ROUNDS OF 5 SECONDS (EACH HAND)",
+      "mode": "punch"
+     },
+     {
+      "name": "Med ball side wall press",
+      "prescription": "1 round of 1 minute, each side",
+      "source_drill": "MED BALL SIDE WALL PRESS. 1 ROUND OF 1 MINUTE (EACH SIDE)",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Front plank",
+      "prescription": "1 round of 1-2 minutes",
+      "source_drill": "FRONT PLANK. 1 ROUND OF 1-2 MINUTES",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Long hip bridge",
+      "prescription": "1 round of 1 minute",
+      "source_drill": "LONG HIP BRIDGE. 1 ROUND OF 1 MINUTE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Wall sit",
+      "prescription": "1 round of 1 minute",
+      "source_drill": "WALL SIT. 1 ROUND OF 1 MINUTE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 4,
+    "title": "Workout #9",
+    "focus": "Specialized preparation",
+    "summary": "Carries Day 10's counter timing into provocation-counter work and scored virtual pad rounds (5 x 3 minutes), closing with a freestyle round aimed at whatever still needs fixing.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance: movement drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: MOVEMENT DRILL. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step drill",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: provocation - counter",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: PROVOCATION - COUNTER. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees + jumping jacks",
+      "prescription": "10 burpees; 20 jumping jacks",
+      "source_drill": "10 BURPEES; 20 JUMPING JACKS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRTUAL PAD WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "1 round of 4 minutes",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle focus round",
+      "prescription": "1 round of freestyle work (round length unspecified; defaults 3 minutes)",
+      "source_drill": "1 ROUND OF FREESTYLE WORK WITH FOCUS ON WHAT YOU",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight intervals",
+      "prescription": "2 sets of 30 seconds with no rest in between: push-ups, squats, balanced tucks (exercise list wraps to continuation line 'UPS, SQUATS, BALANCED TUCKS')",
+      "source_drill": "2 SETS OF 30 SECONDS WITH NO REST IN BETWEEN: PUSH-",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric strength set",
+      "prescription": "2 sets of 10-12 reps: clap push-up, squat jumps (list truncated in source)",
+      "source_drill": "2 SET OF 10-12 REPS: CLAP PUSH-UP, SQUAT JUMPS,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 5,
+    "title": "Workout #10",
+    "focus": "Specialized preparation",
+    "summary": "Week peak: Day 11's provocation-counter game goes live in virtual sparring extended to six four-minute rounds, and limited freestyle stretches to a single unbroken five-minute round.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Opening round",
+      "prescription": "1 round of 3 minutes (drill name truncated in source)",
+      "source_drill": "1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: limited freestyle work",
+      "prescription": "1 round of 5 minutes",
+      "source_drill": "FIGHTING STANCE: LIMITED FREESTYLE WORK. 1 ROUND OF 5 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: defensive drill",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: DEFENSIVE DRILL. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric jump circuit",
+      "prescription": "10 frog jumps with punches; 20 side to side jumps; 10 pogo jumps",
+      "source_drill": "10 FROG JUMPS WITH PUNCHES ; 20 SIDE TO SIDE JUMPS; 10 POGO JUMPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring",
+      "prescription": "6 rounds of 4 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRTUAL SPARRING (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility footwork drills",
+      "prescription": "5 rounds of 45 seconds with 15 seconds of rest (rest clause truncated in source)",
+      "source_drill": "AGILITY FOOTWORK DRILLS: 5 ROUNDS OF 45 SECONDS WITH 15 SECONDS OF",
+      "mode": "movement"
+     },
+     {
+      "name": "Med ball exercises",
+      "prescription": "15 reps each drill (drill list truncated at 'STRAIGHT PUNCHES,' in source)",
+      "source_drill": "MED BALL EXERCISES (15 REPS EACH DRILL): STRAIGHT PUNCHES,",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 6,
+    "title": "Endurance Workout #2 Warm Up:",
+    "focus": "Specialized preparation",
+    "summary": "Endurance circuits (3 circuits of 10 exercises, 1 minute on / 30 seconds off, 2 minutes between circuits) flush the week's ring work; nothing here is telemetry-scored.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 60,
+    "restSec": 30,
+    "rounds": 3,
+    "blocks": [
+     {
+      "name": "Endurance circuit",
+      "prescription": "3 circuits of 10 exercises each; work 1 minute, rest 30 seconds; 2 minutes of rest between circuits (rest clause wraps to continuation line '30 SECONDS. TAKE 2 MINUTES OF REST BETWEEN CIRCUITS')",
+      "source_drill": "3 CIRCUITS, 10 EXERCISES EACH. WORK FOR 1 MINUTE, REST FOR",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 2,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Specialized preparation",
+    "summary": "Full rest and an honest readiness check before week 3 raises pendulum-step punch output; no drills, no scored rounds, no gate contribution.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 1,
+    "title": "Workout #11",
+    "focus": "Specialized preparation",
+    "summary": "Resumes after the Day 14 reset by upgrading week 2's pendulum step into punch output \u2014 slips into three-punch combos, attacks with steps, and pendulum-step combos \u2014 over the standard six three-minute bag rounds.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: slip - slip - any 3 punch combo",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FRONTAL STANCE: SLIP - SLIP - ANY 3 PUNCH COMBO. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: 3 punch combos with steps",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FRONTAL STANCE: 3 PUNCH COMBOS WITH STEPS. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: assisted pendulum step",
+      "prescription": "1 round of 2 minutes (duration truncated at '2' in source)",
+      "source_drill": "FIGHTING STNCE: ASSISTED PENDULUM STEP. 1 ROUNDS OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: attack with steps",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: ATTACK WITH STEPS. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step combos",
+      "prescription": "1 round of 2 minutes (duration truncated at '2'; source repeats 'ROUND OF 2 MINUTES' on the next line)",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP COMBOS. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "6 rounds of 3 minutes",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 2,
+    "title": "Workout #12",
+    "focus": "Specialized preparation",
+    "summary": "Adds load under Day 15's combos (half-squat punching in 4 x 1-minute intervals) and pushes 4-8 punch bursts off the pendulum step, with partner freestyle sparring again at six four-minute rounds.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: half squat and punch",
+      "prescription": "4 rounds of 1 minute with 20 seconds of rest in between (rest clause on continuation line 'WITH 20 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FRONTAL STANCE: HALF SQUAT AND PUNCH. 4 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Frontal stance: torso bends",
+      "prescription": "1 round of 90 seconds",
+      "source_drill": "FRONTAL STANCE: TORSO BENDS. 1 ROUNDS OF 90 SECONDS",
+      "mode": "movement"
+     },
+     {
+      "name": "Calisthenics circuit",
+      "prescription": "10 clap push-ups; 10 knees to chest jumps; 20 climbers",
+      "source_drill": "10 CLAP PUSH-UPS; 10 KNEES TO CHEST JUMPS; 20 CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Fighting stance: rope/wall taps",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: ROPE/WALL TAPS. 1 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: 4-8 punches off the pendulum step",
+      "prescription": "1 round of 3 minutes (line wraps in source; continuation line reads 'OF 3 MINUTES')",
+      "source_drill": "FIGHTING STANCE: 4-8 PUNCHES OFF THE PENDULUM STEP. 1 ROUNDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: slip-slip-roll-roll",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: SLIP-SLIP-ROLL-ROLL. 1 ROUNDS OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Partner work: freestyle light sparring",
+      "prescription": "6 rounds of 4 minutes (rest defaults to 60 seconds; line omits it): freestyle light sparring (continuation line 'FREESTYLE LIGHT SPARRING')",
+      "source_drill": "PARTNER WORK (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "1 round of 4 minutes",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight set",
+      "prescription": "1 set of each listed exercise (list truncated in source)",
+      "source_drill": "1 SET OF: PUSH-UPS, SQUATS, HANGING LEG RAISES, SUPERMAN RAISES,",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block A",
+      "prescription": "3 sets of 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength block B",
+      "prescription": "2 sets of 10 reps each exercise",
+      "source_drill": "2 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 3,
+    "title": "Workout #13",
+    "focus": "Specialized preparation",
+    "summary": "Carries Day 16's pendulum bursts into hits in three directions and single-leg bouncing balance, plus ten two-minute bag rounds and new tennis-ball hand-eye work (hold-and-catch, forearm rolls, dribbling, juggling).",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 10,
+    "blocks": [
+     {
+      "name": "Opening stance rounds",
+      "prescription": "rounds of 2 minutes with 20 seconds of rest in between (drill name and round count truncated in source; companion fragment line 'ROUNDS OF 2 MINUTES'; round count defaults to 3)",
+      "source_drill": "WITH 20 SECONDS OF REST IN BETWEEN",
+      "mode": "movement"
+     },
+     {
+      "name": "Fighting stance: single leg bouncing",
+      "prescription": "3 rounds of 45 seconds with 15 seconds of rest in between (rest clause on continuation line 'WITH 15 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FIGHTING STANCE: SINGLE LEG BOUNCING. 3 ROUNDS OF 45 SECONDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: pendulum step hits in 3 directions",
+      "prescription": "1 round of 2 minutes (line wraps in source; continuation line reads 'OF 2 MINUTES')",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP HITS IN 3 DIRECTIONS. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "10 rounds of 2 minutes",
+      "source_drill": "BAG WORK (10 ROUNDS OF 2 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Tennis ball: hold and catch",
+      "prescription": "straights, hooks, uppercuts; 3 rounds of 1 minute (under the 'TENNIS BALL DRILLS' header line in source)",
+      "source_drill": "HOLD AND CATCH (STRAIGHTS, HOOKS, UPPERCUTS). 3 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Tennis ball: roll off the forearm",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "ROLL OFF THE FOREARM 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Tennis ball: dribbling",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "DRIBBLING A BALL. 1 ROUND OF 3 MINITES",
+      "mode": "punch"
+     },
+     {
+      "name": "Juggling practice",
+      "prescription": "5-10 minutes",
+      "source_drill": "PRACTICE JUGGLING. 5-10 MINUTES",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 4,
+    "title": "Workout #14",
+    "focus": "Specialized preparation",
+    "summary": "Sequences Day 17's directional hitting into full attack phases, simultaneous counters, and outfighting rounds, then scores virtual pad work (5 x 3 minutes) before the strength finishers.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Fighting stance: move and attack",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: MOVE AND ATTACK. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: attack in phases",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: ATTACK IN PHASES. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: simultaneous counters",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FIGHTING STANCE: SIMULTANIOUS COUNTERS. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: outfighting work",
+      "prescription": "1 round of 2 minutes",
+      "source_drill": "FIGHTING STANCE: OUTFIGHTING WORK. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Combo round",
+      "prescription": "1 round of 2 minutes (combo name truncated in source)",
+      "source_drill": "COMBO. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees + jumping jacks",
+      "prescription": "10 burpees; 20 jumping jacks",
+      "source_drill": "10 BURPEES; 20 JUMPING JACKS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds of 3 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRTUAL PAD WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bag work",
+      "prescription": "1 round of 4 minutes",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle focus round",
+      "prescription": "1 round of freestyle work (round length unspecified; defaults 3 minutes)",
+      "source_drill": "1 ROUND OF FREESTYLE WORK WITH FOCUS ON WHAT YOU",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight intervals",
+      "prescription": "2 sets of 30 seconds with no rest in between: push-ups, squats, balanced tucks (exercise list wraps to continuation line 'UPS, SQUATS, BALANCED TUCKS')",
+      "source_drill": "2 SETS OF 30 SECONDS WITH NO REST IN BETWEEN: PUSH-",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric strength set",
+      "prescription": "2 sets of 10-12 reps: clap push-up, squat jumps (list truncated in source)",
+      "source_drill": "2 SET OF 10-12 REPS: CLAP PUSH-UP, SQUAT JUMPS,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 5,
+    "title": "Workout #15",
+    "focus": "Specialized preparation",
+    "summary": "Week 3 peak: Day 18's phased attacks feed limited freestyle expanded to 9 x 1-minute intervals and virtual sparring at six four-minute rounds \u2014 the largest scored volume of the block.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Frontal stance: freestyle work",
+      "prescription": "1 round of 3 minutes",
+      "source_drill": "FRONTAL STANCE: FREESTYLE WORK. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Fighting stance: limited freestyle work",
+      "prescription": "9 rounds of 1 minute with 20 seconds of rest in between (rest clause on continuation line 'WITH 20 SECONDS OF REST IN BETWEEN')",
+      "source_drill": "FIGHTING STANCE: LIMITED FREESYLE WORK. 9 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric jump circuit",
+      "prescription": "10 frog jumps with punches; 20 side to side jumps; 10 pogo jumps",
+      "source_drill": "10 FROG JUMPS WITH PUNCHES ; 20 SIDE TO SIDE JUMPS; 10 POGO JUMPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring",
+      "prescription": "6 rounds of 4 minutes (rest defaults to 60 seconds; line omits it)",
+      "source_drill": "VIRTUAL SPARRING (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility footwork drills",
+      "prescription": "6 rounds of 45 seconds with 15 seconds of rest (rest clause truncated in source)",
+      "source_drill": "AGILITY FOOTWORK DRILLS: 6 ROUNDS OF 45 SECONDS WITH 15 SECONDS OF",
+      "mode": "movement"
+     },
+     {
+      "name": "Med ball exercises",
+      "prescription": "15 reps each drill (drill list truncated at 'STRAIGHT PUNCHES,' in source)",
+      "source_drill": "MED BALL EXERCISES (15 REPS EACH DRILL): STRAIGHT PUNCHES,",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 6,
+    "title": "Endurance Workout #3",
+    "focus": "Specialized preparation",
+    "summary": "Endurance workout with no published drill lines in the lesson \u2014 aerobic consolidation of the heaviest week so far, contributing no scored rounds and no gate-window data.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 3,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Specialized preparation",
+    "summary": "Full rest and an honest readiness check before week 4 continues specialized preparation; no drills, no scored rounds, no gate contribution.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 1,
+    "title": "Workout #16",
+    "focus": "Specialized preparation",
+    "summary": "Picks up one cue from Day 21's reset and opens specialized preparation with new power emphasis \u2014 straight-plus-power-punch intervals and non-stop emphasis punching \u2014 before the familiar six 3-minute bag rounds.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Straight punch + power punch (fighting stance)",
+      "prescription": "4 rounds x 1 min, 20 s rest (rest completed from the continuation line)",
+      "source_drill": "FIGHTING STNCE: STRAIGHT PUNCH + POWER PUNCH. 4 ROUNDS OF 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Non-stop punches with emphasis",
+      "prescription": "1 round x 2 min, then 2 rounds x 1 min with 30 s rest (scheme completed from the continuation lines)",
+      "source_drill": "FIGHTING STANCE: NON-STOP PUNCHES WITH EMPHASIS. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "3-punch combos with emphasis",
+      "prescription": "1 round x 3 min (duration completed from truncated line; rest default 60 s)",
+      "source_drill": "FIGHTING STANCE: 3-PUNCH COMBOS WITH EMPHAS. 1 ROUND OF 3",
+      "mode": "punch"
+     },
+     {
+      "name": "Defensive drill (fighting stance)",
+      "prescription": "1 round x 2 min",
+      "source_drill": "FIGHTING STANCE: DEFENSIVE DRILL. 1 ROUND OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Heavy bag work",
+      "prescription": "6 rounds x 3 min, 60 s rest (default)",
+      "source_drill": "BAG WORK. 6 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 2,
+    "title": "Workout #17",
+    "focus": "Specialized preparation",
+    "summary": "Carries Day 22's punch-emphasis work into movement \u2014 backward counters and the pendulum step combo are new \u2014 and adds the week's first live partner sparring at six 4-minute rounds, longer than any solo round so far.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Movement at one spot (fighting stance)",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE: MOVEMENTAT ONE SPOT. 1 ROUNDS OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Move backward and counter",
+      "prescription": "1 round x 2 min (duration completed from truncated line; rest default 60 s)",
+      "source_drill": "FIGHTING STANCE: MOVE BACKWARD AND COUNTER. 1 ROUNDS OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Pendulum step combo",
+      "prescription": "1 round x 2 min",
+      "source_drill": "FIGHTING STANCE: PENDULUM STEP COMBO. 1 ROUNDS OF 2 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric conditioning set",
+      "prescription": "10 clap push-ups; 10 knees-to-chest jumps; 20 climbers",
+      "source_drill": "10 CLAP PUSH-UPS; 10 KNEES TO CHEST JUMPS; 20 CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Partner sparring",
+      "prescription": "6 rounds x 4 min, 60 s rest (default); sparring per the following canonical line",
+      "source_drill": "PARTNER WORK (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Heavy bag work",
+      "prescription": "1 round x 4 min",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight circuit",
+      "prescription": "1 set: push-ups, squats, hanging leg raises, superman raises",
+      "source_drill": "1 SET OF: PUSH-UPS, SQUATS, HANGING LEG RAISES, SUPERMAN RAISES,",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength lift A",
+      "prescription": "3 sets x 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength lift B",
+      "prescription": "2 sets x 8 reps each exercise",
+      "source_drill": "2 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 3,
+    "title": "Workout #18",
+    "focus": "Specialized preparation",
+    "summary": "Keeps Day 23's backward-counter theme but turns it into angles \u2014 defence-create-an-angle-attack, avoiding ropes, and foot positioning are new \u2014 while bag work rises to ten 2-minute rounds.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 120,
+    "restSec": 60,
+    "rounds": 10,
+    "blocks": [
+     {
+      "name": "Create angles",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE: CREATE ANGLES. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Avoiding ropes",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE: AVOIDING ROPES. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Defence, create an angle, attack",
+      "prescription": "1 round x 3 min (duration completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: DEFENCE - CREATE AN ANGLE - ATTACK. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "Foot positioning drill",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE: FOOT POSITIONING DRIL. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Defend the postman's blow",
+      "prescription": "1 round x 2 min (duration completed from truncated line)",
+      "source_drill": "FIGHTING STANCE: DEFEND -THE POSTMAN\u2019S BLOW. 1 ROUND OF 2",
+      "mode": "punch"
+     },
+     {
+      "name": "Heavy bag work",
+      "prescription": "10 rounds x 2 min, 60 s rest (default)",
+      "source_drill": "BAG WORK (10 ROUNDS OF 2 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Chair get-up power punch",
+      "prescription": "20 reps for each side",
+      "source_drill": "GET UP FROM A CHAIR AND THROW A POWER PUNCH. 20 REPS FOR EACH",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric leg set",
+      "prescription": "12 reps each exercise: box jumps, depth drop, step-up jump",
+      "source_drill": "12 REPS FOR EACH EXERCISE: BOX JUMPS, DEPTH DROP, STEP-UP JUMP,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 4,
+    "title": "Workout #19",
+    "focus": "Specialized preparation",
+    "summary": "Builds on Day 24's angle creation by adding the deception layer \u2014 feint intervals and pendulum-step rounds are new \u2014 then applies it in five 3-minute virtual pad rounds and a freestyle focus round.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Using feints",
+      "prescription": "4 rounds x 1 min, 20 s rest (rest completed from truncated line)",
+      "source_drill": "FIGHTING STANCE: USING FEINTS. 4 ROUNDS OF 1 MINUTE WITH 20",
+      "mode": "punch"
+     },
+     {
+      "name": "Pendulum step drills",
+      "prescription": "5 rounds x 1 min, 20 s rest (rest completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: 5 PENDULUM STEP DRILLS. 5 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Head movement drill",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE: HEAD MOVEMENT DRILL. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees and jumping jacks",
+      "prescription": "10 burpees; 20 jumping jacks",
+      "source_drill": "10 BURPEES; 20 JUMPING JACKS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds x 3 min, 60 s rest (default)",
+      "source_drill": "VIRTUAL PAD WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Heavy bag work",
+      "prescription": "1 round x 4 min",
+      "source_drill": "BAG WORK (1 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle focus round",
+      "prescription": "1 round (no duration on line; default 3 min, 60 s rest)",
+      "source_drill": "1 ROUND OF FREESTYLE WORK WITH FOCUS ON WHAT YOU",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight intervals",
+      "prescription": "2 sets x 30 s with no rest: push-ups, squats, balanced tucks (exercise list completed from the continuation line)",
+      "source_drill": "2 SETS OF 30 SECONDS WITH NO REST IN BETWEEN: PUSH-",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric strength set",
+      "prescription": "2 sets x 10-12 reps: clap push-up, squat jumps",
+      "source_drill": "2 SET OF 10-12 REPS: CLAP PUSH-UP, SQUAT JUMPS,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 5,
+    "title": "Workout #20",
+    "focus": "Specialized preparation",
+    "summary": "Takes Day 25's feint-and-pad work into open decision-making \u2014 limited freestyle in nine 1-minute rounds is new, head movement tightens to 45-second bursts, and virtual sparring stretches to six 4-minute rounds, the longest scored session of the week.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 240,
+    "restSec": 60,
+    "rounds": 6,
+    "blocks": [
+     {
+      "name": "Limited freestyle work",
+      "prescription": "9 rounds x 1 min, 20 s rest (rest completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: LIMITED FREESYLE WORK. 9 ROUNDS OF 1 MINUTE",
+      "mode": "punch"
+     },
+     {
+      "name": "Head movement drill",
+      "prescription": "4 rounds x 45 s, 15 s rest (rest completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: HEAD MOVEMENT DRILL. 4 ROUNDS OF 45 SECONDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric jump set",
+      "prescription": "10 frog jumps with punches; 20 side-to-side jumps; 10 pogo jumps",
+      "source_drill": "10 FROG JUMPS WITH PUNCHES ; 20 SIDE TO SIDE JUMPS; 10 POGO JUMPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring",
+      "prescription": "6 rounds x 4 min, 60 s rest (default)",
+      "source_drill": "VIRTUAL SPARRING (6 ROUNDS OF 4 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility footwork drills",
+      "prescription": "4 rounds x 45 s, 15 s rest (rest completed from truncated line)",
+      "source_drill": "AGILITY FOOTWORK DRILLS: 4 ROUNDS OF 45 SECONDS WITH 15 SECONDS OF",
+      "mode": "movement"
+     },
+     {
+      "name": "Med ball exercises",
+      "prescription": "15 reps each drill, starting with straight punches",
+      "source_drill": "MED BALL EXERCISES (15 REPS EACH DRILL): STRAIGHT PUNCHES,",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 6,
+    "title": "Endurance Workout #4 Warm Up:",
+    "focus": "Specialized preparation",
+    "summary": "Steps back from boxing volume after Day 26's long virtual-sparring session for a pure endurance circuit day \u2014 three 10-exercise circuits with no scored rounds and no contribution to gate windows.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 60,
+    "restSec": 30,
+    "rounds": 30,
+    "blocks": [
+     {
+      "name": "Endurance circuit",
+      "prescription": "3 circuits x 10 exercises; 1 min work / 30 s rest; 2 min rest between circuits (scheme completed from the continuation line)",
+      "source_drill": "3 CIRCUITS, 10 EXERCISES EACH. WORK FOR 1 MINUTE, REST FOR",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 4,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Specialized preparation",
+    "summary": "Closes Week 4 with full recovery and an honest readiness check before the peak-performance week \u2014 the lesson prescribes no drills, so there are no scored rounds and nothing contributes to gate windows.",
+    "coach_focus": "Specialized preparation",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 1,
+    "title": "Workout #21",
+    "focus": "Peak performance",
+    "summary": "Returns from Day 28's rest into peak-performance work with constrained shadowboxing \u2014 one round each of lead-hand-only, rear-hand-only, then combo freestyle \u2014 mirrored by three freestyle bag rounds imitating a real fight.",
+    "coach_focus": "Peak performance",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 3,
+    "blocks": [
+     {
+      "name": "Shadowboxing, lead hand only",
+      "prescription": "1 round x 3 min (round 1 of the 3 x 3 min block with 1 min rest, per the header line)",
+      "source_drill": "USE ONLY THE LEAD HAND. 1ROUND OF 3MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Shadowboxing, rear hand only",
+      "prescription": "1 round x 3 min (round 2 of the 3 x 3 min block, 1 min rest)",
+      "source_drill": "USE ONLY THE REAR HAND. 1ROUND OF 3MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle combo shadowboxing",
+      "prescription": "1 round x 3 min (round 3 of the 3 x 3 min block, 1 min rest)",
+      "source_drill": "FREESTYLE WORK WITH FOCUS ON COMBOS. 1ROUND OF 3MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Burpees and jumping jacks",
+      "prescription": "5 burpees; 20 jumping jacks",
+      "source_drill": "5 BURPEES; 20 JUMPING JACKS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Freestyle bag work, fight simulation",
+      "prescription": "3 rounds x 3 min, 60 s rest (scheme from the adjacent BAG WORK header lines)",
+      "source_drill": "FREESTYLE BAG WORK BOXING IMITATING A REAL FIGHT:",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight volume set",
+      "prescription": "1 set of 50% of max reps: push-ups, squats, balanced tucks, pull-ups",
+      "source_drill": "1 SET OF 50% OF MAX REPS: PUSH-UPS, SQUATS, BALANCED TUCKS , PULL-UPS",
+      "mode": "movement"
+     },
+     {
+      "name": "Plyometric set",
+      "prescription": "1 set x 6-8 reps: clap push-up, squat jumps, hanging leg raises",
+      "source_drill": "1 SET OF 6-8 REPS: CLAP PUSH-UP, SQUAT JUMPS, HANGING LEG RAISES",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 2,
+    "title": "Workout #22",
+    "focus": "Peak performance",
+    "summary": "Carries Day 29's freestyle constraint work under load \u2014 two rounds of band-resisted freestyle shadowboxing are new \u2014 and converts it into three rounds of light touch sparring focused on speed and precision.",
+    "coach_focus": "Peak performance",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 3,
+    "blocks": [
+     {
+      "name": "Resisted freestyle shadowboxing, set 1",
+      "prescription": "1 round x 3 min (duration completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: RESISTED FREESTYLE SHADOW BOXING. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "Resisted freestyle shadowboxing, set 2",
+      "prescription": "1 round x 3 min (duration completed from the continuation line; this header line appears twice in the lesson)",
+      "source_drill": "FIGHTING STANCE: RESISTED FREESTYLE SHADOW BOXING. 1 ROUND",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric conditioning set",
+      "prescription": "10 clap push-ups; 10 knees-to-chest jumps; 20 climbers",
+      "source_drill": "10 CLAP PUSH-UPS; 10 KNEES TO CHEST JUMPS; 20 CLIMBERS",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Light touch sparring",
+      "prescription": "3 rounds x 3 min, 60 s rest (default); touch sparring focused on speed and precision per the following canonical line",
+      "source_drill": "LIGHT SPARRING (3 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Strength lift A",
+      "prescription": "3 sets x 8 reps each exercise",
+      "source_drill": "3 SETS OF 8 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     },
+     {
+      "name": "Strength lift B",
+      "prescription": "2 sets x 10 reps each exercise",
+      "source_drill": "2 SETS OF 10 REPS EACH EXERCISE",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 3,
+    "title": "Workout #23",
+    "focus": "Peak performance",
+    "summary": "Trades Day 30's live-partner pressure for pure speed \u2014 slip-rope counters and 3-second sprint bursts are new, and bag work splits into nine 1-minute rounds cycling three combos.",
+    "coach_focus": "Peak performance",
+    "roundSec": 60,
+    "restSec": 60,
+    "rounds": 9,
+    "blocks": [
+     {
+      "name": "Slip rope counters",
+      "prescription": "1 round x 3 min",
+      "source_drill": "FIGHTING STANCE:SLIP ROPE COOUNTERS. 1 ROUND OF 3 MINUTES",
+      "mode": "punch"
+     },
+     {
+      "name": "Freestyle work with 3-second sprints",
+      "prescription": "1 round x 3 min (duration completed from the continuation line)",
+      "source_drill": "FIGHTING STANCE: FREESTYLE WORK WITH 3 SECONDS SPRINTS. 1",
+      "mode": "punch"
+     },
+     {
+      "name": "Heavy bag speed rounds",
+      "prescription": "9 rounds x 1 min, 60 s rest (default); each combo practiced for 3 of the 9 rounds per the continuation line, focus on speed",
+      "source_drill": "BAG WORK (9 ROUNDS OF 1 MINUTE). FOCUS ON SPEED",
+      "mode": "punch"
+     },
+     {
+      "name": "Light freestyle shadowboxing",
+      "prescription": "3 rounds x 1 min, 60 s rest (default)",
+      "source_drill": "LIGHT FREESTYLE SHADOW BOXING (3 ROUNDS OF 1 MINUTE):",
+      "mode": "punch"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 4,
+    "title": "Workout #24",
+    "focus": "Peak performance",
+    "summary": "Keeps Day 31's speed emphasis but tapers volume \u2014 three 3-minute opening rounds plus five rounds of virtual pad work, sharpening precision rather than extending time under load.",
+    "coach_focus": "Peak performance",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 5,
+    "blocks": [
+     {
+      "name": "Freestyle shadowboxing rounds",
+      "prescription": "3 rounds x 3 min, 60 s rest (activity name truncated on line; scheme explicit)",
+      "source_drill": "3 ROUNDS OF 3 MINUTES WITH 1 MINUTE OF REST IN BETWEEN OF",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual pad work",
+      "prescription": "5 rounds x 3 min, 60 s rest (default)",
+      "source_drill": "VIRTUAL PAD WORK (5 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Bodyweight volume set",
+      "prescription": "2 sets of 50% of max reps: push-ups, squats",
+      "source_drill": "2 SET OF 50% OF MAX REPS: PUSH-UPS, SQUATS,",
+      "mode": "conditioning"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 5,
+    "title": "Workout #25",
+    "focus": "Peak performance",
+    "summary": "Carries Day 32's pad-work sharpness into fight simulation \u2014 three rounds fighting an imagined specific opponent are new \u2014 while virtual sparring trims to three rounds from Week 4's six as the taper continues.",
+    "coach_focus": "Peak performance",
+    "roundSec": 180,
+    "restSec": 60,
+    "rounds": 3,
+    "blocks": [
+     {
+      "name": "Imagined-opponent fight rounds",
+      "prescription": "3 rounds x 3 min, 1 min rest (rest completed from the continuation line)",
+      "source_drill": "IMAGINE A SPECIFIC PERSON IN FRONT OF YOU AND FIGHT THEM. 3 ROUNDS",
+      "mode": "punch"
+     },
+     {
+      "name": "Plyometric jump set",
+      "prescription": "10 frog jumps with punches; 20 side-to-side jumps; 10 pogo jumps",
+      "source_drill": "10 FROG JUMPS WITH PUNCHES ; 20 SIDE TO SIDE JUMPS; 10 POGO JUMPS",
+      "mode": "punch"
+     },
+     {
+      "name": "Virtual sparring",
+      "prescription": "3 rounds x 3 min, 60 s rest (default)",
+      "source_drill": "VIRTUAL SPARRING (3 ROUNDS OF 3 MINUTES)",
+      "mode": "punch"
+     },
+     {
+      "name": "Agility footwork drills",
+      "prescription": "5 rounds x 45 s, 15 s rest (rest completed from truncated line)",
+      "source_drill": "AGILITY FOOTWORK DRILLS: 5 ROUNDS OF 45 SECONDS WITH 15 SECONDS OF",
+      "mode": "movement"
+     }
+    ]
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 6,
+    "title": "Active Recovery Workout #5",
+    "focus": "Peak performance",
+    "summary": "Active recovery after Day 33's fight simulation \u2014 the lesson prescribes no drills, so there are no scored rounds and nothing feeds the Phase 1 week-5 gate windows.",
+    "coach_focus": "Peak performance",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   },
+   {
+    "program": "competitive",
+    "week": 5,
+    "day": 7,
+    "title": "Rest and reset",
+    "focus": "Peak performance",
+    "summary": "Ends Phase 1 of the competitive program with full rest and an honest readiness check \u2014 no drills and no scored rounds, so the five phase gates evaluate only on the week-5 data already banked.",
+    "coach_focus": "Peak performance",
+    "roundSec": 0,
+    "restSec": 0,
+    "rounds": 0,
+    "blocks": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "blocks_total": 450,
+ "blocks_classified": 450,
+ "coverage": 1.0,
+ "mode_counts": {
+  "movement": 56,
+  "punch": 248,
+  "conditioning": 131,
+  "defense": 15
+ },
+ "phantom_risk_blocks_now_paused": 131,
+ "coach_focus_invalid_days": 0,
+ "incoherent_days": [],
+ "coherence_score": 1.0,
+ "program_sft_pairs": 145
+}

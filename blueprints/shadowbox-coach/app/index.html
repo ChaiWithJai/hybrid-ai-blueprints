@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shadowbox Coach</title>
+<meta name="theme-color" content="#0b0b0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Shadowbox">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>SHADOWBOX<span>COACH</span></h1>
+  <div id="streak-line" class="streak-line"></div>
+  <div class="round-box">
+    <div id="round-label">ROUND 1</div>
+    <div id="round-clock">3:00</div>
+    <div class="round-controls">
+      <button id="btn-start" title="start / pause">▶</button>
+      <button id="btn-reset" title="reset session">↺</button>
+      <button id="btn-stance" title="which hand is your jab">ORTHODOX</button>
+      <button id="btn-voice" title="spoken coach cues">🔊</button>
+      <button id="btn-map" title="show / hide the full cockpit">▦</button>
+    </div>
+  </div>
+</header>
+
+<div id="welcome" hidden>
+  <div class="welcome-card">
+    <h2>🥊 SHADOWBOX COACH</h2>
+    <p id="welcome-goal">70 days. Two phases. One camera watching your form.</p>
+    <ol>
+      <li>🧍 stand <b>2–3 m back</b> — shoulders + hips in frame</li>
+      <li>▶ press <b>START DAY</b> — the coach talks, you work</li>
+      <li>✓ finish the blocks — the day banks itself</li>
+    </ol>
+    <button id="welcome-go">LET'S GO ▸</button>
+  </div>
+</div>
+
+<main class="cockpit">
+  <!-- LEFT RAIL: the whole program, one glance -->
+  <aside class="rail rail-left">
+    <div class="rail-head">
+      <span class="stat-label" id="program-title">PROGRAM</span>
+      <button id="btn-today">TODAY</button>
+    </div>
+    <div id="program-grid" class="program-grid"></div>
+    <div class="stat gate" id="gate-panel" hidden>
+      <div class="stat-label">PHASE GATE · THIS SESSION VS TARGETS</div>
+      <ul id="gate-list" class="gate-list"></ul>
+    </div>
+    <div class="stat" id="trends-panel" hidden>
+      <div class="stat-label">OUTPUT TREND</div>
+      <div id="trends-line" class="trends-line"></div>
+    </div>
+  </aside>
+
+  <!-- CENTER: the stage -->
+  <section class="stage">
+    <div class="video-wrap">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div id="stage-msg" aria-live="polite">loading pose model…</div>
+      <div id="stage-clock" hidden>3:00</div>
+      <div id="stage-rest" hidden>REST</div>
+      <div id="stage-coach"></div>
+      <div id="punch-flash"></div>
+      <div id="combo-flash"></div>
+      <div id="rec-dot" hidden>● REC</div>
+      <button id="btn-flag" hidden title="flag that call as wrong">✗ WRONG?</button>
+      <div id="stage-block" hidden></div>
+      <button id="btn-next" hidden>NEXT ▸</button>
+      <div class="meters">
+        <div class="meter"><span class="meter-tag">L</span><div class="meter-track"><div class="meter-fill" id="meter-l"></div></div></div>
+        <div class="meter"><span class="meter-tag">R</span><div class="meter-track"><div class="meter-fill" id="meter-r"></div></div></div>
+      </div>
+      <div id="debug-panel" hidden></div>
+    </div>
+    <div class="stat-strip">
+      <div class="chip big"><span class="stat-label">PUNCHES</span><span class="stat-value" id="stat-total">0</span></div>
+      <div class="chip"><span class="stat-label">JAB</span><span class="stat-value" id="stat-jab">0</span></div>
+      <div class="chip"><span class="stat-label">CROSS</span><span class="stat-value" id="stat-cross">0</span></div>
+      <div class="chip"><span class="stat-label">HOOK</span><span class="stat-value" id="stat-hook">0</span></div>
+      <div class="chip"><span class="stat-label">UPPER</span><span class="stat-value" id="stat-uppercut">0</span></div>
+      <div class="chip"><span class="stat-label">POWER</span><span class="stat-value" id="stat-power">0</span></div>
+      <div class="chip"><span class="stat-label">/MIN</span><span class="stat-value" id="stat-ppm">0</span></div>
+      <div class="chip"><span class="stat-label">FASTEST</span><span class="stat-value" id="stat-speed">0<small>sw/s</small></span></div>
+    </div>
+  </section>
+
+  <!-- RIGHT RAIL: today's session -->
+  <aside class="rail rail-right">
+    <div class="stat workout" id="workout-panel" hidden>
+      <div class="workout-head">
+        <span class="stat-label" id="workout-label">WORKOUT</span>
+        <span class="workout-nav">
+          <button id="wo-prev" aria-label="previous day">‹</button>
+          <button id="wo-next" aria-label="next day">›</button>
+        </span>
+      </div>
+      <div id="wo-title" class="wo-title"></div>
+      <div id="wo-focus" class="wo-focus"></div>
+      <div id="goal-ladder" class="goal-ladder" hidden>
+        <div class="gl-row">🎯 <b id="gl-today"></b></div>
+        <div class="gl-row">📅 <span id="gl-week"></span></div>
+        <details class="gl-more">
+          <summary>🚩 phase &amp; program</summary>
+          <p id="gl-phase"></p>
+          <p id="gl-program"></p>
+        </details>
+      </div>
+      <div id="wo-now" class="wo-now" hidden>
+        <div class="stat-label" id="wo-now-tag">NOW</div>
+        <div id="wo-now-name" class="wo-now-name"></div>
+        <div id="wo-now-rx" class="wo-now-rx"></div>
+        <div id="wo-progress" class="wo-progress"></div>
+        <div id="wo-next-line" class="wo-next-line"></div>
+      </div>
+      <details id="wo-all" open>
+        <summary>▤ all blocks</summary>
+        <ul id="wo-blocks" class="wo-blocks"></ul>
+      </details>
+      <div class="workout-actions">
+        <button id="wo-start">START DAY</button>
+        <button id="wo-done">✓ DONE</button>
+      </div>
+      <div id="wo-gate" class="wo-gate"></div>
+    </div>
+    <div class="coach">
+      <div class="coach-head">
+        <span class="stat-label">CORNER COACH</span>
+        <span id="coach-source" class="coach-source">canned tips</span>
+      </div>
+      <div id="coach-text" aria-live="polite">Hands up. Hit ▶ DAY and work the program.</div>
+      <button id="btn-coach">🗣 COACH</button>
+    </div>
+    <div class="stat rounds" id="rounds-panel" hidden>
+      <div class="stat-label">ROUND BY ROUND</div>
+      <table id="rounds-table">
+        <thead><tr><th>RD</th><th>THROWN</th><th>JABS</th><th>POWER</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="footnote">pose: MediaPipe · coach: Bonsai (LM Studio, on-device) · nothing leaves this machine · <b>d</b> ▦ debug · <b>r</b> ● record · <b>x</b> ✗ flag wrong call</div>
+  </aside>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2315 @@
+{
+  "dataset": "shadowbox-punch-eval-1cb78a5b",
+  "exported_at": "2026-09-01T03:40:05.189Z",
+  "config": {
+    "leadHand": "L",
+    "smoother": "ema",
+    "minCutoff": 1.2,
+    "euroBeta": 0.04,
+    "smooth": 0.66,
+    "zWeight": 0.72,
+    "extendAt": 1.02,
+    "returnAt": 0.89,
+    "peakDrop": 0.045,
+    "rearm": 0.145,
+    "minPeakSpeed": 2.65,
+    "armSpeed": 1.85,
+    "guardWindowMs": 545,
+    "elbowArm": 161,
+    "elbowStraight": 131,
+    "cooldownMs": 85,
+    "speedAlpha": 0.38,
+    "armFrames": 1
+  },
+  "config_hash": "1cb78a5b",
+  "suite": {
+    "f1": 0.9967897271268058,
+    "reward": 610.3850000000001,
+    "tp": 621,
+    "fp": 1,
+    "fn": 3,
+    "mean_latency_ms": 40.998389694041464
+  },
+  "examples": [
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT CROSS HOOK UPPERCUT",
+        "calls": 7
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 7,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 1,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB",
+        "calls": 3
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 3,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 2,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "CROSS",
+        "calls": 1
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 1,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 3,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 11,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB",
+        "calls": 3
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 3,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 12,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@30",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 30,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-medium@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-fast@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.004,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-slow-sloppy@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-noisy@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.006,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-small-far@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "combo-big-close@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT"
+      },
+      "output": {
+        "called_sequence": "JAB CROSS HOOK UPPERCUT JAB CROSS HOOK UPPERCUT",
+        "calls": 8
+      },
+      "metadata": {
+        "expected_count": 8,
+        "called_count": 8,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "double-jab@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "JAB JAB JAB JAB"
+      },
+      "output": {
+        "called_sequence": "JAB JAB JAB JAB",
+        "calls": 4
+      },
+      "metadata": {
+        "expected_count": 4,
+        "called_count": 4,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-hang-walk@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-slow-reach@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.003,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    },
+    {
+      "input": {
+        "case": "neg-guard-jitter@60",
+        "kind": "synthetic",
+        "seed": 13,
+        "fps": 60,
+        "noise": 0.008,
+        "expected_sequence": "(none)"
+      },
+      "output": {
+        "called_sequence": "(none)",
+        "calls": 0
+      },
+      "metadata": {
+        "expected_count": 0,
+        "called_count": 0,
+        "config_hash": "1cb78a5b"
+      }
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+:root {
+  --bg: #0b0b0e;
+  --panel: #141419;
+  --edge: #26262e;
+  --ctl-edge: #5a5a66;   /* interactive borders: ≥3:1 on panel (WCAG 1.4.11) */
+  --ctl-text: #c9c9d2;
+  --text: #f2f2f5;
+  --dim: #8a8a96;
+  --red: #ff3b3b;
+  --gold: #ffc24b;
+  --green: #6be675;
+  --cyan: #5bd1ff;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;               /* the cockpit fits the viewport — no page scroll */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- header ribbon ---- */
+header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--edge);
+  flex: 0 0 auto;
+}
+h1 { margin: 0; font-size: 18px; letter-spacing: 3px; font-weight: 800; }
+h1 span { color: var(--red); margin-left: 5px; }
+.streak-line {
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  flex: 1;
+}
+.streak-line.at-risk { animation: blink 2s step-end infinite; }
+.round-box { display: flex; align-items: center; gap: 12px; }
+#round-label { color: var(--dim); font-size: 12px; letter-spacing: 2px; }
+#round-clock {
+  font-size: 26px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+}
+#round-clock.rest { color: #5bd1ff; }
+.round-controls button, #btn-coach, .workout-actions button {
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#btn-reset, #btn-stance, #btn-today, #wo-done, #btn-start, #btn-coach, #btn-voice, #btn-map {
+  background: var(--panel);
+  border: 1px solid var(--ctl-edge);
+  color: var(--ctl-text);
+}
+button:hover { filter: brightness(1.2); }
+button:focus-visible, .pg-day:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ---- cockpit grid ---- */
+.cockpit {
+  flex: 1 1 auto;
+  min-height: 0;                  /* children may scroll internally, page never does */
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr) 320px;
+  gap: 10px;
+  padding: 10px 12px;
+}
+.rail {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.rail-head { display: flex; justify-content: space-between; align-items: center; }
+#btn-today { border-radius: 4px; padding: 3px 10px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+/* ---- program map ---- */
+.program-grid { display: flex; flex-direction: column; gap: 6px; }
+.pg-phase { color: var(--dim); font-size: 10px; letter-spacing: 2px; margin-top: 2px; }
+.pg-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.pg-day {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  color: var(--dim);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.pg-day { border-color: #3a3a44; }
+.pg-day.rest { border-style: dashed; color: var(--dim); }
+.pg-day.done { background: #10331a; border-color: var(--green); color: var(--green); }
+.pg-day.done::after { content: "✓"; margin-left: 1px; }
+.pg-day.current { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.pg-day:hover { border-color: var(--text); }
+
+.gate-list { list-style: none; margin: 6px 0 0; padding: 0; font-size: 11px; line-height: 1.6; }
+.gate-list b { font-variant-numeric: tabular-nums; }
+.gate-pass { color: var(--green); }
+.gate-fail { color: var(--dim); }
+
+/* ---- stage ---- */
+.stage { min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.video-wrap {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#video, #overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* selfie mirror */
+}
+#stage-msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  background: rgba(0,0,0,.55);
+  z-index: 4;
+}
+#stage-msg[hidden] { display: none; }
+#stage-msg.error { color: var(--red); font-weight: 800; }
+#stage-msg.ok { color: var(--green); background: transparent; align-items: flex-start; padding-top: 14px; }
+#punch-flash {
+  position: absolute;
+  left: 0; right: 0; top: 10%;
+  text-align: center;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-shadow: 0 2px 18px rgba(0,0,0,.8);
+  opacity: 0;
+  pointer-events: none;
+}
+#punch-flash.pop { animation: pop .5s ease-out; }
+#combo-flash {
+  position: absolute;
+  left: 0; right: 0; top: 32%;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--green);
+  text-shadow: 0 2px 18px rgba(0,0,0,.8);
+  opacity: 0;
+  pointer-events: none;
+}
+#combo-flash.pop { animation: pop .8s ease-out; }
+@keyframes pop {
+  0% { opacity: 1; transform: scale(.7); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1); }
+}
+/* ---- on-stage HUD: readable from 3 m ---- */
+#stage-clock {
+  position: absolute;
+  top: 8px; right: 14px;
+  font-size: clamp(64px, 9vw, 130px);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0,0,0,.9);
+  pointer-events: none;
+  line-height: 1;
+}
+#stage-clock.warn { color: var(--red); animation: blink 1s step-end infinite; }
+#stage-clock[hidden], #stage-rest[hidden], #btn-flag[hidden] { display: none; }
+body.resting .video-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 10, 20, .55);
+  z-index: 1;
+}
+#stage-rest {
+  position: absolute;
+  left: 0; right: 0; top: 18%;
+  text-align: center;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 900;
+  letter-spacing: 12px;
+  color: var(--cyan);
+  text-shadow: 0 2px 18px rgba(0,0,0,.9);
+  pointer-events: none;
+  z-index: 2;
+}
+#stage-clock, #punch-flash, #combo-flash, .meters, #rec-dot { z-index: 2; }
+#stage-coach {
+  position: absolute;
+  left: 6%; right: 6%; bottom: 14%;
+  text-align: center;
+  font-size: clamp(20px, 3.2vw, 34px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--gold);
+  text-shadow: 0 2px 14px rgba(0,0,0,.95);
+  pointer-events: none;
+  z-index: 2;
+}
+/* what to do NOW, readable from the floor */
+#stage-block {
+  position: absolute;
+  left: 0; right: 0; top: 6px;
+  text-align: center;
+  font-size: clamp(16px, 2.4vw, 26px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,.95);
+  pointer-events: none;
+  z-index: 2;
+}
+#stage-block[hidden] { display: none; }
+#btn-next {
+  position: absolute;
+  left: 50%; bottom: 46px;
+  transform: translateX(-50%);
+  min-height: 56px;
+  padding: 0 34px;
+  background: var(--gold);
+  border: 0;
+  color: #000;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 3;
+}
+#btn-next[hidden] { display: none; }
+#btn-flag {
+  position: absolute;
+  right: 12px; bottom: 52px;
+  min-height: 48px;
+  padding: 0 18px;
+  background: rgba(0,0,0,.72);
+  border: 2px solid var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 3;
+}
+#rec-dot {
+  position: absolute;
+  top: 10px; left: 12px;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  animation: blink 1.2s step-end infinite;
+}
+#rec-dot[hidden] { display: none; }
+@keyframes blink { 50% { opacity: .25; } }
+.meters {
+  position: absolute;
+  left: 12px; right: 12px; bottom: 10px;
+  display: flex;
+  gap: 12px;
+}
+.meter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,.6);   /* scrim: meters must survive a bright wall */
+  border-radius: 6px;
+  padding: 5px 9px;
+}
+.meter-tag { font-size: 11px; font-weight: 800; color: #fff; }
+.meter-track {
+  flex: 1;
+  height: 7px;
+  background: rgba(255,255,255,.25);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.meter-fill { height: 100%; width: 0%; background: var(--red); border-radius: 4px; transition: width 40ms linear; }
+.meter-fill.armed { background: var(--gold); box-shadow: 0 0 0 2px #fff; } /* luminance + shape, not hue alone */
+#debug-panel {
+  position: absolute;
+  left: 12px; top: 10px;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  color: #cfcfd6;
+  background: rgba(10,10,14,.75);
+  border: 1px solid var(--edge);
+  border-radius: 6px;
+  padding: 8px 10px;
+  white-space: pre;
+}
+#debug-panel[hidden] { display: none; }
+
+/* ---- stat strip under the stage ---- */
+.stat-strip { display: flex; gap: 8px; flex: 0 0 auto; }
+.chip {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.chip .stat-value { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.chip.big .stat-value { color: var(--red); font-size: 24px; }
+.chip small { font-size: 10px; color: var(--dim); font-weight: 400; }
+.stat-label { color: var(--dim); font-size: 10px; letter-spacing: 1.6px; }
+
+/* ---- panels (shared) ---- */
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.stat-value { font-variant-numeric: tabular-nums; }
+
+/* ---- workout card ---- */
+.workout-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+#workout-label { font-size: 9.5px; }
+.workout-nav button {
+  background: var(--bg);
+  border: 1px solid var(--edge);
+  color: var(--dim);
+  border-radius: 4px;
+  padding: 2px 9px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.wo-title { font-size: 16px; font-weight: 800; margin-top: 5px; }
+.wo-focus { color: var(--gold); font-size: 11px; letter-spacing: 1px; margin: 2px 0 6px; }
+/* goal ladder: today ▸ week ▸ phase ▸ program */
+.goal-ladder {
+  border-top: 1px solid var(--edge);
+  border-bottom: 1px solid var(--edge);
+  padding: 7px 0;
+  margin: 6px 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.goal-ladder[hidden] { display: none; }
+.gl-row b { color: var(--text); font-weight: 700; }
+.gl-row span { color: var(--gold); }
+.gl-more summary { cursor: pointer; color: var(--dim); font-size: 11px; padding-top: 3px; }
+.gl-more p { color: var(--dim); font-size: 11.5px; line-height: 1.5; margin: 6px 0 0; }
+
+/* welcome: three steps, one button */
+#welcome {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,8,.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+#welcome[hidden] { display: none; }
+.welcome-card {
+  background: var(--panel);
+  border: 1px solid var(--ctl-edge);
+  border-radius: 12px;
+  padding: 28px 32px;
+  max-width: 440px;
+  text-align: center;
+}
+.welcome-card h2 { margin: 0 0 8px; letter-spacing: 2px; }
+.welcome-card p { color: var(--gold); font-size: 14px; margin: 0 0 14px; }
+.welcome-card ol { text-align: left; font-size: 14px; line-height: 2; margin: 0 0 16px; padding-left: 18px; }
+#welcome-go {
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 34px;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+/* earned disclosure: week one is stage + today + coach, nothing else */
+body.simple .rail-left { display: none; }
+body.simple .cockpit { grid-template-columns: minmax(0, 1fr) 340px; }
+body.simple #rounds-panel { display: none !important; }
+body.scoring-paused .stat-strip { opacity: .4; }
+body.scoring-paused .meters { opacity: .3; }
+
+/* NOW card: progressive disclosure — one block at a time */
+.wo-now {
+  background: var(--bg);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 6px 0;
+}
+.wo-now-name { font-size: 17px; font-weight: 800; margin-top: 3px; }
+.wo-now-rx { font-size: 13px; color: var(--text); line-height: 1.4; margin-top: 2px; }
+.wo-progress { display: flex; gap: 4px; margin-top: 8px; }
+.wo-progress span {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--edge);
+}
+.wo-progress span.done { background: var(--green); }
+.wo-progress span.current { background: var(--gold); }
+.wo-next-line { color: var(--dim); font-size: 11.5px; margin-top: 7px; }
+#wo-all summary {
+  cursor: pointer;
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 4px 0;
+}
+.wo-blocks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  max-height: 30vh;
+  overflow-y: auto;
+}
+.wo-blocks li { border-top: 1px solid var(--edge); padding: 4px 0; }
+.wo-blocks label { display: flex; gap: 7px; cursor: pointer; align-items: baseline; }
+.wo-blocks input { accent-color: var(--green); }
+.wo-blocks .rx { color: var(--dim); }
+.wo-blocks li.checked { color: #9a9aa6; text-decoration: line-through; }
+.wo-blocks li.checked .rx { color: #9a9aa6; }
+.workout-actions { display: flex; gap: 8px; margin-top: 8px; }
+.workout-actions button { flex: 1; padding: 7px 0; }
+#wo-done.completed { color: var(--green); border-color: var(--green); }
+#wo-done.ready { color: var(--gold); border-color: var(--gold); }
+.wo-gate { color: var(--dim); font-size: 11px; line-height: 1.5; margin-top: 8px; max-height: 14vh; overflow-y: auto; }
+
+/* ---- coach ---- */
+.coach {
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.coach-head { display: flex; justify-content: space-between; align-items: baseline; }
+.coach-source { font-size: 10px; color: var(--dim); }
+.coach-source.live { color: var(--green); }
+#coach-text { font-size: 13px; line-height: 1.45; min-height: 44px; }
+
+/* ---- rounds table ---- */
+.rounds table { width: 100%; border-collapse: collapse; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.rounds th { color: var(--dim); font-size: 9.5px; letter-spacing: 1px; text-align: right; font-weight: 400; padding: 2px 6px; }
+.rounds td { text-align: right; padding: 3px 6px; font-size: 13px; font-weight: 700; border-top: 1px solid var(--edge); }
+.rounds th:first-child, .rounds td:first-child { text-align: left; color: var(--gold); }
+
+.trends-line {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-top: 5px;
+}
+.footnote { color: var(--dim); font-size: 10.5px; line-height: 1.5; margin-top: auto; }
+
+/* one primary action: START DAY is the only solid red button */
+.workout-actions #wo-start { background: var(--red); border: 0; color: #fff; }
+#wo-start:disabled { background: var(--panel); border: 1px solid var(--cyan); color: var(--cyan); cursor: default; }
+
+@media (prefers-reduced-motion: reduce) {
+  #punch-flash.pop, #combo-flash.pop { animation: fade 1s ease-out; }
+  #rec-dot, #stage-clock.warn, .streak-line.at-risk { animation: none; opacity: 1; }
+  .meter-fill { transition: none; }
+}
+@keyframes fade { 0%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
+/* smaller laptops: drop the left rail into a drawer-less compact column */
+@media (max-width: 1100px) {
+  .cockpit { grid-template-columns: 190px minmax(0, 1fr) 280px; }
+}
+
+/* ---- phone: stage first, full-height camera, gloved-thumb targets ---- */
+@media (max-width: 900px) {
+  body { overflow: auto; height: auto; }
+  .cockpit { grid-template-columns: 1fr; }
+  .stage { order: 0; }
+  .rail-right { order: 1; }
+  .rail-left { order: 2; }
+  .video-wrap { flex: none; height: 58svh; min-height: 320px; }
+  header { flex-wrap: wrap; row-gap: 6px; }
+  .streak-line { flex-basis: 100%; order: 3; }
+  .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .round-controls button, .workout-actions button, #btn-coach {
+    min-height: 48px;
+    font-size: 15px;
+  }
+  .workout-nav button, #btn-today { min-height: 44px; min-width: 44px; }
+  .wo-blocks { max-height: none; }
+  .wo-blocks li { min-height: 48px; display: flex; align-items: center; }
+  .wo-blocks input { width: 24px; height: 24px; }
+  #stage-clock { font-size: clamp(56px, 16vw, 110px); }
+}
