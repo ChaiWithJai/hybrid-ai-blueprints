@@ -14,8 +14,8 @@
     <div id="round-label">ROUND 1</div>
     <div id="round-clock">3:00</div>
     <div class="round-controls">
-      <button id="btn-start">START</button>
-      <button id="btn-reset">RESET</button>
+      <button id="btn-start" title="start / pause">▶</button>
+      <button id="btn-reset" title="reset session">↺</button>
       <button id="btn-stance" title="which hand is your jab">ORTHODOX</button>
     </div>
   </div>
@@ -44,10 +44,14 @@
     <div class="video-wrap">
       <video id="video" playsinline muted></video>
       <canvas id="overlay"></canvas>
-      <div id="stage-msg">loading pose model…</div>
+      <div id="stage-msg" aria-live="polite">loading pose model…</div>
+      <div id="stage-clock" hidden>3:00</div>
+      <div id="stage-rest" hidden>REST</div>
+      <div id="stage-coach"></div>
       <div id="punch-flash"></div>
       <div id="combo-flash"></div>
       <div id="rec-dot" hidden>● REC</div>
+      <button id="btn-flag" hidden title="flag that call as wrong">✗ WRONG?</button>
       <div class="meters">
         <div class="meter"><span class="meter-tag">L</span><div class="meter-track"><div class="meter-fill" id="meter-l"></div></div></div>
         <div class="meter"><span class="meter-tag">R</span><div class="meter-track"><div class="meter-fill" id="meter-r"></div></div></div>
@@ -72,8 +76,8 @@
       <div class="workout-head">
         <span class="stat-label" id="workout-label">WORKOUT</span>
         <span class="workout-nav">
-          <button id="wo-prev">‹</button>
-          <button id="wo-next">›</button>
+          <button id="wo-prev" aria-label="previous day">‹</button>
+          <button id="wo-next" aria-label="next day">›</button>
         </span>
       </div>
       <div id="wo-title" class="wo-title"></div>
@@ -90,8 +94,8 @@
         <span class="stat-label">CORNER COACH</span>
         <span id="coach-source" class="coach-source">canned tips</span>
       </div>
-      <div id="coach-text">Hands up. Hit START DAY and work the program.</div>
-      <button id="btn-coach">ASK COACH</button>
+      <div id="coach-text" aria-live="polite">Hands up. Hit ▶ DAY and work the program.</div>
+      <button id="btn-coach">🗣 COACH</button>
     </div>
     <div class="stat rounds" id="rounds-panel" hidden>
       <div class="stat-label">ROUND BY ROUND</div>
@@ -100,7 +104,7 @@
         <tbody></tbody>
       </table>
     </div>
-    <div class="footnote">pose: MediaPipe · coach: Bonsai on LM Studio · everything stays on this machine · <b>d</b> debug · <b>r</b> record</div>
+    <div class="footnote">pose: MediaPipe · coach: Bonsai (LM Studio, on-device) · nothing leaves this machine · <b>d</b> ▦ debug · <b>r</b> ● record · <b>x</b> ✗ flag wrong call</div>
   </aside>
 </main>
 

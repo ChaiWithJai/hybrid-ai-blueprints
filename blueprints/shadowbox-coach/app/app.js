@@ -153,6 +153,8 @@ function dayLog() {
 }
 function renderStreak() {
   const days = [...new Set(dayLog().map((e) => e.date))].sort();
+  const todayKey = new Date().toISOString().slice(0, 10);
+  const trainedToday = days.includes(todayKey);
   let streak = 0;
   const today = new Date();
   for (let i = 0; ; i++) {
@@ -163,17 +165,35 @@ function renderStreak() {
     else if (i > 0) break; // today itself may not be trained yet
   }
   const done = woProgress().done.length;
-  $("streak-line").textContent =
-    `${streak > 0 ? "🔥 " + streak + "-day streak · " : ""}${done}/${woDays.length || 70} days complete`;
+  const el = $("streak-line");
+  el.textContent = streak > 0
+    ? (trainedToday ? `🔥 ${streak} ✓ · ${done}/${woDays.length || 70}` : `🔥 ${streak} — train today · ${done}/${woDays.length || 70}`)
+    : `${done}/${woDays.length || 70} days`;
+  el.classList.toggle("at-risk", streak > 0 && !trainedToday);
+}
+renderStreak(); // streak lives even if the guide fails to load
+
+// day 20 must not look like day 1: seed the coach with last session
+{
+  const last = dayLog().at?.(-1);
+  if (last) {
+    const gapDays = Math.round((Date.now() - new Date(last.date).getTime()) / 86400000);
+    $("coach-text").textContent = gapDays > 1
+      ? `↩ back after ${gapDays} days — pick up where you left off: ${last.title}. Shake the rust off.`
+      : `last ▸ ${last.title}: ${last.stats?.total ?? "–"} 👊 · ⚡${last.form?.avg_power ?? "–"} · guard ${last.form?.guard_height_sw ?? "–"} sw`;
+  }
 }
 
 // ---- phase gate: this session's telemetry vs the promotion targets ----
+// live session values, falling back to the LAST logged session so the gates
+// show yesterday's evidence instead of dashes before the first punch today
+const lastForm = () => dayLog().at?.(-1)?.form || {};
 const GATE_CHECKS = {
-  arm_punch_pct: { get: () => form.powerPunches ? (100 * form.armPunches / form.powerPunches) : null, pass: (v) => v <= 25, fmt: (v) => v.toFixed(0) + "%" },
-  guard_height_sw: { get: () => form.guardN ? form.guardSum / form.guardN : null, pass: (v) => v >= 0.85, fmt: (v) => v.toFixed(2) + " sw" },
-  avg_retraction_ms: { get: () => form.retractN ? form.retractSum / form.retractN : null, pass: (v) => v <= 350, fmt: (v) => v.toFixed(0) + " ms" },
-  punches_per_round: { get: () => roundHistory.length ? roundHistory[roundHistory.length - 1].thrown : (stats.total || null), pass: (v) => v >= 120, fmt: (v) => String(Math.round(v)) },
-  avg_power: { get: () => form.powerN ? form.powerSum / form.powerN : null, pass: (v) => v >= 55, fmt: (v) => v.toFixed(0) },
+  arm_punch_pct: { get: () => form.powerPunches ? (100 * form.armPunches / form.powerPunches) : lastForm().arm_punch_pct ?? null, pass: (v) => v <= 25, fmt: (v) => v.toFixed(0) + "%" },
+  guard_height_sw: { get: () => form.guardN ? form.guardSum / form.guardN : lastForm().guard_height_sw ?? null, pass: (v) => v >= 0.85, fmt: (v) => v.toFixed(2) + " sw" },
+  avg_retraction_ms: { get: () => form.retractN ? form.retractSum / form.retractN : lastForm().avg_retraction_ms ?? null, pass: (v) => v <= 350, fmt: (v) => v.toFixed(0) + " ms" },
+  punches_per_round: { get: () => roundHistory.length ? roundHistory[roundHistory.length - 1].thrown : (stats.total || dayLog().at?.(-1)?.stats?.total || null), pass: (v) => v >= 120, fmt: (v) => String(Math.round(v)) },
+  avg_power: { get: () => form.powerN ? form.powerSum / form.powerN : lastForm().avg_power ?? null, pass: (v) => v >= 55, fmt: (v) => v.toFixed(0) },
 };
 function renderGates() {
   if (!guide) return;
@@ -216,8 +236,13 @@ function renderWorkout() {
     });
   });
   const allChecked = d.blocks.length > 0 && d.blocks.every((_, i) => checks[i]);
-  $("wo-done").classList.toggle("completed", prog.done.includes(woDayKey(d)));
-  $("wo-done").classList.toggle("ready", allChecked && !prog.done.includes(woDayKey(d)));
+  const isDone = prog.done.includes(woDayKey(d));
+  const isRest = !d.rounds || !d.roundSec;
+  $("wo-start").disabled = isRest;
+  $("wo-start").textContent = isRest ? "☾ REST" : "▶ START DAY";
+  $("wo-done").classList.toggle("completed", isDone);
+  $("wo-done").classList.toggle("ready", allChecked && !isDone);
+  $("wo-done").textContent = isDone ? "↩ UNDO ✓" : "✓ DONE";
   const p1done = guide.phase1.days.filter((x) => prog.done.includes(woDayKey(x))).length;
   $("wo-gate").textContent = phase === 1
     ? `Phase gate (${p1done}/${guide.phase1.days.length} days done): ${guide.gate_text}`
@@ -229,22 +254,45 @@ $("wo-prev").addEventListener("click", () => { woIdx = Math.max(0, woIdx - 1); r
 $("wo-next").addEventListener("click", () => { woIdx = Math.min(woDays.length - 1, woIdx + 1); renderWorkout(); });
 $("wo-start").addEventListener("click", () => {
   const d = woDays[woIdx];
-  if (!d) return;
-  if (!d.rounds || !d.roundSec) {
-    // rest / recovery day — never start a zero-length timer (Sahin's sign-off, issue 1)
-    $("coach-text").textContent = `${d.title}: rest day. ${d.summary} No rounds to score — recover, and mark it ✓ DONE.`;
-    return;
-  }
-  ROUND_SEC = d.roundSec; REST_SEC = d.restSec;
-  workoutFocus = d.coach_focus;
+  if (!d || !d.rounds || !d.roundSec) return; // rest days: button is disabled
+  if (stats.total > 0 && !dayStarted &&
+      !confirm(`Start ${d.title}? This resets the ${stats.total}-punch session on the clock.`)) return;
   $("btn-reset").click();
+  ROUND_SEC = d.roundSec; REST_SEC = d.restSec || 60;
+  roundLeft = ROUND_SEC;
+  workoutFocus = d.coach_focus;
+  dayStarted = true;
+  dayRounds = d.rounds;
   $("btn-start").click();
-  $("coach-text").textContent = `Today: ${d.title} — ${d.summary}`;
+  $("coach-text").textContent = `▶ ${d.title} — ${d.summary}`;
+  $("stage-coach").textContent = "";
 });
+let woDoneArmed = false, lastDoneClick = 0;
 $("wo-done").addEventListener("click", () => {
   const d = woDays[woIdx];
   if (!d) return;
+  const nowMs = Date.now();
+  if (nowMs - lastDoneClick < 800) return; // glove double-tap guard
+  lastDoneClick = nowMs;
   const k = woDayKey(d);
+  const prog0 = woProgress();
+  if (prog0.done.includes(k)) {
+    // undo: the ledger must be repairable
+    prog0.done = prog0.done.filter((x) => x !== k);
+    try { localStorage.setItem(WO_KEY, JSON.stringify(prog0)); } catch { /* storage unavailable */ }
+    renderWorkout(); renderStreak();
+    return;
+  }
+  // soft gate: DONE with zero evidence needs a second, deliberate tap
+  const checks = blockChecks()[k] || [];
+  const evidence = stats.total > 0 || d.blocks.some((_, i) => checks[i]) || !d.rounds;
+  if (!evidence && !woDoneArmed) {
+    woDoneArmed = true;
+    $("wo-done").textContent = "SURE?";
+    setTimeout(() => { woDoneArmed = false; renderWorkout(); }, 3000);
+    return;
+  }
+  woDoneArmed = false;
   const snapshot = {
     type: "day_complete", dayKey: k, title: d.title, focus: d.focus,
     date: new Date().toISOString().slice(0, 10),
@@ -266,33 +314,41 @@ $("wo-done").addEventListener("click", () => {
     localStorage.setItem("shadowbox-daylog", JSON.stringify(dl.slice(-200)));
   } catch { /* storage unavailable */ }
   logEvent(snapshot); // → training_log.jsonl → MLflow ingest
-  if (woIdx < woDays.length - 1) woIdx++;
+  // no auto-advance: let the green land. Tomorrow is selected on next load.
   renderWorkout();
   renderStreak();
+  $("coach-text").textContent = `✓ ${d.title} banked · ${$("streak-line").textContent}`;
 });
 
-// ---- visual-reasoning feedback: press x to flag the last call as wrong ----
+// ---- visual-reasoning feedback: x key OR the on-stage ✗ WRONG? button ----
 // annotations land in training_log.jsonl, the dataset the error-discovery
 // skill reviews and clusters into failure modes
-document.addEventListener("keydown", (e) => {
-  if (e.key !== "x" || !punchLog.length) return;
+function flagLastCall(note) {
+  if (!punchLog.length) return;
   const last = punchLog[punchLog.length - 1];
-  const note = prompt(`Flag call "${last.hand} ${last.type}" as wrong. What actually happened? (blank = phantom)`);
-  if (note === null) return;
   logEvent({
     type: "call_feedback", verdict: "wrong",
     flagged: { hand: last.hand, type: last.type, speed: +last.speed.toFixed(1), power: last.power },
-    actual: note.trim() || "phantom — no punch thrown",
+    actual: (note || "").trim() || "phantom — no punch thrown",
     recent: punchLog.slice(-5).map((p) => p.type),
     rotation_rate: +rotation.rate.toFixed(2),
     day: woDays[woIdx] ? woDayKey(woDays[woIdx]) : null,
     config: { extendAt: CFG.extendAt, minPeakSpeed: CFG.minPeakSpeed, peakDrop: CFG.peakDrop },
   });
-  flash.textContent = "FLAGGED";
+  $("btn-flag").hidden = true;
+  flash.textContent = "✗ FLAGGED";
   flash.classList.remove("pop");
   void flash.offsetWidth;
   flash.classList.add("pop");
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "x" || !punchLog.length) return;
+  const last = punchLog[punchLog.length - 1];
+  const note = prompt(`Flag "${last.hand} ${last.type}" as wrong. What actually happened? (blank = phantom)`);
+  if (note !== null) flagLastCall(note);
 });
+$("btn-flag").addEventListener("click", () => flagLastCall("")); // one glove-tap = phantom flag
+let flagTimer = null;
 
 const hands = { L: new HandTracker("L"), R: new HandTracker("R") };
 const smoother = makeSmoother();
@@ -324,7 +380,30 @@ function toggleRecording() {
     });
 }
 
+// setup assistant + tracking-loss watchdog
+let lastPoseAt = 0, framedFrames = 0, framedOnce = false, cameraLive = false, lossShown = false;
+const FRAME_HINT = "⌖ 2–3 m back · shoulders + hips in frame";
+
 function onFrame(landmarks, now) {
+  lastPoseAt = now;
+  if (lossShown) { stageMsg.hidden = true; lossShown = false; }
+  if (cameraLive && !framedOnce) {
+    const hipVis = Math.min(landmarks[L.L_HIP]?.visibility ?? 1, landmarks[L.R_HIP]?.visibility ?? 1);
+    const ls0 = landmarks[L.L_SHOULDER], rs0 = landmarks[L.R_SHOULDER];
+    const swRaw = Math.hypot(ls0.x - rs0.x, ls0.y - rs0.y);
+    const good = hipVis > 0.5 && swRaw > 0.08 && swRaw < 0.45;
+    framedFrames = good ? framedFrames + 1 : 0;
+    if (framedFrames >= 30) {
+      framedOnce = true;
+      stageMsg.classList.add("ok");
+      stageMsg.textContent = "✓ in frame — hit ▶";
+      setTimeout(() => { stageMsg.hidden = true; stageMsg.classList.remove("ok"); }, 1800);
+    } else if (!good) {
+      stageMsg.hidden = false;
+      stageMsg.textContent = hipVis <= 0.5 ? "⌖ step back / tilt camera ↓ — hips out of frame"
+        : swRaw >= 0.45 ? "⌖ too close — step back" : FRAME_HINT;
+    }
+  }
   if (recording) {
     const snap = {};
     for (const i of Object.values(L)) {
@@ -348,6 +427,10 @@ function onFrame(landmarks, now) {
     if (ev && !resting) {
       ev.power = punchPower(ev.speed, rotation.rate);
       recordPunch(ev, now);
+    } else if (ev && resting) {
+      // punches during rest are seen, said, and not counted
+      $("stage-rest").textContent = "REST ✗";
+      setTimeout(() => { $("stage-rest").textContent = "REST"; }, 600);
     }
     if (tracker.phase === "guard") {
       if (tracker.lastRetractMs != null && tracker.lastRetractMs < 2000) {
@@ -435,6 +518,10 @@ function recordPunch(ev, now) {
   void flash.offsetWidth; // restart the animation
   flash.classList.add("pop");
   thump(ev.speed);
+  // touch parity for the feedback loop: ✗ WRONG? shows for 4s after each call
+  $("btn-flag").hidden = false;
+  clearTimeout(flagTimer);
+  flagTimer = setTimeout(() => { $("btn-flag").hidden = true; }, 4000);
   const combo = comboName(now);
   if (combo) {
     const cf = $("combo-flash");
@@ -450,6 +537,15 @@ setInterval(() => {
   const recent = punchLog.filter((p) => now - p.t < 60000).length;
   $("stat-ppm").textContent = recent;
   if (guide) renderGates(); // live gate readout in the left rail
+  // tracking loss: if the pose stream goes quiet, say so instead of freezing
+  if (cameraLive && framedOnce && performance.now() - lastPoseAt > 1500 && stageMsg.hidden) {
+    ctx.clearRect(0, 0, overlay.width, overlay.height);
+    $("meter-l").style.width = "0%";
+    $("meter-r").style.width = "0%";
+    stageMsg.hidden = false;
+    stageMsg.textContent = "⌖ can't see you — " + FRAME_HINT.slice(2);
+    lossShown = true;
+  }
 }, 1000);
 
 // ---- skeleton overlay ----
@@ -475,33 +571,109 @@ function draw(lm) {
   }
 }
 
-// ---- round timer ----
+// ---- round timer: deadline-driven (throttled tabs can't drift the clock),
+// with a finish line — the day ENDS after its prescribed rounds ----
 function fmt(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
-function renderClock() {
-  $("round-clock").textContent = fmt(roundLeft);
-  $("round-clock").classList.toggle("rest", resting);
-  $("round-label").textContent = resting ? "REST" : `ROUND ${roundNum}`;
+let dayStarted = false, dayRounds = 0, deadline = 0, wakeLock = null;
+
+function bell(times = 1) {
+  if (!audio || audio.state !== "running") return;
+  for (let i = 0; i < times; i++) {
+    const t = audio.currentTime + i * 0.35;
+    const gain = audio.createGain();
+    gain.gain.setValueAtTime(0.3, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    gain.connect(audio.destination);
+    const osc = audio.createOscillator();
+    osc.frequency.setValueAtTime(880, t);
+    osc.connect(gain);
+    osc.start(t);
+    osc.stop(t + 0.3);
+  }
 }
+
+function renderClock() {
+  $("round-clock").textContent = fmt(Math.max(0, roundLeft));
+  $("round-clock").classList.toggle("rest", resting);
+  $("round-label").textContent = resting ? "REST" : `R${roundNum}${dayRounds ? "/" + dayRounds : ""}`;
+  const sc = $("stage-clock");
+  sc.hidden = !ticking;
+  sc.textContent = fmt(Math.max(0, roundLeft));
+  sc.classList.toggle("warn", !resting && roundLeft <= 10 && roundLeft > 0);
+  document.body.classList.toggle("resting", resting && !!ticking);
+  $("stage-rest").hidden = !(resting && ticking);
+}
+
+async function grabWakeLock() {
+  try { wakeLock = await navigator.wakeLock?.request("screen"); } catch { /* not fatal */ }
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && ticking) grabWakeLock();
+});
+
+function stopTimer(label = "▶") {
+  clearInterval(ticking); ticking = null;
+  $("btn-start").textContent = label;
+  try { wakeLock?.release(); } catch { /* already gone */ }
+  renderClock();
+}
+
+function dayComplete() {
+  stopTimer();
+  bell(2);
+  const cf = $("combo-flash");
+  cf.textContent = "DAY ✓";
+  cf.classList.remove("pop"); void cf.offsetWidth; cf.classList.add("pop");
+  $("stage-coach").textContent = "DAY COMPLETE — hit ✓ DONE";
+  $("wo-done").classList.add("ready");
+  askCoach();
+}
+
 $("btn-start").addEventListener("click", () => {
-  if (ticking) { clearInterval(ticking); ticking = null; $("btn-start").textContent = "START"; return; }
-  $("btn-start").textContent = "PAUSE";
+  // with a program loaded, the header ▶ starts TODAY (one ritual, one button)
+  if (!ticking && guide && !dayStarted && woDays[woIdx] &&
+      !woProgress().done.includes(woDayKey(woDays[woIdx])) && woDays[woIdx].rounds) {
+    $("wo-start").click();
+    return;
+  }
+  if (ticking) { stopTimer(); return; }
+  $("btn-start").textContent = "⏸";
+  deadline = Date.now() + roundLeft * 1000;
+  grabWakeLock();
   ticking = setInterval(() => {
-    roundLeft--;
+    const left = Math.ceil((deadline - Date.now()) / 1000);
+    if (left === roundLeft) return;
+    roundLeft = left;
+    if (!resting && roundLeft === 10) bell(1);
     if (roundLeft <= 0) {
-      if (resting) { resting = false; roundNum++; roundLeft = ROUND_SEC; roundStart = { ...stats }; }
-      else { resting = true; roundLeft = REST_SEC; closeRound(); askCoach(); }
+      if (resting) {
+        resting = false; roundNum++; roundLeft = ROUND_SEC;
+        roundStart = { ...stats };
+        $("stage-coach").textContent = "";
+        bell(1);
+      } else {
+        bell(2);
+        closeRound();
+        if (dayRounds && roundNum >= dayRounds) { dayComplete(); return; }
+        resting = true; roundLeft = REST_SEC;
+        askCoach();
+      }
+      deadline = Date.now() + roundLeft * 1000;
     }
     renderClock();
-  }, 1000);
+  }, 250);
+  renderClock();
 });
 $("btn-reset").addEventListener("click", () => {
-  clearInterval(ticking); ticking = null; $("btn-start").textContent = "START";
+  stopTimer();
   roundNum = 1; roundLeft = ROUND_SEC; resting = false;
+  dayStarted = false; dayRounds = 0;
   Object.assign(stats, { total: 0, JAB: 0, CROSS: 0, HOOK: 0, UPPERCUT: 0, peakSpeed: 0 });
   punchLog.length = 0;
   roundHistory.length = 0;
   roundStart = { ...stats };
   $("rounds-panel").hidden = true;
+  $("stage-coach").textContent = "";
   for (const id of ["stat-total", "stat-jab", "stat-cross", "stat-hook", "stat-uppercut", "stat-power", "stat-ppm"]) $(id).textContent = "0";
   $("stat-speed").innerHTML = `0<small>sw/s</small>`;
   renderClock();
@@ -522,7 +694,9 @@ document.addEventListener("keydown", (e) => {
 // Corner coach — Bonsai on LM Studio (OpenAI-compatible, localhost:1234).
 // Falls back to canned corner talk when no local model is reachable.
 // =========================================================================
-const LMSTUDIO = "http://localhost:1234/v1";
+// The coach talks to LM Studio through OUR server's /coach proxy — same-origin
+// (no CORS setup) and it works from a phone, where localhost isn't the Mac.
+const COACH_API = "/coach";
 
 // Curriculum grounding: coach_kb.json is distilled from boxing.dharmicdata.org
 // by pipeline/flow.py. The coach picks the focus theme matching the round's
@@ -577,17 +751,21 @@ function roundSummary() {
   };
 }
 
+let coachReq = 0; // stale responses must never clobber newer ones
 async function askCoach() {
-  const el = $("coach-text"), src = $("coach-source");
+  const id = ++coachReq;
+  const el = $("coach-text"), src = $("coach-source"), btn = $("btn-coach");
+  btn.disabled = true;
+  btn.textContent = "🗣 …";
   el.textContent = "…coach is thinking";
   try {
-    const models = await fetch(`${LMSTUDIO}/models`, { signal: AbortSignal.timeout(1500) }).then((r) => r.json());
+    const models = await fetch(`${COACH_API}/models`, { signal: AbortSignal.timeout(3000) }).then((r) => r.json());
     const model = models.data?.[0]?.id;
     if (!model) throw new Error("no model loaded");
-    const res = await fetch(`${LMSTUDIO}/chat/completions`, {
+    const res = await fetch(`${COACH_API}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(12000), // later than 12 s and the rest is over anyway
       body: JSON.stringify({
         model,
         max_tokens: 120,
@@ -608,13 +786,19 @@ async function askCoach() {
     }).then((r) => r.json());
     const text = res.choices?.[0]?.message?.content?.trim();
     if (!text) throw new Error("empty response");
+    if (id !== coachReq) return; // superseded
     el.textContent = text;
+    if (resting) $("stage-coach").textContent = text; // cue lands where the athlete is
     src.textContent = `live · ${model}`;
     src.classList.add("live");
   } catch {
-    el.textContent = CANNED[cannedIdx++ % CANNED.length];
-    src.textContent = "canned tips (start LM Studio + enable CORS for live coaching)";
+    if (id !== coachReq) return;
+    el.textContent = "📼 " + CANNED[cannedIdx++ % CANNED.length];
+    if (resting) $("stage-coach").textContent = "📼 " + CANNED[(cannedIdx - 1) % CANNED.length];
+    src.textContent = "canned (load a model in LM Studio)";
     src.classList.remove("live");
+  } finally {
+    if (id === coachReq) { btn.disabled = false; btn.textContent = "🗣 COACH"; }
   }
 }
 $("btn-coach").addEventListener("click", askCoach);
@@ -634,7 +818,7 @@ const MODEL_PATH =
   `https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_${POSE_MODEL}/float16/1/pose_landmarker_${POSE_MODEL}.task`;
 
 async function openCamera() {
-  stageMsg.textContent = "requesting camera…";
+  stageMsg.textContent = "📷 punches are tracked on-device — video never leaves this machine. Allow the camera.";
   const stream = await navigator.mediaDevices.getUserMedia({
     // 60 fps halves the sampling interval: tighter peaks, ~16 ms less latency
     video: { width: 960, height: 720, facingMode: "user", frameRate: { ideal: 60 } },
@@ -642,8 +826,10 @@ async function openCamera() {
   video.srcObject = stream;
   await video.play();
   sizeOverlay();
-  stageMsg.hidden = true;
+  cameraLive = true;
+  stageMsg.textContent = FRAME_HINT; // setup assistant takes it from here
 }
+const CAMERA_ERRORS = /NotAllowed|NotFound|NotReadable|Permission|Security/i;
 
 // Preferred path: inference in a Web Worker so main-thread HUD work can
 // never delay a detection frame. Falls back to inline inference below.
@@ -668,7 +854,8 @@ function startLiveWorker() {
       }
       if (msg.type === "ready") {
         clearTimeout(timer);
-        try { await openCamera(); } catch (err) { bail(err.message); return; }
+        try { await openCamera(); }
+        catch (err) { clearTimeout(timer); worker.terminate(); reject(err); return; } // keep err.name for the camera branch
         let lastVideoTime = -1;
         const loop = () => {
           if (!busy && video.currentTime !== lastVideoTime && video.videoWidth) {
@@ -718,7 +905,10 @@ async function startLive() {
     await startLiveWorker();
     console.info("pose inference: worker thread");
   } catch (err) {
+    // a camera denial fails identically inline — don't re-download the model for it
+    if (CAMERA_ERRORS.test((err.name || "") + (err.message || ""))) throw err;
     console.warn(`pose worker unavailable (${err.message}); falling back to main thread`);
+    stageMsg.textContent = "retrying without worker…";
     await startLiveInline();
   }
 }
@@ -726,6 +916,7 @@ async function startLive() {
 function startSynthetic() {
   sizeOverlay();
   stageMsg.hidden = true;
+  framedOnce = true; // no setup assistant for the scripted skeleton
   debugPanel.hidden = false;
   const start = performance.now();
   const step = () => {
@@ -742,6 +933,11 @@ function startSynthetic() {
     else await startLive();
   } catch (err) {
     stageMsg.hidden = false;
-    stageMsg.textContent = `Could not start: ${err.message}. Allow camera access and reload — or add ?synthetic=1 to watch the built-in sparring partner.`;
+    stageMsg.classList.add("error");
+    stageMsg.textContent = err.name === "NotAllowedError"
+      ? "⚠ camera blocked — tap the 📷 icon in the address bar, allow, reload"
+      : err.name === "NotFoundError"
+        ? "⚠ no camera found — plug one in, or add ?synthetic=1 for the demo feed"
+        : `⚠ ${err.message} — add ?synthetic=1 for the demo feed`;
   }
 })();

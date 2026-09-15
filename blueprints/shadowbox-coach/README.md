@@ -40,8 +40,15 @@ no stats, and no audio ever leave the machine.
 ```bash
 cd blueprints/shadowbox-coach/app
 node server.mjs
-# open http://localhost:4790 and allow camera access
+# laptop → http://localhost:4790
+# phone  → https://<mac-ip>:4791  (printed at startup; accept the self-signed cert once)
 ```
+
+Phone notes: same Wi-Fi as the Mac; camera needs the https URL (secure-context
+rule). The corner coach works from the phone too — the app talks to LM Studio
+through the server's `/coach` proxy on the Mac, so Bonsai stays on-device.
+Setup: prop the device at chest height, stand 2–3 m back; the on-screen setup
+assistant (⌖) confirms when shoulders + hips are in frame.
 
 For live coaching, start LM Studio's local server with a model loaded (Bonsai 1.7B is
 plenty — the coach prompt is ~100 tokens each way) and enable **CORS** in LM Studio's
