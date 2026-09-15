@@ -258,12 +258,17 @@ $("wo-start").addEventListener("click", () => {
   if (stats.total > 0 && !dayStarted &&
       !confirm(`Start ${d.title}? This resets the ${stats.total}-punch session on the clock.`)) return;
   $("btn-reset").click();
-  ROUND_SEC = d.roundSec; REST_SEC = d.restSec || 60;
-  roundLeft = ROUND_SEC;
+  ROUND_SEC = d.roundSec; REST_SEC = d.restSec || 60; // free-mode fallback values
   workoutFocus = d.coach_focus;
   dayStarted = true;
-  dayRounds = d.rounds;
+  session = buildSessionPlan(d);
+  const st = session.steps[0];
+  resting = st.kind === "rest";
+  roundNum = st.global || 1;
+  roundLeft = st.sec || 0;
+  roundStart = { ...stats };
   $("btn-start").click();
+  renderSession();
   $("coach-text").textContent = `▶ ${d.title} — ${d.summary}`;
   $("stage-coach").textContent = "";
 });
@@ -574,7 +579,115 @@ function draw(lm) {
 // ---- round timer: deadline-driven (throttled tabs can't drift the clock),
 // with a finish line — the day ENDS after its prescribed rounds ----
 function fmt(s) { return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
-let dayStarted = false, dayRounds = 0, deadline = 0, wakeLock = null;
+let dayStarted = false, deadline = 0, wakeLock = null;
+let session = null; // the block-driven session player: {steps, idx, nBlocks, day}
+
+// Parse a block's prescription into a timed scheme. Handles the curriculum's
+// real shapes ("4 ROUNDS OF 2 MINUTES WITH 30 SECONDS OF REST", "9 rounds x
+// 1 min", "1ROUND OF 3MINUTES") — anything rep-based becomes self-paced.
+function parseScheme(text) {
+  const t = text.toLowerCase().replace(/[,;]/g, " ");
+  const round = t.match(/(\d+)\s*rounds?\s*(?:of|x|×)?\s*(\d+(?:\.\d+)?)\s*(min|sec|s\b|m\b)/);
+  const rest = t.match(/(\d+)\s*(min|sec|s)\w*\s*(?:of\s*)?rest/) || t.match(/rest[^0-9]{0,12}(\d+)\s*(min|sec|s)/);
+  if (round) {
+    const workSec = Math.round(parseFloat(round[2]) * (round[3].startsWith("m") ? 60 : 1));
+    let restSec = workSec >= 150 ? 60 : 30;
+    if (rest) restSec = Math.round(parseFloat(rest[1]) * (rest[2].startsWith("m") ? 60 : 1));
+    return { kind: "rounds", rounds: +round[1], workSec, restSec };
+  }
+  return { kind: "reps" }; // self-paced: NEXT advances when the reps are done
+}
+
+function buildSessionPlan(d) {
+  const steps = [];
+  let global = 0;
+  d.blocks.forEach((b, bi) => {
+    const s = parseScheme(`${b.prescription} ${b.source_drill || ""}`);
+    if (s.kind === "rounds") {
+      for (let r = 1; r <= s.rounds; r++) {
+        global++;
+        steps.push({ kind: "work", sec: s.workSec, blockIdx: bi, name: b.name, rx: b.prescription, round: r, of: s.rounds, global });
+        if (r < s.rounds) steps.push({ kind: "rest", sec: s.restSec, blockIdx: bi, name: b.name, rx: `breathe — ${s.restSec}s` });
+      }
+      if (bi < d.blocks.length - 1) {
+        steps.push({ kind: "rest", sec: 45, blockIdx: bi, name: "switch", rx: "set up the next block" });
+      }
+    } else {
+      global++;
+      steps.push({ kind: "selfpaced", sec: 0, blockIdx: bi, name: b.name, rx: b.prescription, global });
+    }
+  });
+  return { steps, idx: 0, nBlocks: d.blocks.length, day: d };
+}
+
+function checkBlockDone(bi) {
+  try {
+    const d = session?.day || woDays[woIdx];
+    if (!d) return;
+    const all = blockChecks();
+    const arr = all[woDayKey(d)] || [];
+    arr[bi] = true;
+    all[woDayKey(d)] = arr;
+    localStorage.setItem("shadowbox-blockchecks", JSON.stringify(all));
+  } catch { /* storage unavailable */ }
+}
+
+function renderSession() {
+  const card = $("wo-now");
+  if (!session) {
+    card.hidden = true;
+    $("wo-all").open = true;
+    $("stage-block").hidden = true;
+    $("btn-next").hidden = true;
+    return;
+  }
+  const st = session.steps[session.idx];
+  card.hidden = false;
+  $("wo-all").open = false; // progressive disclosure: the full list folds away mid-session
+  $("wo-now-tag").textContent = `NOW · BLOCK ${st.blockIdx + 1}/${session.nBlocks}` + (st.round ? ` · ROUND ${st.round}/${st.of}` : "");
+  $("wo-now-name").textContent = st.kind === "rest" ? "REST" : st.name;
+  $("wo-now-rx").textContent = st.rx;
+  $("wo-progress").innerHTML = session.day.blocks
+    .map((_, i) => `<span class="${i < st.blockIdx ? "done" : i === st.blockIdx ? "current" : ""}"></span>`)
+    .join("");
+  const nxt = session.steps.slice(session.idx + 1).find((s) => s.kind !== "rest");
+  $("wo-next-line").textContent = nxt ? `next ▸ ${nxt.name}` : "🏁 last block — finish strong";
+}
+
+function advanceStep() {
+  if (!session) return;
+  const st = session.steps[session.idx];
+  if (st.kind === "work") { bell(2); closeRound(); }
+  else if (st.kind === "selfpaced") bell(1);
+  // leaving a block? bank its check-off
+  const nx0 = session.steps[session.idx + 1];
+  if (st.kind !== "rest" && (!nx0 || nx0.blockIdx !== st.blockIdx)) {
+    checkBlockDone(st.blockIdx);
+    renderWorkout();
+  }
+  session.idx++;
+  if (session.idx >= session.steps.length) {
+    session.day.blocks.forEach((_, i) => checkBlockDone(i));
+    session = null;
+    renderSession();
+    renderWorkout();
+    dayComplete();
+    return;
+  }
+  const nx = session.steps[session.idx];
+  resting = nx.kind === "rest";
+  if (nx.kind !== "rest") { roundNum = nx.global; roundStart = { ...stats }; $("stage-coach").textContent = ""; }
+  roundLeft = nx.sec || 0;
+  deadline = Date.now() + roundLeft * 1000;
+  if (resting && nx.sec >= 45) askCoach();
+  renderSession();
+  renderClock();
+}
+
+$("btn-next").addEventListener("click", () => {
+  if (!session || !ticking) return;
+  advanceStep(); // finish a self-paced block, or skip the rest early
+});
 
 function bell(times = 1) {
   if (!audio || audio.state !== "running") return;
@@ -593,15 +706,30 @@ function bell(times = 1) {
 }
 
 function renderClock() {
-  $("round-clock").textContent = fmt(Math.max(0, roundLeft));
+  const st = session?.steps[session.idx];
+  const selfPaced = st?.kind === "selfpaced";
+  $("round-clock").textContent = selfPaced ? "▸▸" : fmt(Math.max(0, roundLeft));
   $("round-clock").classList.toggle("rest", resting);
-  $("round-label").textContent = resting ? "REST" : `R${roundNum}${dayRounds ? "/" + dayRounds : ""}`;
+  $("round-label").textContent = st
+    ? (st.kind === "rest" ? "REST" : `B${st.blockIdx + 1}${st.round ? ` R${st.round}/${st.of}` : ""}`)
+    : (resting ? "REST" : `R${roundNum}`);
   const sc = $("stage-clock");
   sc.hidden = !ticking;
-  sc.textContent = fmt(Math.max(0, roundLeft));
-  sc.classList.toggle("warn", !resting && roundLeft <= 10 && roundLeft > 0);
+  sc.textContent = selfPaced ? "▸▸" : fmt(Math.max(0, roundLeft));
+  sc.classList.toggle("warn", !resting && !selfPaced && roundLeft <= 10 && roundLeft > 0);
   document.body.classList.toggle("resting", resting && !!ticking);
   $("stage-rest").hidden = !(resting && ticking);
+  // on-stage: what am I doing right now
+  const sb = $("stage-block");
+  if (st && ticking) {
+    sb.hidden = false;
+    sb.textContent = st.kind === "rest"
+      ? `next ▸ ${session.steps.slice(session.idx + 1).find((s) => s.kind !== "rest")?.name ?? "finish"}`
+      : `${st.name}${st.round ? ` · R${st.round}/${st.of}` : ""}`;
+  } else sb.hidden = true;
+  const bn = $("btn-next");
+  bn.hidden = !(st && ticking && (selfPaced || st.kind === "rest"));
+  bn.textContent = selfPaced ? "DONE ▸ NEXT" : "SKIP REST ▸";
 }
 
 async function grabWakeLock() {
@@ -641,6 +769,18 @@ $("btn-start").addEventListener("click", () => {
   deadline = Date.now() + roundLeft * 1000;
   grabWakeLock();
   ticking = setInterval(() => {
+    if (session) {
+      const st = session.steps[session.idx];
+      if (st.kind === "selfpaced") return; // clock idles; NEXT advances
+      const left = Math.ceil((deadline - Date.now()) / 1000);
+      if (left === roundLeft) return;
+      roundLeft = left;
+      if (st.kind === "work" && roundLeft === 10) bell(1);
+      if (roundLeft <= 0) { advanceStep(); return; }
+      renderClock();
+      return;
+    }
+    // free session (no program day started): classic 3:00 / 1:00 loop
     const left = Math.ceil((deadline - Date.now()) / 1000);
     if (left === roundLeft) return;
     roundLeft = left;
@@ -654,7 +794,6 @@ $("btn-start").addEventListener("click", () => {
       } else {
         bell(2);
         closeRound();
-        if (dayRounds && roundNum >= dayRounds) { dayComplete(); return; }
         resting = true; roundLeft = REST_SEC;
         askCoach();
       }
@@ -667,7 +806,8 @@ $("btn-start").addEventListener("click", () => {
 $("btn-reset").addEventListener("click", () => {
   stopTimer();
   roundNum = 1; roundLeft = ROUND_SEC; resting = false;
-  dayStarted = false; dayRounds = 0;
+  dayStarted = false; session = null;
+  renderSession();
   Object.assign(stats, { total: 0, JAB: 0, CROSS: 0, HOOK: 0, UPPERCUT: 0, peakSpeed: 0 });
   punchLog.length = 0;
   roundHistory.length = 0;
