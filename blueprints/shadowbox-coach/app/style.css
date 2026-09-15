@@ -63,7 +63,7 @@ h1 span { color: var(--red); margin-left: 5px; }
   cursor: pointer;
   font-size: 12px;
 }
-#btn-reset, #btn-stance, #btn-today, #wo-done, #btn-start, #btn-coach {
+#btn-reset, #btn-stance, #btn-today, #wo-done, #btn-start, #btn-coach, #btn-voice {
   background: var(--panel);
   border: 1px solid var(--ctl-edge);
   color: var(--ctl-text);

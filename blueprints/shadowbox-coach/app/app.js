@@ -448,10 +448,14 @@ function onFrame(landmarks, now) {
     if (tracker.phase === "guard") {
       if (tracker.lastRetractMs != null && tracker.lastRetractMs < 2000) {
         form.retractSum += tracker.lastRetractMs; form.retractN++;
+        recentRetracts.push(tracker.lastRetractMs);
+        if (recentRetracts.length > 6) recentRetracts.shift();
         tracker.lastRetractMs = null;
       }
       // guard height: how far the wrist sits above the shoulder line, in sw
-      form.guardSum += (lm.get(si).y - lm.get(wi).y) / sw; form.guardN++;
+      const gh = (lm.get(si).y - lm.get(wi).y) / sw;
+      form.guardSum += gh; form.guardN++;
+      guardNow += 0.1 * (gh - guardNow);
     }
   }
   draw(lm);
@@ -490,6 +494,94 @@ function thump(speed) {
   osc.stop(t + 0.15);
 }
 
+// ---- real-time coach, tier 0+1: spoken cues while you work --------------
+// tier 0 = reflexes: rule-based cues from live telemetry, 0 ms, no model
+// tier 1 = cadence: one 8-word Bonsai cue mid-round via /coach (sub-second
+//          with a 2B loaded; silently skipped if the model is slow/absent)
+// tier 2 = the existing between-rounds analysis
+let voiceOn = (() => { try { return localStorage.getItem("shadowbox-voice") !== "off"; } catch { return true; } })();
+function speak(text) {
+  if (!voiceOn || !("speechSynthesis" in window)) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(text).replace(/[📼🗣▸✗▦⏱☾🔥●○·]/g, " "));
+    u.rate = 1.08;
+    speechSynthesis.speak(u);
+  } catch { /* no voice — visuals still carry the cue */ }
+}
+$("btn-voice").textContent = voiceOn ? "🔊" : "🔇";
+$("btn-voice").addEventListener("click", () => {
+  voiceOn = !voiceOn;
+  if (!voiceOn) try { speechSynthesis.cancel(); } catch { /* fine */ }
+  $("btn-voice").textContent = voiceOn ? "🔊" : "🔇";
+  try { localStorage.setItem("shadowbox-voice", voiceOn ? "on" : "off"); } catch { /* fine */ }
+});
+
+const recentCalls = [];    // last 12 punches: {t, type, arm}
+const recentRetracts = []; // last 6 retraction times, ms
+let guardNow = 0.3;        // EMA of live guard height, sw
+let stageCoachTimer = null;
+const reflexCool = {};
+function sayCue(text) {
+  speak(text);
+  $("coach-text").textContent = text;
+  const scEl = $("stage-coach");
+  scEl.textContent = text;
+  clearTimeout(stageCoachTimer);
+  stageCoachTimer = setTimeout(() => { if (!resting) scEl.textContent = ""; }, 3500);
+}
+function coachReflexes(now) {
+  const fire = (key, text) => {
+    if (now - (reflexCool[key] || 0) < 25000) return false;
+    reflexCool[key] = now;
+    sayCue(text);
+    return true;
+  };
+  const power5 = recentCalls.slice(-5).filter((c) => c.type !== "JAB");
+  if (power5.length >= 3 && power5.filter((c) => c.arm).length / power5.length >= 0.7 &&
+      fire("arm", "Turn the hip — punch from the ground!")) return;
+  if (guardNow < 0.05 && fire("guard", "Hands up!")) return;
+  if (recentRetracts.length >= 4 &&
+      recentRetracts.reduce((a, b) => a + b, 0) / recentRetracts.length > 550 &&
+      fire("retract", "Snap it back!")) return;
+  const st = session?.steps[session.idx];
+  if (st?.kind === "work" && roundHistory.length) {
+    const elapsed = st.sec - roundLeft;
+    const thrown = stats.total - roundStart.total;
+    const best = Math.max(...roundHistory.map((r) => r.thrown));
+    if (elapsed > 40 && best >= 20 && thrown < 0.5 * best * (elapsed / st.sec)) {
+      fire("pace", "Pick up the pace!");
+    }
+  }
+}
+async function liveCue(st) {
+  try {
+    const models = await fetch(`${COACH_API}/models`, { signal: AbortSignal.timeout(1500) }).then((r) => r.json());
+    const model = models.data?.[0]?.id;
+    if (!model) return;
+    const res = await fetch(`${COACH_API}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(4000), // a slow cue is a dead cue
+      body: JSON.stringify({
+        model, max_tokens: 24, temperature: 0.7,
+        messages: [
+          { role: "system", content: "Mid-round boxing corner coach. Shout ONE imperative cue, max 8 words. No preamble." },
+          { role: "user", content: JSON.stringify({
+            seconds_left: roundLeft,
+            thrown_this_round: stats.total - roundStart.total,
+            recent_arm_punch: recentCalls.slice(-5).filter((c) => c.arm).length,
+            guard_height_sw: +guardNow.toFixed(2),
+            focus: workoutFocus,
+          }) },
+        ],
+      }),
+    }).then((r) => r.json());
+    const text = res.choices?.[0]?.message?.content?.trim();
+    if (text && ticking && !resting) sayCue(text);
+  } catch { /* reflexes still cover the round */ }
+}
+
 // ---- combo caller: name the trailing sequence when it lands inside 2s ----
 const COMBOS = [
   [["JAB", "CROSS", "HOOK"], "1-2-3!"],
@@ -518,6 +610,8 @@ function recordPunch(ev, now) {
     form.powerPunches++;
     if (Math.abs(rotation.rate) < 1.0) form.armPunches++; // power punch thrown without turning the body
   }
+  recentCalls.push({ t: now, type: ev.type, arm: ev.type !== "JAB" && Math.abs(rotation.rate) < 1.0 });
+  if (recentCalls.length > 12) recentCalls.shift();
   $("stat-total").textContent = stats.total;
   $("stat-jab").textContent = stats.JAB;
   $("stat-cross").textContent = stats.CROSS;
@@ -550,6 +644,7 @@ setInterval(() => {
   const recent = punchLog.filter((p) => now - p.t < 60000).length;
   $("stat-ppm").textContent = recent;
   if (guide) renderGates(); // live gate readout in the left rail
+  if (ticking && !resting && stats.total - roundStart.total >= 4) coachReflexes(performance.now());
   // tracking loss: if the pose stream goes quiet, say so instead of freezing
   if (cameraLive && framedOnce && performance.now() - lastPoseAt > 1500 && stageMsg.hidden) {
     ctx.clearRect(0, 0, overlay.width, overlay.height);
@@ -793,6 +888,11 @@ $("btn-start").addEventListener("click", () => {
       if (left === roundLeft) return;
       roundLeft = left;
       if (st.kind === "work" && roundLeft === 10) bell(1);
+      // tier-1 cadence: one Bonsai cue at the midpoint of long work rounds
+      if (st.kind === "work" && st.sec >= 90 && !st.cueFired && roundLeft <= st.sec / 2) {
+        st.cueFired = true;
+        liveCue(st);
+      }
       if (roundLeft <= 0) { advanceStep(); return; }
       renderClock();
       return;
@@ -945,6 +1045,7 @@ async function askCoach() {
     if (!text) throw new Error("empty response");
     if (id !== coachReq) return; // superseded
     el.textContent = text;
+    speak(text); // the athlete is 3 m away — the coach talks
     if (resting) $("stage-coach").textContent = text; // cue lands where the athlete is
     src.textContent = `live · ${model}`;
     src.classList.add("live");
