@@ -54,7 +54,31 @@ async function proxyCoach(req, res) {
   return false;
 }
 
+// Optional access key (SHADOWBOX_KEY): required for tunneled/public access.
+// Loopback requests without a cloudflared header stay open for local dev.
+const KEY = process.env.SHADOWBOX_KEY || "";
+function gated(req, res) {
+  if (!KEY) return false;
+  const local = ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(req.socket.remoteAddress) &&
+    !req.headers["cf-connecting-ip"];
+  if (local) return false;
+  const url = new URL(req.url, "http://x");
+  if (url.searchParams.get("key") === KEY) {
+    res.writeHead(302, {
+      "Set-Cookie": `sbk=${KEY}; Path=/; Max-Age=31536000; SameSite=Lax`,
+      Location: url.pathname,
+    });
+    res.end();
+    return true;
+  }
+  if ((req.headers.cookie || "").includes(`sbk=${KEY}`)) return false;
+  res.writeHead(403, { "Content-Type": "text/plain" });
+  res.end("locked — open the link that includes ?key=…");
+  return true;
+}
+
 const handler = (req, res) => {
+  if (gated(req, res)) return;
   if (req.url.startsWith("/coach/")) { proxyCoach(req, res); return; }
   if (req.method === "POST" && req.url === "/log") {
     // training + feedback events → the JSONL dataset that the error-discovery
